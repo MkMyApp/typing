@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>竹取物語</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 0
+  const WIDTH = "20em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+いまは昔、
+竹取の翁といふもの有けり。
+野山にまじりて竹を取りつゝ、
+よろづの事に使ひけり。
+名をば、さかきの造となむいひける。
+その竹の中に、
+もと光る竹なむ一筋ありける。
+あやしがりて寄りて見るに、
+筒の中光りたり。
+それを見れば、
+三寸ばかりなる人
+いとうつくしうてゐたり。
+翁いふやう、
+我あさごと夕ごとに見る
+竹の中におはするにて、知りぬ。
+子となり給べき人なめりとて、
+手にうち入れて家へ持ちて来ぬ。
+妻の女にあづけて養はす。
+うつくしき事かぎりなし。
+いとをさなければ
+籠に入れて養ふ
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>
