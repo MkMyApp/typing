@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>旧国名</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎'
+  const INPUT_MSG = "かな確認"
+  const RANDOM = 20
+  const WIDTH = "6em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+陸奥
+陸前
+陸中
+陸後
+磐城
+羽前
+羽後
+出羽
+常陸
+下総
+上総
+安房
+武蔵
+相模
+甲斐
+信濃
+上野
+下野
+越後
+佐渡
+越中
+越前
+加賀
+能登
+飛騨
+美濃
+尾張
+三河
+遠江
+駿河
+伊豆
+甲斐
+若狭
+丹後
+丹波
+但馬
+因幡
+伯耆
+出雲
+石見
+隠岐
+播磨
+備前
+備中
+備後
+美作
+安芸
+周防
+長門
+土佐
+阿波
+讃岐
+伊予
+筑前
+筑後
+肥前
+肥後
+日向
+大隅
+薩摩
+壱岐
+対馬
+淡路
+紀伊
+伊勢
+志摩
+伊賀
+山城
+大和
+河内
+和泉
+摂津
+淡路
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

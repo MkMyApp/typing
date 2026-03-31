@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>ひらがな3文字</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+	const INPUT_MSG = "かな　たしかめ"
+	const RANDOM = 20
+	const WIDTH = "12em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+あらし
+いわし
+うさぎ
+うどん
+えほん
+おかし
+おすし
+おもち
+かえる
+かがみ
+かばん
+かもめ
+からす
+きつね
+きのこ
+きもの
+くじら
+くすり
+くもり
+くるま
+けむり
+けやき
+こいぬ
+こえだ
+こぐま
+こたつ
+ことり
+さかな
+さくら
+さとう
+しじみ
+しずく
+しばふ
+しらす
+すいか
+すずめ
+すもう
+すもも
+せかい
+せんす
+たぬき
+たまご
+たんす
+ちどり
+つばめ
+つぼみ
+つみき
+てがみ
+てまり
+とまと
+とけい
+とんぼ
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result">スコア: 0 / 0</div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>

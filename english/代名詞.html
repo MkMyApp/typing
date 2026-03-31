@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>英語 代名詞</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎'
+  const INPUT_MSG = "英数　確認"
+  const RANDOM = 10
+  const WIDTH = "10em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+it
+this
+that
+these
+those
+I
+you
+he
+she
+we
+they
+my
+your
+his
+her
+its
+our
+their
+me
+him
+us
+them
+mine
+yours
+hers
+ours
+theirs
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

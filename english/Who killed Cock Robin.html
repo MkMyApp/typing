@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>Who killed Cock Robin</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+	const INPUT_MSG = "英数　確認"
+	const RANDOM = 0
+	const WIDTH = "25em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+Who killed Cock Robin?
+I, said the Sparrow,
+with my bow and arrow,
+I killed Cock Robin.
+Who saw him die?
+I, said the Fly,
+with my little eye,
+I saw him die.
+Who caught his blood?
+I, said the Fish,
+with my little dish,
+I caught his blood.
+Who'll make the shroud?
+I, said the Beetle,
+with my thread and needle,
+I'll make the shroud.
+Who'll dig his grave?
+I, said the Owl,
+with my pick and shovel,
+I'll dig his grave.
+Who'll be the parson?
+I, said the Rook,
+with my little book,
+I'll be the parson.
+Who'll be the clerk?
+I, said the Lark,
+if it's not in the dark,
+I'll be the clerk.
+Who'll carry the link?
+I, said the Linnet,
+I'll fetch it in a minute,
+I'll carry the link.
+Who'll be chief mourner?
+I, said the Dove,
+I mourn for my love,
+I'll be chief mourner.
+Who'll carry the coffin?
+I, said the Kite,
+if it's not through the night,
+I'll carry the coffin.
+Who'll bear the pall?
+We, said the Wren,
+both the cock and the hen,
+We'll bear the pall.
+Who'll sing a psalm?
+I, said the Thrush,
+as she sat on a bush,
+I'll sing a psalm.
+Who'll toll the bell?
+I said the bull,
+because I can pull,
+I'll toll the bell.
+All the birds of the air
+fell a-sighing and a-sobbing,
+when they heard the bell toll
+for poor Cock Robin.
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result"></div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>

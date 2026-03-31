@@ -1,0 +1,65 @@
+:root{
+  --line-width:10em;
+  --line-font-size:4em;
+  --line-height:1.2;
+  --line-padding-x:8px;
+  --line-border:1px solid #c0c0c0;
+}
+
+body{
+  font-family:sans-serif;
+  text-align:center;
+  margin:50px;
+}
+
+#title{
+  font-size:2em;
+  font-weight:bold;
+  color:#808080;
+  margin-bottom:6px;
+}
+
+#result{
+  font-size:2em;
+  font-weight:bold;
+  margin:15px 0 30px;
+  color:#808080;
+}
+
+.line{
+  width:var(--line-width);
+  margin:10px auto;
+  box-sizing:border-box;
+  font-family:monospace;
+  font-size:var(--line-font-size);
+  line-height:var(--line-height);
+}
+
+/* お題表示 */
+#target{
+  padding:6px var(--line-padding-x);
+  border:var(--line-border);
+  background:#f0f0f0;
+  text-align:left;
+  white-space:pre;
+  min-height:calc(1em * var(--line-height) + 12px);
+}
+
+#editor{
+  display:block;
+  width:var(--line-width);
+  margin:10px auto;
+  box-sizing:border-box;
+  font-family:monospace;
+  font-size:var(--line-font-size);
+  line-height:var(--line-height);
+  padding:6px var(--line-padding-x);
+  border:var(--line-border);
+  background:#f0f0ff;
+  text-align:left;
+  outline:none;
+  resize:none;
+  overflow:hidden;
+  height:calc(1em * var(--line-height) + 12px);
+  min-height:calc(1em * var(--line-height) + 12px);
+}

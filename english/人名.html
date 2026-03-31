@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>英語　人名</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎'
+  const INPUT_MSG = "英数  確認"
+  const RANDOM = 10
+  const WIDTH = "8em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+Tom
+Mike
+Lucy
+Jane
+Mary
+Jack
+Alice
+Bob
+Paul
+Ellen
+Baker
+Brown
+Miller
+Wilson
+Daniel
+Sophia
+Emily
+Kevin
+Ken
+Yumi
+Kenta
+Hana
+Takuya
+Sakura
+Ami
+Hiroshi
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

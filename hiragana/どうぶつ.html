@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>どうぶつ</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 20
+  const WIDTH = "10em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+ねこ
+いぬ
+とり
+さかな
+うし
+ぶた
+うま
+ひつじ
+やぎ
+あひる
+にわとり
+ねずみ
+うさぎ
+かえる
+かめ
+へび
+くま
+さる
+きつね
+おおかみ
+しか
+こうもり
+ふくろう
+わし
+さめ
+くじら
+いるか
+たこ
+かに
+えび
+あざらし
+とら
+ぞう
+きりん
+しまうま
+かば
+さい
+わに
+らっこ
+ライオン
+パンダ
+カンガルー
+コアラ
+ペンギン
+チンパンジー
+ゴリラ
+ヒョウ
+チーター
+ハイエナ
+アルパカ
+ミーアキャット
+レッサーパンダ
+オランウータン
+マントヒヒ
+シマリス
+プレーリードッグ
+フェネック
+ナマケモノ
+アルマジロ
+カピバラ
+ワラビー
+タスマニアデビル
+エミュー
+カカポ
+フラミンゴ
+ペリカン
+コンドル
+バッファロー
+ジャガー
+ピューマ
+サーバル
+オセロット
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>
