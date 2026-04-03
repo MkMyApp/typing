@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>たなばたさま</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+　const INPUT_MSG = "かな 確認"
+  const RANDOM = 0
+  const WIDTH = "15em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+ささのは　さらさら
+のきばに　ゆれる
+おほしさま　きらきら
+きん　ぎん　すなご
+ごしきの　たんざく
+わたしが　かいた
+おほしさま　きらきら
+そらから　みてる</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
