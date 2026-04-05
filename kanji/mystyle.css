@@ -53,8 +53,7 @@ div {
 
 }
 div.box {
-  width: 300px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 div.flex {
@@ -85,7 +84,8 @@ div.item {
 }
 
 p {
-  margin: 0.5em;
+  display: inline-block;
+  margin: 0.5em 0.5em;
 }
 
 a:hover{
