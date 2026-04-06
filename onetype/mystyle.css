@@ -53,7 +53,7 @@ div {
 
 }
 div.box {
-  width: 480px;
+  width: 640px;
   margin: 0 auto;
 }
 
@@ -180,4 +180,3 @@ textarea {
   width: 150px;
   height: 100px;
 }
-
