@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タッチタイプ鬼門編</title>
+</head>
+<body>
+<script>
+  const START_MSG = "⏎"
+　const INPUT_MSG = "英"
+　const RANDOM = 20
+  const WIDTH = "2em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+-
+^
+\
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>

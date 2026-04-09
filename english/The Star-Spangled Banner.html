@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>The Star-Spangled Banner</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 確認"
+  const RANDOM = 0
+  const WIDTH = "20em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+Oh, say can you see
+by the dawn's early light
+What so proudly we hailed
+at the twilight's last gleaming?
+Whose broad stripes and bright stars
+through the perilous fight,
+O'er the ramparts we watched
+were so gallantly streaming?
+And the rocket's red glare,
+the bombs bursting in air,
+Gave proof through the night
+that our flag was still there.
+Oh, say does that star-spangled
+banner yet wave
+O'er the land of the free
+and the home of the brave?
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
