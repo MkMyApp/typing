@@ -2,61 +2,31 @@
 <html lang="ja">
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="style.css">
-	<title>タイプピング練習</title>
-  <style>
-	  p {
-		  display: flex;
-		  align-items: center;
-		  margin: 0.3em 0;
-		}
-	</style>
+	<link rel="stylesheet" href="index.css">
+	<title>タッチタイプ</title>
 </head>
 <body>
-<script>
-	const START_MSG = 'Enter⏎でスタート'
-　const INPUT_MSG = "かな 確認"
-	const RANDOM = 0
-	const WIDTH = "15em"
-</script>
-<!-------+---------+---------+--------->
-<textarea id="txtdata" hidden>
-入力文字を確認
-Enterキーでスタート
-文字を入力
-1行入力したらEnter
-</textarea>
-<!-------+---------+---------+--------->
-	<div id="title"></div>
-	<div id="result"></div>
-	<div id="target" class="line" 
-		style="text-align:center"></div>
-	<textarea id="editor" class="line" 
-		spellcheck="false" rows="1">
-	</textarea>
-	<script src="typing.js" defer></script>
-
+<h1 id="title">タッチタイプ<h1>
+<iframe id="type" src="english/ABC小文字.html"></iframe>
+<div id="menu">
+<a href="kiso">基礎</a>　
+<a href="english">英文</a>　
+<a href="hiragana">ひらがな</a>　
+<a href="kanji">漢字変換</a>　　
+<a href="myType">問題作成</a>
+</div>
 <div id="exp">
-<p>全画面化がおすすめ <img src="F3.png" style="height:2em;"></p>
-画面の拡大・縮小： Ctrl ＋ [＋] ／ [－]（ [０] でリセット）
-
-<p><img src="F1.png" style="height:2em;"><img src="BB.png" style="height:2em;">前のページにもどる</p>
-<p>Ctrl+<img src="F2.png" style="height:2em;"><img src="BR.png" style="height:2em;">強制リロード</p>
+全画面化がおすすめ <img src="F3.png" style="height:2em;"><br>
+画面の拡大・縮小： Ctrl ＋ [＋] ／ [－]（ [０] でリセット）<br>
+<br>
+<img src="F1.png" style="height:2em;"><img src="BB.png" style="height:2em;">前のページにもどる<br>
+Ctrl+<img src="F2.png" style="height:2em;"><img src="BR.png" style="height:2em;">強制リロード<br>
 <hr>
-入力文字を確認　Enterキーでスタート
-
-<p><img src="英数.png" style="height:2.5em;"> かな漢字変換なし 直接入力</p>
-<p><img src="かな.png" style="height:2.5em;"> かな漢字変換あり 変換してEnterで確定</p>
-カタカナはCtrl+iで変換
-
-<hr>
-問題メニュー<br><br><br>
-<a href="kiso">基礎</a><br><br><br>
-<a href="english">英数</a><br><br><br>
-<a href="hiragana">ひらがな</a><br><br><br>
-<a href="kanji">漢字変換</a><br><br><br>
-<hr><br><br><br>
-<a href="myType">問題を作成する</a><br><br><br>
+入力文字を確認　Enterキーでスタート<br>
+<br>
+<img src="英数.png" style="height:2.5em;"> かな漢字変換なし 直接入力<br>
+<img src="かな.png" style="height:2.5em;"> かな漢字変換あり 変換してEnterで確定<br>
+カタカナはCtrl+iで変換<br>
 </div>
 </body>
 </html>
