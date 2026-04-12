@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>かな入力：濁音編</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎"
+　const INPUT_MSG = "かな"
+　const RANDOM = 20
+  const WIDTH = "4em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+が
+ぎ
+ぐ
+げ
+ご
+ざ
+じ
+ず
+ぜ
+ぞ
+だ
+ぢ
+づ
+で
+ど
+ば
+び
+ぶ
+べ
+ぼ
+ぱ
+ぴ
+ぷ
+ぺ
+ぽ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
