@@ -1,25 +1,190 @@
 'use strict'
 
-  const MENU_COUNT = 4;
-	const iframeElement = document.getElementById('type');
-  	const index = Math.floor(Math.random() * MENU_COUNT);
-//  const index = new Date().getDate() % MENU_COUNT;
-//  const index = new Date().getDate() % MENU_COUNT;
-//  const index = new Date().getHours() % MENU_COUNT;
-//  const index = new Date().getMinutes() % MENU_COUNT;
-//  const index = new Date().getSeconds() % MENU_COUNT;
+const iframeElement = document.getElementById('type');
 
-switch (index) {
-    case 0:
-        iframeElement.src = 'english/ABC大文字.html';
-        break;
-    case 1:
-        iframeElement.src = 'kiso/フェーズ１.html';
-        break;
-    case 2:
-        iframeElement.src = 'kiso/kana01.html';
-        break;
-    case 3:
-        iframeElement.src = 'hiragana/いろはうた.html';
-        break;
-	}
+// 各カテゴリーのリスト
+const englishFiles = [
+'PippaPasses.html',
+'God Save the King.html',
+'The Star-Spangled Banner.html',
+'Cadence.html',
+'中学校英単語１００.html',
+'極秘防衛機関CODE.html',
+'形容詞.html',
+'人名.html',
+'聖者の行進.html',
+'代名詞.html',
+'動詞.html',
+'ABC小文字.html',
+'ABC大文字.html',
+'AtoZ_All.html',
+'HTML_Javascript.html',
+'Michael, Row the Boat Ashore.html',
+'python.html',
+'Ten Little Indians Boys.html',
+'Twinkle, Twinkle, Little Star.html',
+'Who killed Cock Robin.html',
+'ケセラセラ.html',
+'animal.html',
+'ABC_Song.html',
+'英単語.html',
+].map(file => 'english/' + file);
+
+const kanjiFiles = [
+'多くの狼.html',
+'すべて世は事もなし.html',
+'君が代.html',
+'マタイによる福音書山上訓.html',
+'いかのおすし.html',
+'仏教の五戒.html',
+'ハムレット.html',
+'スイミー.html',
+'茶摘み.html',
+'さくらさくら.html',
+'チェス.html',
+'将棋.html',
+'日本の城.html',
+'タイムボカン.html',
+'ジブリアニメ.html',
+'ウルトラマン.html',
+'仮面ライダー.html',
+'仮面ライダー敵組織.html',
+'教育略語.html',
+'ICT.html',
+'DX.html',
+'旧約聖書.html',
+'会津十の掟.html',
+'奥の細道.html',
+'モーセの十戒.html',
+'マタイによる福音書.html',
+'はじめてのHTML.html',
+'かな入力万歳.html',
+'はらえたまえ.html',
+'般若心経.html',
+'敦盛（幸若舞より）.html',
+'東海道線.html',
+'東海道五十三次.html',
+'土佐日記.html',
+'徒然草.html',
+'平家物語.html',
+'ガルマ追悼演説.html',
+'風林火山.html',
+'枕草子_夏.html',
+'枕草子_秋.html',
+'枕草子_春.html',
+'枕草子_冬.html',
+'夜明け前.html',
+'連母音.html',
+'論語.html',
+'BYOD.html',
+'祓え給い.html',
+'９条.html',
+'NERV.html',
+'MIDI.html',
+'USB.html',
+'ア・バオア・クーにて.html',
+'あめんぼ.html',
+'あめんぼ_ひらがな.html',
+'おくの細道序文.html',
+'九字印.html',
+'やってみせ.html',
+'源氏物語.html',
+'五観の偈.html',
+'桜の樹の下には.html',
+'山手線一周.html',
+'舎利礼文.html',
+'舎利礼文漢字.html',
+'寿限無.html',
+'我が輩は猫である.html',
+'数の数え方.html',
+'成せば成る.html',
+'草枕.html',
+'教育勅語.html',
+'走れメロス.html',
+'竹取物語.html',
+'県庁所在地.html',
+'元号.html',
+'元素名.html',
+'寿司ネタ.html',
+'新幹線駅.html',
+'都道府県名.html',
+'日本史できごと.html',
+'日本史人物.html',
+'百人一首.html',
+'豊臣兄弟.html',
+'妖怪.html',
+'和製英語.html',
+'和風月名.html',
+'１行日記.html',
+'スーパー戦隊.html',
+'回転寿司.html',
+'旧国名.html',
+].map(file => 'kanji/' + file);
+
+const hiraganaFiles = [
+'おおくのおおかみ.html',
+'きみがよ.html',
+'はるがきた.html',
+'たきび.html',
+'かたつむり.html',
+'こぎつね.html',
+'あめふり.html',
+'たなばたさま.html',
+'ちゃつみ.html',
+'さくらさくら_ひらがな.html',
+'おくのほそみち.html',
+'つれづれぐさ.html',
+'海上自衛隊.html',
+'ホーム単語.html',
+'ひらがなれんしゅう.html',
+'ひらがな長い言葉.html',
+'どうぶつ.html',
+'ひらがな１行日記.html',
+'ひらがな２文字.html',
+'ひらがな３文字.html',
+'ひらがな８文字.html',
+'いろはうた.html',
+'九九ひらがな.html',
+].map(file => 'hiragana/' + file);
+
+const kisoFiles = [
+'kana14.html',
+'kana12.html',
+'kana13.html',
+'kana11.html',
+'kana07.html',
+'kana01.html',
+'kana10.html',
+'kana09.html',
+'kana08.html',
+'kana06.html',
+'kana05.html',
+'kana02.html',
+'kana03.html',
+'kana04.html',
+'フェーズ３.html',
+'hell.html',
+'kimon.html',
+'Phase7.html',
+'フェーズ７.html',
+'フェーズ６.html',
+'フェーズ５.html',
+'フェーズ４.html',
+'フェーズ２.html',
+'フェーズ１.html',
+].map(file => 'kiso/' + file);
+
+// 4つの配列をすべて結合
+const menuList = englishFiles.concat(kanjiFiles, hiraganaFiles, kisoFiles);
+
+// 2. 配列の長さに合わせてインデックスを取得
+    const index = Math.floor(Math.random() * menuList.length);
+//  const index = new Date().getDate() % menuList.length;
+//  const index = new Date().getDate() % menuList.length;
+//  const index = new Date().getHours() % menuList.length;
+//  const index = new Date().getMinutes() % menuList.length;
+//  const index = new Date().getSeconds() % menuList.length;
+
+// 3. 配列からファイル名を取り出して src に代入
+iframeElement.src = menuList[index];
+
