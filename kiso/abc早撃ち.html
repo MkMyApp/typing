@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>アルファベット早撃ち</title>
+</head>
+<body>
+<script>
+  const START_MSG = "⏎"
+  const INPUT_MSG = "英数"
+  const RANDOM = 20
+  const WIDTH = "2em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+z
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div style="
+white-space: pre-wrap;
+text-align: left;
+width: 500px;
+padding: 20px;
+margin: 50px auto;
+border: 2px solid #ccc;
+">
+システムの都合上<br>
+１文字入力したら<br>
+Enterで次に進みます<br>
+</div>
+</body>
+</html>
