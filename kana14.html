@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>かな入力：促音編</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎"
+　const INPUT_MSG = "かな"
+　const RANDOM = 20
+  const WIDTH = "10em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+いっこ
+うっかり
+がっかり
+がっくり
+かっこ
+がっこう
+がっつり
+きって
+きっぷ
+ぐっすり
+けっこう
+げっこう
+こっこ
+さっぱり
+さらっと
+しっかり
+しっぽ
+すっかり
+すっきり
+すらっと
+せっけん
+そっくり
+だっこ
+たっぷり
+ちゃっかり
+てっぽう
+どっきり
+とっくり
+とっと
+とっぷり
+にっこう
+にっぽん
+ねっこ
+ねっとり
+のっとり
+はっきり
+はったり
+ばったり
+はっぱ
+びっくり
+へっぴり
+ほっこり
+まっこり
+まったり
+まっとう
+めっきり
+もっこり
+やっぱり
+ゆっくり
+らっこ
+ろっこ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+  <img src="kana14.png" style="width:800px;">
+</body>
+</html>
