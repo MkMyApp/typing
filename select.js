@@ -174,8 +174,18 @@ const kisoFiles = [
 'フェーズ１.html',
 ].map(file => 'kiso/' + file);
 
-// 4つの配列をすべて結合
-const menuList = englishFiles.concat(kanjiFiles, hiraganaFiles, kisoFiles);
+const phraseFiles = [
+'『メリー・ポピンズ』おまじない.html',
+'『メリー・ポピンズ』おまじない_英語.html',
+'『シンデレラ』魔法の呪文_英語.html',
+'『シンデレラ』魔法の呪文.html',
+'ひらけゴマ.html',
+'アブラカダブラ.html',
+'Abracadabra.html',
+].map(file => 'phrase/' + file);
+
+// 5つの配列をすべて結合
+const menuList = englishFiles.concat(kanjiFiles, hiraganaFiles, kisoFiles,phraseFiles);
 
 // 2. 配列の長さに合わせてインデックスを取得
     const index = Math.floor(Math.random() * menuList.length);
@@ -187,4 +197,3 @@ const menuList = englishFiles.concat(kanjiFiles, hiraganaFiles, kisoFiles);
 
 // 3. 配列からファイル名を取り出して src に代入
 iframeElement.src = menuList[index];
-

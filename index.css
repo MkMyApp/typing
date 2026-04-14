@@ -27,7 +27,7 @@ h1 {
 
 #frm_menu {
   width: 800px;
-  height:64px;
+  height:120px;
   padding: 20px;
   display: block;
   text-align: center;
@@ -35,12 +35,12 @@ h1 {
   margin: 0px auto;
   border: 2px solid #ccc;
   font-size: 24px;
-  line-height: 1.5em;
+  line-height: 1em;
 }
 
 #menu {
   width: 720px;
-  height:40px;
+  height:48px;
   padding: 0px;
   display: flex;
   gap: 1rem;
@@ -49,11 +49,16 @@ h1 {
   margin: 0px auto;
   border: none;
   font-size: 28px;
-  line-height: 1.5em;
+  line-height: 1em;
 }
 
 #menu a {
   text-decoration: none;
+  color: blue;
+}
+
+#menu a:hover {
+  color: red;
 }
 
 #frm_exp {
