@@ -65,12 +65,12 @@ body{
 }
 
 #exp {
-	white-space: normal;
+	white-space: pre-wrap;
 	text-align: left;
 	width: 500px;
 	padding: 20px;
 	margin: 50px auto;
 	border: 2px solid #ccc;
 	font-size: 1em;
-	line-height:1.5em;
+	line-height:0.5em;
 }

@@ -1,0 +1,73 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* タイトル */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+}
+
+.titlebar h1 {
+  margin: 0;
+}
+
+/* ステータス */
+.status {
+  margin: 5px 10px;
+}
+
+/* ===== 3カラムレイアウト ===== */
+.editor-group {
+  display: flex;
+  gap: 10px;
+  flex: 1; /* 残り高さを全部使う */
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+}
+
+/* 各ブロック（ツールバー＋textarea） */
+.editor-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* ← 重要：これがないと伸びないことがある */
+}
+
+/* ===== ツールバー ===== */
+.toolbar {
+  margin-bottom: 5px;
+}
+
+/* ボタン共通 */
+button {
+  font-size: 12px;
+  padding: 6px 14px;
+  margin: 6px;
+  cursor: pointer;
+}
+
+/* ツールバー内ボタンの幅を揃える */
+.toolbar button {
+  min-width: 32px;
+}
+
+/* ===== テキストエリア ===== */
+.text {
+  flex: 1;
+  box-sizing: border-box;
+  width: 100%;
+  resize: none; /* 任意：手動リサイズ禁止 */
+}
+
+/* ドラッグ時 */
+.text.dragover {
+  outline: 2px dashed #666;
+  background: #f5f5f5;
+}

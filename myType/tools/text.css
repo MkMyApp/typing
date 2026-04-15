@@ -1,0 +1,29 @@
+body{
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+#status{
+  font-family: monospace;
+  margin: 10px 20px;
+}
+
+#status span{
+  margin-right: 20px;
+}
+
+textarea{
+  width:80ch;
+  height:20em;
+  font-size: 16px;
+  margin: 20px;
+}
+
+button{
+  font-family: monospace;
+  font-size: 16px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 20px;
+}
