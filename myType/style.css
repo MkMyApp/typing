@@ -1,6 +1,6 @@
 :root{
-  --line-width:10em;
-  --line-font-size:4em;
+  --line-width:800px;
+  --line-font-size:64px;
   --line-height:1.2;
   --line-padding-x:8px;
   --line-border:1px solid #c0c0c0;
