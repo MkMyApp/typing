@@ -1,6 +1,6 @@
 :root{
-  --line-width:10em;
-  --line-font-size:4em;
+  --line-width:800px;
+  --line-font-size:64px;
   --line-height:1.2;
   --line-padding-x:8px;
   --line-border:1px solid #c0c0c0;
@@ -62,4 +62,15 @@ body{
   overflow:hidden;
   height:calc(1em * var(--line-height) + 12px);
   min-height:calc(1em * var(--line-height) + 12px);
+}
+
+#exp {
+	white-space: normal;
+	text-align: left;
+	width: 500px;
+	padding: 20px;
+	margin: 50px auto;
+	border: 2px solid #ccc;
+	font-size: 1em;
+	line-height:1.5em;
 }
