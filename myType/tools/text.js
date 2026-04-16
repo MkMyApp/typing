@@ -75,7 +75,7 @@ function processText(text) {
   return text;
 }
 
-async function editFile() {
+async function editText() {
   let text = document.getElementById("text").value;
 
   text = processText(text);
