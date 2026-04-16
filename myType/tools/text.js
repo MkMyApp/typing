@@ -149,3 +149,19 @@ textarea.addEventListener("drop", async function(e){
   updateModified();
   updateStatus();
 });
+
+function clearText() {
+  if (confirm("テキストを消去しますか？")) {
+    const textarea = document.getElementById("text");
+    textarea.value = "";
+    
+    // ステータスをリセット
+    modified = false;
+    updateModified();
+    updateStatus();
+    
+    // ファイル名も初期値
+    currentFileName = "text.txt";
+    updateFileName();
+  }
+}
