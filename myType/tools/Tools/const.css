@@ -1,0 +1,35 @@
+body{
+  font-family: sans-serif;
+  font-size: 24px;
+  margin: 10px;
+}
+
+h1{
+  font-size: 32px;
+  margin-top: 0;
+
+}
+  /* 全体の基本設定 */
+textarea {
+	width: 100%;
+  font-size: 24px;
+	margin-top: 10px;
+}
+
+	/* 合成結果のエリアだけ高さを広げる */
+	#result_area { height: 300px; } 
+
+  .controls { margin-bottom: 10px; }
+
+input{
+  font-size: 24px;
+
+}
+
+button{
+  font-size: 16px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 20px;
+}

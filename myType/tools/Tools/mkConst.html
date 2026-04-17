@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="const.css">
+  <title>mkConst</title>
+<style>
+
+</style>
+</head>
+<body>
+<h1>タイプ練習設定</h1>
+
+<textarea id="result_area" placeholder="ここに合成されます...">
+&lt;!-------10--------20--------30--------40--------&gt;
+&lt;textarea id="txtdata" hidden&gt;
+
+&lt;/textarea&gt;
+&lt;!-------10--------20--------30--------40--------&gt;
+</textarea>
+
+  <div class="controls">
+    <button type="button" onclick="composeText()">合成する</button>
+<br><br>
+    <label for="START_MSG_INPUT">開始:</label>
+    <input id="START_MSG_INPUT" name="START_MSG" value="Enter⏎でスタート">
+<br>
+    <label for="INPUT_MSG_INPUT">入力:</label>
+    <input id="INPUT_MSG_INPUT" name="INPUT_MSG" value="英数 かな 確認">
+<br>
+    <label for="RANDOM_INPUT">問数:</label>
+    <input id="RANDOM_INPUT" name="RANDOM" value="0">
+<br>
+    <label for="WIDTH_INPUT">横幅:</label>
+    <input id="WIDTH_INPUT" name="WIDTH" value="15em">
+  </div>
+
+<script>
+function composeText() {
+  // 1. 各項目の値を取得
+  const startMsg = document.getElementById('START_MSG_INPUT').value;
+  const inputMsg = document.getElementById('INPUT_MSG_INPUT').value;
+  const randomVal = document.getElementById('RANDOM_INPUT').value;
+  const widthVal = document.getElementById('WIDTH_INPUT').value;
+
+  // 2. テキストエリアの要素を取得
+  const textArea = document.getElementById('result_area');
+
+  // 3. 追加したい「const部分」だけを組み立てる
+const configText = `<script>
+const START_MSG = "${startMsg}";
+const INPUT_MSG = "${inputMsg}";
+const RANDOM = "${randomVal}";
+const WIDTH = "${widthVal}";
+<\/script>\n`;
+  const textVal = textArea.value;
+
+  textArea.value = configText+ textVal;
+}
+  </script>
+
+</body>
+</html>
