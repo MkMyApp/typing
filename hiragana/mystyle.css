@@ -27,6 +27,14 @@ main p {
   line-height: 1.8;
 }
 
+span.sep {
+  display: block;
+  font-weight: bold;
+  margin-top: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
 article {
 	border:none;
 	padding:0px;
