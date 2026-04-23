@@ -14,8 +14,13 @@ let correct = 0
 let total = 0
 let limit = 0
 
+let startTime = 0
+let endTime = 0
+let totalChars = 0
+
 let typeStarted = false
 let composing = false
+let finished = false
 
 function esc(s){
   return String(s)
@@ -29,8 +34,9 @@ function typed(){
 }
 
 function updateScore(color = ''){
-  resultEl.textContent = `${correct} / ${total} / ${limit}`
+  resultEl.textContent = `${correct}/${total}/${limit}`
   resultEl.style.color = color
+
 }
 
 function shuffle(array){
@@ -70,6 +76,8 @@ function showStart(){
   editorEl.placeholder = INPUT_MSG
   editorEl.style.textAlign = 'center'
 
+  resultEl.style.color = ''
+
   editorEl.focus()
 }
 
@@ -84,10 +92,31 @@ function buildSchedule(){
   return list
 }
 
+function showFinalResult(){
+  const sec = (endTime - startTime) / 1000
+  const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
+
+  resultEl.textContent = `${correct}/${limit}`
+  resultEl.style.color = ''
+
+  targetEl.style.textAlign = 'center'
+  targetEl.textContent = `${totalChars} ${cpm}`
+
+  editorEl.style.textAlign = 'center'
+  editorEl.value = START_MSG
+}
+
 function nextWord(){
   if(qIndex >= schedule.length){
     typeStarted = false
-    showStart()
+    finished = true
+    endTime = performance.now()
+
+    showFinalResult()
+
+    editorEl.placeholder = ''
+    editorEl.style.textAlign = 'center'
+    editorEl.focus()
     return
   }
 
@@ -103,12 +132,16 @@ function nextWord(){
 }
 
 function startType(){
-	editorEl.placeholder = ""
+  finished = false
+  editorEl.placeholder = ''
   schedule = buildSchedule()
   limit = schedule.length
   qIndex = 0
   correct = 0
   total = 0
+  totalChars = 0
+  startTime = performance.now()
+
   updateScore()
 
   typeStarted = true
@@ -117,6 +150,7 @@ function startType(){
 
 function judgeCurrentWord(){
   total++
+  totalChars += typed().length
 
   if(typed() === currentWord){
     correct++
@@ -142,18 +176,18 @@ function init(){
   titleEl.textContent = TITLE
   document.documentElement.style.setProperty('--line-width', WIDTH)
 
-  loadWords(document.getElementById("txtdata").value)
-  
+  loadWords(document.getElementById('txtdata').value)
+
   if(RANDOM > 0){
     limit = Math.min(RANDOM, words.length)
   }else{
     limit = words.length
   }
-  
+
   updateScore()
   showStart()
 
-  setTimeout(()=>editorEl.focus(),0)
+  setTimeout(() => editorEl.focus(), 0)
 }
 
 editorEl.addEventListener('compositionstart', () => {
@@ -176,6 +210,13 @@ editorEl.addEventListener('keydown', e => {
   if(e.key !== 'Enter' || e.isComposing) return
 
   e.preventDefault()
+
+  if(finished){
+    finished = false
+    updateScore()
+    showStart()
+    return
+  }
 
   if(!typeStarted){
     startType()
