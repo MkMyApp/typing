@@ -11,6 +11,8 @@ let qIndex = 0
 
 let currentWord = ''
 let correct = 0
+let correctChars = 0
+let targetLengthTotal = 0
 let total = 0
 let limit = 0
 
@@ -34,9 +36,8 @@ function typed(){
 }
 
 function updateScore(color = ''){
-  resultEl.textContent = `${correct}/${total}/${limit}`
+  resultEl.textContent = `${correct} / ${qIndex} / ${limit}`
   resultEl.style.color = color
-
 }
 
 function shuffle(array){
@@ -75,12 +76,14 @@ function showStart(){
   editorEl.value = ''
   editorEl.placeholder = INPUT_MSG
   editorEl.style.textAlign = 'center'
-
-  resultEl.style.color = ''
+  
+  correct = 0
+  total = 0
+  qIndex = 0
+  updateScore()
 
   editorEl.focus()
 }
-
 function buildSchedule(){
   const list = words.map((_, i) => i)
 
@@ -96,11 +99,14 @@ function showFinalResult(){
   const sec = (endTime - startTime) / 1000
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
 
-  resultEl.textContent = `${correct}/${limit}`
+  resultEl.textContent = `${totalChars}ch  ${Math.round(sec)}sec  ${cpm}cpm`
   resultEl.style.color = ''
 
   targetEl.style.textAlign = 'center'
-  targetEl.textContent = `${totalChars} ${cpm}`
+  
+  const accuracy = targetLengthTotal > 0 
+    ? Math.round(correctChars / targetLengthTotal * 100) : 0
+  targetEl.textContent = `${accuracy}%`
 
   editorEl.style.textAlign = 'center'
   editorEl.value = START_MSG
@@ -138,6 +144,8 @@ function startType(){
   limit = schedule.length
   qIndex = 0
   correct = 0
+  correctChars = 0
+  targetLengthTotal = 0
   total = 0
   totalChars = 0
   startTime = performance.now()
@@ -149,10 +157,26 @@ function startType(){
 }
 
 function judgeCurrentWord(){
-  total++
-  totalChars += typed().length
+  const userTyped = typed()
+  const targetWord = currentWord
+  const u = [...userTyped]
+  const a = [...targetWord]
 
-  if(typed() === currentWord){
+  let currentCorrectChars = 0
+
+  for(let i = 0; i < u.length; i++){
+    if(u[i] === a[i]){
+      currentCorrectChars++
+    }
+  }
+
+  total++
+  totalChars += u.length
+  
+  targetLengthTotal += Math.max(u.length, a.length)
+  correctChars += currentCorrectChars
+
+  if(userTyped === targetWord){
     correct++
     updateScore('#8080f0')
   }else{
@@ -184,7 +208,6 @@ function init(){
     limit = words.length
   }
 
-  updateScore()
   showStart()
 
   setTimeout(() => editorEl.focus(), 0)
@@ -213,7 +236,6 @@ editorEl.addEventListener('keydown', e => {
 
   if(finished){
     finished = false
-    updateScore()
     showStart()
     return
   }
