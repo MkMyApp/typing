@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>あさの おひさま</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 かな 確認"
+  const RANDOM = 0
+  const WIDTH = "25ch"
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+あさの　おひさま
+まどから　はいって
+ぼくを　おこす
+おはよう　おはよう
+あさの　おひさま
+かがみに　あたって
+きらきら　ひかる
+おはよう　おはよう
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div id="exp">
+「あさの おひさま」<br>
+（谷川俊太郎・作）
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>「あいうえおのうた」</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 かな 確認"
+  const RANDOM = 0
+  const WIDTH = "35ch"
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+あさひが　あかるい　あいうえお
+かっぱが　かおだし　かきくけこ
+さくらが　さいてる　さしすせそ
+たいこを　たたいて　たちつてと
+なのはな　ながめて　なにぬねの
+はまちが　はねてる　はひふへほ
+まくろも　まねして　まみむめも
+やぎのこ　やさしく　やいゆえよ　
+らくだは　らくだな　らりるれろ
+わたしは　わをもち　わいうえを
+ん
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div id="exp">あいうえおのうた　しぎた　おかあき　さく</div>
+</body>
+</html>
