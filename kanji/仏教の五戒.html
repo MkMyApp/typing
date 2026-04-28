@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>仏教の「五戒」</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+　const INPUT_MSG = "かな 確認"
+  const RANDOM = 5
+  const WIDTH = "20em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+不殺生戒　ふせっしょうかい
+不偸盗戒　ふちゅうとうかい
+不邪淫戒　ふじゃいんかい
+不妄語戒　ふもうごかい
+不飲酒戒　ふおんじゅかい
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+
+<div style="
+white-space: pre-wrap;
+text-align: left;
+width: 500px;
+padding: 20px;
+margin: 50px auto;
+border: 2px solid #ccc;
+">
+不殺生戒 命を奪わない（生き物を傷つけない）
+不偸盗戒 他人の物を盗まない（不正に奪わない）
+不邪淫戒 不適切な男女関係を持たない（関係を乱さない）
+不妄語戒 嘘をつかない（人を欺かない）
+不飲酒戒 酒で判断力を失わない（理性を保つ）
+</div>
+</body>
+</html>

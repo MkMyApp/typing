@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>パン打</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 10
+  const WIDTH = "20ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+食パン
+クロワッサン
+メロンパン
+あんパン
+クリームパン
+ジャムパン
+カレーパン
+フランスパン
+バゲット
+カンパーニュ
+フォカッチャ
+パニーニ
+ベーグル
+塩パン
+チョココロネ
+デニッシュ
+サンドイッチ
+ホットドッグ
+ピロシキ
+明太フランス
+ガーリックトースト
+くるみパン
+レーズンパン
+コーンマヨパン
+ウィンナーロール
+蒸しパン
+揚げパン
+ブリオッシュ
+シュトーレン
+エピ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
