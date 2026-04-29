@@ -35,7 +35,6 @@ body{
   line-height:var(--line-height);
 }
 
-/* お題表示 */
 #target{
   padding:6px var(--line-padding-x);
   border:var(--line-border);
@@ -65,7 +64,7 @@ body{
 }
 
 #exp {
-	white-space: normal;
+  white-space: pre-wrap;
 	text-align: left;
 	width: 500px;
 	padding: 20px;
@@ -73,4 +72,5 @@ body{
 	border: 2px solid #ccc;
 	font-size: 1em;
 	line-height:1.5em;
+	cursor: pointer;
 }
