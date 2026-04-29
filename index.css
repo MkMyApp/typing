@@ -19,11 +19,11 @@ h1 {
 
 #type {
   width: 100%;
-  height: 400px;
+  height: 480px;
   border: none;
   white-space: normal;
   margin: 0 auto;
-  padding: 0px;
+  padding: 0;
 }
 
 #frm_menu {
@@ -84,4 +84,3 @@ h1 {
   font-size: 24px;
   line-height: 2em;
 }
-
