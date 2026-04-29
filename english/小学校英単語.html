@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>小学校英単語</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+	const INPUT_MSG = "英数　確認"
+	const RANDOM = 20
+	const WIDTH = "15em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+I
+ankle
+apple
+April
+arm
+arrive
+August
+back
+bacon
+bad
+banana
+beautiful
+begin
+bicycle
+big
+biscuit
+blue
+book
+bread
+breakfast
+bring
+brown
+bus
+buy
+car
+cat
+cheek
+cheese
+cherry
+clean
+close
+come
+comic
+cook
+cool
+cow
+dance
+dangerous
+dark
+December
+deer
+different
+difficult
+dinner
+dog
+drink
+dry
+ear
+early
+easy
+eat
+egg
+eigft
+eighteen
+eleven
+enough
+eye
+face
+far
+February
+ferry
+fifteen
+finish
+five
+flat
+fly
+foot
+four
+fourteen
+fresh
+Friday
+get dress
+get up
+give
+glad
+go
+go to bed
+go to school
+go to sleep
+goat
+good
+great
+green
+hair
+hand
+happy
+hard
+have
+have a bath
+he
+head
+hear
+heavy
+heel
+high
+homework
+horse
+hot
+ice cream
+January
+July
+jump
+June
+kind
+knee
+late
+learn
+leave
+leg
+light
+like
+listen
+live
+look
+low
+lunch
+make
+March
+May
+meet
+melon
+Monday
+motorbike
+mouse
+moutn
+move
+music
+near
+neck
+new
+nice
+nine
+nineteen
+nose
+November
+October
+old
+one
+open
+orange
+peach
+pig
+pink
+pizza
+plane
+play
+pretty
+purple
+rabbit
+read
+real
+red
+rice
+ride
+run
+safe
+same
+sandwich
+Saturday
+sausage
+school
+see
+September
+seven
+seventeen
+she
+sheep
+ship
+shoulder
+sing
+sit
+six
+sixteen
+small
+soft
+spaghetti
+speak
+squirrel
+stand
+steak
+stop
+strange
+study
+Sunday
+swim
+take
+tall
+taxi
+teach
+tell
+ten
+that
+they
+thirteen
+this
+three
+Thursday
+toast
+toe
+tongue
+tooth
+top
+touch
+train
+true
+Tuesday
+twelve
+twenty
+two
+visit
+wake up
+walk
+want
+wash
+watch
+we
+wear
+Wednesday
+wet
+white
+wrist
+write
+yacht
+yellow
+you
+young
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result"></div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>
