@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>新幹線の駅</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 20
+  const WIDTH = "10em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+東京
+品川
+新横浜
+小田原
+熱海
+三島
+新富士
+静岡
+掛川
+浜松
+豊橋
+三河安城
+名古屋
+岐阜羽島
+米原
+京都
+新大阪
+新神戸
+西明石
+姫路
+相生
+岡山
+新倉敷
+福山
+新尾道
+三原
+東広島
+広島
+新岩国
+徳山
+新山口
+厚狭
+新下関
+小倉
+博多
+上野
+大宮
+小山
+宇都宮
+那須塩原
+新白河
+郡山
+福島
+白石蔵王
+仙台
+古川
+くりこま高原
+一ノ関
+水沢江刺
+北上
+新花巻
+盛岡
+いわて沼宮内
+二戸
+八戸
+七戸十和田
+新青森
+新鳥栖
+久留米
+筑後船小屋
+新大牟田
+新玉名
+熊本
+新八代
+新水俣
+出水
+川内
+鹿児島中央
+武雄温泉
+嬉野温泉
+新大村
+諫早
+長崎
+熊谷
+本庄早稲田
+高崎
+安中榛名
+軽井沢
+佐久平
+上田
+長野
+飯山
+上越妙高
+糸魚川
+黒部宇奈月温泉
+富山
+新高岡
+金沢
+米沢
+高畠
+赤湯
+かみのやま温泉
+山形
+天童
+さくらんぼ東根
+村山
+大石田
+新庄
+雫石
+田沢湖
+角館
+大曲
+秋田
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

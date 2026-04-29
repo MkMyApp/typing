@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>走れメロス</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな  確認"
+  const RANDOM = 0
+  const WIDTH = "20em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+メロスは激怒した。
+必ず、かの邪智暴虐の王を
+除かなければならぬと決意した。
+メロスには政治がわからぬ。
+メロスは、村の牧人である。
+笛を吹き、羊と遊んで暮して来た。
+けれども邪悪に対しては、
+人一倍に敏感であった。
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>
