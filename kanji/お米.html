@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>お米</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 20
+  const WIDTH = "20ch"
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+コシヒカリ
+ひとめぼれ
+ヒノヒカリ
+あきたこまち
+ななつぼし
+つや姫
+ゆめぴりか
+はえぬき
+まっしぐら
+キヌヒカリ
+ミルキークイーン
+さがびより
+こしいぶき
+あさひの夢
+つがるロマン
+ふっくりんこ
+雪若丸
+銀のしずく
+青天の霹靂
+新之助
+富富富
+だて正夢
+いちほまれ
+福まる
+くまさんの輝き
+にじのきらめき
+つきあかり
+あきさかり
+ハナエチゼン
+てんたかく
+みずかがみ
+森のくまさん
+元気つくし
+夢つくし
+あきほなみ
+ササニシキ
+五百川
+里のほほえみ
+天のつぶ
+いわてっこ
+おいでまい
+つぶ助
+ゆめみづほ
+ほほえみみのり
+ちほみのり
+あきだわら
+笑みの絆
+みずほの輝き
+とよめき
+ほしじるし
+旭1号
+淡雪こまち
+いのちの壱
+ＬＧＣソフト
+亀の尾
+華麗舞
+金のいぶき
+銀河のしずく
+ササシグレ
+さわのはな
+たきたて
+つぶぞろい
+徳島晩稲1号
+にこまる
+姫ごのみ
+ゆうだい21
+ゆきむすび
+夢ごこち
+夢しずく
+ゆめひたち
+あゆみもち
+カグラモチ
+きぬのはだ
+こがねもち
+ヒメノモチ
+ヒヨクモチ
+フクシマモチ
+マンゲツモチ
+峰の雪もち
+みやこがねもち
+古代米
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<!--
+<div id="exp"></div>
+<img src=".png" style="width:800px;">
+-->
+</body>
+</html>
