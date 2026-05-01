@@ -219,13 +219,12 @@ editorEl.addEventListener('compositionstart', () => {
 
 editorEl.addEventListener('compositionend', () => {
   composing = false
-  if(typeStarted){
-    colorize(currentWord, typed())
-  }
 })
 
 editorEl.addEventListener('input', () => {
-  if(!typeStarted || composing) return
+  if(!typeStarted) return
+//ローマ字入力時は変換中判定しない
+//if(composing) return
   colorize(currentWord, typed())
 })
 
