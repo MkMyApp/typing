@@ -1,21 +1,14 @@
-@echo on
+@echo off
+set FILES=typing.js style.css
 
-copy typing.js english\
-copy style.css english\
-
-copy typing.js hiragana\
-copy style.css hiragana\
-
-copy typing.js kanji\
-copy style.css kanji\
-
-copy typing.js mytype\
-copy style.css mytype\
-
-copy typing.js kiso\
-copy style.css kiso\
-
-copy typing.js phrase\
-copy style.css phrase\
-
+rem /r オプションで、階層の深さを問わず全てのサブフォルダを走査します
+for /r /d %%i in (*) do (
+    for %%f in (%FILES%) do (
+        rem 各フォルダの中にファイルが実在する場合のみコピー
+        if exist "%%i\%%f" (
+            copy /y "%%f" "%%i\"
+            echo [更新完了] %%i\%%f
+        )
+    )
+)
 pause
