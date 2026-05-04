@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピングのすすめ</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 0
+  const WIDTH = "38ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+紙に手書きしても、
+キーボードでタイプしても、
+その内容に変わりはありません。
+しかし、速くきれいに文章作成が
+できた方がよいことは
+言うまでもありません。
+周りを見てみると
+速い人あり、遅し人あり、
+みみず文字あり、美しき文字あり、
+読みやすい、読みにくいもあって
+できた文書に雲泥の差があるのは
+なぜでしょう。
+キーボードという道具を
+上手く使えるかは
+タイピングを学ぶか学ばないか
+によってできるのです。
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>

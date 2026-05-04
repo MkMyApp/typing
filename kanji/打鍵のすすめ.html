@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>打鍵のすすめ</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 0
+  const WIDTH = "30ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+紙に筆で書きたるも
+鍵盤を打鍵するも、
+綴りたる文書に変わりなし。
+されど、速く美しく文書が
+良きことは言うまでもなし。
+周囲を見渡すに、
+速き人、遅き人あり、
+蚯蚓の這いたる如きあり、
+読みやすき文、
+読みにくき文ありて
+その有様
+雲と泥との相違あるに
+似たるはなんぞや。
+その次第甚だ明らかなり。
+鍵盤を上手に操るは、
+打鍵の修行を
+積むと積まざるに
+よるものなり。
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
