@@ -251,6 +251,10 @@ editorEl.addEventListener('keydown', e => {
 init()
 
 const expEl = document.getElementById('exp');
+if (window.self !== window.top) {
+    expEl.hidden = true;
+}
+
 if (expEl) {
   expEl.addEventListener('click', function() {
     this.hidden = true;
