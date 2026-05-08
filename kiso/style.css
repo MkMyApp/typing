@@ -41,7 +41,7 @@ body{
   background:#f0f0f0;
   text-align:left;
   white-space:pre;
-  min-height:calc(1em * var(--line-height) + 12px);
+  min-height:calc(1em * var(--line-height) + 20px);
 }
 
 #editor{
@@ -59,8 +59,8 @@ body{
   outline:none;
   resize:none;
   overflow:hidden;
-  height:calc(1em * var(--line-height) + 12px);
-  min-height:calc(1em * var(--line-height) + 12px);
+  height:calc(1em * var(--line-height) + 20px);
+  min-height:calc(1em * var(--line-height) + 20px);
 }
 
 #exp {
