@@ -22,20 +22,21 @@
   }
 
   function updateSettings() {
-  START_MSG = document.getElementById("START_MSG").value;
-  INPUT_MSG = document.getElementById("INPUT_MSG").value;
-  RANDOM    = Number(document.getElementById("RANDOM").value);
-  WIDTH     = document.getElementById("WIDTH").value;
+	  document.title = document.getElementById("TITLET_MSG").value;
+	  START_MSG = document.getElementById("START_MSG").value;
+	  INPUT_MSG = document.getElementById("INPUT_MSG").value;
+	  RANDOM    = Number(document.getElementById("RANDOM").value);
+	  WIDTH     = document.getElementById("WIDTH").value;
 
-  init();
-  
-  const customDiv = document.getElementById("custom");
-  customDiv.style.display = "none";
-  const typeDiv = document.getElementById("type");
-  typeDiv.style.display = "";
+	  init();
+	  
+	  const customDiv = document.getElementById("custom");
+	  customDiv.style.display = "none";
+	  const typeDiv = document.getElementById("type");
+	  typeDiv.style.display = "";
 
-  const editor = document.getElementById("editor");
-  editor.focus();
+	  const editor = document.getElementById("editor");
+	  editor.focus();
   }
 </script>
 <div id="custom">
@@ -43,6 +44,7 @@
 		<button id="setButton" onclick="updateSettings()">問題設定</button>
   </div>
 	<div id="set">
+		題　名：<input id="TITLET_MSG" value="問題タイトル"><br>
 		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
 		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
 		問題数：<input id="RANDOM" value="10"><br>
