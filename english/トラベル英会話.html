@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>トラベル英会話</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 確認"
+  const RANDOM = 10
+  const WIDTH = "50ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+Passport, please.
+Here is my ticket.
+I have nothing to declare.
+Where is the baggage claim?
+I missed my flight.
+Which gate for Japan?
+Water, please.
+Can I have a blanket?
+Beef, please.
+No ice, please.
+Can I change my seat?
+How do I use this?
+May I see your passport?
+What is the purpose of your visit?
+How long are you staying?
+Do you have any liquids?
+Please place your bags here.
+Would you like something to drink?
+Beef or chicken?
+Please fasten your seatbelt.
+Please return your seat to the upright position.
+Are you finished with that?
+Table for two, please.
+Do you have a menu in Japanese?
+I'll have the same.
+Is this spicy?
+Check, please.
+Keep the change.
+Just looking, thanks.
+How much is this?
+Can I try this on?
+I'll take it.
+How many in your party?
+Are you ready to order?
+Would you like some dessert?
+Everything okay here?
+Is that for here or to go?
+Pardon?
+Could you say that again, slowly?
+One more time, please.
+How's it going?
+Take care!
+I'm sorry, I'm late.
+That sounds great.
+Let me see...
+Wait a second.
+It's up to you.
+I have no idea.
+Could you help me?
+Nice talking to you.
+Have a nice day!
+What do you think?
+Are you sure?
+Do you need a hand?
+Watch your step.
+I have a fever.
+I have a headache.
+I have a stomachache.
+I feel dizzy.
+It hurts here.
+I feel like throwing up.
+I'm allergic to medicine.
+Can I have a painkiller?
+Do you have an appointment?
+Please fill out this form.
+What are your symptoms?
+When did it start?
+Are you taking any medication?
+Open your mouth, please.
+Take a deep breath.
+Please wait in the hallway.
+Take this twice a day.
+After meals.
+Do you have insurance?
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+
+<div id="exp">
+空港機内編
+Passport, please.
+パスポートをお願いします
+
+Here is my ticket.
+チケットはこちらです
+
+I have nothing to declare.
+免税範囲内です／申告物はありません
+
+Where is the baggage claim?
+手荷物受取所はどこですか？
+
+I missed my flight.
+乗り遅れてしまいました
+
+Which gate for Japan?
+日本行きは何番ゲートですか？
+
+Water, please.
+お水をお願いします
+
+Can I have a blanket?
+ブランケットをいただけますか？
+
+Beef, please.
+ビーフをお願いします
+
+No ice, please.
+氷なしでお願いします
+
+Can I change my seat?
+席を替わってもいいですか？
+
+How do I use this?
+これはどうやって使いますか？
+
+May I see your passport?
+パスポートを拝見できますか？
+
+What is the purpose of your visit?
+入国の目的は何ですか？
+
+How long are you staying?
+どのくらい滞在しますか？
+
+Do you have any liquids?
+液体類は持っていますか？
+
+Please place your bags here.
+ここにカバンを置いてください
+
+Would you like something to drink?
+お飲み物はいかがですか？
+
+Beef or chicken?
+ビーフにしますか、チキンにしますか？
+
+Please fasten your seatbelt.
+シートベルトをお締めください
+
+Please return your seat to the upright position.
+座席のリクライニングを戻してください
+
+Are you finished with that?
+
+食事などが
+お済みですか？
+
+
+レストラン編
+Table for two, please.
+2人です
+
+Do you have a menu in Japanese?
+日本語のメニューはありますか？
+
+I'll have the same.
+同じものをください
+
+Is this spicy?
+これは辛いですか？
+
+Check, please.
+お会計をお願いします
+
+Keep the change.
+お釣りはとっておいてください
+
+ショッピング (Shopping)
+Just looking, thanks.
+見ているだけです、ありがとう
+
+How much is this?
+これはいくらですか？
+
+Can I try this on?
+試着してもいいですか？
+
+I'll take it.
+これにします
+
+How many in your party?
+何名様ですか？
+
+Are you ready to order?
+ご注文はお決まりですか？
+
+Would you like some dessert?
+デザートはいかがですか？
+
+Everything okay here?
+お食事はいかがですか？／何かお困りですか？
+
+Is that for here or to go?
+店内ですか、お持ち帰りですか？
+
+Pardon?
+すみません、もう一度？
+
+Could you say that again, slowly?
+もう一度、ゆっくり言っていただけますか？
+
+One more time, please.
+もう一回お願いします
+
+日常編
+How's it going?
+調子はどう？
+
+Take care!
+気をつけて！／じゃあね！
+
+I'm sorry, I'm late.
+遅れてごめんなさい
+
+That sounds great.
+それはいいですね
+
+Let me see...
+ええと、そうですね…
+
+Wait a second.
+ちょっと待って
+
+It's up to you.
+あなたにお任せします
+
+I have no idea.
+さっぱりわかりません
+
+Could you help me?
+手伝ってもらえますか？
+
+Nice talking to you.
+お話しできて良かったです
+
+Have a nice day!
+良い一日を！
+
+What do you think?
+あなたはどう思う？
+
+Are you sure?
+本当に？／確かですか？
+
+Do you need a hand?
+手を貸しましょうか？
+
+Watch your step.
+足元にご注意ください
+
+病院編
+I have a fever.
+熱があります
+
+I have a headache.
+頭が痛いです
+
+I have a stomachache.
+お腹が痛いです
+
+I feel dizzy.
+めまいがします
+
+It hurts here.
+ここが痛みます
+
+I feel like throwing up.
+吐き気がします
+
+I'm allergic to medicine.
+薬のアレルギーがあります
+
+Can I have a painkiller?
+痛み止めをいただけますか？
+
+Do you have an appointment?
+予約はありますか？
+
+Please fill out this form.
+この書類に記入してください
+
+What are your symptoms?
+どのような症状ですか？
+
+When did it start?
+いつから始まりましたか？
+
+Are you taking any medication?
+何か薬を飲んでいますか？
+
+Open your mouth, please.
+口を開けてください
+
+Take a deep breath.
+深呼吸をしてください
+
+Please wait in the hallway.
+廊下でお待ちください
+
+Take this twice a day.
+これを1日2回飲んでください
+
+After meals.
+食後に
+
+Do you have insurance?
+保険には加入していますか？
+
+</div>
+</body>
+</html>
