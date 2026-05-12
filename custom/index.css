@@ -1,0 +1,22 @@
+#main-logo {
+  display: block;      /* 左右中央寄せ（margin: auto）を有効にするため */
+  margin: 20px auto;   /* 上下の余白を20px、左右を中央寄せに */
+  cursor: pointer;     /* クリック可能であることを示す */
+  width: 128px;         /* HTML側のstyle属性をこちらに集約 */
+  height: auto;
+  transition: opacity 0.2s;
+}
+
+#main-logo:hover {
+  opacity: 0.7;        /* マウスを乗せたときに少し薄くする */
+}
+
+#frm_typing {
+  width: 100%;
+  height: 640px;
+  border: none;
+  white-space: normal;
+  margin: 0 auto;
+  padding: 0;
+}
+
