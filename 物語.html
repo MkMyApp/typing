@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Title of Story</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 10
+  const WIDTH = "35ch"
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+フランダースの犬
+不思議の国のアリス
+赤毛のアン
+北風のうしろの国
+チョコレート工場の秘密
+あしながおじさん
+ガリヴァー旅行記
+ハリーポッターと秘密の部屋
+ハリーポッターと死の秘宝
+ハリーポッターと炎のゴブレット
+ハリーポッターと謎のプリンス
+ハリーポッターと不死鳥の騎士団
+ハリーポッターと賢者の石
+ハリーポッターとアズカバンの囚人
+ハイジ
+ジムボタンの機関車大旅行
+西遊記
+名犬ラッシー
+大きな森の小さな家
+大草原の小さな家
+小公子
+若草物語
+狼王ロボ
+家なき娘
+長靴下のピッピ
+三国志
+小公女
+トムソーヤの冒険
+千夜一夜物語
+ナルニア国ものがたり
+モンテクリスト伯
+飛ぶ教室
+ロビンソンクルーソー
+星の王子さま
+指輪物語
+はてしない物語
+秘密の花園
+ドリトル先生アフリカゆき
+トラップ一家物語
+ピーターラビットのおはなし
+三銃士
+ニルスの不思議な旅
+オズの魔法使い
+子鹿物語
+宝島
+海底二万里
+十五少年漂流記
+小さなバイキング
+クマのプーさん
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div id="exp">
+フランダースの犬 A Dog of Flanders<br>
+不思議の国のアリス Alice's Adventures in Wonderland<br>
+赤毛のアン Anne of Green Gables<br>
+北風のうしろの国 At the Back of the North Wind<br>
+チョコレート工場の秘密 Charlie and the Chocolate Factory<br>
+あしながおじさん Daddy Long Legs<br>
+ガリヴァー旅行記 Gulliver's Travels<br>
+ハリーポッターと秘密の部屋 Harry Potter and the Chamber of Secrets<br>
+ハリーポッターと死の秘宝 Harry Potter and the Deathly Hallows<br>
+ハリーポッターと炎のゴブレット Harry Potter and the Goblet of Fire<br>
+ハリーポッターと謎のプリンス Harry Potter and the Half Blood Prince<br>
+ハリーポッターと不死鳥の騎士団 Harry Potter and the Order of the Phoenix<br>
+ハリーポッターと賢者の石 Harry Potter and the Philosopher's Stone<br>
+ハリーポッターとアズカバンの囚人 Harry Potter and the Prisoner of Azkaban<br>
+ハイジ Heidi<br>
+ジムボタンの機関車大旅行 Jim Button and Luke the Engine Driver<br>
+西遊記 Journey to the West<br>
+名犬ラッシー Lassie Come Home<br>
+大きな森の小さな家 Little House in the Big Woods<br>
+大草原の小さな家 Little House on the Prairie<br>
+小公子 Little Lord Fauntleroy<br>
+若草物語 Little Women<br>
+狼王ロボ Lobo, the King of Currumpaw<br>
+家なき娘 Nobody's Girl<br>
+長靴下のピッピ Pippi Longstocking<br>
+三国志 Romance of the Three Kingdoms<br>
+小公女 Sara Crewe<br>
+トムソーヤの冒険 The Adventures of Tom Sawyer<br>
+千夜一夜物語 The Book of One Thousand and One Nights<br>
+ナルニア国ものがたり The Chronicles of Narnia<br>
+モンテクリスト伯 The Count of Monte Cristo<br>
+飛ぶ教室 The Flying Classroom<br>
+ロビンソンクルーソー Adventures of Robinson Cruso<br>
+星の王子さま The Little Prince<br>
+指輪物語 The Lord of the Rings<br>
+はてしない物語 The Neverending Story<br>
+秘密の花園 The Secret Garden<br>
+ドリトル先生アフリカゆき The Story of Doctor Dolittle<br>
+トラップ一家物語 The Story of the Trapp Family Singers<br>
+ピーターラビットのおはなし The Tale of Peter Rabbit<br>
+三銃士 The Three Musketeers<br>
+ニルスの不思議な旅 The Wonderful Adventures of Nils<br>
+オズの魔法使い The Wonderful Wizard of Oz<br>
+子鹿物語 The Yearling<br>
+宝島 Treasure Island<br>
+海底二万里 Twenty Thousand Leagues Under the Sea<br>
+十五少年漂流記 Two Years' Vacation<br>
+小さなバイキング Vicky the Viking<br>
+クマのプーさん Winnie the Pooh<br>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>ギャバン∞</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+//const START_MSG = "Enter⏎"
+//const INPUT_MSG = "英数 確認"
+　const INPUT_MSG = "かな 確認"
+//const INPUT_MSG = "かなキー"
+  const RANDOM = 0
+//const RANDOM = 20
+  const WIDTH = "20em"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+蒸着　それは
+ギャバンシステム発動の
+コマンドだ
+では、蒸着プロセスを
+もう一度見てみよう
+蒸着コマンドを受けて
+臨界点を超えた
+エモルギーが
+トリガー内に凝縮された
+ギャバリオン粒子と融合
+わずか1ミリ秒で
+コンバットスーツへと
+投射成形され
+蒸着を完了するのだ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
