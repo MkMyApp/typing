@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>あめんぼのうた</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 0
+  const WIDTH = "20em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+あめんぼ　あかいな　あいうえお
+うきもに　こえびも　およいでる
+かきのき　くりのき　かきくけこ
+きつつき　こつこつ　かれけやき
+ささげに　すをかけ　さしすせそ
+そのうお　あさせで　さしました
+たちましょ　らっぱで　たちつてと
+とてとて　たったと　とびたった
+なめくじ　のろのろ　なにぬねの
+なんどに　ぬめって　なにねばる
+はとぽっぽ　ほろほろ　はひふへほ
+ひなたの　おへやにゃ　ふえをふく
+まいまい　ねじまき　まみむめも
+うめのみ　おちても　みもしまい
+やきぐり　ゆでぐり　やいゆえよ
+やまだに　ひのつく　よいのいえ
+らいちょうは　さむかろ　らりるれろ
+れんげが　さいたら　るりのとり
+わいわい　わっしょい　わいうえを
+うえきや　いどがえ　おまつりだ
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

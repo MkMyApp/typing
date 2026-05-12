@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>和風月名</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎'
+  const INPUT_MSG = "かな確認"
+  const RANDOM = 12
+  const WIDTH = "5em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+睦月
+如月
+弥生
+卯月
+皐月
+水無月
+文月
+葉月
+長月
+神無月
+霜月
+師走
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

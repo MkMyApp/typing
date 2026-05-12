@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>風林火山</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 0
+  const WIDTH = "15em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+その疾きこと風の如く、
+その静かなること林の如く、
+侵略すること火の如く、
+動かざること山の如し。
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

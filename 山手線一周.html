@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>山手線一周</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+　const INPUT_MSG = "かな　確認"
+  const RANDOM = 0
+  const WIDTH = "15em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+東京
+神田
+秋葉原
+御徒町
+上野
+鶯谷
+日暮里
+西日暮里
+田端
+駒込
+巣鴨
+大塚
+池袋
+目白
+高田馬場
+新大久保
+新宿
+代々木
+原宿
+渋谷
+恵比寿
+目黒
+五反田
+大崎
+品川
+高輪ゲートウェイ
+田町
+浜松町
+新橋
+東京
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>

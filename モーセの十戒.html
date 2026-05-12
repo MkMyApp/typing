@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>モーセの十戒</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+	const RANDOM = 0
+	const WIDTH = "20em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+わたしは、あなたをエジプトの地、
+奴隷の家から導き出した、
+あなたの神、主である。
+あなたには、わたしのほかに、
+何ものも神としてはならない。
+あなたは、自分のために、
+刻んだ像を造ってはならない。
+それらを拝んではならない。
+あなたの神、主の名を、
+みだりに唱えてはならない。
+安息日を覚えて、
+これを聖とせよ。
+六日のあいだ働いて、
+すべての仕事をせよ。
+七日目は、あなたの神、
+主の安息である。
+あなたの父と母を敬え。
+殺してはならない。
+姦淫してはならない。
+盗んではならない。
+隣人について、
+偽りの証言をしてはならない。
+隣人の家を欲してはならない。
+隣人の妻、しもべ、家畜、
+何びとも、欲してはならない。
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result"></div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>

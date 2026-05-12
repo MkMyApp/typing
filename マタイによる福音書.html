@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+	<title>マタイによる福音書</title>
+</head>
+<body>
+<script>
+  const START_MSG = 'Enter⏎でスタート'
+  const INPUT_MSG = "かな　確認"
+  const RANDOM = 0
+  const WIDTH = "40em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+イエスは言われた。
+「心の貧しい人々は、幸いである。
+天の国はその人たちのものである。
+悲しむ人々は、幸いである。
+その人たちは慰められる。
+柔和な人々は、幸いである。
+その人たちは地を受け継ぐ。
+義に飢え渇く人々は、幸いである。
+その人たちは満たされる。
+心の清い人々は、幸いである。
+その人たちは神を見る。
+平和を実現する人々は、幸いである。
+その人たちは神の子と呼ばれる。
+</textarea>
+<!-------+---------+---------+--------->
+
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+
+  <script src="typing.js" defer></script>
+
+</body>
+</html>
