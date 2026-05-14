@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>四規七則</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 かな 確認"
+  const RANDOM = 0
+  const WIDTH = "28ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+和 敬 清 寂
+茶は服のよきように点て、
+炭は湯のわくように置き、
+冬は暖に夏は涼しく、
+花は野の花のように生け、
+刻限は早めに、
+降らずとも雨の用意、
+相客に心せよ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div id="exp">
+『四規七則』
+
+四規　和 敬 清 寂
+
+七則　茶は服のよきように点て、
+　　　炭は湯のわくように置き、
+　　　冬は暖に夏は涼しく、
+　　　花は野の花のように生け、
+　　　刻限は早めに、
+　　　降らずとも雨の用意、
+　　　相客に心せよ
+
+千 利休
+
+</div>
+</body>
+</html>
