@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>初心者のためのパソコン用語10</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "英数 かな 確認"
+  const RANDOM = 10
+  const WIDTH = "55ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+ブラウザ インターネットを見るアプリ
+タブ ブラウザで複数のページを並べる仕組み
+URL ウェブページの住所
+クラウド サーバーにデータを保存する仕組み
+ダウンロード サーバーからファイルを持ってくること
+アップロード サーバーにファイルを送ること
+フォルダ ファイルを整理する入れ物
+コピペ 一時的な記憶と貼り付け
+スクショ 画面を画像として保存する
+PDF アプリに依存しない文書形式
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<!--
+<div id="exp">
+</div>
+-->
+</body>
+</html>
