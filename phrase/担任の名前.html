@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>担任の名前を知らんのか</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 0
+  const WIDTH = "35ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+担任の名前を知らんのか
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1" 
+    autocomplete="off">
+  </textarea>
+  <script src="typing.js" defer></script>
+
+<div id="exp">
+tannninnnonamaewosirannnoka
+なんの呪文だ?
+かな入力なら楽々だぞ!
+</div>
+</body>
+</html>
