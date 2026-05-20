@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="custom.css">
+<title>問題作成</title>
+</head>
+<body>
+<div id="custom">
+	<div id="setTitle">
+		<button id="setButton" onclick="updateSettings()">問題設定</button>
+  </div>
+	<div id="set">
+		題　名：<input id="TITLET_MSG" value="問題タイトル"><br>
+		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
+		問題数：<input id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
+		文字幅：<input id="WIDTH" value="25ch"><button id="MAXLEN">最長＋５</button><br>
+	</div>
+<div id="text">
+<span id="ruler" class="line">
++----5----10---15---20---25---30---35---40
+</span>
+<textarea id="txtdata">
+ここに問題文を入力
+複数の文字列を
+改行で区切る。
+</textarea>
+<span id="ruler" class="line">
++----5----10---15---20---25---30---35---40
+</span>
+</div>
+<script src="custom.js" defer></script>
+
+</div>
+<div id="type" style="display: none;">
+  <div id="title" onclick="showSettings()"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+</div>
+<script src="typing.js" defer></script>
+<div id="exp">
+練習問題を入力
+問題設定のボタンをクリックして
+タイピング練習をする。
+タイトルをクリックすると
+問題設定にもどる。
+
+</div>
+</body>
+</html>
