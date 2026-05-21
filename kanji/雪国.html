@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング</title>
+</head>
+<body>
+<script>
+　const TITLE_MSG = "雪国"
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 0
+  const WIDTH = "35ch"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+国境の長いトンネルを抜けると
+雪国であった。
+夜の底が白くなった。
+信号所に汽車が止まった。
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<div id="exp">
+「雪国」川端康成
+国境の長いトンネルを抜けると雪国であった。夜の底が白くなった。信号所に汽車が止まった。
+</div>
+</body>
+</html>

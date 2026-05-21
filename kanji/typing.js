@@ -196,8 +196,18 @@ function loadWords(text){
 }
 
 function init(){
-  let TITLE = document.title
+
+  let TITLE;
+  // TITLE_MSG が定義されているかチェック
+  if (typeof TITLE_MSG !== 'undefined') {
+    TITLE = TITLE_MSG;
+    document.title = TITLE;
+  } else {
+    TITLE = document.title;
+  }
+
   titleEl.textContent = TITLE
+
   document.documentElement.style.setProperty('--line-width', WIDTH)
 
   loadWords(document.getElementById('txtdata').value)
