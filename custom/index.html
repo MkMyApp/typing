@@ -10,9 +10,10 @@
 <div id="custom">
 	<div id="setTitle">
 		<button id="setButton" onclick="updateSettings()">問題設定</button>
+		<button id="COMP" onclick="composeText()">結合</button>
   </div>
 	<div id="set">
-		題　名：<input id="TITLET_MSG" value="問題タイトル"><br>
+		題　名：<input id="TITLE_MSG" value="問題タイトル"><br>
 		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
 		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
 		問題数：<input id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
@@ -26,6 +27,8 @@
 ここに問題文を入力
 複数の文字列を
 改行で区切る。
+</textarea>
+<textarea id="txtComp" style="display: none;">
 </textarea>
 <span id="ruler" class="line">
 +----5----10---15---20---25---30---35---40

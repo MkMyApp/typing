@@ -7,7 +7,7 @@ input {
   vertical-align: middle;
 }
 
-#txtdata {
+#txtdata,#txtComp {
   display: block;
   width: calc(40ch + (var(--line-padding-x) * 2)); 
   min-width: calc(12ch + (var(--line-padding-x) * 2));
@@ -50,6 +50,13 @@ input {
   font-size: 32px;
   width: 200px;
   height: 64px;
+}
+
+#COMP {
+  font-size: 24px;
+  width: 80px;
+  height: 64px;
+  margin-left: 32px;
 }
 
 #ruler {
