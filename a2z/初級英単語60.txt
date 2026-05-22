@@ -1,0 +1,1 @@
+apple,banana,cherry,grape,lemon,orange,peach,pear,strawberry,melon,kiwi,mango,pineapple,cat,dog,bird,fish,rabbit,mouse,elephant,lion,tiger,giraffe,monkey,zebra,bear,wolf,fox,horse,cow,red,blue,green,yellow,purple,pink,brown,black,white,gray,silver,gold,sky,sun,moon,star,book,pen,desk,chair,table,house,water,bread,milk,tea,coffee,school,friend,happy
