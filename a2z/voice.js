@@ -3,7 +3,7 @@ const subject = document.getElementById('editor');
 
 subject.addEventListener('keydown', (event) => {
     const key = event.key;
-    if (/^[a-zA-Z]$/.test(key)) {
+    if (/^[ -~]$/.test(key)) {
         speak(key);
     }
 });
