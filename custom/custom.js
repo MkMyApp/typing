@@ -5,10 +5,8 @@
   let WIDTH
   
   function showSettings() {
-  const customDiv = document.getElementById("custom");
-  customDiv.style.display = "";
-  const typeDiv = document.getElementById("type");
-  typeDiv.style.display = "none";
+  document.getElementById("custom").style.display = "block";
+  document.getElementById("type").style.display = "none";
 
   }
 
@@ -20,14 +18,11 @@
 	  WIDTH     = document.getElementById("WIDTH").value;
 
 	  init();
-	  
-	  const customDiv = document.getElementById("custom");
-	  customDiv.style.display = "none";
-	  const typeDiv = document.getElementById("type");
-	  typeDiv.style.display = "";
-
-	  const editor = document.getElementById("editor");
-	  editor.focus();
+    
+    document.getElementById("txtComp").style.display = "none";
+	  document.getElementById("custom").style.display = "none";
+	  document.getElementById("type").style.display = "block";
+	  document.getElementById("editor").focus();
   }
 
 // 行数をカウントして問題数(input)に設定する関数
@@ -133,3 +128,14 @@ textComp.value = configText + scaleText + headText + textVal + footText + scaleT
 textComp.style.display = "block";
 }
 
+function repText() {
+const textArea = document.getElementById('txtdata');
+  const text = textArea.value;
+
+  // カンマ(,) または 半角スペースを改行(\n)に置換
+  // 正規表現: /[, ]+/g （カンマ、半角スペース、全角スペースの1文字以上の連続）
+  const replacedText = text.replace(/[, 　]+/g, '\n');
+
+  // 置換した結果をテキストエリアに戻す
+  textArea.value = replacedText;
+};
