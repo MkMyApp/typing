@@ -46,20 +46,27 @@ input {
   justify-content: center;
 }
 
+#btnBox{
+  font-size: 32px;
+	margin:20px auto;
+	display: flex;
+  justify-content: center;
+}
+
 #setButton {
   font-size: 32px;
   width: 200px;
   height: 64px;
 }
 
-#COMP,#REP {
+#COMP,#REP,#CAT,#lower,#upper {
   font-size: 24px;
   width: 80px;
   height: 64px;
-  margin-left: 32px;
+  margin-right: 32px;
 }
 
-#ruler {
+#ruler1,#ruler2 {
   width: max-content; 
   margin: 20px auto;
   font-family: monospace;

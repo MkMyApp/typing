@@ -132,10 +132,26 @@ function repText() {
 const textArea = document.getElementById('txtdata');
   const text = textArea.value;
 
-  // カンマ(,) または 半角スペースを改行(\n)に置換
-  // 正規表現: /[, ]+/g （カンマ、半角スペース、全角スペースの1文字以上の連続）
   const replacedText = text.replace(/[, 　]+/g, '\n');
 
-  // 置換した結果をテキストエリアに戻す
   textArea.value = replacedText;
 };
+
+function catText() {
+const textArea = document.getElementById('txtdata');
+  const text = textArea.value;
+
+  const replacedText = text.replace(/\n+/g, ',');
+
+  textArea.value = replacedText;
+};
+
+function toUpperText() {
+  const textArea = document.getElementById('txtdata');
+  textArea.value = textArea.value.toUpperCase();
+}
+
+function toLowerText() {
+  const textArea = document.getElementById('txtdata');
+  textArea.value = textArea.value.toLowerCase();
+}

@@ -8,11 +8,10 @@
 </head>
 <body>
 <div id="custom">
-	<div id="setTitle">
-		<button id="setButton" onclick="updateSettings()">問題設定</button>
-		<button id="COMP" onclick="composeText()">結合</button>
-		<button id="REP" onclick="repText()">置換</button>
-  </div>
+<div id="setTitle">
+	<button id="setButton" onclick="updateSettings()">問題設定</button>
+</div>
+
 	<div id="set">
 		題　名：<input id="TITLE_MSG" value="問題タイトル"><br>
 		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
@@ -21,7 +20,7 @@
 		文字幅：<input id="WIDTH" value="25ch"><button id="MAXLEN">最長＋５</button><br>
 	</div>
 <div id="text">
-<span id="ruler" class="line">
+<span id="ruler1" class="line">
 +----5----10---15---20---25---30---35---40
 </span>
 <textarea id="txtdata">
@@ -29,11 +28,19 @@
 複数の文字列を
 改行で区切る。
 </textarea>
-<textarea id="txtComp" style="display: none;">
-</textarea>
-<span id="ruler" class="line">
+<span id="ruler2" class="line">
 +----5----10---15---20---25---30---35---40
 </span>
+<div id="btnBox">
+	<button id="COMP" onclick="composeText()">設定</button>
+	<button id="REP" onclick="repText()">分割</button>
+	<button id="CAT" onclick="catText()">結合</button>
+	<button id="upper" onclick="toUpperText()">A-Z</button>
+	<button id="lower" onclick="toLowerText()">a-z</button>
+</div>
+
+<textarea id="txtComp" style="display: none;">
+</textarea>
 </div>
 <script src="custom.js" defer></script>
 
