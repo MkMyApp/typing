@@ -141,7 +141,7 @@ function catText() {
 const textArea = document.getElementById('txtdata');
   const text = textArea.value;
 
-  const replacedText = text.replace(/\n+/g, ',');
+  const replacedText = text.replace(/\n+/g, ' ');
 
   textArea.value = replacedText;
 };
