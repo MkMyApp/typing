@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>重複行削除</title>
+<meta charset="UTF-8">
+<style>
+body{
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+textarea {
+  font-family: monospace; 
+  font-size: 16px; 
+  width: 800px;
+  height: 600px;
+  min-width: 200px;
+  min-height: 100px;
+  line-height: 1.2;
+  padding: 6px 8px;
+  border: 1px solid #c0c0c0;
+  box-sizing: border-box;
+}
+
+button{
+  font-family: monospace;
+  font-size: 16px;
+  width:120px;
+  padding: 16px;
+  margin: 10px;
+}
+
+</style>
+</head>
+
+<body>
+	<h1>重複行削除</h1> 
+	<button onclick="editText()">重複行削除</button><br>
+	<textarea id="text"></textarea>
+
+	<script>
+	function processText(text) {
+	  text = text.replace(/\r\n/g, '\n');
+
+	  const lines = text.split('\n');
+	  const seen = new Set();
+	  const result = [];
+
+	  for (let line of lines) {
+	    // 空白行はそのまま残す
+	    if (line.trim() === '') {
+	      result.push(line);
+	      continue;
+	    }
+
+	    // 初出のみ残す
+	    if (!seen.has(line)) {
+	      seen.add(line);
+	      result.push(line);
+	    }
+	  }
+
+	  return result.join('\n');
+	}
+
+	function editText() {
+	  const textarea = document.getElementById("text");
+	  textarea.value = processText(textarea.value);
+	}
+
+</script>
+</body>
+</html>

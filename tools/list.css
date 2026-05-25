@@ -1,0 +1,52 @@
+/* bodyの高さ固定を解除し、flexを無効化（または方向を調整） */
+body {
+  margin-left: 10px;
+  /* height: 100vh;  ← 削除：画面の高さに固定しない */
+  /* display: flex;  ← 削除：子要素を強制配置しない */
+  /* flex-direction: column; ← 削除 */
+}
+
+/* ツールバーの余白調整 */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5em 0; /* 左右の余白を0に */
+  flex-wrap: wrap;
+}
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+  }
+  
+  .separator {
+    margin-left: 10px;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+    color: #666;
+  }
+
+textarea {
+  display: block;
+  box-sizing: border-box; /* paddingとborderを幅に含める（必須） */
+  
+  /* --- サイズ・可変設定 --- */
+  resize: both;           /* 縦・横の両方向を可変にする */
+  overflow: auto;         /* 内容が溢れたらスクロールバーを表示 */
+  
+  width: calc(100% - 20px); /* 基本は親要素に合わせる */
+  height: 480px;            /* 初期状態の高さ */
+  
+  /* 小さくなりすぎて操作不能になるのを防ぐ */
+  min-width: 200px;
+  min-height: 100px;
+  
+  /* --- 見た目の調整 --- */
+  margin: 1em 0;
+  padding: 10px;
+  font-family: monospace;   /* コードやデータが見やすい等幅フォント */
+  line-height: 1.5;         /* 行間を少し広げると読みやすくなります */
+}

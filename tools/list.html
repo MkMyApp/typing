@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>HTMLファイル一覧</title>
+<link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <div class="titlebar">
+    <h1>HTML List</h1>
+  </div>
+<div class="toolbar">
+  <button id="btnLoad">フォルダを選んで一覧作成</button>
+  
+  <div class="radio-group">
+    <input type="radio" id="Link" name="answer" value="link" checked>
+    <label for="Link">リンク</label>
+  </div>
+  
+  <div class="radio-group">
+    <input type="radio" id="File" name="answer" value="file">
+    <label for="File">ネーム</label>
+  </div>
+
+  <span class="separator">並び順：</span>
+  <div class="radio-group">
+    <input type="radio" id="SortName" name="sort" value="name">
+    <label for="SortName">ファイル名順</label>
+  </div>
+  
+  <div class="radio-group">
+    <input type="radio" id="SortDate" name="sort" value="date" checked>
+    <label for="SortDate">タイムスタンプ順</label>
+  </div>
+</div>
+<textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
+<script src="list.js"></script>
+</body>
+</html>
