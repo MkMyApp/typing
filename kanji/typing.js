@@ -198,7 +198,6 @@ function loadWords(text){
 function init(){
 
   let TITLE;
-  // TITLE_MSG が定義されているかチェック
   if (typeof TITLE_MSG !== 'undefined') {
     TITLE = TITLE_MSG;
     document.title = TITLE;
