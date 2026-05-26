@@ -132,7 +132,7 @@ function repText() {
 const textArea = document.getElementById('txtdata');
   const text = textArea.value;
 
-  const replacedText = text.replace(/[, 　]+/g, '\n');
+  const replacedText = text.replace(/ ' '/g, '\n');
 
   textArea.value = replacedText;
 };
