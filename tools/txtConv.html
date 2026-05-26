@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>文字置換ツール</title>
+<style>
+body{
+  font-family: sans-serif;
+  margin: 20px;
+}
+input { font-family: monospace; font-size:300%; }
+.error { color: red; font-weight: bold; }
+.container { margin-bottom: 20px; }
+
+textarea { 
+font-family: monospace; margin-bottom: 20px;
+width:640px; height:240px;
+}
+.error { color: red; font-weight: bold; }
+.container { margin-bottom: 20px; }
+
+button {
+font-size:200%;
+margin-bottom: 20px;
+width:256px;
+height:48px;
+}
+
+#msg {
+font-size:120%;
+margin-left: 20px;
+}
+</style>
+</head>
+<body>
+    <h1>文字置換ツール</h1>
+    <div class="container">
+        <p>変換元: <br>
+        <input type="text" id="fromChars" style="width: 300px;"></p>
+        <p>変換先: <br>
+        <input type="text" id="toChars" style="width: 300px;"></p>
+        
+    </div>
+
+    <button onclick="convert()">変換</button><span id="msg"></span><br>
+    <textarea id="input" rows="3" cols="40"></textarea>
+    <textarea id="output" rows="3" cols="40" readonly></textarea>
+
+    <script>
+        function convert() {
+            const fromStr = document.getElementById('fromChars').value;
+            const toStr = document.getElementById('toChars').value;
+            const msg = document.getElementById('msg');
+
+            // 文字数の一致判定
+            if (fromStr.length !== toStr.length) {
+                msg.innerHTML = `⚠️ エラー: 文字数が一致しません (変換元: ${fromStr.length}文字, 変換先: ${toStr.length}文字)`;
+                return;
+            }
+            msg.innerHTML = "✅ 設定OK";
+
+            // マッピング作成
+            const map = {};
+            for (let i = 0; i < fromStr.length; i++) {
+                map[fromStr[i]] = toStr[i];
+            }
+
+            // 変換実行
+            const input = document.getElementById('input').value;
+            const output = input.split('').map(char => map[char] || char).join('');
+            document.getElementById('output').value = output;
+        }
+    </script>
+</body>
+</html>
