@@ -10,14 +10,17 @@
 <div id="custom">
 <div id="setTitle">
 	<button id="setButton" onclick="updateSettings()">問題設定</button>
+  <label class="voice-label">
+    <input id="check" type="checkbox" name="voice" checked> 音声ガイド
+  </label>
 </div>
 
 	<div id="set">
-		題　名：<input id="TITLE_MSG" value="ABCタッチタイプ"><br>
-		開　始：<input id="START_MSG" value="Enter⏎"><br>
-		文字種：<input id="INPUT_MSG" value="英数　確認"><br>
-		問題数：<input id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
-		文字幅：<input id="WIDTH" value="12ch"><button id="MAXLEN">最長＋５</button><br>
+		題　名：<input type="text" id="TITLE_MSG" value="ABCタッチタイプ"><br>
+		開　始：<input type="text" id="START_MSG" value="Enter⏎"><br>
+		文字種：<input type="text" id="INPUT_MSG" value="英数　確認"><br>
+		問題数：<input type="text" id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
+		文字幅：<input type="text" id="WIDTH" value="12ch"><button id="MAXLEN">最長＋５</button><br>
 	</div>
 <div id="text">
 <span id="ruler1" class="line">

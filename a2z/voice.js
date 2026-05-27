@@ -1,10 +1,12 @@
 const subject = document.getElementById('editor');
-//const subject = window
+const voiceCheckbox = document.getElementById('check');
 
 subject.addEventListener('keydown', (event) => {
-    const key = event.key;
-    if (/^[ -~]$/.test(key)) {
-        speak(key);
+    if (voiceCheckbox && voiceCheckbox.checked) {
+        const key = event.key;
+        if (/^[ -~]$/.test(key)) {
+            speak(key);
+        }
     }
 });
 
