@@ -238,24 +238,31 @@ editorEl.addEventListener('input', () => {
 })
 
 editorEl.addEventListener('keydown', e => {
-  if(e.key !== 'Enter' || e.isComposing) return
-
-  e.preventDefault()
-
-  if(finished){
-    finished = false
-    showStart()
-    return
+  // 1. スタート前の状態
+  if (!typeStarted) {
+    if (e.key === 'Enter' && !e.isComposing) {
+      e.preventDefault();
+      if (finished) {
+        finished = false;
+        showStart();
+      } else {
+        startType();
+        editorEl.value = '';
+      }
+    }
+    return;
   }
 
-  if(!typeStarted){
-    startType()
-    editorEl.value = ''
-    return
+  // 2. プレイ中の状態（Shift + Enterのみ許可）
+  if (e.key === 'Enter') {
+    e.preventDefault(); // 改行入力を無効化
+    
+    if (e.shiftKey) {
+      judgeCurrentWord(); // Shift + Enter で進む
+    }
+    // 単体のEnterは無視されるため、改行もせず、何も進まない
   }
-
-  judgeCurrentWord()
-})
+});
 
 init()
 
