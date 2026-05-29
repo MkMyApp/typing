@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング練習</title>
+</head>
+<body>
+<script>
+　const TITLE_MSG = "低学年漢字かな";
+  const START_MSG = "Enter⏎でスタート"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 10
+  const WIDTH = "30ch"
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+山に大きな月が出る
+今日はお天気が良い
+赤い花が風にゆれる
+外で犬と走りまわる
+雨の日には本を読む
+白い雪が山にふる
+青い空に星が光る
+弟と公園を歩く
+新しい手紙を書いた
+楽しい町を回る
+元気な子供が走る
+春の風が吹いている
+毎日学校で勉強する
+父と母が山に行く
+先生が物語を話す
+大きな車が町を通る
+秋の野山は美しい
+遠い国の話を聞く
+赤い鳥が木に止まる
+朝から雨が降る
+教室で図を書く
+右の道から帰る
+百円の文房具を買う
+明るい部屋で計算する
+七人の友人が集まる
+強風で草がゆれる
+兄と青い車を見る
+午後の太陽が光る
+雪の朝は道が白い
+名前を書いて出す
+楽しい歌を歌う
+手と足を使って泳ぐ
+丸い玉が川に落ちる
+理科の勉強をする
+四時になったら帰る
+夜の星を見る
+心を使って考える
+九つの石を並べる
+良い天気で海に行く
+白い紙に図を描く
+妹は元気な子だ
+先生に教わる
+新しい道を通る
+休みの日は外で遊ぶ
+魚を食べて力が出る
+村の池で鳥を見る
+六年生の背が高い
+大きな声で話す
+明るい未来を思う
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<!--
+<div id="exp"></div>
+<img src=".png" style="width:800px;">
+-->
+</body>
+</html>
