@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>文字置換ツール</title>
+<title>編集ツール</title>
 <style>
 body{
   font-family: sans-serif;
@@ -12,17 +12,20 @@ input { font-family: monospace; font-size:300%; }
 .error { color: red; font-weight: bold; }
 .container { margin-bottom: 20px; }
 
-textarea { 
-font-family: monospace; margin-bottom: 20px;
+#txtdata { 
+font-family: monospace;
+margin-bottom: 20px;
 width:640px; height:240px;
+font-size:24px;
 }
 .error { color: red; font-weight: bold; }
 .container { margin-bottom: 20px; }
 
 button {
-font-size:200%;
+font-size:24px;
 margin-bottom: 20px;
-width:256px;
+margin-right:20px;
+width:92px;
 height:48px;
 }
 
@@ -33,7 +36,7 @@ margin-left: 20px;
 </style>
 </head>
 <body>
-    <h1>文字置換ツール</h1>
+    <h1>編集ツール</h1>
     <div class="container">
         <p>変換元: <br>
         <input type="text" id="fromChars" style="width: 300px;"></p>
@@ -43,33 +46,108 @@ margin-left: 20px;
     </div>
 
     <button onclick="convert()">変換</button><span id="msg"></span><br>
-    <textarea id="input" rows="3" cols="40"></textarea>
-    <textarea id="output" rows="3" cols="40" readonly></textarea>
+    
+	  <button onclick="toUpperText()">大文字</button>
+	  <button onclick="toLowerText()">小文字</button>
+	  <button onclick="repText()">分割</button>
+	  <button onclick="catText()">結合</button>
+	  <button onclick="editText()">重複</button>
+	  <button onclick="tabText()">TAB</button>
+	  <br>
 
-    <script>
-        function convert() {
-            const fromStr = document.getElementById('fromChars').value;
-            const toStr = document.getElementById('toChars').value;
-            const msg = document.getElementById('msg');
+    <textarea id="txtdata" rows="3" cols="40"></textarea>
 
-            // 文字数の一致判定
-            if (fromStr.length !== toStr.length) {
-                msg.innerHTML = `⚠️ エラー: 文字数が一致しません (変換元: ${fromStr.length}文字, 変換先: ${toStr.length}文字)`;
-                return;
-            }
-            msg.innerHTML = "✅ 設定OK";
+  <script>
+      function convert() {
+          const fromStr = document.getElementById('txtdata').value;
+          const msg = document.getElementById('msg');
 
-            // マッピング作成
-            const map = {};
-            for (let i = 0; i < fromStr.length; i++) {
-                map[fromStr[i]] = toStr[i];
-            }
+          // 文字数の一致判定
+          if (fromStr.length !== toStr.length) {
+              msg.innerHTML = `⚠️ エラー: 文字数が一致しません (変換元: ${fromStr.length}文字, 変換先: ${toStr.length}文字)`;
+              return;
+          }
+          msg.innerHTML = "✅ 設定OK";
 
-            // 変換実行
-            const input = document.getElementById('input').value;
-            const output = input.split('').map(char => map[char] || char).join('');
-            document.getElementById('output').value = output;
-        }
+          // マッピング作成
+          const map = {};
+          for (let i = 0; i < fromStr.length; i++) {
+              map[fromStr[i]] = toStr[i];
+          }
+
+          // 変換実行
+          const input = document.getElementById('txtdata').value;
+          const output = input.split('').map(char => map[char] || char).join('');
+          document.getElementById('txtdata').value = output;
+      }
+      
+      	function toUpperText() {
+  const textArea = document.getElementById('txtdata');
+  textArea.value = textArea.value.toUpperCase();
+};
+
+function toLowerText() {
+  const textArea = document.getElementById('txtdata');
+  textArea.value = textArea.value.toLowerCase();
+};
+
+function repText() {
+	const textArea = document.getElementById('txtdata');
+	const text = textArea.value;
+
+	const replacedText = text.replace(/[, 　]+/g, '\n');
+
+	textArea.value = replacedText;
+};
+
+function tabText() {
+	const textArea = document.getElementById('txtdata');
+	const text = textArea.value;
+
+	const replacedText = text.replace(/\t/g, '  ');
+
+	textArea.value = replacedText;
+
+};
+
+function catText() {
+	const textArea = document.getElementById('txtdata');
+	const text = textArea.value;
+
+	const replacedText = text.replace(/\n+/g, ' ');
+
+	textArea.value = replacedText;
+};
+
+	function processText(text) {
+	  text = text.replace(/\r\n/g, '\n');
+
+	  const lines = text.split('\n');
+	  const seen = new Set();
+	  const result = [];
+
+	  for (let line of lines) {
+	    // 空白行はそのまま残す
+	    if (line.trim() === '') {
+	      result.push(line);
+	      continue;
+	    }
+
+	    // 初出のみ残す
+	    if (!seen.has(line)) {
+	      seen.add(line);
+	      result.push(line);
+	    }
+	  }
+
+	  return result.join('\n');
+	}
+
+	function editText() {
+	  const textarea = document.getElementById("txtdata");
+	  textarea.value = processText(textarea.value);
+	}
+
     </script>
 </body>
 </html>
