@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>半角発声</title>
+<style>
+body {
+text-align: center;
+}
+
+h1 {
+ font-size:48px;
+ color: #333;
+}
+
+#INPUT {
+　font-family: monospace;
+	font-size: 64px;
+	width: 320px;
+	height: 64px;
+}
+</style>
+</head>
+<body>
+<h1>キーボードを押してください</h1>
+<p style="font-size:32px;">（英語の読み上げが再生されます）</p>
+<input id="INPUT"></input>
+
+<script>
+//const subject = window
+const subject = document.getElementById('INPUT');
+
+subject.addEventListener('keydown', (event) => {
+    const key = event.key;
+    if (/^[ -~]$/.test(key)) {
+        speak(key);
+    }
+});
+
+function speak(text) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    utterance.rate = 1;
+    window.speechSynthesis.speak(utterance);
+}
+</script>
+
+</body>
+</html>
