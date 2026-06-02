@@ -54,12 +54,12 @@ button{
   <span>　</span>
   <span id="maxLength">maxLen:</span>
 </p>
-<button onclick="clearText()">Clear</button>
-<button onclick="loadType()">Type</button>
-<button onclick="loadFile()">Load</button>
-<button onclick="countMax()">maxLen</button>
-<button onclick="saveFile()">Save</button>
-<button onclick="saveFileAs()">SaveAs</button>
+<button onclick="clearText()">クリア</button>
+<button onclick="loadType()">タイプ</button>
+<button onclick="loadFile()">読込</button>
+<button onclick="countMax()">最長行</button>
+<button onclick="saveFile()">上書き</button>
+<button onclick="saveFileAs()">保存</button>
 <br>
 <textarea id="text">
 </textarea>
@@ -105,7 +105,7 @@ async function loadFile(){
     const [handle] = await window.showOpenFilePicker({
       types: [{
         description: "Text Files",
-        accept: { "text/plain": [".txt", ".mml", ".html"] }
+        accept: { "text/plain": [".txt", ".html"] }
       }]
     });
 
@@ -166,7 +166,7 @@ async function saveFileAs(){
       suggestedName: currentFileName,
       types: [{
         description: "Text Files",
-        accept: { "text/plain": [".txt", ".mml", ".html"] }
+        accept: { "text/plain": [".txt", ".html"] }
       }]
     });
 
@@ -207,7 +207,7 @@ textarea.addEventListener("drop", async function(e){
   if (files.length === 0) return;
   const file = files[0];
 
-  if (!file.type.startsWith("text") && !file.name.match(/\.(txt|mml|html)$/)) {
+  if (!file.type.startsWith("text") && !file.name.match(/\.(txt|html)$/)) {
     alert("テキストファイルのみ対応しています");
     return;
   }
@@ -295,9 +295,11 @@ function loadType() {
   const RANDOM = 0
   const WIDTH = "25ch"
 <\/script>
+<!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
 
 </textarea>
+<!---5----10---15---20---25---30---35---40--->
 <div id="title"></div>
   <div id="result"></div>
   <div id="target" class="line" 
