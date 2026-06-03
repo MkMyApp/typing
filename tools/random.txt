@@ -1,0 +1,33 @@
+<script>
+  const TITLE_MSG = "Title";
+  const START_MSG = "Enter";
+  const INPUT_MSG = "IME";
+  const RANDOM = 10;
+  const WIDTH = "25ch";
+
+  const CHAR_SET = "QWERTYUIOPASDFGHJKLZXCVBNM"; /  const CHAR_LENGTH = 8;
+  const LINE_COUNT = 50;
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const txtData = document.getElementById('txtdata');
+    txtData.value = generateRandomText(CHAR_SET, CHAR_LENGTH, LINE_COUNT);
+    init();
+  });
+
+function generateRandomText(chars, length, lines) {
+  let result = "";
+  for (let i = 0; i < lines; i++) {
+    let line = "";
+    for (let j = 0; j < length; j++) {
+      line += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    result += line + (i < lines - 1 ? "\n" : "");
+  }
+  return result;
+}
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
