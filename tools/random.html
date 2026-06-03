@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ランダム文字列</title>
+<style>
+body { font-family: sans-serif; font-size: 24px; margin: 20px; }
+
+.main-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+#output { 
+    width: 400px;
+    height: 480px;
+    font-size: 24px;
+    box-sizing: border-box;
+}
+
+input { width: 40px; padding: 5px; font-size: 24px; }
+
+.input-row { margin-bottom: 10px; }
+
+.chars-group {
+    display: flex;
+    align-items: flex-start; 
+    gap: 10px;
+}
+
+#chars { 
+    width: 200px;
+    height: 48px;
+    font-size: 18px;
+    padding: 5px;
+    resize: both;
+    overflow: auto;
+}
+
+button {
+    width: 320px;
+    height: 48px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    cursor: pointer; 
+}
+</style>
+</head>
+<body>
+<div class="main-container">
+    <div class="input-group">
+				<button onclick="runGenerator()">ランダム生成</button>
+        <div class="input-row">文字列長 <input type="text" id="strlen" value="8"></div>
+        <div class="input-row">文字列数 <input type="text" id="strnum" value="50"></div>
+        <div class="chars-group">
+            元文字列 <textarea id="chars">ASDFJKL;</textarea>
+        </div>
+    </div>
+
+    <textarea id="output"></textarea>
+</div>
+
+<script>
+function generateRandomText(chars, length, lines) {
+  let result = "";
+  for (let i = 0; i < lines; i++) {
+    let line = "";
+    for (let j = 0; j < length; j++) {
+      line += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    result += line + (i < lines - 1 ? "\n" : "");
+  }
+  return result;
+}
+
+function runGenerator() {
+  const rawChars = document.getElementById('chars').value;
+  const chars = rawChars.replace(/[\r\n]+/g, "");
+  
+  const length = parseInt(document.getElementById('strlen').value, 10);
+  const lines = parseInt(document.getElementById('strnum').value, 10);
+  
+  if (isNaN(length) || isNaN(lines)) {
+      alert("文字列長と文字列数には数値を入力してください。");
+      return;
+  }
+  
+  document.getElementById('output').value = generateRandomText(chars, length, lines);
+}
+</script>
+</body>
+</html>
