@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング練習</title>
+</head>
+<body>
+<script>
+const TITLE_MSG = "下段ランダム";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const RANDOM = 10;
+const WIDTH = "16ch";
+
+const CHAR_LENGTH = 8;
+const LINE_COUNT = 50;
+const CHAR_RAW = `ZXCVBNM,./\\`;
+const CHAR_SET = CHAR_RAW.replace(/[\n\r\s]/g, "");
+
+window.addEventListener('DOMContentLoaded', () => {
+	const txtData = document.getElementById('txtdata');
+	txtData.value = generateRandomText(CHAR_SET, CHAR_LENGTH, LINE_COUNT);
+	init();
+});
+
+function generateRandomText(chars, length, lines) {
+  let result = "";
+  for (let i = 0; i < lines; i++) {
+    let line = "";
+    for (let j = 0; j < length; j++) {
+      line += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    result += line + (i < lines - 1 ? "\n" : "");
+  }
+  return result;
+}
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
