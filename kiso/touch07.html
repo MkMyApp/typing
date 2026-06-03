@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング練習</title>
+</head>
+<body>
+<script>
+const TITLE_MSG = "上段の練習";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const RANDOM = "10";
+const WIDTH = "15ch";
+</script>
+<!-------10--------20--------30--------40--------->
+<textarea id="txtdata" hidden>
+QWERUIOP
+WQREIUPO
+QRWEUOIP
+RQEWOUPI
+QPWUEIRO
+OPIRUEWQ
+QWUIERPO
+QWPOERUI
+QUWIEORP
+URIEOWPQ
+QWERREWQ
+UIOPPOIU
+RUEIQWPO
+WQERUPIO
+OIWUQRPE
+EWQPOIRU
+UIOPQWER
+ROEIWUQP
+QWERPOIU
+QERUWIPO
+QREIWUPO
+QRWEPUIO
+QERUIWOP
+RPEOWIQU
+REWQUIOP
+UIOPREWQ
+QWUIEROP
+</textarea>
+<!-------10--------20--------30--------40--------->
+
+<div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+</body>
+</html>
