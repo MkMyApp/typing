@@ -1,18 +1,21 @@
 <script>
-  const TITLE_MSG = "Title";
-  const START_MSG = "Enter";
-  const INPUT_MSG = "IME";
-  const RANDOM = 10;
-  const WIDTH = "25ch";
+const TITLE_MSG = "Title";
+const START_MSG = "Enter";
+const INPUT_MSG = "IME";
+const RANDOM = 10;
+const WIDTH = "25ch";
 
-  const CHAR_SET = "QWERTYUIOPASDFGHJKLZXCVBNM"; /  const CHAR_LENGTH = 8;
-  const LINE_COUNT = 50;
+const CHAR_SET = "
+QWERTYUIOPASDFGHJKLZXCVBNM
+";
+const CHAR_LENGTH = 8;
+const LINE_COUNT = 50;
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const txtData = document.getElementById('txtdata');
-    txtData.value = generateRandomText(CHAR_SET, CHAR_LENGTH, LINE_COUNT);
-    init();
-  });
+window.addEventListener('DOMContentLoaded', () => {
+	const txtData = document.getElementById('txtdata');
+	txtData.value = generateRandomText(CHAR_SET, CHAR_LENGTH, LINE_COUNT);
+	init();
+});
 
 function generateRandomText(chars, length, lines) {
   let result = "";
