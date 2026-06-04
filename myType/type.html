@@ -1,13 +1,19 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="style.css">
-  <title>タイピング練習</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
 </head>
 <body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script src="typing.js" defer></script>
+
 <script>
-  const TITLE_MSG = "問題タイトル";
+  const TITLE_MSG = "タイトル";
   const START_MSG = "Enter⏎でスタート";
   const INPUT_MSG = "英数 かな 確認";
   const RANDOM = 0;
@@ -18,17 +24,6 @@
 
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
-  <div id="title"></div>
-  <div id="result"></div>
-  <div id="target" class="line" 
-    style="text-align:center"></div>
-  <textarea id="editor" class="line" 
-    spellcheck="false" rows="1">
-  </textarea>
-  <script src="typing.js" defer></script>
-<!--
-<div id="exp"></div>
-<img src=".png" style="width:800px;">
--->
+
 </body>
 </html>
