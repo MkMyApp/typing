@@ -22,9 +22,9 @@ body{
 textarea {
   font-family: monospace; 
   font-size: 16px; 
-  width: 640px;
-  height: 480px;
-  min-width: 320px;
+  width: 1000px;
+  height: 600px;
+  min-width: 200px;
   min-height: 100px;
   line-height: 1.2;
   padding: 6px 8px;
@@ -121,12 +121,41 @@ async function loadFile(){
   }
 }
 
-// ダイアログを開いて保存する
-async function saveFile() {
-  const text = document.getElementById("text").value;
+// 【Saveボタン用】上書き保存（ハンドルがなければ名前を付けて保存）
+async function saveFile(){
+  try{
+    if (!fileHandle) {
+      return await saveFileAs(); // ハンドルがなければ「別名保存」へ
+    }
 
+    const text = document.getElementById("text").value;
+    
+    // 書き込み権限の確認
+    const options = { mode: 'readwrite' };
+    if (await fileHandle.queryPermission(options) !== 'granted') {
+      if (await fileHandle.requestPermission(options) !== 'granted') {
+        alert("書き込み権限がありません");
+        return;
+      }
+    }
+
+    const writable = await fileHandle.createWritable();
+    await writable.write(text);
+    await writable.close();
+
+    modified = false;
+    updateModified();
+    updateStatus();
+
+  }catch(e){
+    console.error(e);
+    alert("保存に失敗しました: " + e.message);
+  }
+}
+
+// 【Save Asボタン用】名前を付けて保存
+async function saveFileAs(){
   try {
-    // 常にファイル保存ダイアログを開く
     const handle = await window.showSaveFilePicker({
       suggestedName: currentFileName,
       types: [{
@@ -135,12 +164,11 @@ async function saveFile() {
       }]
     });
 
-    // 選択されたファイルハンドルを保存
-    fileHandle = handle;
+    fileHandle = handle; // 新しいハンドルを保持
     currentFileName = handle.name;
     updateFileName();
 
-    // 書き込み処理
+    const text = document.getElementById("text").value;
     const writable = await handle.createWritable();
     await writable.write(text);
     await writable.close();
@@ -148,10 +176,8 @@ async function saveFile() {
     modified = false;
     updateModified();
     updateStatus();
-    
   } catch (e) {
-    // ユーザーがキャンセルした場合
-    console.log("保存がキャンセルされました", e);
+    console.log(e);
   }
 }
 
