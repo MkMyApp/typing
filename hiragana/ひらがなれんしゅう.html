@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>ひらがなれんしゅう</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+	const INPUT_MSG = "かな　たしかめ"
+	const RANDOM = 20
+	const WIDTH = "15em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+あいさつ
+おはよう
+こんにちは
+こんばんは
+ありがとう
+ごめんね
+あさ
+ひる
+よる
+そら
+くも
+たいよう
+つき
+ほし
+いぬ
+ねこ
+うし
+うま
+ぶた
+とり
+ひよこ
+うさぎ
+かえる
+さかな
+はな
+き
+くさ
+やま
+かわ
+うみ
+いけ
+みず
+いし
+あか
+あお
+きいろ
+みどり
+しろ
+くろ
+め
+みみ
+くち
+はな
+て
+あし
+いえ
+へや
+まど
+いす
+つくえ
+ほん
+えんぴつ
+けしごむ
+かみ
+のーと
+かばん
+がっこう
+きょうしつ
+こうてい
+せんせい
+ともだち
+あそび
+おにごっこ
+かくれんぼ
+ぶらんこ
+すべりだい
+すなば
+ごはん
+ぱん
+みそしる
+りんご
+みかん
+いちご
+すいか
+ばなな
+おちゃ
+みず
+ぎゅうにゅう
+うた
+え
+ほん
+てがみ
+はる
+なつ
+あき
+ふゆ
+あめ
+ゆき
+かぜ
+あさごはん
+ひるごはん
+ばんごはん
+はみがき
+てあらい
+さんぽ
+おでかけ
+かいもの
+おかあさん
+おとうさん
+おばあさん
+おじいさん
+きょうだい
+げんき
+にこにこ
+わくわく
+どきどき
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result">スコア: 0 / 0</div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>ひらがな２文字</title>
+</head>
+<body>
+<script>
+	const START_MSG = 'Enter⏎でスタート'
+	const INPUT_MSG = "かな　たしかめ"
+	const RANDOM = 20
+	const WIDTH = "10em"
+</script>
+
+<!-------+---------+---------+--------->
+<textarea id="txtdata" hidden>
+いぬ
+ねこ
+やま
+かわ
+そら
+はな
+くさ
+つき
+ほし
+あめ
+ゆき
+かぜ
+みず
+もり
+たま
+うた
+みち
+ひと
+かみ
+やね
+まど
+うし
+うま
+とり
+さる
+ぞう
+とら
+くま
+しか
+りす
+かに
+いか
+たこ
+かめ
+へび
+あり
+はち
+せみ
+くも
+かめ
+さけ
+ます
+いわ
+つち
+きの
+はし
+かど
+いえ
+そと
+なか
+うで
+あし
+めめ
+くち
+はな
+みみ
+ゆび
+ひげ
+ほね
+はだ
+むね
+はら
+せな
+かた
+こし
+つめ
+かぜ
+ゆめ
+おに
+かさ
+かご
+つり
+ふね
+はし
+かど
+いけ
+たに
+しま
+むし
+とん
+すず
+はと
+から
+なす
+いも
+くり
+なし
+りん
+つの
+ほし
+やど
+いと
+はた
+かね
+こめ
+しお
+みそ
+さけ
+おに
+</textarea>
+<!-------+---------+---------+--------->
+
+	<div id="title"></div>
+	<div id="result">スコア: 0 / 0</div>
+	<div id="target" class="line" 
+		style="text-align:center"></div>
+	<textarea id="editor" class="line" 
+		spellcheck="false" rows="1">
+	</textarea>
+
+	<script src="typing.js" defer></script>
+
+</body>
+</html>
