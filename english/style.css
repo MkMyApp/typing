@@ -57,10 +57,10 @@ body{
   background:#f0f0ff;
   text-align:left;
   outline:none;
-  resize:none;
   overflow:hidden;
   height:calc(1em * var(--line-height) + 20px);
   min-height:calc(1em * var(--line-height) + 20px);
+  resize: none;
 }
 
 #exp {
