@@ -58,11 +58,9 @@ button {
 </head>
 <body>
   <div class="titlebar">
-    <h1>Sub-Folder List Generator</h1>
+    <h1>Folder List</h1>
   </div>
 <div class="toolbar">
-  <button id="btnLoad">親フォルダを選択</button>
-  
   <div class="radio-group">
     <input type="radio" id="Link" name="answer" value="link" checked>
     <label for="Link">リンク形式</label>
@@ -83,6 +81,7 @@ button {
     <input type="radio" id="SortDate" name="sort" value="date" checked>
     <label for="SortDate">更新日時順</label>
   </div>
+  <button id="btnLoad">親フォルダを選択</button>
 </div>
 <textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
 <script>

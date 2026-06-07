@@ -21,7 +21,12 @@ body {
 
 .error { color: red; font-weight: bold; }
 
-input { font-family: monospace; font-size:300%; }
+.text {
+font-family: monospace;
+font-size:24px;
+height :32px;
+width: 320px;
+}
 
 #txtdata { 
 font-family: monospace;
@@ -58,9 +63,9 @@ margin-left: 20px;
 
     <div class="container">
         <p>変換元: <br>
-        <input type="text" id="fromChars" style="width: 300px;"></p>
+        <input class="text" type="text" id="fromChars"></p>
         <p>変換先: <br>
-        <input type="text" id="toChars" style="width: 300px;"></p>
+        <input class="text" type="text" id="toChars"></p>
         <button onclick="convert()">変換</button><span id="msg"></span><br>
     </div>
 
