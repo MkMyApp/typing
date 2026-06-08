@@ -3,65 +3,131 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="custom.css">
+<style>
+input {
+  font-family: sans-serif;
+  font-size: 24px;
+  width: 300px;
+  height: 34px;
+  margin-bottom: 6px;
+  vertical-align: middle;
+}
+
+textarea {
+  display: block;
+  width: 42ch;
+  min-width: 120px;
+  height: 120px;
+  min-height: 120px;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 24px;
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: #ffffff;
+  text-align: left;
+}
+
+#custom {
+  font-size: 24px;
+  text-align: left;
+  margin: 40px auto;
+  width: fit-content;
+}
+
+#set {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#btnbox {
+  display: inline-block;
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+
+
+.btn {
+  font-family: monospace;
+  font-size: 24px;
+  width: 240px;
+  height: 64px;
+  margin-right: 32px;
+}
+
+.ruler{
+  width: max-content; 
+  box-sizing:border-box;
+  font-family:monospace;
+  margin: 20px auto;
+  font-size: 24px;
+  letter-spacing: 0;
+  color: #808080;
+	padding-left:1ch;
+  text-align: left;
+}
+</style>
 <title>問題作成</title>
 </head>
 <body>
-<div id="custom">
-<div id="setTitle">
-	<button id="setButton" onclick="updateSettings()">問題設定</button>
-</div>
-
-	<div id="set">
-		題　名：<input id="TITLE_MSG" value="問題タイトル"><br>
-		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
-		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
-		問題数：<input id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
-		文字幅：<input id="WIDTH" value="25ch"><button id="MAXLEN">最長＋５</button><br>
-	</div>
-<div id="text">
-<span id="ruler1" class="line">
-+----5----10---15---20---25---30---35---40
-</span>
-<textarea id="txtdata">
-ここに問題文を入力
-複数の文字列を
-改行で区切る。
-</textarea>
-<span id="ruler2" class="line">
-+----5----10---15---20---25---30---35---40
-</span>
-<div id="btnBox">
-	<button id="COMP" onclick="composeText()">設定</button>
-	<button id="REP" onclick="repText()">分割</button>
-	<button id="CAT" onclick="catText()">結合</button>
-	<button id="upper" onclick="toUpperText()">A-Z</button>
-	<button id="lower" onclick="toLowerText()">a-z</button>
-</div>
-
-<textarea id="txtComp" style="display: none;">
-</textarea>
-</div>
-<script src="custom.js" defer></script>
-
-</div>
-<div id="type" style="display: none;">
+<div id="type">
   <div id="title" onclick="showSettings()"></div>
   <div id="result"></div>
-  <div id="target" class="line" 
-    style="text-align:center"></div>
-  <textarea id="editor" class="line" 
-    spellcheck="false" rows="1">
-  </textarea>
+  <div id="target" class="line"></div>
+  <textarea id="editor" class="line" spellcheck="false"></textarea>
+  <script src="typing.js" defer></script>
 </div>
-<script src="typing.js" defer></script>
-<div id="exp">
-練習問題を入力
-問題設定のボタンをクリックして
-タイピング練習をする。
-タイトルをクリックすると
-問題設定にもどる。
 
+<div id="custom">
+	<div id="set">
+		題　名：<input id="TITLE_MSG" value="問題作成"><br>
+		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
+		問題数：<input id="RANDOM" value="0"><br>
+		文字幅：<input id="WIDTH" value="25ch"><br>
+	</div>
+	<div id="text">
+		<span class="ruler">+----5----10---15---20---25---30---35---40</span>
+		<textarea id="txtdata"></textarea>
+		<span class="ruler">+----5----10---15---20---25---30---35---40</span>
+	</div>
+
+	<div id="btnbox">
+	  <button class="btn" id="setButton" onclick="updateSettings()">問題実行</button>
+  </div>
+
+<script>
+
+function showSettings() {
+document.getElementById("custom").style.display = "block";
+//document.getElementById("type").style.display = "none";
+
+}
+
+function updateSettings() {
+  TITLE_MSG = document.getElementById("TITLE_MSG").value;
+  START_MSG = document.getElementById("START_MSG").value;
+  INPUT_MSG = document.getElementById("INPUT_MSG").value;
+  RANDOM    = Number(document.getElementById("RANDOM").value);
+  WIDTH     = document.getElementById("WIDTH").value;
+
+  init();
+
+  document.getElementById("custom").style.display = "none";
+  document.getElementById("type").style.display = "block";
+  document.getElementById("editor").focus();
+}
+
+updateSettings()
+
+</script>
+  </div>
 </div>
+
 </body>
 </html>
