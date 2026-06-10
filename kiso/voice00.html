@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<style>
+		#txtdata {
+			font-size:20px;
+			width:320px;
+			height:200px;
+			display:none;
+		}
+	</style>
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title" onclick="setData();"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script src="typing.js" defer></script>
+<script src="voice.js" defer></script>
+<script>
+  const TITLE_MSG = "タッチタイプ";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "英数";
+  const RANDOM = 0;
+  const WIDTH = "10ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata">
+ABCDEFG
+HIJKLMN
+OPQRSTU
+VWXYZ
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<br><img src="voice00.png" style="width:480px;">
+<script>
+function setData() {
+  const txtData = document.getElementById("txtdata");
+  const currentDisplay = window.getComputedStyle(txtData).display;
+
+  if (currentDisplay === "none") {
+    txtData.style.display = "inline-block";
+    txtData.focus();
+  } else {
+    txtData.style.display = "none";
+    init();
+  }
+}
+</script>
+</body>
+</html>
