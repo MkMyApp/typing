@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script src="typing.js" defer></script>
+<script src="voice.js" defer></script>
+<img src="voice09.png" style="width:640px;">
+<div id="exp">
+打鍵すると発声します。
+ミスタッチしてもそのままでよいです。
+タッチタイプで確実に入力できるように
+ゆっくりと練習しましょう。
+Shift + Enter で次に進みます。
+
+</div>
+
+<script>
+  const TITLE_MSG = "音声タッチ 薬指小指";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "英数";
+  const RANDOM = 10;
+  const WIDTH = "12ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+ASQWASZX
+;LPO;L/.
+AQAZAQAZ
+SWSXSWSX
+;P;/;P;/
+LOL.LOL.
+QPWOA;LS
+;LAS/Z.X
+QPZ/WOX.
+WOQPWOQP
+X.Z/X.Z/
+A;SLA;SL
+;ALS;ALS
+ZWZW/O/O
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+</body>
+</html>
