@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード配列</title>
+<style>
+.contena {
+  display: inline-block;
+  border:solid 1px #ddd;
+  padding:10px;
+	transform-origin: top left;
+  transform: scale(2);
+}
+.KB {
+  padding:10px;
+  border:none;
+  display: inline-block;
+	transform-origin: top left;
+  transform: scale(1);
+}
+
+button {
+	width:32px;
+	height:32px;
+	font-size:20px;
+	margin-bottom:8px;
+	margin-right:2px;
+}
+
+#editor {
+	width:181px;
+	height:24px;
+	font-size:18px;
+	margin-right:3px;
+
+}
+
+#BS {
+	width:32px;
+	font-size:12px;
+}
+
+#speak {
+	width:32px;
+	font-size:12px;
+}
+</style>
+</head>
+<body>
+<div class="contena">
+<input id="editor" type="text"></input>
+<button id="BS">⌫</button>
+<button id="speak">🔊</button>
+<br>
+<div id="KB">
+<button>a</button>
+<button>b</button>
+<button>c</button>
+<button>d</button>
+<button>e</button>
+<button>f</button>
+<button>g</button>
+<br>
+<button>h</button>
+<button>i</button>
+<button>j</button>
+<button>k</button>
+<button>l</button>
+<button>m</button>
+<button>n</button>
+<br>
+<button>o</button>
+<button>p</button>
+<button>q</button>
+<button>r</button>
+<button>s</button>
+<button>t</button>
+<button>u</button>
+<br>
+<button>v</button>
+<button>w</button>
+<button>x</button>
+<button>y</button>
+<button>z</button>
+<br>
+</div>
+</div>
+<script src="voice.js" defer></script>
+</body>
+</html>
