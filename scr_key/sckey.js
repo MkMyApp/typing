@@ -53,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 text = button.textContent.trim();
                 editInput.value = editInput.value + text;
             }
+            
+            if (typeof colorize === 'function' && typeof currentWord !== 'undefined') {
+            	colorize(currentWord, editInput.value);
+        		}
             speakText(text);
         });
     });
