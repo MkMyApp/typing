@@ -77,6 +77,13 @@ const keyboardHtml = `
 <button>ぬ</button>
 <button>ね</button>
 <button>の</button>
+<br>
+<button>　</button>
+<button>　</button>
+<button>っ</button>
+<button>　</button>
+<button>を</button>
+
 </div>
 <div class="KB">
 <button>は</button>
@@ -104,10 +111,16 @@ const keyboardHtml = `
 <button>ろ</button>
 <br>
 <button>わ</button>
-<button>　</button>
-<button>　</button>
+<button>゛</button>
+<button>゜</button>
 <button>　</button>
 <button>ん</button>
+<br>
+<button>ゃ</button>
+<button>　</button>
+<button>ゅ</button>
+<button>　</button>
+<button>ょ</button>
 </div>
 </div>
 `;

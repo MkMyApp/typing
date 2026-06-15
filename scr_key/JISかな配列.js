@@ -113,8 +113,8 @@ const keyboardHtml = `
 <button class="N">に</button>
 <button class="R">ら</button>
 <button class="S">せ</button>
-<button>　</button>
-<button>　</button>
+<button>゛</button>
+<button>゜</button>
 <button id="Enter">　</button>
 <br>
 <button id="Caps">　</button>
