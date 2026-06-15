@@ -57,3 +57,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// --- ボタンの色設定に関する処理 ---
+
+const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn => !btn.id);
+
+function updateButtonColors(str) {
+  targetButtons.forEach(btn => {
+    const char = btn.textContent.trim();
+    // 文字列が含まれるか、strがnull/undefined（全文字対象）なら黒
+    if (str === null || str === undefined || str.includes(char)) {
+      btn.style.color = "black";
+    } else {
+      btn.style.color = "transparent";
+    }
+  });
+}
+
+// URLパラメータを取得（優先）
+const urlParams = new URLSearchParams(window.location.search);
+const paramValue = urlParams.get('chars');
+
+if (paramValue !== null) {
+  // URLパラメータがある場合はそれを適用
+  updateButtonColors(paramValue);
+} else {
+  // URLパラメータがない場合、str.js を動的に読み込む
+  const script = document.createElement('script');
+  script.src = 'str.js';
+  script.onload = () => {
+    // 読み込み成功時、str.jsで定義された strBlack を使用
+    // ※ typeof で存在確認を行い、なければ null を渡す
+    updateButtonColors(typeof strBlack !== 'undefined' ? strBlack : null);
+  };
+  script.onerror = () => {
+    // str.js が見つからない場合は全ボタンを黒にする
+    updateButtonColors(null);
+  };
+  document.head.appendChild(script);
+}
