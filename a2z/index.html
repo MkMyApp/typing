@@ -34,58 +34,8 @@
   	<button class="btn" onclick="repText()">分割</button>
 	  <button class="btn" onclick="catText()">結合</button>
 	</div>
-
-	<script>
-			function repText() {
-		    const textArea = document.getElementById('txtdata');
-		    const text = textArea.value;
-
-		    const separator = " ";
-
-		    const regex = new RegExp(separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1'), 'g');
-		    
-		    const replacedText = text.replace(regex, '\n');
-
-		    textArea.value = replacedText;
-		}
-
-		function catText() {
-		    const textArea = document.getElementById('txtdata');
-		    const text = textArea.value;
-
-				const separator = " ";
-
-		    const lines = text.split(/\r?\n/);
-		    const replacedText = lines.map(line => line.trim()).join(separator);
-
-		    textArea.value = replacedText;
-		}
-		
-		function updateSettings() {
-			TITLE_MSG = document.getElementById("TITLE_MSG").value;
-			START_MSG = document.getElementById("START_MSG").value;
-			INPUT_MSG = document.getElementById("INPUT_MSG").value;
-			RANDOM    = Number(document.getElementById("RANDOM").value);
-			WIDTH     = document.getElementById("WIDTH").value;
-			init();
-			document.getElementById("editor").focus();
-		}
-
-		const subject = document.getElementById('editor');
-
-		subject.addEventListener('keydown', (event) => {
-		      const key = event.key;
-		      if (/^[ -~]$/.test(key)) {
-					    window.speechSynthesis.cancel();
-					    const utterance = new SpeechSynthesisUtterance(key);
-					    utterance.lang = 'en-US';
-					    utterance.rate = 1;
-					    window.speechSynthesis.speak(utterance);
-		      }
-		});
-
-		updateSettings();
-	</script>
+  <script src="voice.js" defer></script>
+  <script src="custom.js" defer></script>
 </div>
 </body>
 </html>
