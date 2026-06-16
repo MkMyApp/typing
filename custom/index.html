@@ -3,85 +3,16 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-<style>
-input {
-  font-family: sans-serif;
-  font-size: 24px;
-  width: 300px;
-  height: 34px;
-  margin-bottom: 6px;
-  vertical-align: middle;
-}
+<link rel="stylesheet" href="custom.css">
 
-textarea {
-  display: block;
-  width: 42ch;
-  min-width: 120px;
-  height: 120px;
-  min-height: 120px;
-  margin-top: 0px;
-  margin-left: 10px;
-  margin-bottom: 0px;
-  
-  box-sizing: border-box;
-  font-family: monospace;
-  font-size: 24px;
-  padding: 6px var(--line-padding-x);
-  border: var(--line-border);
-  background: #ffffff;
-  text-align: left;
-}
-
-#custom {
-  font-size: 24px;
-  text-align: left;
-  margin: 40px auto;
-  width: fit-content;
-}
-
-#set {
-  display: inline-block;
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-#btnbox {
-  display: inline-block;
-  margin-top:20px;
-  margin-bottom: 20px;
-}
-
-
-.btn {
-  font-family: monospace;
-  font-size: 24px;
-  width: 240px;
-  height: 64px;
-  margin-right: 32px;
-}
-
-.ruler{
-  width: max-content; 
-  box-sizing:border-box;
-  font-family:monospace;
-  margin: 20px auto;
-  font-size: 24px;
-  letter-spacing: 0;
-  color: #808080;
-	padding-left:1ch;
-  text-align: left;
-}
-</style>
 <title>問題作成</title>
 </head>
 <body>
-<div id="type">
-  <div id="title" onclick="showSettings()"></div>
+  <div id="title"></div>
   <div id="result"></div>
   <div id="target" class="line"></div>
   <textarea id="editor" class="line" spellcheck="false"></textarea>
   <script src="typing.js" defer></script>
-</div>
 
 <div id="custom">
 	<div id="set">
@@ -91,42 +22,58 @@ textarea {
 		問題数：<input id="RANDOM" value="0"><br>
 		文字幅：<input id="WIDTH" value="25ch"><br>
 	</div>
+
 	<div id="text">
-		<span class="ruler">+----5----10---15---20---25---30---35---40</span>
+		<span class="ruler">+----5----10---15---20---25---30</span>
 		<textarea id="txtdata"></textarea>
-		<span class="ruler">+----5----10---15---20---25---30---35---40</span>
+		<span class="ruler">+----5----10---15---20---25---30</span>
 	</div>
 
 	<div id="btnbox">
-	  <button class="btn" id="setButton" onclick="updateSettings()">問題実行</button>
-  </div>
+		<button class="btn" onclick="updateSettings()">設定</button>
+  	<button class="btn" onclick="repText()">分割</button>
+	  <button class="btn" onclick="catText()">結合</button>
+	</div>
 
-<script>
+	<script>
+			function repText() {
+		    const textArea = document.getElementById('txtdata');
+		    const text = textArea.value;
 
-function showSettings() {
-document.getElementById("custom").style.display = "block";
-//document.getElementById("type").style.display = "none";
+		    const separator = " ";
 
-}
+		    const regex = new RegExp(separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1'), 'g');
+		    
+		    const replacedText = text.replace(regex, '\n');
 
-function updateSettings() {
-  TITLE_MSG = document.getElementById("TITLE_MSG").value;
-  START_MSG = document.getElementById("START_MSG").value;
-  INPUT_MSG = document.getElementById("INPUT_MSG").value;
-  RANDOM    = Number(document.getElementById("RANDOM").value);
-  WIDTH     = document.getElementById("WIDTH").value;
+		    textArea.value = replacedText;
+		}
 
-  init();
+		function catText() {
+		    const textArea = document.getElementById('txtdata');
+		    const text = textArea.value;
 
-  document.getElementById("custom").style.display = "none";
-  document.getElementById("type").style.display = "block";
-  document.getElementById("editor").focus();
-}
+				const separator = " ";
 
-updateSettings()
+		    const lines = text.split(/\r?\n/);
+		    const replacedText = lines.map(line => line.trim()).join(separator);
 
-</script>
-  </div>
+		    textArea.value = replacedText;
+		}
+		
+		function updateSettings() {
+			TITLE_MSG = document.getElementById("TITLE_MSG").value;
+			START_MSG = document.getElementById("START_MSG").value;
+			INPUT_MSG = document.getElementById("INPUT_MSG").value;
+			RANDOM    = Number(document.getElementById("RANDOM").value);
+			WIDTH     = document.getElementById("WIDTH").value;
+			init();
+			document.getElementById("editor").focus();
+		}
+
+	updateSettings()
+
+	</script>
 </div>
 
 </body>
