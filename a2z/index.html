@@ -4,71 +4,88 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="custom.css">
-<title>問題作成</title>
+
+<title>問題作成音声付き</title>
 </head>
 <body>
-<div id="custom">
-<div id="setTitle">
-	<button id="setButton" onclick="updateSettings()">問題設定</button>
-  <label class="voice-label">
-    <input id="check" type="checkbox" name="voice" checked> 音声ガイド
-  </label>
-</div>
-
-	<div id="set">
-		題　名：<input type="text" id="TITLE_MSG" value="ABCタッチタイプ"><br>
-		開　始：<input type="text" id="START_MSG" value="Enter⏎"><br>
-		文字種：<input type="text" id="INPUT_MSG" value="英数　確認"><br>
-		問題数：<input type="text" id="RANDOM" value="0"><button id="MAXLINE">問題行数</button><br>
-		文字幅：<input type="text" id="WIDTH" value="12ch"><button id="MAXLEN">最長＋５</button><br>
-	</div>
-<div id="text">
-<span id="ruler1" class="line">
-+----5----10---15---20---25---30---35---40
-</span>
-<textarea id="txtdata">
-ここに問題文を入力
-複数の文字列を
-改行で区切る。
-</textarea>
-<span id="ruler2" class="line">
-+----5----10---15---20---25---30---35---40
-</span>
-<div id="btnBox">
-	<button id="COMP" onclick="composeText()">設定</button>
-	<button id="REP" onclick="repText()">分割</button>
-	<button id="CAT" onclick="catText()">結合</button>
-	<button id="upper" onclick="toUpperText()">A-Z</button>
-	<button id="lower" onclick="toLowerText()">a-z</button>
-</div>
-
-<textarea id="txtComp" style="display: none;">
-</textarea>
-</div>
-<script src="custom.js" defer></script>
-
-</div>
-<div id="type" style="display: none;">
-  <div id="title" onclick="showSettings()"></div>
+  <div id="title"></div>
   <div id="result"></div>
-  <div id="target" class="line" 
-    style="text-align:center"></div>
-  <textarea id="editor" class="line" 
-    spellcheck="false" rows="1">
-  </textarea>
-</div>
-<script src="typing.js" defer></script>
-<script src="voice.js" defer></script>
+  <div id="target" class="line"></div>
+  <textarea id="editor" class="line" spellcheck="false"></textarea>
+  <script src="typing.js" defer></script>
 
-<div id="exp">
-英文専用
-タイプするとABCを発声します。
-1文字ずつ確実に入力していきましょう。
-問題設定のボタンをクリックして
-タイピング練習をする。
-タイトルをクリックすると
-問題設定にもどる。
+<div id="custom">
+	<div id="set">
+		題　名：<input id="TITLE_MSG" value="問題作成音声付き"><br>
+		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+		文字種：<input id="INPUT_MSG" value="英数"><br>
+		問題数：<input id="RANDOM" value="0"><br>
+		文字幅：<input id="WIDTH" value="25ch"><br>
+	</div>
 
+	<div id="text">
+		<span class="ruler">+----5----10---15---20---25---30</span>
+		<textarea id="txtdata"></textarea>
+		<span class="ruler">+----5----10---15---20---25---30</span>
+	</div>
+
+	<div id="btnbox">
+		<button class="btn" onclick="updateSettings()">設定</button>
+  	<button class="btn" onclick="repText()">分割</button>
+	  <button class="btn" onclick="catText()">結合</button>
+	</div>
+
+	<script>
+			function repText() {
+		    const textArea = document.getElementById('txtdata');
+		    const text = textArea.value;
+
+		    const separator = " ";
+
+		    const regex = new RegExp(separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1'), 'g');
+		    
+		    const replacedText = text.replace(regex, '\n');
+
+		    textArea.value = replacedText;
+		}
+
+		function catText() {
+		    const textArea = document.getElementById('txtdata');
+		    const text = textArea.value;
+
+				const separator = " ";
+
+		    const lines = text.split(/\r?\n/);
+		    const replacedText = lines.map(line => line.trim()).join(separator);
+
+		    textArea.value = replacedText;
+		}
+		
+		function updateSettings() {
+			TITLE_MSG = document.getElementById("TITLE_MSG").value;
+			START_MSG = document.getElementById("START_MSG").value;
+			INPUT_MSG = document.getElementById("INPUT_MSG").value;
+			RANDOM    = Number(document.getElementById("RANDOM").value);
+			WIDTH     = document.getElementById("WIDTH").value;
+			init();
+			document.getElementById("editor").focus();
+		}
+
+		const subject = document.getElementById('editor');
+
+		subject.addEventListener('keydown', (event) => {
+		      const key = event.key;
+		      if (/^[ -~]$/.test(key)) {
+					    window.speechSynthesis.cancel();
+					    const utterance = new SpeechSynthesisUtterance(key);
+					    utterance.lang = 'en-US';
+					    utterance.rate = 1;
+					    window.speechSynthesis.speak(utterance);
+		      }
+		});
+
+		updateSettings();
+	</script>
 </div>
 </body>
 </html>
