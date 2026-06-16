@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <style>
-	#frm_sample {
+#frm_sample {
   width: 100%;
-  height: 520px;
+  height: 500px;
   border: none;
   white-space: normal;
   margin: 0 auto;
@@ -13,8 +13,8 @@
 }
 
 #frm_menu {
-  width: 800px;
-  height:200px;
+  //width: 640px;
+  //height:320px;
   padding: 20px;
   display: block;
   text-align: center;
@@ -25,18 +25,6 @@
   line-height: 1em;
 }
 
-#frm_exp {
-  width: 800px;
-  height:220px;
-  padding: 20px;
-  display: block;
-  text-align: center;
-  display: block;
-  margin: 0px auto;
-  border: 2px solid #ccc;
-  font-size: 24px;
-  line-height: 1.5em;
-}
 </style>
 <title>タイピング練習</title>
 </head>
@@ -45,4 +33,22 @@
 <iframe id="frm_sample" src="sample/index.html"></iframe>
 <iframe id="frm_menu" src="menu.html"></iframe>
 </body>
+<script>
+window.addEventListener('load', function() {
+  const iframeSample = document.getElementById('frm_sample');
+  const iframeMenu = document.getElementById('frm_menu');
+
+  // iframe内のコンテンツ読み込み完了時に実行
+  iframeSample.onload = function() {
+    try {
+      // iframe内のbodyの高さを取得して適用
+      const innerHeight = iframeSample.contentWindow.document.body.scrollHeight;
+      iframeSample.style.height = innerHeight + 'px';
+    } catch (e) {
+      console.warn("セキュリティ制限により、クロスドメインのiframeは操作できません。");
+    }
+  };
+});
+</script>
+
 </html>
