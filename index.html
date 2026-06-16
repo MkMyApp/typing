@@ -33,22 +33,5 @@
 <iframe id="frm_sample" src="sample/index.html"></iframe>
 <iframe id="frm_menu" src="menu.html"></iframe>
 </body>
-<script>
-window.addEventListener('load', function() {
-  const iframeSample = document.getElementById('frm_sample');
-  const iframeMenu = document.getElementById('frm_menu');
-
-  // iframe内のコンテンツ読み込み完了時に実行
-  iframeSample.onload = function() {
-    try {
-      // iframe内のbodyの高さを取得して適用
-      const innerHeight = iframeSample.contentWindow.document.body.scrollHeight;
-      iframeSample.style.height = innerHeight + 'px';
-    } catch (e) {
-      console.warn("セキュリティ制限により、クロスドメインのiframeは操作できません。");
-    }
-  };
-});
-</script>
 
 </html>
