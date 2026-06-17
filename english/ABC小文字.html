@@ -6,32 +6,26 @@
 	<title>abc</title>
 </head>
 <body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script src="typing.js" defer></script>
+
 <script>
-	const START_MSG = 'Enter⏎'
-	const INPUT_MSG = "英数　確認"
-	const RANDOM = 0
-
-	const WIDTH = "8em"
+  const TITLE_MSG = "abc";
+	const START_MSG = 'Enter⏎';
+	const INPUT_MSG = "英数";
+	const RANDOM = 0;
+	const WIDTH = "16ch";
 </script>
-
-<!-------+---------+---------+--------->
+<!-------10--------20--------30--------40--------->
 <textarea id="txtdata" hidden>
 abcdefg
 hijklmn
 opqrstu
 vwxyz
 </textarea>
-<!-------+---------+---------+--------->
-
-	<div id="title"></div>
-	<div id="result"></div>
-	<div id="target" class="line" 
-		style="text-align:center"></div>
-	<textarea id="editor" class="line" 
-		spellcheck="false" rows="1">
-	</textarea>
-
-	<script src="typing.js" defer></script>
-
+<!-------10--------20--------30--------40--------->
 </body>
 </html>
