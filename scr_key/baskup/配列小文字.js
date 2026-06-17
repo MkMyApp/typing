@@ -8,49 +8,60 @@ style.textContent = `
     padding: 10px;
     width: fit-content;
     transform-origin: top center;
-    transform: scale(2.5);
+    transform: scale(2);
   }
+.KB {
+  padding:10px;
+  border:none;
+  display: inline-block;
+	transform-origin: top left;
+  transform: scale(1);
+}
 
-  .KB {
-    padding: 10px;
-    border: none;
-    display: inline-block;
-    transform-origin: top left;
-    transform: scale(1);
-  }
+button {
+	width:32px;
+	height:32px;
+	font-size:20px;
+	margin-bottom:4px;
+	margin-right:2px;
+}
 
-  button {
-    font-family: monospace;
-    text-align: center;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    font-size: 20px;
-    margin: 0 2px 8px 0;
-  }
+#edit {
+	width:262px;
+	height:24px;
+	font-size:18px;
+	margin-right:2px;
 
-  #BS { width: 32px; font-size: 12px; }
-  #speak { width: 32px; font-size: 12px; }
-  #EntBtn { width: 64px; font-size: 12px; margin-left:16px; }
+}
 
-	#Tab {width:48px;}
-	#LCtrl {width:48px;}
-	#Caps {width:64px;}
-	#Enter {width:56px;}
-	#Ent {width:40px;}
-	#LShift {width:80px;}
-	#RShift {width:64px;}
-	#Han {width: 128px;}
-	#Win {width: 42px;}
-	#LAlt {width: 42px;}
-	#RAlt {width: 42px;}
-	#RCtrl {width: 48px;}
+#BS {
+	width:48px;
+	font-size:12px;
+}
 
-  .hidden-style {
-      color: transparent !important;
-			cursor: default;
-			pointer-events: none;
-    }
+#speak {
+	width:48px;
+	font-size:12px;
+}
+
+#Tab {width:48px;}
+#LCtrl {width:48px;}
+#Caps {width:64px;}
+#Enter {width:56px;}
+#Ent {width:40px;}
+#LShift {width:80px;}
+#RShift {width:64px;}
+#Han {width: 128px;}
+#Win {width: 42px;}
+#LAlt {width: 42px;}
+#RAlt {width: 42px;}
+#RCtrl {width: 48px;}
+
+#EntBtn {
+  width: 64px;
+  font-size: 12px;
+  margin-left:16px;
+}
 `;
 document.head.appendChild(style);
 
@@ -61,7 +72,7 @@ const keyboardHtml = `
 <button id="speak">🔊</button>
 <button id="EntBtn">Enter⏎</button>
 <br>
-<div class="KB">
+<div id="KB">
 <button>&nbsp;</button>
 <button>1</button>
 <button>2</button>
@@ -139,20 +150,3 @@ const keyboardHtml = `
 
 // 3. ページの body の最後にHTMLを追加
 document.body.insertAdjacentHTML('beforeend', keyboardHtml);
-
-// 4. CHARS に基づいてスタイルを適用
-window.addEventListener('DOMContentLoaded', () => {
-    const targetChars = typeof CHARS !== 'undefined' ? CHARS : "";
-    
-    // CHARS が定義されている場合のみ処理を実行
-    if (typeof CHARS !== 'undefined') {
-        const buttons = document.querySelectorAll('.KB button');
-        buttons.forEach(btn => {
-            const char = btn.textContent.trim();
-            // 空白文字や空のボタンは対象外とする
-            if (char !== "" && !targetChars.includes(char)) {
-                btn.classList.add('hidden-style');
-            }
-        });
-    }
-});
