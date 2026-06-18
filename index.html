@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <style>
-#frm_sample {
+#frm_type {
   width: 100%;
-  height: 500px;
+  height: 450px;
   border: none;
   white-space: normal;
   margin: 0 auto;
@@ -20,7 +20,7 @@
   text-align: center;
   display: block;
   margin: 0px auto;
-  border: 2px solid #ccc;
+  border: none;
   font-size: 24px;
   line-height: 1em;
 }
@@ -30,7 +30,24 @@
 </head>
 <body>
 <img src="type.png" onclick="location.reload();" style="display: block; margin: 0 auto; width: 640px; cursor: pointer;">
-<iframe id="frm_sample" src="sample/index.html"></iframe>
+
+<iframe id="frm_type"></iframe>
+
+<script>
+const menuList = [
+'ABC小文字',
+'ABC大文字',
+'あいう',
+'いろは',
+'ひらがな',
+'初級英単語60',
+]
+
+const iframeElement = document.getElementById('frm_type');
+newIndex = Math.floor(Math.random() * menuList.length);
+iframeElement.src = "sample/" + menuList[newIndex] + ".html";
+
+</script>
 <iframe id="frm_menu" src="menu.html"></iframe>
 </body>
 
