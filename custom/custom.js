@@ -33,4 +33,39 @@
 			document.getElementById("editor").focus();
 		}
 
-		updateSettings();
+		window.addEventListener('DOMContentLoaded', () => {
+		    updateSettings();
+		});
+		
+		function composeText() {
+			// 1. 各項目の値を取得
+			const titleMsg = document.getElementById('TITLE_MSG').value;
+			const startMsg = document.getElementById('START_MSG').value;
+			const inputMsg = document.getElementById('INPUT_MSG').value;
+			const randomVal = document.getElementById('RANDOM').value;
+			const widthVal = document.getElementById('WIDTH').value;
+
+			// 2. テキストエリアの要素を取得
+			const textArea = document.getElementById('txtdata');
+			const textComp = document.getElementById('txtComp');
+
+			// 3. 追加したい「const部分」を組み立てる
+			const configText = `<script>
+const TITLE_MSG = "${titleMsg}";
+const START_MSG = "${startMsg}";
+const INPUT_MSG = "${inputMsg}";
+const RANDOM = "${randomVal}";
+const WIDTH = "${widthVal}";
+<\/script>\n`;
+
+			const scaleText = `<!-------10--------20--------30--------40-->\n`
+			const headText = `<textarea id="txtdata" hidden>\n`;
+
+			const footText = `</textarea>\n`;
+
+			const textVal = textArea.value;
+
+			// テキストエリアに合成結果を出力
+			textComp.value = configText + scaleText + headText + textVal + footText + scaleText;
+
+		}
