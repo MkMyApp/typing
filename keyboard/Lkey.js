@@ -9,7 +9,7 @@ style.textContent = `
     padding: 10px;
     width: fit-content;
     transform-origin: top center;
-    transform: scale(1.5);
+		transform: scale(${typeof sVal !== 'undefined' ? sVal : 1});
   }
 
   .KB button {
