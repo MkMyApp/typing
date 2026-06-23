@@ -190,3 +190,11 @@ window.setTransparent = function() {
         btn.style.color = "transparent";
     });
 };
+
+// ボタンの文字色を透過にする関数
+window.applyTransparent = function() {
+	const buttons = document.querySelectorAll('.KB button:not([id])');
+  buttons.forEach(btn => {
+      btn.style.color = "transparent";
+  });
+};
