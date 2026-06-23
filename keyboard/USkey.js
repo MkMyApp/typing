@@ -31,7 +31,7 @@ style.textContent = `
   }
 
   #IME { font-size: 8px;}
-  #BS { font-size: 10px;}
+  #BS { font-size: 8px; width: 48px;}
 	#Tab {
 		font-size: 8px;
 		width:48px;
@@ -40,13 +40,13 @@ style.textContent = `
 	}
 	#LCtrl {
     font-size: 8px;
-		width:48px;
+		width:52px;
 	  justify-content: flex-start;
 	  padding-left: 10px;
 	}
 	#RCtrl {
 		font-size: 8px;
-		width: 48px;
+		width: 54px;
 	  justify-content: flex-end;
 	  padding-right: 10px;
 	}
@@ -57,12 +57,11 @@ style.textContent = `
 	  padding-left: 10px;
 	}
 	#Enter {
-		font-size: 8px;
-		width: 56px;
+		font-size: 16px;
+		width: 58px;
 	  justify-content: flex-end;
 	  padding-right: 10px;
 	}
-	#Ent { font-size: 12px; width:40px;}
 	#LShift { 
 	    font-size: 8px; 
 	    width: 80px; 
@@ -71,95 +70,84 @@ style.textContent = `
 	  }
 	#RShift { 
     font-size: 8px; 
-    width: 64px; 
+    width: 81px; 
     justify-content: flex-end;
     padding-right: 10px;
   }
-	#Spc { font-size: 8px; width: 128px;}
-  #ON { font-size: 8px;}
-  #OFF { font-size: 6px;}
-  #kana { font-size: 8px;}
-	#LWin { font-size: 8px; width: 42px;}
-	#RWin { font-size: 8px;}
-	#LAlt { font-size: 8px; width: 42px;}
-	#RAlt { font-size: 8px; width: 42px;}
-	#Menu { font-size: 8px;}
+	#Spc { font-size: 8px; width: 232px;}
+	#LWin { font-size: 12px; width: 45px;}
+	#RWin { font-size: 12px; width: 45px;}
+	#LAlt { font-size: 8px; width: 45px;}
+	#RAlt { font-size: 8px; width: 45px;}
 `;
 document.head.appendChild(style);
 
 // 2. キーボードのHTML構造を定義
 const keyboardHtml = `
 <div class="KB">
-<button id="IME">半/全</button>
+<button>~\`</button>
 <button>!1</button>
-<button>\"2</button>
+<button>@2</button>
 <button>#3</button>
 <button>$4</button>
 <button>%5</button>
-<button>&6</button>
-<button>\'7</button>
-<button>(8</button>
-<button>)9</button>
-<button>0</button>
-<button>=-</button>
-<button>~^</button>
-<button>|\\</button>
-<button id="BS">BS</button>
+<button>^6</button>
+<button>&7</button>
+<button>*8</button>
+<button>(9</button>
+<button>)0</button>
+<button>_-</button>
+<button>+=</button>
+<button id="BS">BackSpace</button>
 <br>
 <button id="Tab">Tab</button>
-<button>q</button>
-<button>w</button>
-<button>e</button>
-<button>r</button>
-<button>t</button>
-<button>y</button>
-<button>u</button>
-<button>i</button>
-<button>o</button>
-<button>p</button>
-<button>\`@</button>
-<button>{[</button>
-<button id="Enter">Enter</button>
+<button>Q</button>
+<button>W</button>
+<button>E</button>
+<button>R</button>
+<button>T</button>
+<button>Y</button>
+<button>U</button>
+<button>I</button>
+<button>O</button>
+<button>P</button>
+<button>[</button>
+<button>]</button>
+<button>|＼</button>
 <br>
 <button id="Caps">CapsLock</button>
-<button>a</button>
-<button>s</button>
-<button>d</button>
-<button>f</button>
-<button>g</button>
-<button>h</button>
-<button>j</button>
-<button>k</button>
-<button>l</button>
-<button>+;</button>
-<button>*:</button>
-<button>}]</button>
-<button id="Ent">⏎</button>
+<button>A</button>
+<button>S</button>
+<button>D</button>
+<button>F</button>
+<button>G</button>
+<button>H</button>
+<button>J</button>
+<button>K</button>
+<button>L</button>
+<button>;</button>
+<button>'</button>
+<button id="Enter">⏎</button>
 <br>
 <button id="LShift">Shift</button>
-<button>z</button>
-<button>x</button>
-<button>c</button>
-<button>v</button>
-<button>b</button>
-<button>n</button>
-<button>m</button>
-<button><,</button>
-<button>\>.</button>
-<button>?/</button>
-<button>_\\</button>
+<button>Z</button>
+<button>X</button>
+<button>C</button>
+<button>V</button>
+<button>B</button>
+<button>N</button>
+<button>M</button>
+<button>,</button>
+<button>.</button>
+<button>／</button>
 <button id="RShift">Shift</button>
 <br>
 <button id="LCtrl">Ctrl</button>
-<button id="LWin">Win</button>
+<button id="LWin">⌘</button>
 <button id="LAlt">Alt</button>
-<button id="OFF">無変換</button>
 <button id="Spc">&nbsp;</button>
-<button id="ON">変換</button>
-<button id="kana">かな</button>
 <button id="RAlt">Alt</button>
-<button id="RWin">Win</button>
-<button id="Menu">Menu</button>
+<button id="RWin">⌘</button>
 <button id="RCtrl">Ctrl</button>
 </div>
 `;
@@ -234,4 +222,3 @@ window.adjustButtonLayout = function() {
         }
     });
 };
-
