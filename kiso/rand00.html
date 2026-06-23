@@ -11,46 +11,54 @@
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
 <script src="typing.js" defer></script>
-
+<script src="random.js" defer></script>
 <script>
-const TITLE_MSG = "Title";
-const START_MSG = "Enter";
-const INPUT_MSG = "IME";
-const RANDOM = 10;
-const WIDTH = "25ch";
-</script>
+const length = 8;
+const lines = 50;
+const strdata = `
+!"#$%&'()*+,-./
+0123456789
+:;<=>?@
+ABCDEFG
+HIJKLMN
+OPQRSTU
+VWXYZ
+[\]^_
+abcdefg
+hijklmn
+opqrstu
+vwxyz
+{|}~\`
+`;
 
+const TITLE_MSG = "AllKeyランダム";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const RANDOM = 10;
+const WIDTH = "15ch";
+</script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
 
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
 
+<script src="Lkey.js"></script>
 <script>
-window.addEventListener('DOMContentLoaded', () => {
-	const txtData = document.getElementById('txtdata');
-	txtData.value = generateText();
-	init();
-});
-
-function generateText() {
-	const length = 8;
-	const lines = 50;
-	const strdata = `
-	QWERTYUIOPASDFGHJKLZXCVBNM
-	`;
-  const chars = strdata.replace(/[\n\r\s]/g, "");
-  let result = "";
-  for (let i = 0; i < lines; i++) {
-    let line = "";
-    for (let j = 0; j < length; j++) {
-      line += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    result += line + (i < lines - 1 ? "\n" : "");
-  }
-  return result;
-}
+setTransparent();//機能キーの文字を透過
+applyTransparent();//文字色を透過
+applyColor("1QAZ","#F29", "#FFF");
+applyColor("2WSX","#F60", "#FFF");
+applyColor("3EDC","#3A5", "#FFF");
+applyColor("4RFV","#F00", "#FFF");
+applyColor("5TGB","#F00", "#FFF");
+applyColor("6YHN","#00F", "#FFF");
+applyColor("7UJM","#00F", "#FFF");
+applyColor("8IK,","#3A5", "#FFF");
+applyColor("9OL.","#F60", "#FFF");
+applyColor("0P;／","#F29", "#FFF");
+applyColor("-@:＼","#F29", "#FFF");
+applyColor("^[]\\","#F29", "#FFF");
 </script>
-
 </body>
 </html>
