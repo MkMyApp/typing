@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>キーボード運指学習メニュー</title>
+    <style>
+        .container { margin: 20px auto; font-family: sans-serif; }
+        select { width: 32ch; padding: 10px; font-size: 24px; margin: 0px 0px 10px 50px; }
+        iframe { width: 1400px; height: 640px; border: 1px solid #cccc;margin: 0px 0px 10px 50px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <select id="pageSelect" onchange="changePage()">
+        <option value="">キーボードを選択</option>
+        <option value="key.html">QWERTY配列</option>
+        <option value="A-Z.html">A-Z</option>
+        <option value="home.html">ホームポジション</option>
+        <option value="Lkey.html">英大文字運指色分け</option>
+        <option value="L2key.html">英大文字運指最適化</option>
+        <option value="Skey.html">英小文字運指色分け</option>
+        <option value="kana.html">JISかな配列運指色分け</option>
+        <option value="kanahome.html">かなホームポジション</option>
+        <option value="USkey.html">USキーボード配列と運指</option>
+    </select>
+		<br>
+    <iframe id="displayFrame" src="key.html" title="コンテンツ表示エリア"></iframe>
+</div>
+
+<script>
+    function changePage() {
+        const select = document.getElementById("pageSelect");
+        const iframe = document.getElementById("displayFrame");
+        const selectedValue = select.value;
+
+        if (selectedValue) {
+            iframe.src = selectedValue;
+        }
+    }
+</script>
+
+</body>
+</html>
