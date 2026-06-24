@@ -3,8 +3,6 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-
-
 <title>問題作成</title>
 </head>
 <body>
@@ -22,8 +20,8 @@
     題　名：<input id="TITLE_MSG" value="問題作成"><br>
     開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
     文字種：<input id="INPUT_MSG" value="英数 かな"><br>
-    問題数：<input id="RANDOM" value="0"><br>
-    文字幅：<input id="WIDTH" value="25ch"><br>
+    問題数：<input id="RANDOM" value="0"><button id="MAXLINE" onclick="countLines()">問題行数</button><br>
+    文字幅：<input id="WIDTH" value="25ch"><button id="MAXLEN" onclick="setMaxLength()">最長＋５</button><br>
   </div>
 
   <div id="text">
@@ -41,8 +39,7 @@
 	  <button class="btn" onclick="toLowerText()">a-z</button>
 	  <button class="btn" onclick="zenSpc()">全角</button>
 	  <button class="btn" onclick="hanSpc()">半角</button>
-
-    <hr>
+    <br>
     <button class="btn" onclick="updateSettings()">テスト</button>
     <button class="btn" onclick="composeText()">出力</button>
     <button class="btn" onclick="saveFile()">保存</button>

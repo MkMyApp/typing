@@ -2,7 +2,9 @@
   font-size: 24px;
   text-align: left;
   margin: 40px auto;
+  padding: 25px;
   width: fit-content;
+  border: 1px solid #cccc;
 }
 
 #custom input {
@@ -42,6 +44,16 @@
   display: inline-block;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#MAXLEN,#MAXLINE {
+font-family: monospace;
+  font-size: 16px;
+  width: 92px;
+  height: 40px;
+  vertical-align: top;
+  margin-left: 4px;
+  box-sizing: border-box;
 }
 
 .btn {
