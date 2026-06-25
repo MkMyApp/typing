@@ -57,7 +57,7 @@ style.textContent = `
 	  padding-left: 10px;
 	}
 	#Enter {
-		font-size: 16px;
+		font-size: 8px;
 		width: 58px;
 	  justify-content: flex-end;
 	  padding-right: 10px;
@@ -111,8 +111,8 @@ const keyboardHtml = `
 <button>I</button>
 <button>O</button>
 <button>P</button>
-<button>[</button>
-<button>]</button>
+<button>{[</button>
+<button>}]</button>
 <button>|＼</button>
 <br>
 <button id="Caps">CapsLock</button>
@@ -125,9 +125,9 @@ const keyboardHtml = `
 <button>J</button>
 <button>K</button>
 <button>L</button>
-<button>;</button>
-<button>'</button>
-<button id="Enter">⏎</button>
+<button>:;</button>
+<button>"'</button>
+<button id="Enter">Enter⏎</button>
 <br>
 <button id="LShift">Shift</button>
 <button>Z</button>
@@ -137,9 +137,9 @@ const keyboardHtml = `
 <button>B</button>
 <button>N</button>
 <button>M</button>
-<button>,</button>
-<button>.</button>
-<button>／</button>
+<button><,</button>
+<button>>.</button>
+<button>?／</button>
 <button id="RShift">Shift</button>
 <br>
 <button id="LCtrl">Ctrl</button>

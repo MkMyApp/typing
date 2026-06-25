@@ -6,9 +6,34 @@
 	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
 	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
   <style>
-    .container { margin: 20px auto; font-family: sans-serif; }
-    select { width: 32ch; padding: 10px; font-size: 24px; margin: 0px 0px 10px 50px; }
-    iframe { width: 1400px; height: 640px; border: 1px solid #cccc;margin: 0px 0px 10px 50px; }
+    .container { 
+     font-size:24px;
+     margin: 20px auto;
+     padding:20px;
+     font-family: sans-serif;
+     }
+
+    select {
+    width: 32ch;
+    padding: 10px;
+    font-size: 24px;
+    margin: 0px 10px 30px 10px;
+    }
+    
+    iframe {
+    width: 1250px;
+    height: 480px;
+    border: 1px solid #cccc;
+    margin: 0px 0px 10px 50px;
+    }
+
+    .label-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 10px;
+    display: inline-block;
+    vertical-align: top;
+}
   </style>
 </head>
 <body>
@@ -20,7 +45,8 @@
 </header>
 <main>
 <div class="container">
-    <select id="pageSelect" onchange="changePage()">
+    <label class="label-text">サンプル</label>
+    <select id="pageSelect" onchange="changePage('pageSelect')">
         <option value="">キーボードを選択</option>
         <option value="key.html">QWERTY配列</option>
         <option value="jkey.html">JISかな配列</option>
@@ -28,7 +54,7 @@
         <option value="home.html">ホームポジション</option>
         <option value="kanahome.html">かなホームポジション</option>
         <option value="Lkey.html">英大文字運指色分け</option>
-        <option value="L2key.html">英大文字運指最適化</option>
+        <option value="Lkey2.html">英大文字運指最適化</option>
         <option value="Skey.html">英小文字運指色分け</option>
         <option value="kana.html">JISかな配列運指色分け</option>
         <option value="kana2.html">JISかな配列運指最適化</option>
@@ -36,13 +62,70 @@
         <option value="roma2.html">ローマ字入力全表示</option>
         <option value="USkey.html">USキーボード配列と運指</option>
     </select>
+    <label class="label-text">ABC</label>
+    <select id="eSelect" onchange="changePage('eSelect')">
+	    <option value="">選択</option>
+	    <option value="Eホームポジション.html">ホームポジション</option>
+	    <option value="E人差し指.html">人差し指</option>
+	    <option value="E中指.html">中指</option>
+	    <option value="E薬指.html">薬指</option>
+	    <option value="E小指.html">小指</option>
+	    <option value="E中段.html">中段</option>
+	    <option value="E上段.html">上段</option>
+	    <option value="E下段.html">下段</option>
+	    <option value="E3段.html">3段</option>
+	    <option value="E最上段.html">最上段</option>
+	    <option value="E全キー.html">全キー</option>
+	    <option value="E最上段最適化.html">最上段最適化</option>
+	    <option value="E最適化.html">最適化</option>
+	    <option value="Eキー配列.html">キー配列</option>
+    </select>
+
+    <label class="label-text">かな</label>
+		<select id="kSelect" onchange="changePage('kSelect')">
+			<option value="">選択</option>
+			<option value="Kホームポジション.html">ホームポジション</option>
+			<option value="K人差し指.html">人差し指</option>
+			<option value="K中指.html">中指</option>
+			<option value="K薬指.html">薬指</option>
+			<option value="K小指.html">小指</option>
+			<option value="K中段.html">中段</option>
+			<option value="K上段.html">上段</option>
+			<option value="K下段.html">下段</option>
+			<option value="K3段.html">3段</option>
+			<option value="K最上段.html">最上段</option>
+			<option value="K全キー.html">全キー</option>
+			<option value="K最上段最適化.html">最上段最適化</option>
+			<option value="K最適化.html">最適化</option>
+			<option value="Kキー配列.html">キー配列</option>
+	</select>
 		<br>
     <iframe id="displayFrame" src="key.html" title="コンテンツ表示エリア"></iframe>
 </div>
 
 <script>
-    function changePage() {
-        const select = document.getElementById("pageSelect");
+    function changePage(selID) {
+        const select = document.getElementById(selID);
+        const iframe = document.getElementById("displayFrame");
+        const selectedValue = select.value;
+
+        if (selectedValue) {
+            iframe.src = selectedValue;
+        }
+    }
+
+    function eChg() {
+        const select = document.getElementById("eSelect");
+        const iframe = document.getElementById("displayFrame");
+        const selectedValue = select.value;
+
+        if (selectedValue) {
+            iframe.src = selectedValue;
+        }
+    }
+
+    function kChg() {
+        const select = document.getElementById("kSelect");
         const iframe = document.getElementById("displayFrame");
         const selectedValue = select.value;
 
@@ -51,7 +134,6 @@
         }
     }
 </script>
-
 <div class="box" style="font-size:150%;">
 機能キーの文字を透過
 setTransparent()

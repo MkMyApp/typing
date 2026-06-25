@@ -1,0 +1,67 @@
+// 4. CHARS に基づいて色を付ける関数 (idなしボタンのみ対象)
+window.applyColor = function(CHARS, BackColor, ForColor) {
+    const buttons = document.querySelectorAll('.KB button');
+    if (ForColor == "") { ForColor = BackColor; }
+
+    buttons.forEach(btn => {
+        // idがついているボタンは対象外とする
+        if (btn.id) return;
+
+        // ボタン内の文字列を1文字ずつの配列に変換
+        const charsInBtn = btn.textContent.trim().split('');
+        
+        // ボタン内のいずれかの文字が CHARS に含まれているか判定
+        const hasMatch = charsInBtn.some(char => CHARS.includes(char));
+
+        if (hasMatch) {
+            btn.style.backgroundColor = BackColor;
+            btn.style.color = ForColor;
+            btn.style.border = "1px solid #888";
+            btn.style.boxSizing = "border-box";
+        }
+    });
+};
+
+// idが定義されているボタンの文字色を透過にする関数
+window.setTransparent = function() {
+  const buttons = document.querySelectorAll('.KB button[id]');
+  buttons.forEach(btn => {
+      btn.style.color = "transparent";
+  });
+};
+
+// ボタンの文字色を透過にする関数
+window.applyTransparent = function() {
+	const buttons = document.querySelectorAll('.KB button:not([id])');
+  buttons.forEach(btn => {
+      btn.style.color = "transparent";
+  });
+};
+
+// ボタンの文字を縦に並べる関数
+window.adjustButtonLayout = function() {
+    const buttons = document.querySelectorAll('.KB button');
+    
+    buttons.forEach(btn => {
+        // 1. idがあるボタンは処理対象から外す
+        if (btn.id) return;
+
+        const text = btn.textContent.trim();
+        
+        // 2. 2文字の場合のみ、HTMLを書き換えて制御する
+        if (text.length === 2) {
+            const char1 = text[0];
+            const char2 = text[1];
+            
+            // ボタンの中身を書き換え
+            btn.innerHTML = `<span style="display:block; line-height:1; font-size:12px;">${char1}</span><span style="display:block; line-height:1; font-size:12px;">${char2}</span>`;
+            
+            // ボタン自体はflexのまま維持するため、これ以上のstyle変更は行わない
+            // もしボタン内の配置がずれる場合は以下で中央寄せを維持
+            btn.style.display = "inline-flex";
+            btn.style.flexDirection = "column";
+            btn.style.justifyContent = "center";
+            btn.style.alignItems = "center";
+        }
+    });
+};

@@ -100,7 +100,7 @@ const keyboardHtml = `
 <button>\'7</button>
 <button>(8</button>
 <button>)9</button>
-<button>0</button>
+<button> 0</button>
 <button>=-</button>
 <button>~^</button>
 <button>|\\</button>
@@ -218,7 +218,7 @@ window.adjustButtonLayout = function() {
         const text = btn.textContent.trim();
         
         // 2. 2文字の場合のみ、HTMLを書き換えて制御する
-        if (text.length === 2) {
+        if (text.length >= 2) {
             const char1 = text[0];
             const char2 = text[1];
             

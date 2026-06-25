@@ -2,17 +2,16 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>JISかな配列</title>
+<title>かな配列最適化</title>
 </head>
 <body>
-<div style="text-align: center;font-size:48px;">
-かな配列最適化
-</div>
 <!--   スクーリーンキーボード挿入   -->
 <script>const sVal= 2;</script>
 <script src="kana_2.js"></script>
 <script>
-adjustButtonLayout();
+adjustButtonLayout();//2段表示の設定
+//setTransparent();//機能キーの文字を透過
+//applyTransparent();//文字色を透過
 applyColor("ぬたちつ","#F29", "#FFF");
 applyColor("ふてとさ","#F60", "#FFF");
 applyColor("あういしそ","#3A5", "#FFF");

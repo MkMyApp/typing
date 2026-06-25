@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード</title>
+</head>
+<body>
+<!--   スクーリーンキーボード挿入   -->
+<script>const sVal= 2;</script>
+<script src="kana_2.js"></script>
+<script>
+adjustButtonLayout();//2段表示の設定
+setTransparent();//機能キーの文字を透過
+applyTransparent();//文字色を透過
+applyColor(cnv("5RFV"),"#F00", "#FFF");
+applyColor(cnv("6TGB"),"#F00", "#FFF");
+applyColor(cnv("7YHN"),"#00F", "#FFF");
+applyColor(cnv("UJM"),"#00F", "#FFF");
+</script>
+</body>
+</html>
