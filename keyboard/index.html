@@ -14,7 +14,7 @@
      }
 
     select {
-    width: 32ch;
+    width: 24ch;
     padding: 10px;
     font-size: 24px;
     margin: 0px 10px 30px 10px;
@@ -47,7 +47,7 @@
 <div class="container">
     <label class="label-text">サンプル</label>
     <select id="pageSelect" onchange="changePage('pageSelect')">
-        <option value="">キーボードを選択</option>
+        <option value="">選択</option>
         <option value="key.html">QWERTY配列</option>
         <option value="jkey.html">JISかな配列</option>
         <option value="A-Z.html">A-Z</option>
@@ -63,7 +63,8 @@
         <option value="USkey.html">USキーボード配列と運指</option>
         <option value="finger.html">指の色分け</option>
     </select>
-    <label class="label-text">ABC</label>
+
+    <label class="label-text">QWERTY</label>
     <select id="eSelect" onchange="changePage('eSelect')">
 	    <option value="">選択</option>
 	    <option value="Eホームポジション.html">ホームポジション</option>
@@ -82,8 +83,8 @@
 	    <option value="Eキー配列.html">キー配列</option>
       <option value="fHome.html">指の色分け</option>
     </select>
-
-    <label class="label-text">かな</label>
+<br>
+    <label class="label-text">ひらがな</label>
 		<select id="kSelect" onchange="changePage('kSelect')">
 			<option value="">選択</option>
 			<option value="Kホームポジション.html">ホームポジション</option>
@@ -101,8 +102,19 @@
 			<option value="K最適化.html">最適化</option>
 			<option value="Kキー配列.html">キー配列</option>
       <option value="fKana.html">指の色分け</option>
+		</select>
 
-	</select>
+    <label class="label-text">ローマ字</label>
+		<select id="rSelect" onchange="changePage('rSelect')">
+			<option value="">選択</option>
+			<option value="roma_a.html">ローマ字母音</option>
+			<option value="roma_k.html">ローマ字清音</option>
+			<option value="roma_g.html">ローマ字濁音</option>
+			<option value="roma_x.html">ローマ字その他</option>
+			<option value="roma_h.html">ローマ字ヘボン</option>
+			<option value="roma_all.html">ローマ字全部</option>
+			<option value="roma_pro.html">数字と記号</option>
+		</select>
 		<br>
     <iframe id="displayFrame" src="key.html" title="コンテンツ表示エリア"></iframe>
 </div>
