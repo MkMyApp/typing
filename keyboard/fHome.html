@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>タイピング指対応図</title>
+  <style>
+    /* 全体のレイアウト設定 */
+    .keyboard-hands {
+      display: flex;
+      justify-content: center;
+      gap: 50px; /* 左手と右手の間の隙間 */
+      padding: 40px;
+      font-family: sans-serif;
+    }
+
+    /* 手のベース（5本の指をまとめるコンテナ） */
+    .hand {
+      display: flex;
+      align-items: flex-end; /* 底辺を揃える */
+      border-bottom: 1px solid #888;
+    }
+
+    /* 指の基本スタイル */
+    .finger {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: 60px; /* 指の幅 */
+      /* 隣り合う指の境界線（スリット） */
+      border-left: 1px solid #888; 
+    }
+    .finger:last-child {
+      border-right: 1px solid #888; /* 一番右端の線 */
+    }
+
+    /* 指の先端（カラーボックス） */
+    .tip {
+      height: 60px;
+      border-top: 1px solid #888;
+      border-left: 1px solid #888;
+      border-right: 1px solid #888;
+      box-sizing: border-box;
+      font-size:32px;
+      color: #FFF;
+			display: flex;
+      justify-content: center; /* 横方向の中央揃え */
+      align-items: center;     /* 縦方向の中央揃え */
+
+    }
+
+    /* 指・手のひらの根元（ベージュの部分） */
+    .base {
+      background-color: #FFF3D6; /* 肌色のベースカラー */
+    }
+
+    /* --- 指ごとの高さ設定（画像のデザインに合わせる） --- */
+    .p-0 { height: 70px; } /* 親指 */
+    .p-1 { height: 100px; } /* 小指 */
+    .p-2 { height: 130px; } /* 薬指・人差し指（中） */
+    .p-3 { height: 160px; } /* 中指（高） */
+    .p-4 { height: 130px; } /* 人差し指（中） */
+
+    /* --- カラーバリエーション --- */
+    .color-pink   { background-color: #FF1493; }
+    .color-orange { background-color: #FF7F50; }
+    .color-green  { background-color: #3CB371; }
+    .color-red    { background-color: #FF0000; }
+    .color-blue   { background-color: #4169E1; }
+    .color-grey   { background-color: #808080; }
+  </style>
+</head>
+<body>
+
+<div class="keyboard-hands">
+
+  <div class="hand">
+    <div class="finger">
+      <div class="tip color-pink">A</div>
+      <div class="base p-1"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-orange">S</div>
+      <div class="base p-2"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-green">D</div>
+      <div class="base p-3"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-red">F</div>
+      <div class="base p-4"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-grey"></div>
+      <div class="base p-0"></div>
+    </div>
+  </div>
+
+  <div class="hand">
+    <div class="finger">
+      <div class="tip color-grey"></div>
+      <div class="base p-0"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-blue">J</div>
+      <div class="base p-4"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-green">K</div>
+      <div class="base p-3"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-orange">L</div>
+      <div class="base p-2"></div>
+    </div>
+    <div class="finger">
+      <div class="tip color-pink">;</div>
+      <div class="base p-1"></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
