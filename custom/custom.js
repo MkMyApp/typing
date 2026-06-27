@@ -132,7 +132,7 @@ function updateSettings() {
 window.addEventListener('DOMContentLoaded', () => {
     updateSettings();
 });
-		
+
 function composeText() {
 // 1. 各項目の値を取得
 const titleMsg = document.getElementById('TITLE_MSG').value;
@@ -208,3 +208,34 @@ async function saveFile() {
     console.log("保存がキャンセルされました", e);
   }
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const txtdataArea = document.getElementById("txtdata");
+
+  if (txtdataArea) {
+    // ドラッグオーバー
+    txtdataArea.addEventListener("dragover", function(e) {
+      e.preventDefault();
+    });
+
+    // ドロップ処理
+    txtdataArea.addEventListener("drop", async function(e) {
+      e.preventDefault();
+      
+      const files = e.dataTransfer.files;
+      if (files.length === 0) return;
+      const file = files[0];
+
+      // テキスト形式、または拡張子が .txt か .html の場合のみ受け付ける
+      if (!file.type.startsWith("text/") && !file.name.match(/\.(txt|html)$/)) {
+        alert("テキストファイル（.txt / .html）のみ対応しています");
+        return;
+      }
+
+      // ファイルをテキストとして読み込み
+      const text = await file.text();
+      txtdataArea.value = text;
+
+    });
+  }
+});
