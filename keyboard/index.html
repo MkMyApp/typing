@@ -83,6 +83,18 @@
 	    <option value="Eキー配列.html">キー配列</option>
       <option value="fHome.html">指の色分け</option>
     </select>
+    
+    <label class="label-text">ローマ字</label>
+		<select id="rSelect" onchange="changePage('rSelect')">
+			<option value="">選択</option>
+			<option value="roma_a.html">ローマ字母音</option>
+			<option value="roma_k.html">ローマ字清音</option>
+			<option value="roma_g.html">ローマ字濁音</option>
+			<option value="roma_x.html">ローマ字その他</option>
+			<option value="roma_h.html">ローマ字ヘボン</option>
+			<option value="roma_all.html">ローマ字全部</option>
+			<option value="roma_pro.html">数字と記号</option>
+		</select>
 <br>
     <label class="label-text">ひらがな</label>
 		<select id="kSelect" onchange="changePage('kSelect')">
@@ -105,16 +117,36 @@
       <option value="K50on.html">五十音色分け</option>
 		</select>
 
-    <label class="label-text">ローマ字</label>
-		<select id="rSelect" onchange="changePage('rSelect')">
+    <label class="label-text">五十音行</label>
+		<select id="gSelect" onchange="changePage('gSelect')">
 			<option value="">選択</option>
-			<option value="roma_a.html">ローマ字母音</option>
-			<option value="roma_k.html">ローマ字清音</option>
-			<option value="roma_g.html">ローマ字濁音</option>
-			<option value="roma_x.html">ローマ字その他</option>
-			<option value="roma_h.html">ローマ字ヘボン</option>
-			<option value="roma_all.html">ローマ字全部</option>
-			<option value="roma_pro.html">数字と記号</option>
+			<option value="K50on.html">行別色分け</option>
+			<option value="K50_A.html">あ行</option>
+			<option value="K50_K.html">か行</option>
+			<option value="K50_S.html">さ行</option>
+			<option value="K50_T.html">た行</option>
+			<option value="K50_N.html">な行</option>
+			<option value="K50_H.html">は行</option>
+			<option value="K50_M.html">ま行</option>
+			<option value="K50_Y.html">や行</option>
+			<option value="K50_R.html">ら行</option>
+			<option value="K50_W.html">わ行</option>
+		</select>
+
+    <label class="label-text">五十音指</label>
+		<select id="fSelect" onchange="changePage('fSelect')">
+			<option value="">選択</option>
+			<option value="fkana50.html">全部</option>
+			<option value="fkana_A.html">あ行</option>
+			<option value="fkana_K.html">か行</option>
+			<option value="fkana_S.html">さ行</option>
+			<option value="fkana_T.html">た行</option>
+			<option value="fkana_N.html">な行</option>
+			<option value="fkana_H.html">は行</option>
+			<option value="fkana_M.html">ま行</option>
+			<option value="fkana_Y.html">や行</option>
+			<option value="fkana_R.html">ら行</option>
+			<option value="fkana_W.html">わ行</option>
 		</select>
 		<br>
     <iframe id="displayFrame" src="key.html" title="コンテンツ表示エリア"></iframe>
