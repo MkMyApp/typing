@@ -1,3 +1,27 @@
+function convert() {
+    const fromStr = document.getElementById('fromChars').value;
+    const toStr = document.getElementById('toChars').value;
+    const msg = document.getElementById('msg');
+
+    // 文字数の一致判定
+    if (fromStr.length !== toStr.length) {
+        msg.innerHTML = `⚠️Err`;
+        return;
+    }
+    msg.innerHTML = "✅OK";
+
+    // マッピング作成
+    const map = {};
+    for (let i = 0; i < fromStr.length; i++) {
+        map[fromStr[i]] = toStr[i];
+    }
+
+    // 変換実行
+    const input = document.getElementById('txtdata').value;
+    const output = input.split('').map(char => map[char] || char).join('');
+    document.getElementById('txtdata').value = output;
+}
+
 function repText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
@@ -133,6 +157,24 @@ window.addEventListener('DOMContentLoaded', () => {
     updateSettings();
 });
 
+function adjustTextareaHeight(id) {
+      const textarea = document.getElementById(id);
+      
+      if (textarea) {
+        // 一度高さをリセット（縮む場合にも対応させるため）
+        textarea.style.height = 'auto';
+        
+        // スクロールする領域の高さ（scrollHeight）を新しい高さとして設定
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
+    }
+
+function clrText(id) {
+	const textArea = document.getElementById(id);
+	textArea.value = "";
+	adjustTextareaHeight(id);
+}
+
 function composeText() {
 // 1. 各項目の値を取得
 const titleMsg = document.getElementById('TITLE_MSG').value;
@@ -182,6 +224,7 @@ const footer = `</body>\n</html>\n`;
 // 4. 全てを連結して出力
 textComp.value = header + configText + scaleText + headText + textVal + footText + scaleText + footer;
 
+adjustTextareaHeight('txtComp');
 }
 
 // ダイアログを開いて保存する
@@ -239,3 +282,4 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
