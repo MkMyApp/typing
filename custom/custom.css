@@ -1,10 +1,17 @@
-#custom {
+.contena {
   font-size: 24px;
   text-align: left;
-  margin: 40px auto;
-  padding: 25px;
+  margin: 0px auto;
+  padding: 5px;
   width: fit-content;
-  border: 1px solid #cccc;
+  border: 1px solid #eee;
+}
+
+#custom {
+  text-align: left;
+  margin: 0px auto;
+  width: fit-content;
+  border: none;
 }
 
 #custom input {
@@ -44,7 +51,7 @@
 .btnbox {
   display: block;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .sBtn {
@@ -77,3 +84,21 @@ font-family: monospace;
   padding-left: 1ch;
   text-align: left;
 }
+
+.dl-container {
+    display: flex;
+    gap: 15px;
+}
+.DL {
+  font-size: 24px;
+}
+.DL a {
+		color:blue;
+    text-decoration: none;
+}
+
+.DL a:hover {
+		color:red;
+    text-decoration: underline;
+}
+
