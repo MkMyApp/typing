@@ -200,7 +200,6 @@ const header = `<!doctype html>
 <div id="result"></div>
 <div id="target" class="line"></div>
 <textarea id="editor" class="line" spellcheck="false"></textarea>
-<script src="typing.js" defer></script>
 `;
 
 const configText = `<script>
@@ -218,7 +217,7 @@ let textVal = textArea.value;
 if (textVal.length > 0 && !textVal.endsWith('\n')) {textVal += '\n';}
 const footText = `</textarea>\n`;
 
-const footer = `</body>\n</html>\n`;
+const footer = `<script src="typing.js"></script>\n</body>\n</html>\n`;
 
 
 // 4. 全てを連結して出力
