@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>にこにこタイプ</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script src="typing.js" defer></script>
+
+<script>
+  const TITLE_MSG = "にこにこタイプ";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 10;
+  const WIDTH = "25ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script>
+function generateTypingWord() {
+		const firstChars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわがぎぐげござじずぜぞだづでどばびぶべぼぱぴぷぺぽ";
+
+    // 2文字目: 「を」および小文字を除外
+    const secondChars = "ん" + firstChars; 
+
+    const char1 = firstChars[Math.floor(Math.random() * firstChars.length)];
+    const char2 = secondChars[Math.floor(Math.random() * secondChars.length)];
+    return char1 + char2 + char1 + char2;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    let words = "";
+    for (let i = 0; i < 100; i++) {
+        words =words + generateTypingWord() + '\n'
+    }
+    document.getElementById('txtdata').value = words;
+    init();
+});
+</script>
+</body>
+</html>
