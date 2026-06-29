@@ -10,6 +10,7 @@
 <div id="result"></div>
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+
 <script>
 const TITLE_MSG = "問題生成サンプル";
 const START_MSG = "Enter⏎";
@@ -19,27 +20,17 @@ const WIDTH = "16ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
-
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
 
 <!-- 問題生成 -->
 <script>
-strDat = `
-abc
-def
-ghi
-jkl
-mno
-pqr
-stu
-vw
-xyz
-`;
+strDat = ``;
 document.getElementById('txtdata').value = strDat;
 //init();//onclickで問題生成をする場合
 </script>
 <!-------------------------------->
+
 <div id="exp">
 functionで問題文を生成するサンプル
 
