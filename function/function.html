@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>問題生成サンプル</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const TITLE_MSG = "問題生成サンプル";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数　かな";
+const RANDOM = 5;
+const WIDTH = "16ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<!-- 問題生成 -->
+<script>
+strDat = `
+abc
+def
+ghi
+jkl
+mno
+pqr
+stu
+vw
+xyz
+`;
+document.getElementById('txtdata').value = strDat;
+//init();//onclickで問題生成をする場合
+</script>
+<!-------------------------------->
+<div id="exp">
+functionで問題文を生成するサンプル
+
+</div>
+
+<script src="typing.js"></script>
+</body>
+</html>

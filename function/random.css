@@ -1,0 +1,14 @@
+  #setBox {
+    font-size: 24px;
+  }
+  #setBtn {
+    font-size: 24px;
+    height:38px;
+    width:4ch;
+  }
+  #setData { 
+  	margin-top:20px;
+    font-size: 24px;
+    height: 36px;
+    width: 16ch;
+  }
