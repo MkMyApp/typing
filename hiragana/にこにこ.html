@@ -10,7 +10,6 @@
 <div id="result"></div>
 <div id="target" class="line"></div>
 <textarea id="editor" class="line" spellcheck="false"></textarea>
-<script src="typing.js" defer></script>
 
 <script>
   const TITLE_MSG = "にこにこタイプ";
@@ -35,14 +34,12 @@ function generateTypingWord() {
     return char1 + char2 + char1 + char2;
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    let words = "";
-    for (let i = 0; i < 100; i++) {
-        words =words + generateTypingWord() + '\n'
-    }
-    document.getElementById('txtdata').value = words;
-    init();
-});
+for (let i = 0; i < 100; i++) {
+    words =words + generateTypingWord() + '\n'
+}
+document.getElementById('txtdata').value = words;
 </script>
+
+<script src="typing.js"></script>
 </body>
 </html>
