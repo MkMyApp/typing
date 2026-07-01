@@ -63,7 +63,7 @@ body{
   resize: none;
 }
 
-#exp {
+#exp,#dl{
   white-space: pre-wrap;
 	text-align: left;
 	width: 500px;
