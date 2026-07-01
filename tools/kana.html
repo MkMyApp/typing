@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>SHIFT+Enterで読み上げ</title>
+<style>
+body { text-align: center; }
+#INPUT { font-family: monospace; font-size: 64px; width: 640px; height: 64px; }
+</style>
+</head>
+<body>
+<h1>文字を入力してSHIFT+Enter</h1>
+<input id="INPUT"></input>
+
+<script>
+const inputElement = document.getElementById('INPUT');
+
+inputElement.addEventListener('keydown', (event) => {
+    // SHIFTキーとEnterキーが同時に押されたか判定
+    if (event.key === 'Enter' && event.shiftKey) {
+        const text = event.target.value;
+        if (text) {
+            speak(text);
+
+        }
+    }
+});
+
+function speak(text) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+//    utterance.lang = 'en-US';
+//    utterance.lang = 'en-GB';
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.75;
+    window.speechSynthesis.speak(utterance);
+}
+</script>
+</body>
+</html>

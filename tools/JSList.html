@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>JSファイル一覧</title>
+<style>
+  body { margin: 20px; display: flex; gap: 20px; font-family: sans-serif; }
+  .sidebar { display: flex; flex-direction: column; width: 160px; }
+  h1 { margin: 0 0 10px 0; font-size: 1.5em; }
+  .toolbar-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .radio-group { display: flex; align-items: center; gap: 5px; font-size: 0.9em; }
+  .section-title { font-weight: bold; color: #333; margin-bottom: 5px; }
+  textarea { flex: none; width: 320px; height: 480px; resize: both; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; line-height: 1.5; overflow: auto; }
+  button { width: 80%; height: 48px; font-size: 12pt; cursor: pointer; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h1>JS List</h1>
+  
+  <div class="toolbar-section">
+    <div class="section-title">出力形式</div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink" name="answer" value="link" checked>
+      <label for="modeLink">リンク (開く)</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeDL" name="answer" value="download">
+      <label for="modeDL">ダウンロード</label>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="section-title">並び順</div>
+    <div class="radio-group">
+      <input type="radio" id="SortName" name="sort" value="name">
+      <label for="SortName">名前順</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="SortDate" name="sort" value="date" checked>
+      <label for="SortDate">日付順</label>
+    </div>
+  </div>
+  
+  <button id="btnLoad">フォルダ選択</button>
+</div>
+
+<textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
+
+<script>
+async function buildJsListFromDirectoryHandle(dirHandle) {
+  const files = [];
+  const mode = document.querySelector('input[name="answer"]:checked').value;
+  const sortMode = document.querySelector('input[name="sort"]:checked').value;
+
+  for await (const [name, handle] of dirHandle.entries()) {
+    if (handle.kind === "file" && name.toLowerCase().endsWith(".js")) {
+      const file = await handle.getFile();
+      files.push({ name: name, modified: file.lastModified });
+    }
+  }
+
+  if (sortMode === "name") {
+    files.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+  } else {
+    files.sort((a, b) => b.modified - a.modified);
+  }
+
+  let result = "";
+  for (const file of files) {
+    if (mode === "download") {
+      // ダウンロード属性あり
+      result += `<p><a href="${file.name}" download>${file.name}</a></p>\n`;
+    } else {
+      // ダウンロード属性なし
+      result += `<p><a href="${file.name}">${file.name}</a></p>\n`;
+    }
+  }
+  return result;
+}
+
+async function listJsFiles() {
+  const textarea = document.getElementById("output");
+  try {
+    const dirHandle = await window.showDirectoryPicker();
+    textarea.value = await buildJsListFromDirectoryHandle(dirHandle);
+  } catch (err) {
+    if (err.name !== 'AbortError') console.error(err);
+  }
+}
+
+document.getElementById("btnLoad").addEventListener("click", listJsFiles);
+
+const output = document.getElementById("output");
+output.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  const item = e.dataTransfer.items[0];
+  if (item?.getAsFileSystemHandle) {
+    const handle = await item.getAsFileSystemHandle();
+    if (handle?.kind === "directory") {
+      output.value = await buildJsListFromDirectoryHandle(handle);
+    }
+  }
+});
+output.addEventListener("dragover", (e) => e.preventDefault());
+</script>
+</body>
+</html>

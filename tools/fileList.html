@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>HTMLファイル一覧</title>
+<title>ファイル一覧</title>
 <style>
   body { 
     margin: 20px; 
@@ -70,7 +70,7 @@
 <body>
 
 <div class="sidebar">
-  <h1>HTML List</h1>
+  <h1>File List</h1>
   
   <div class="toolbar-section">
     <div class="section-title">出力形式</div>
@@ -80,7 +80,7 @@
     </div>
     <div class="radio-group">
       <input type="radio" id="modeHtml" name="answer" value="html">
-      <label for="modeHtml">html付き</label>
+      <label for="modeHtml">拡張子付き</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeName" name="answer" value="name">
@@ -147,7 +147,6 @@ async function listHtmlFiles() {
     const dirHandle = await window.showDirectoryPicker();
     const { files, result } = await buildHtmlListFromDirectoryHandle(dirHandle);
     textarea.value = result;
-    alert("完了：" + files.length + "件");
   } catch (err) {
     if (err.name !== 'AbortError') console.error(err);
   }
@@ -164,7 +163,6 @@ output.addEventListener("drop", async (e) => {
     if (handle?.kind === "directory") {
       const { files, result } = await buildHtmlListFromDirectoryHandle(handle);
       output.value = result;
-      alert("完了：" + files.length + "件");
     }
   }
 });

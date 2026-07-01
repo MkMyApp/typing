@@ -5,21 +5,27 @@
 	<title>タイピング練習</title>
 	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
 	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
+<style>
+#editor {
+    font-family: monospace;
+    font-size: 24px;
+    width: 640px;
+    height: 320px;
+    padding: 1ch;
+}
+</style>
 </head>
 <body>
 <header>
 <h1>タイピング練習</h1>
 <span style="text-align:center;">
-<h2>音声タイピング　資料</h2>
+<h2>音声タイピング</h2>
 </span>
 </header>
 <main>
 <div class="box" style="font-size:150%;">
-右クリックで保存
-voice.jsをタイピング練習に組み込んでしようする
-<a href="voice.html" target="_blank">音声タイピング</a>
-<a href="voice.js" download>voice.js</a>
-<a href="voice.css" download>voice.css</a>
+<textarea id="editor" autofocus></textarea>
+<script src="voice.js"></script>
 </div>
 </main>
 <footer style="font-size:200%;text-align:center;">
