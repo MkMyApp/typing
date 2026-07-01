@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>ドリルタイピング</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+
+<link rel="stylesheet" href="setText.css">
+<div id="setBox">
+<button class="Btn" onclick="loadFile()">えらぶ</button>
+<button class="Btn" onclick="saveFile()">のこす</button>
+<button class="Btn" onclick="updateStrData()">はじめ</button>
+<br>
+</div>
+
+<script>
+const TITLE_MSG = "ひらがなドリル";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = 10;
+const WIDTH = "16ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" placeholder="ひらがな練習の問題を入力">
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script src="setText.js"></script>
+
+<script src="typing.js"></script>
+</body>
+</html>

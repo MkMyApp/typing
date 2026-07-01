@@ -1,0 +1,40 @@
+#create {
+  width: 380px;
+  margin: auto;
+  padding: 20px;
+  border: none;
+  font-size: 24px;
+  margin-top: 40px;
+  box-sizing: border-box;
+  
+  /* ★箱の中身をすべて左揃えにする */
+  text-align: left; 
+}
+
+/* 各入力行のバランス調整 */
+#create input {
+  font-size: 24px;
+  height: 36px;
+  width: 240px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+#create button {
+  font-size: 24px;
+  padding: 4px 12px;
+  margin-top:10px;
+  margin-left:240px;
+  width: 100px;;
+  cursor: pointer;
+}
+
+/* テキストエリア */
+#create textarea {
+  font-size: 20px;
+  width: 340px;
+  height: 180px;
+  box-sizing: border-box;
+  display: block;
+  margin-top: 5px;
+}

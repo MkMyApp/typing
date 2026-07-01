@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>くりかえし</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "にこにこタイピング";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 10;
+  const WIDTH = "25ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script>
+function generateTypingWord() {
+		const firstChars = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわがぎぐげござじずぜぞだづでどばびぶべぼぱぴぷぺぽ";
+
+    // 2文字目: 「ん」を追加
+    const secondChars = "ん" + firstChars; 
+
+    const char1 = firstChars[Math.floor(Math.random() * firstChars.length)];
+    const char2 = secondChars[Math.floor(Math.random() * secondChars.length)];
+    return char1 + char2 + char1 + char2;
+}
+
+for (let i = 0; i < 100; i++) {
+    words =words + generateTypingWord() + '\n'
+}
+document.getElementById('txtdata').value = words;
+</script>
+
+<script src="typing.js"></script>
+</body>
+</html>

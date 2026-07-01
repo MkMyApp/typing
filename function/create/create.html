@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<div id="create">
+  <link rel="stylesheet" href="create.css">
+	題　名：<input id="TITLE_MSG" value="問題作成"><br>
+	開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+	文字種：<input id="INPUT_MSG" value="英数 かな"><br>
+	問題数：<input id="RANDOM"    value="0"><br>
+	文字幅：<input id="WIDTH"     value="25ch"><br>
+	<textarea id="txtdata" placeholder="ここに問題を入力してください"></textarea>
+  <button onclick="updateSettings();">設定</button>
+	<script src="create.js"></script>
+</div>
+
+<script src="typing.js"></script>
+</body>
+</html>
