@@ -1,37 +1,32 @@
 // ボタンを押したときに実行する関数
 function updateStrData() {
-  const dataEl = document.getElementById("txtdata");
-  const inputVal = dataEl.value.trim();
-  
-  // 【ポイント】textarea の現在の表示状態をチェック
+  // 現在表示中（dataEl.style.display が "none" ではない）なら、確定して隠す
   if (dataEl.style.display !== "none") {
-    
-    // 1. textarea が表示されている場合：入力内容を確定して隠す
-    if (inputVal === "") {
+    if (dataEl.value.trim() === "") {
       dataEl.placeholder = "問題文を入力してください";
       return;
     }
     
-    // 現在プレイ中（練習中）強制終了
-    if (typeStarted) {
+    // プレイ中の強制終了処理
+    if (typeof typeStarted !== 'undefined' && typeStarted) {
       typeStarted = false;
       finished = true;
       endTime = performance.now();
-      showFinalResult(); // 終了画面（正解率などの結果）を表示
+      showFinalResult();
     }
 
     init();
-    
-    // textarea のみを隠す（ボタンは残る）
-    dataEl.style.display = "none";
-    
+    setBoxHide();
   } else {
-    // 2. textarea が隠れている場合：再設定のために再表示する
-    dataEl.style.display = "inline-block"; // または "block"
-    dataEl.focus(); // すぐに入力できるようフォーカスを合わせる
+    setBoxShow();
+    dataEl.focus();
   }
 }
 
+// テキストを消去する
+function clrText(){
+	document.getElementById("txtdata").value = "";
+}
 // ファイルを開く
 async function loadFile(){
   try{
@@ -46,7 +41,6 @@ async function loadFile(){
     const text = await file.text();
 
     document.getElementById("txtdata").value = text;
-    document.getElementById("txtdata").style.display = "inline-block"; // または "block"
 
   }catch(e){
     console.log(e);
@@ -79,7 +73,31 @@ async function saveFile() {
   }
 }
 
-const dataEl = document.getElementById("txtdata");
-if (dataEl.value.trim() !== "") {
-  dataEl.style.display = "none";
+function setBoxShow(){
+	dataEl.style.display = "inline-block";
+  setBoxEl.style.display = "inline";
+
 }
+
+function setBoxHide(){
+  dataEl.style.display = "none";
+	setBoxEl.style.display = "none";
+
+}
+
+const dataEl = document.getElementById("txtdata");
+const setBoxEl = document.getElementById("setBox");
+
+if (dataEl.value.trim() !== "") {
+  setBoxHide();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const titleEl = document.getElementById('title');
+    if (titleEl) {
+        titleEl.addEventListener('click', setBoxShow);
+    } else {
+        console.error("id='title' の要素が見つかりませんでした");
+    }
+});
+

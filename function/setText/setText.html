@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="style.css">
-	<title>ドリルタイピング</title>
+	<title>問題入れ替え</title>
 </head>
 <body>
 <div id="title"></div>
@@ -13,10 +13,10 @@
 
 <link rel="stylesheet" href="setText.css">
 <div id="setBox">
-<button class="Btn" onclick="loadFile()">読込</button>
-<button class="Btn" onclick="saveFile()">保存</button>
-<button class="Btn" onclick="updateStrData()">設定</button>
-<br>
+  <button class="Btn" onclick="clrText()">消去</button>
+  <button class="Btn" onclick="loadFile()">読込</button>
+  <button class="Btn" onclick="saveFile()">保存</button>
+  <button class="Btn" onclick="updateStrData()">設定</button>
 </div>
 
 <script>
@@ -24,7 +24,7 @@ const TITLE_MSG = "ドリルタイピング";
 const START_MSG = "Enter⏎でスタート";
 const INPUT_MSG = "英数　かな";
 const RANDOM = 10;
-const WIDTH = "32ch";
+const WIDTH = "24ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" placeholder="問題文を入力">
@@ -32,14 +32,6 @@ const WIDTH = "32ch";
 <!---5----10---15---20---25---30---35---40--->
 
 <script src="setText.js"></script>
-
-<div id="dl">Download
-<a href="random.html">setText.html</a>
-<a href="setText.js">setText.js</a>
-<a href="setText.css">setText.css</a>
-<a href="typing.js">>typing.js</a>
-<a href="style.css">style.css</a>
-</div>
 
 <script src="typing.js"></script>
 </body>
