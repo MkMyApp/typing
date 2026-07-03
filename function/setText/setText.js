@@ -1,13 +1,13 @@
 // ボタンを押したときに実行する関数
 function updateStrData() {
-  // 現在表示中（dataEl.style.display が "none" ではない）なら、確定して隠す
-  if (dataEl.style.display !== "none") {
+  // .hidden クラスが付いていなければ「表示中」とみなす
+  if (!setBoxEl.classList.contains("hidden")) {
     if (dataEl.value.trim() === "") {
       dataEl.placeholder = "問題文を入力してください";
       return;
     }
     
-    // プレイ中の強制終了処理
+    // （既存のプレイ中終了処理はそのまま）
     if (typeof typeStarted !== 'undefined' && typeStarted) {
       typeStarted = false;
       finished = true;
@@ -22,7 +22,6 @@ function updateStrData() {
     dataEl.focus();
   }
 }
-
 // テキストを消去する
 function clrText(){
 	document.getElementById("txtdata").value = "";
@@ -74,15 +73,11 @@ async function saveFile() {
 }
 
 function setBoxShow(){
-	dataEl.style.display = "inline-block";
-  setBoxEl.style.display = "inline";
-
+  setBoxEl.classList.remove("hidden");
 }
 
 function setBoxHide(){
-  dataEl.style.display = "none";
-	setBoxEl.style.display = "none";
-
+  setBoxEl.classList.add("hidden");
 }
 
 const dataEl = document.getElementById("txtdata");

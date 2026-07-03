@@ -1,0 +1,7 @@
+<!-- div id="dl">Download
+<a href="setText.html">setText.html</a>
+<a href="setText.js">setText.js</a>
+<a href="setText.css">setText.css</a>
+<a href="typing.js">>typing.js</a>
+<a href="style.css">style.css</a>
+</div -->
