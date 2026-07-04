@@ -253,19 +253,26 @@ editorEl.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. プレイ中の状態（Shift + Enterのみ許可）
+  // 2. プレイ中の状態
   if (e.key === 'Enter') {
     e.preventDefault(); // 改行入力を無効化
     
-    if (e.shiftKey) {
-      judgeCurrentWord(); // Shift + Enter で進む
+    const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
+    
+    if (isImeOff) {
+      judgeCurrentWord();
+    } else {
+      if (e.shiftKey) {
+        judgeCurrentWord();
+      }
     }
-    // 単体のEnterは無視されるため、改行もせず、何も進まない
   }
 });
 
+//起動時初期化
 init()
 
+//説明欄の処理
 const expEl = document.getElementById('exp');
 if (window.self !== window.top) {
     expEl.hidden = true;
