@@ -3,39 +3,53 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="style.css">
-	<title>問題生成サンプル</title>
+	<title>タイピング練習</title>
 </head>
 <body>
 <div id="title"></div>
 <div id="result"></div>
-<div id="target" class="line" style="text-align:center"></div>
-<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
 
 <script>
-const TITLE_MSG = "問題生成サンプル";
-const START_MSG = "Enter⏎";
-const INPUT_MSG = "英数　かな";
-const RANDOM = 5;
-const WIDTH = "16ch";
+  const TITLE_MSG = "問題生成";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "英数 かな 確認";
+  const RANDOM = 10;
+  const WIDTH = "25ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
 
-<!-- 問題生成 -->
 <script>
-strDat = ``;
-document.getElementById('txtdata').value = strDat;
-//init();//onclickで問題生成をする場合
+	// 関数の実行結果をtextareaに代入
+	function makeWord() {
+	    let word = 'test'+ Math.floor(Math.random() * 100);
+	    return word;
+	}
+
+	function makeWords() {
+	    let words = '';
+	    for (let i = 0; i < 100; i++) {
+	        words = words + makeWord() + '\n';
+	    }
+	    return words;
+	}
+
+	document.getElementById('txtdata').value = makeWords();
+	const IME = 'OFF';
 </script>
-<!-------------------------------->
-
 <div id="exp">
-functionで問題文を生成するサンプル
+	function makeWords() {
+	    let words = '';
+			//wordsに問題を作成 改行区切り
+	    return words;
+	}
 
+	document.getElementById('txtdata').value = makeWords();
 </div>
-
 <script src="typing.js"></script>
 </body>
 </html>

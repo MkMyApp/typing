@@ -253,19 +253,15 @@ editorEl.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. プレイ中の状態（IME設定によって判定を切り替え）
+  // 2. プレイ中の状態
   if (e.key === 'Enter') {
     e.preventDefault(); // 改行入力を無効化
     
-    // 【判定条件の作成】
-    // IMEが未定義、または 'OFF' 以外の値（'ON'など）の場合は、Shiftキーが必要になる
     const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
     
     if (isImeOff) {
-      // IME = 'OFF' の場合：Enter単体、またはShift+Enterのどちらでも進む
       judgeCurrentWord();
     } else {
-      // IMEが未定義、または 'ON' の場合：Shift+Enterのみ進む（従来通り）
       if (e.shiftKey) {
         judgeCurrentWord();
       }
@@ -273,8 +269,10 @@ editorEl.addEventListener('keydown', e => {
   }
 });
 
+//起動時初期化
 init()
 
+//説明欄の処理
 const expEl = document.getElementById('exp');
 if (window.self !== window.top) {
     expEl.hidden = true;

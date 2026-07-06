@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title">問題タイトル</div>
+<div id="result">正解/出題数/問題数</div>
+<div id="target" class="line" style="text-align:center;">問題表示欄</div>
+<textarea id="editor" class="line" spellcheck="false" style="text-align:center;">回答入力欄</textarea>
+
+<script>
+  const TITLE_MSG = "いろはうた";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "英数 かな 確認";
+  const RANDOM = 0;
+  const WIDTH = "16ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+いろはにほへと
+ちりぬるを
+わかよたれそ
+つねならむ
+ういのおくやま
+けふこえて
+あさきゆめみし
+えひもせす
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script>
+  // Enterキーが押されるまで次に進まない仕組み（画面は暗転しません）
+  const waitEnter = () => new Promise(resolve => {
+    window.addEventListener('keydown', function handler(e) {
+      if (e.key === 'Enter') {
+        window.removeEventListener('keydown', handler);
+        resolve();
+      }
+    });
+  });
+
+  (async () => {
+    // ここでEnterキーを待つ（見た目は100%通常のまま停止）
+    await waitEnter();
+
+    // Enterが押されたら、ここで初めてtyping.jsを読み込んで開始する
+    const script = document.createElement('script');
+    script.src = 'typing.js';
+    document.body.appendChild(script);
+  })();
+</script>
+</body>
+</body>
+</html>

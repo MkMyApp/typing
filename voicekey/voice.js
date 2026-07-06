@@ -64,11 +64,14 @@ const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn
 function updateButtonColors(str) {
   targetButtons.forEach(btn => {
     const char = btn.textContent.trim();
-    // 文字列が含まれるか、strがnull/undefined（全文字対象）なら黒
+    
+    // 対象の文字であれば「active」クラスを付与し、そうでなければ除去する
     if (str === null || str === undefined || str.includes(char)) {
-      btn.style.color = "black";
+      btn.style.opacity = "1";    // 表示させる
+      btn.style.pointerEvents = "auto";
     } else {
-      btn.style.color = "transparent";
+      btn.style.opacity = "0.2";  // 薄くして無効に見せる（あるいは display: none など）
+      btn.style.pointerEvents = "none";
     }
   });
 }
