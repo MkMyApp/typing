@@ -149,6 +149,7 @@ function updateSettings() {
 	INPUT_MSG = document.getElementById("INPUT_MSG").value;
 	RANDOM    = Number(document.getElementById("RANDOM").value);
 	WIDTH     = document.getElementById("WIDTH").value;
+  IME       = document.getElementById("IME").value;
 	init();
 	document.getElementById("editor").focus();
 }
