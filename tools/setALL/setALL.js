@@ -22,10 +22,48 @@ function updateStrData() {
     dataEl.focus();
   }
 }
+
 // テキストを消去する
 function clrText(){
 	document.getElementById("txtdata").value = "";
 }
+
+// 文字列の半角換算での長さを返す関数（全角=2, 半角=1）
+function getByteLength(str) {
+  let length = 0;
+  for (let i = 0; i < str.length; i++) {
+    // シフトJIS換算などで全角になる文字コードの判定（簡易版）
+    if (str.charCodeAt(i) >= 0x0020 && str.charCodeAt(i) <= 0x007e) {
+      length += 1; // 半角
+    } else {
+      length += 2; // 全角
+    }
+  }
+  return length;
+}
+
+// 最長行の文字数を判定して、(最長値 + 5) + "ch" をinputに代入する関数
+function setMaxLength() {
+  const txtdata = document.getElementById("txtdata").value;
+  const lines = txtdata.split('\n');
+  
+  let maxLen = 0;
+  
+  // 各行の長さを半角換算で比較し、最大のものを探す
+  lines.forEach(line => {
+    const currentLen = getByteLength(line);
+    if (currentLen > maxLen) {
+      maxLen = currentLen;
+    }
+  });
+
+  // 数値 + 5 に "ch" をつける
+  const resultWidth = (maxLen + 5) + "ch";
+  alert(resultWidth);
+  // 文字幅のinputに代入
+  document.getElementById("WIDTH").value = resultWidth;
+}
+
 // ファイルを開く
 async function loadFile(){
   try{
@@ -96,6 +134,7 @@ function applySettings() {
     IME       = document.getElementById("IME").value;
     init(); // typing.js の関数を呼ぶ
 }
+
 document.addEventListener('DOMContentLoaded', () => {
 		applySettings();
 		const titleEl = document.getElementById('title');

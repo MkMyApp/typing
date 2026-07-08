@@ -19,7 +19,10 @@ input {
   margin-bottom: 0px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Btn {
@@ -30,6 +33,16 @@ input {
   margin-right: 0;
   margin-left: 0;
 
+}
+
+.sBtn {
+font-family: monospace;
+  font-size: 16px;
+  width: 64px;
+  height: 38px;
+  vertical-align: top;
+  margin-left: 4px;
+  box-sizing: border-box;
 }
 
 .btn-container {
