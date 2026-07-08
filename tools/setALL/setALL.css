@@ -36,7 +36,6 @@ input {
 }
 
 .sBtn {
-font-family: monospace;
   font-size: 16px;
   width: 78px;
   height: 38px;
@@ -52,7 +51,7 @@ font-family: monospace;
 }
 
 #txtdata { 
-  margin-top: 20px;
+  font-family: monospace;
   font-size: 18px;
   height: 400px;
   width: 480px;
