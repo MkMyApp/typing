@@ -59,7 +59,6 @@ function setMaxLength() {
 
   // 数値 + 5 に "ch" をつける
   const resultWidth = (maxLen + 5) + "ch";
-  alert(resultWidth);
   // 文字幅のinputに代入
   document.getElementById("WIDTH").value = resultWidth;
 }
