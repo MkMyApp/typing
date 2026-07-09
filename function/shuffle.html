@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "A-Zシャッフル";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "英数 確認";
+  const RANDOM = 1;
+  const WIDTH = "30ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script>
+    // シャッフル用関数
+    function shuffleString(str) {
+        let arr = str.split('');
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr.join('');
+    }
+
+    // 文字列を改行で分割して処理する関数
+    function processLines(text) {
+        const lines = text.trim().split('\n');
+        const result = [];
+        
+        for (let i = 0; i < lines.length; i++) {
+            result.push(shuffleString(lines[i]));
+            //result.push(shuffleString(lines[i]).substring(0, 8));
+        }
+        
+        return result.join('\n');
+    }
+
+    // 実行部分
+    const textarea = document.getElementById('txtdata');
+    textarea.value = processLines(textarea.value);
+
+    const IME = 'OFF';
+</script>
+<script src="typing.js"></script>
+</body>
+</html>
