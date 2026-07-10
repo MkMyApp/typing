@@ -238,6 +238,10 @@ editorEl.addEventListener('input', () => {
 })
 
 editorEl.addEventListener('keydown', e => {
+
+// スマートフォン判定
+  const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
   // 1. スタート前の状態
   if (!typeStarted) {
     if (e.key === 'Enter' && !e.isComposing) {
@@ -259,7 +263,8 @@ editorEl.addEventListener('keydown', e => {
     
     const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
     
-    if (isImeOff) {
+  // IMEがOFF、またはモバイル端末の場合はEnterだけで送信を許可
+    if (isImeOff || isMobile) {
       judgeCurrentWord();
     } else {
       if (e.shiftKey) {
