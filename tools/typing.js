@@ -257,21 +257,22 @@ editorEl.addEventListener('keydown', e => {
     return;
   }
 
-  // 2. プレイ中の状態
-  if (e.key === 'Enter') {
-    e.preventDefault(); // 改行入力を無効化
-    
-    const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
-    
-  // IMEがOFF、またはモバイル端末の場合はEnterだけで送信を許可
-    if (isImeOff || isMobile) {
-      judgeCurrentWord();
-    } else {
-      if (e.shiftKey) {
-        judgeCurrentWord();
-      }
-    }
-  }
+	// 2. プレイ中の状態
+	if (e.key === 'Enter') {
+	  e.preventDefault(); // 改行入力を無効化
+	  
+	  const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
+	  
+	  // IMEがOFF、またはモバイル端末の場合はEnterだけで送信を許可
+	  if (isImeOff || isMobile) {
+	    judgeCurrentWord();
+	  } else {
+	    // ここでShiftキーとの組み合わせをチェックしています
+	    if (e.shiftKey) {
+	      judgeCurrentWord();
+	    }
+	  }
+	}
 });
 
 //起動時初期化
