@@ -151,6 +151,7 @@ function updateSettings() {
 	WIDTH     = document.getElementById("WIDTH").value;
   IME       = document.getElementById("IME").value;
 	init();
+	typeStarted = false;
 	document.getElementById("editor").focus();
 }
 
