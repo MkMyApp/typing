@@ -184,6 +184,7 @@ const startMsg = document.getElementById('START_MSG').value;
 const inputMsg = document.getElementById('INPUT_MSG').value;
 const randomVal = document.getElementById('RANDOM').value;
 const widthVal = document.getElementById('WIDTH').value;
+const imeVal = document.getElementById('IME').value;
 
 // 2. テキストエリアの要素を取得
 const textArea = document.getElementById('txtdata');
@@ -210,6 +211,7 @@ const START_MSG = "${startMsg}";
 const INPUT_MSG = "${inputMsg}";
 const RANDOM = "${randomVal}";
 const WIDTH = "${widthVal}";
+const IME = "${imeVal}";
 <\/script>
 `;
 
