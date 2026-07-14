@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL候補生成ツール</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; }
+        input, button { width: 100%; padding: 10px; margin-top: 10px; box-sizing: border-box; font-size: 16px; }
+        #result-container { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; display: none; }
+        #result { font-weight: bold; color: #333; word-break: break-all; }
+        .msg { color: green; font-size: 14px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <h3>URL候補生成ツール</h3>
+    <label for="word">ベースの単語:</label>
+    <input type="text" id="word" placeholder="英小文字やハイフンなど" value="">
+    
+    <button onclick="generateAndCopy()">生成してクリップボードにコピー</button>
+
+    <div id="result-container" id="container">
+        <div>生成された文字列:</div>
+        <div id="result"></div>
+        <div id="message" class="msg"></div>
+    </div>
+
+    <script>
+        function generateAndCopy() {
+            const baseWord = document.getElementById('word').value.trim().toLowerCase();
+            if (!baseWord) {
+                alert('単語を入力してください');
+                return;
+            }
+
+            // 1. 乱数（ランダムな英数字4文字）を生成
+            // 例: 16進数の文字列をランダムに4文字切り出す
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            const rndLength = 4;
+            let randomStr = '';
+            for (let i = 0; i < rndLength; i++) {
+                randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            // 2. 単語と乱数を結合（間にハイフンを挟む例）
+            const finalResult = `${baseWord}-${randomStr}`;
+
+            // 3. 画面に表示
+            document.getElementById('result').innerText = finalResult;
+            document.getElementById('result-container').style.display = 'block';
+
+            // 4. クリップボードにコピー (モダンな Navigator API を使用)
+            navigator.clipboard.writeText(finalResult).then(() => {
+                document.getElementById('message').innerText = '✨ クリップボードにコピーしました！';
+                // 3秒後にメッセージを消す
+                setTimeout(() => {
+                    document.getElementById('message').innerText = '';
+                }, 3000);
+            }).catch(err => {
+                document.getElementById('message').innerText = '❌ コピーに失敗しました';
+                console.error('コピー失敗:', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

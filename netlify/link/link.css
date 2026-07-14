@@ -1,0 +1,51 @@
+    body {
+        font-family: sans-serif;
+        padding: 20px;
+        background-color: #f4f4f9;
+    }
+    h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    button {
+	    width: 150px;   /* 横幅 */
+			height: 50px;   /* 高さ */
+			padding: 10px 20px; /* 上下10px、左右20pxの余白 */
+			font-size: 24px;    /* 文字サイズに合わせて調整 */
+	    cursor: pointer;      /* マウスを乗せた時に指マークにする */
+	    border-radius: 5px;   /* 角を少し丸くする */
+	    border: 1px solid #ccc; /* 枠線を薄く入れる */
+	    background-color: #fff;
+    }
+    
+    .buttons {
+        display: flex;
+        gap: 20px;
+    }
+    
+    /* プログレスバーのスタイル */
+    #progress-container {
+        width: 100%;
+        max-width: 400px;
+        height: 20px;
+        background-color: #ddd;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+    #progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: #4caf50;
+        transition: width 0.1s linear;
+    }
+    
+    #download-link {
+    	font-size: 32px;
+    }
