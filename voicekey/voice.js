@@ -30,7 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (button.id === 'speak') {
                 text = editInput.value.trim();
-            
+
+             } else if (button.id === 'CLR') {
+                editInput.value = "";
+
             } else if (button.id === 'BS') {
                 editInput.value = editInput.value.slice(0, -1);
 
