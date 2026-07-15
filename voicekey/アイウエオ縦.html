@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード配列</title>
+<style>
+.contena {
+  display: inline-block;
+  border:solid 1px #ddd;
+  padding:10px;
+
+	transform-origin: top left;
+  transform: scale(2);
+}
+.KB {
+  padding:10px;
+  border:none;
+  display: inline-block;
+	transform-origin: top left;
+  transform: scale(1);
+}
+
+button {
+	width:32px;
+	height:32px;
+	font-size:20px;
+	margin-bottom:12px;
+	margin-right:4px;
+}
+
+#editor {
+	width:29ch;
+	height:32px;
+	font-size:20px;
+	margin-right:6px;
+
+}
+
+#BS {
+	width:32px;
+	font-size:12px;
+}
+
+#speak {
+	width:32px;
+	font-size:12px;
+}
+</style>
+</head>
+<body>
+<div class="contena">
+<input id="editor" type="text"></input>
+<button id="BS">⌫</button>
+<button id="speak">🔊</button>
+<br>
+<div class="KB">
+<button>ワ</button>
+<button>ラ</button>
+<button>ヤ</button>
+<button>マ</button>
+<button>ハ</button>
+<button>ナ</button>
+<button>タ</button>
+<button>サ</button>
+<button>カ</button>
+<button>ア</button>
+<br>
+<button>　</button>
+<button>リ</button>
+<button>　</button>
+<button>ミ</button>
+<button>ヒ</button>
+<button>ニ</button>
+<button>チ</button>
+<button>シ</button>
+<button>キ</button>
+<button>イ</button>
+<br>
+<button>ン</button>
+<button>ル</button>
+<button>ユ</button>
+<button>ム</button>
+<button>フ</button>
+<button>ヌ</button>
+<button>ツ</button>
+<button>ス</button>
+<button>ク</button>
+<button>ウ</button>
+<br>
+<button>　</button>
+<button>レ</button>
+<button>　</button>
+<button>メ</button>
+<button>ヘ</button>
+<button>ネ</button>
+<button>テ</button>
+<button>セ</button>
+<button>ケ</button>
+<button>エ</button>
+<br>
+<button>ヲ</button>
+<button>ロ</button>
+<button>ヨ</button>
+<button>モ</button>
+<button>ホ</button>
+<button>ノ</button>
+<button>ト</button>
+<button>ソ</button>
+<button>コ</button>
+<button>オ</button>
+</div>
+</div>
+<script src="voice.js" defer></script>
+</body>
+</html>
