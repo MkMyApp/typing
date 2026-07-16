@@ -10,39 +10,38 @@
 <div id="result"></div>
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
-<script src="typing.js" defer></script>
-<script src="random.js" defer></script>
 <script>
-const length = 8;
+const length = 4;
 const lines = 50;
-const strdata = `たていすかんなにらせ`;
+const strdata = `ちとしはまのりれ`;
 
-const TITLE_MSG = "かな上段ランダム";
+const TITLE_MSG = "ホームポジション";
 const START_MSG = "Enter⏎";
 const INPUT_MSG = "かな";
+const IME = "OFF";
 const RANDOM = 10;
-const WIDTH = "15ch";
+const WIDTH = "12ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
-
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
 
 <script src="kana.js"></script>
 <script>
 setTransparent();//機能キーの文字を透過
 applyTransparent();//文字色を透過
-applyColor("た","#F29", "#FFF");
-applyColor("て","#F60", "#FFF");
-applyColor("い","#3A5", "#FFF");
-applyColor("す","#F00", "#FFF");
-applyColor("か","#F00", "#FFF");
-applyColor("ん","#00F", "#FFF");
-applyColor("な","#00F", "#FFF");
-applyColor("に","#3A5", "#FFF");
-applyColor("ら","#F60", "#FFF");
-applyColor("せ","#F29", "#FFF");
+applyColor("ち","#F29", "#FFF");
+applyColor("と","#F60", "#FFF");
+applyColor("し","#3A5", "#FFF");
+applyColor("は","#F00", "#FFF");
+applyColor("ま","#00F", "#FFF");
+applyColor("の","#3A5", "#FFF");
+applyColor("り","#F60", "#FFF");
+applyColor("れ","#F29", "#FFF");
 </script>
+
+<script src="typing.js"></script>
 </body>
 </html>

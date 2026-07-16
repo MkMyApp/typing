@@ -10,37 +10,23 @@
 <div id="result"></div>
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
-<script src="typing.js" defer></script>
-<script src="random.js" defer></script>
 <script>
-const length = 8;
+const length = 4;
 const lines = 50;
 const strdata = `ちとしはまのりれ`;
 
-const TITLE_MSG = "かなホームランダム";
+const TITLE_MSG = "ホームポジション";
 const START_MSG = "Enter⏎";
 const INPUT_MSG = "かな";
+const IME = "OFF";
 const RANDOM = 10;
-const WIDTH = "15ch";
+const WIDTH = "12ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
-
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
-
-<script src="kana.js"></script>
-<script>
-setTransparent();//機能キーの文字を透過
-applyTransparent();//文字色を透過
-applyColor("ち","#F29", "#FFF");
-applyColor("と","#F60", "#FFF");
-applyColor("し","#3A5", "#FFF");
-applyColor("は","#F00", "#FFF");
-applyColor("ま","#00F", "#FFF");
-applyColor("の","#3A5", "#FFF");
-applyColor("り","#F60", "#FFF");
-applyColor("れ","#F29", "#FFF");
-</script>
+<script src="random.js"></script>
+<script src="typing.js"></script>
 </body>
 </html>
