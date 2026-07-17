@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const length = 4;
+const lines = 50;
+const strdata = `ASDFJKL;`;
+
+const TITLE_MSG = "ホームポジション";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const IME = "OFF";
+const RANDOM = 10;
+const WIDTH = "12ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
+
+<script src="Lkey.js"></script>
+<script>
+setTransparent();//機能キーの文字を透過
+applyTransparent();//文字色を透過
+applyColor("A","#F29", "#FFF");
+applyColor("S","#F60", "#FFF");
+applyColor("D","#3A5", "#FFF");
+applyColor("F","#F00", "#FFF");
+applyColor("J","#00F", "#FFF");
+applyColor("K","#3A5", "#FFF");
+applyColor("L","#F60", "#FFF");
+applyColor(";","#F29", "#FFF");
+</script>
+
+<script src="typing.js"></script>
+</body>
+</html>
