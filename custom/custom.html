@@ -38,6 +38,17 @@
 		  <button class="btn" onclick="dedupeLines()">重複</button>
 		  <button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
 	  </div>
+		<div class="radiobox">
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value=" " checked>スペース
+			</label>
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value="," >カンマ
+			</label>
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value=":" >コロン
+			</label>
+	  </div>
 	  <div class="btnbox">
 	    変換元:<input type="text" id="fromChars">
 	    <span id="msg"></span><br>
@@ -57,7 +68,7 @@
 	    <button class="btn" onclick="clrText('txtComp')">クリア</button>
 	    <button class="btn" onclick="composeText()">出力</button>
 	    <button class="btn" onclick="saveFile()">保存</button>
-		  <textarea id="txtComp"></textarea>
+		  <textarea id="txtComp" style="margin-top:20px;"></textarea>
 	  </div>
 	</div>
 	<div class="dl-container">
