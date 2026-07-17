@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>あいうえお</title>
+</head>
+<body>
+<script>
+  const START_MSG = "Enter⏎"
+  const INPUT_MSG = "かな 確認"
+  const RANDOM = 10
+  const WIDTH = "16ch"
+  const IME = "OFF"
+</script>
+<!-------10--------20--------30--------40-------->
+<textarea id="txtdata" hidden>
+あいうえお
+かきくけこ
+さしすせそ
+たちつてと
+なにぬねの
+はひふへほ
+まみむめも
+やいゆえよ
+らりるれろ
+わいうえを
+がぎぐげご
+ざじずぜぞ
+だぢづでど
+ばびぶべぼ
+ぱぴぷぺぽ
+きゃきゅきょ
+しゃしゅしょ
+ちゃちゅちょ
+にゃにゅにょ
+ひゃひゅひょ
+みゃみゅみょ
+りゃりゅりょ
+ぎゃぎゅぎょ
+じゃじゅじょ
+びゃびゅびょ
+ぴゃぴゅぴょ
+</textarea>
+<!-------10--------20--------30--------40-------->
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line" 
+    style="text-align:center"></div>
+  <textarea id="editor" class="line" 
+    spellcheck="false" rows="1">
+  </textarea>
+  <script src="typing.js" defer></script>
+<!--
+<div id="exp">
+</div>
+-->
+</body>
+</html>
