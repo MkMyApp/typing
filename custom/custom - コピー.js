@@ -1,20 +1,3 @@
-function replaceText() {
-  const fromStr = document.getElementById('fromChars').value;
-  const toStr = document.getElementById('toChars').value;
-  const textArea = document.getElementById('txtdata');
-  const msg = document.getElementById('msg');
-
-  // 変換元が空の場合は処理しない
-  if (fromStr === '') {
-    msg.innerHTML = `⚠️Err 置換対象が空です`;
-    return;
-  }
-
-  //replaceAllを使用して一致するすべての文字列を置換
-  textArea.value = textArea.value.replaceAll(fromStr, toStr);
-  msg.innerHTML = "✅OK 置換完了";
-}
-
 function convert() {
     const fromStr = document.getElementById('fromChars').value;
     const toStr = document.getElementById('toChars').value;
@@ -22,10 +5,10 @@ function convert() {
 
     // 文字数の一致判定
     if (fromStr.length !== toStr.length) {
-        msg.innerHTML = `⚠️Err 文字列長不一致`;
+        msg.innerHTML = `⚠️Err`;
         return;
     }
-    msg.innerHTML = "✅OK 変換完了";
+    msg.innerHTML = "✅OK";
 
     // マッピング作成
     const map = {};
@@ -217,7 +200,7 @@ const header = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-<title>タイピング練習</title>
+<title>問題作成</title>
 </head>
 <body>
 <div id="title"></div>

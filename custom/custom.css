@@ -9,7 +9,7 @@
 
 #custom {
   text-align: left;
-  margin: 0px auto;
+  margin: 40px auto 20px;
   width: fit-content;
   border: none;
 }
@@ -48,6 +48,9 @@
   margin-bottom: 20px;
 }
 
+#msg {
+	margin-left: 80px;
+}
 .btnbox {
   display: block;
   margin-top: 20px;
@@ -113,6 +116,7 @@ font-family: monospace;
 .dl-container {
     display: flex;
     gap: 15px;
+    margin-top:20px;
 }
 .DL {
   font-size: 16px;
