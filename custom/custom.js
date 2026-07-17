@@ -26,25 +26,29 @@ function repText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
 
-  const separator = " ";
+  // ラジオボタンで選択されている値（スペース、カンマ、コロン）を取得
+  const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
+  const separator = selectedRadio ? selectedRadio.value : " ";
 
+  // 正規表現の特殊文字をエスケープして置換を実行
   const regex = new RegExp(separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1'), 'g');
-  
   const replacedText = text.replace(regex, '\n');
 
   textArea.value = replacedText;
 }
 
 function catText() {
-    const textArea = document.getElementById('txtdata');
-    const text = textArea.value;
+  const textArea = document.getElementById('txtdata');
+  const text = textArea.value;
 
-		const separator = " ";
+  // ラジオボタンで選択されている値（スペース、カンマ、コロン）を取得
+  const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
+  const separator = selectedRadio ? selectedRadio.value : " ";
 
-    const lines = text.split(/\r?\n/);
-    const replacedText = lines.map(line => line.trim()).join(separator);
+  const lines = text.split(/\r?\n/);
+  const replacedText = lines.map(line => line.trim()).join(separator);
 
-    textArea.value = replacedText;
+  textArea.value = replacedText;
 }
 
 function toUpperText() {
