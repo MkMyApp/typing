@@ -13,16 +13,11 @@
 <script>
 const length = 4;
 const lines = 50;
-const strdata = `
-1234567890-^
-QWERTYUIOP@[
-ASDFGHJKL;:]
-ZXCVBNM,./\
-`;
+const strdata = `たていすかんなにらせ`;
 
-const TITLE_MSG = "QWERTY All";
+const TITLE_MSG = "上段";
 const START_MSG = "Enter⏎";
-const INPUT_MSG = "英数";
+const INPUT_MSG = "かな";
 const IME = "OFF";
 const RANDOM = 10;
 const WIDTH = "12ch";
@@ -33,22 +28,18 @@ const WIDTH = "12ch";
 <!---5----10---15---20---25---30---35---40--->
 <script src="random.js"></script>
 
-<script src="Lkey.js"></script>
+<script src="kana.js"></script>
 <script>
 setTransparent();//機能キーの文字を透過
-//applyTransparent();//文字色を透過
-applyColor("1QAZ","#F29", "#FFF");
-applyColor("2WSX","#F60", "#FFF");
-applyColor("34EDC","#3A5", "#FFF");
-applyColor("5RFV","#F00", "#FFF");
-applyColor("6TGB","#F00", "#FFF");
-applyColor("YHN","#00F", "#FFF");
-applyColor("7UJM","#00F", "#FFF");
-applyColor("89IK,","#3A5", "#FFF");
-applyColor("0-POL.","#F60", "#FFF");
-applyColor(";／＼","#F29", "#FFF");
-applyColor("@:_","#F29", "#FFF");
-applyColor("^[]\\","#F29", "#FFF");
+applyTransparent();//文字色を透過
+applyColor("た","#F29", "#FFF");
+applyColor("て","#F60", "#FFF");
+applyColor("い","#3A5", "#FFF");
+applyColor("すか","#F00", "#FFF");
+applyColor("んな","#00F", "#FFF");
+applyColor("に","#3A5", "#FFF");
+applyColor("らせ","#F60", "#FFF");
+
 </script>
 
 <script src="typing.js"></script>
