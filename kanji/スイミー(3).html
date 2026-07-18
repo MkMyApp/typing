@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "スイミー(3)";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "27ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+スイミーは泳いだ。
+暗い海の底を
+怖かった、寂しかった、
+とても悲しかった。
+けれど海には、
+素晴らしいものが
+いっぱいあった。
+面白いものを見るたびに
+スイミーはだんだん
+元気を取り戻した。
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "スイミー(1)";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "25ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+広い海のどこかに
+小さな魚の兄弟たちが
+楽しく暮らしていた。
+みんな赤いのに、
+一匹だけは
+烏貝よりも真っ黒、
+でも泳ぐのは
+誰よりも速かった
+名前はスイミー。
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+</body>
+</html>
