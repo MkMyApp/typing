@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ランダムページオープナー</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 600px;
+    }
+    textarea {
+      width: 200px;
+      height: 180px;
+    }
+    button {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <textarea id="nameList">
+ダイナストブラス.html
+ダイナストブレス.html
+ゼラスブリッド.html
+ダルフゾーク.html
+ガーヴフレア.html
+ラグナブレード.html
+ギガスレイブ.html
+ドラグスレイブ.html
+    </textarea>
+
+    <button id="nextBtn">Next</button>
+  </div>
+
+  <script>
+    document.getElementById('nextBtn').addEventListener('click', function() {
+      // 1. テキストエリアの値を取得
+      const text = document.getElementById('nameList').value;
+      
+      // 2. 改行で分割し、空行を除外して配列化
+      const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+      
+      // リストが空の場合は何もしない
+      if (lines.length === 0) return;
+
+      // 3. 乱数で1つ選択
+      const randomIndex = Math.floor(Math.random() * lines.length);
+      const selectedPage = lines[randomIndex].trim();
+
+      // 4. 開く
+      window.open(selectedPage, 'typeing');
+      // _blank _self
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const length = 16;
+const lines = 50;
+const strdata = `
+ABCDEFG
+HIJKLMN
+OPQRSTU
+VWXYZ
+abcdefg
+hijklmn
+opqrstu
+vwxyz
+1234567890
+-^\
+!"#$%&'()=~|
+@[;:],./\
+\`{+*}<>?_
+`;
+
+const TITLE_MSG = "PassWord";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const IME = "OFF";
+const RANDOM = 10;
+const WIDTH = "25ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
+
+<script src="Lkey_2.js"></script>
+<script>
+adjustButtonLayout();//2段表示の設定
+setTransparent();//機能キーの文字を透過
+//applyTransparent();//文字色を透過
+applyColor("1QAZ","#F29", "#FFF");
+applyColor("2WSX","#F60", "#FFF");
+applyColor("3EDC","#3A5", "#FFF");
+applyColor("4RFV","#F00", "#FFF");
+applyColor("5TGB","#F00", "#FFF");
+applyColor("6YHN","#00F", "#FFF");
+applyColor("7UJM","#00F", "#FFF");
+applyColor("8IK,","#3A5", "#FFF");
+applyColor("9OL.","#F60", "#FFF");
+applyColor("0P;?","#F29", "#FFF");
+applyColor("-@:_","#F29", "#FFF");
+applyColor("^[]\\","#F29", "#FFF");
+</script>
+
+<script src="typing.js"></script>
+</body>
+</html>

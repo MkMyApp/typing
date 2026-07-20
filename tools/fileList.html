@@ -70,7 +70,7 @@
 <body>
 
 <div class="sidebar">
-  <h1>File List</h1>
+  <h1>Html List</h1>
   
   <div class="toolbar-section">
     <div class="section-title">出力形式</div>
@@ -80,11 +80,19 @@
     </div>
     <div class="radio-group">
       <input type="radio" id="modeHtml" name="answer" value="html">
-      <label for="modeHtml">拡張子付き</label>
+      <label for="modeHtml">html 配列</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modePlainHtml" name="answer" value="plainHtml">
+      <label for="modePlainHtml">html テキスト</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeName" name="answer" value="name">
-      <label for="modeName">主部のみ</label>
+      <label for="modeName">name 配列</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modePlainText" name="answer" value="text">
+      <label for="modePlainText">name テキスト</label>
     </div>
   </div>
 
@@ -99,6 +107,8 @@
       <label for="SortDate">タイムスタンプ順</label>
     </div>
   </div>
+  
+  <button id="btnReverse">逆順</button>
   
   <button id="btnLoad">フォルダ選択</button>
 </div>
@@ -130,12 +140,22 @@ async function buildHtmlListFromDirectoryHandle(dirHandle) {
   let result = "";
   for (const file of files) {
     const title = file.name.replace(/\.html$/i, "");
-    if (mode === "link") {
-      result += `<p><a href="${file.name}">${title}</a></p>\n`;
-    } else if (mode === "html") {
-      result += `'${file.name}',\n`;
-    } else {
-      result += `'${title}',\n`;
+    switch (mode) {
+      case "link":
+        result += `<p><a href="${file.name}">${title}</a></p>\n`;
+        break;
+      case "html":
+        result += `'${file.name}',\n`;
+        break;
+      case "plainHtml":
+        result += `${file.name}\n`;
+        break;
+      case "name":
+        result += `'${title}',\n`;
+        break;
+      case "text":
+        result += `${title}\n`;
+        break;
     }
   }
   return { files, result };
@@ -153,6 +173,16 @@ async function listHtmlFiles() {
 }
 
 document.getElementById("btnLoad").addEventListener("click", listHtmlFiles);
+
+// 逆順ボタンのイベントリスナー
+document.getElementById("btnReverse").addEventListener("click", () => {
+  const textarea = document.getElementById("output");
+  if (!textarea.value.trim()) return;
+  
+  // 末尾の無駄な空行を除去してから改行で分割し、反転させて再結合
+  const lines = textarea.value.trimEnd().split(/\r?\n/);
+  textarea.value = lines.reverse().join("\n") + "\n";
+});
 
 const output = document.getElementById("output");
 output.addEventListener("drop", async (e) => {
