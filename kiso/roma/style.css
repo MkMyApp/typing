@@ -74,3 +74,10 @@ body{
 	line-height:1.5em;
 	cursor: pointer;
 }
+
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}

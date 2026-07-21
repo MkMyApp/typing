@@ -28,16 +28,17 @@ function esc(s){
   return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
+    .replace(/\>/g, '&gt;')
 }
 
 function typed(){
   return editorEl.value.replace(/\n/g, '')
 }
 
-function updateScore(color = ''){
+/* --- [変更点1] JSの直指定を削除し、正解・不正解の評価クラスをセット --- */
+function updateScore(status = ''){
   resultEl.textContent = `${correct} / ${qIndex} / ${limit}`
-  resultEl.style.color = color
+  resultEl.dataset.status = status; // CSS側で [data-status="correct"] などで装飾可能
 }
 
 function shuffle(array){
@@ -48,6 +49,7 @@ function shuffle(array){
   return array
 }
 
+/* --- [変更点2] インラインstyle指定ではなく、クラスを付与 --- */
 function colorize(answer, user){
   const a = [...answer]
   const u = [...user]
@@ -58,24 +60,38 @@ function colorize(answer, user){
     const ca = a[i]
     const cu = u[i]
 
-    let color = 'black'
+    let cls = 'char-default'
     if(cu !== undefined){
-      color = (cu === ca) ? 'blue' : 'red'
+      cls = (cu === ca) ? 'char-correct' : 'char-wrong'
     }
 
-    html += `<span style="color:${color}">${esc(ca)}</span>`
+    html += `<span class="${cls}">${esc(ca)}</span>`
   }
 
   targetEl.innerHTML = html
 }
 
+/* --- [変更点3] textAlign の直接指定を「align-center/align-left」クラスの切替に変更 --- */
+function setAlignMode(mode){
+  if(mode === 'center'){
+    targetEl.classList.add('align-center');
+    targetEl.classList.remove('align-left');
+    editorEl.classList.add('align-center');
+    editorEl.classList.remove('align-left');
+  } else {
+    targetEl.classList.add('align-left');
+    targetEl.classList.remove('align-center');
+    editorEl.classList.add('align-left');
+    editorEl.classList.remove('align-center');
+  }
+}
+
 function showStart(){
   targetEl.textContent = START_MSG
-  targetEl.style.textAlign = 'center'
+  setAlignMode('center')
 
   editorEl.value = ''
   editorEl.placeholder = INPUT_MSG
-  editorEl.style.textAlign = 'center'
   
   correct = 0
   total = 0
@@ -84,6 +100,7 @@ function showStart(){
 
   editorEl.focus()
 }
+
 function buildSchedule(){
   const list = words.map((_, i) => i)
 
@@ -100,15 +117,14 @@ function showFinalResult(){
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
 
   resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`
-  resultEl.style.color = ''
+  updateScore('')
 
-  targetEl.style.textAlign = 'center'
+  setAlignMode('center')
   
   const accuracy = targetLengthTotal > 0 
     ? Math.round(correctChars / targetLengthTotal * 100) : 0
   targetEl.textContent = `${accuracy}%`
 
-  editorEl.style.textAlign = 'center'
   editorEl.value = START_MSG
 }
 
@@ -121,7 +137,6 @@ function nextWord(){
     showFinalResult()
 
     editorEl.placeholder = ''
-    editorEl.style.textAlign = 'center'
     editorEl.focus()
     return
   }
@@ -132,8 +147,7 @@ function nextWord(){
   editorEl.value = ''
   colorize(currentWord, '')
 
-  targetEl.style.textAlign = 'left'
-  editorEl.style.textAlign = 'left'
+  setAlignMode('left')
   editorEl.focus()
 }
 
@@ -178,9 +192,9 @@ function judgeCurrentWord(){
 
   if(userTyped === targetWord){
     correct++
-    updateScore('#8080f0')
+    updateScore('correct')
   }else{
-    updateScore('#f08080')
+    updateScore('wrong')
   }
 
   nextWord()
@@ -232,17 +246,13 @@ editorEl.addEventListener('compositionend', () => {
 
 editorEl.addEventListener('input', () => {
   if(!typeStarted) return
-//ローマ字入力時は変換中判定しない
-//if(composing) return
   colorize(currentWord, typed())
 })
 
 editorEl.addEventListener('keydown', e => {
 
-// スマートフォン判定
   const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 
-  // 1. スタート前の状態
   if (!typeStarted) {
     if (e.key === 'Enter' && !e.isComposing) {
       e.preventDefault();
@@ -257,31 +267,26 @@ editorEl.addEventListener('keydown', e => {
     return;
   }
 
-	// 2. プレイ中の状態
-	if (e.key === 'Enter') {
-	  e.preventDefault(); // 改行入力を無効化
-	  
-	  const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
-	  
-	  // IMEがOFF、またはモバイル端末の場合はEnterだけで送信を許可
-	  if (isImeOff || isMobile) {
-	    judgeCurrentWord();
-	  } else {
-	    // ここでShiftキーとの組み合わせをチェックしています
-	    if (e.shiftKey) {
-	      judgeCurrentWord();
-	    }
-	  }
-	}
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    
+    const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
+    
+    if (isImeOff || isMobile) {
+      judgeCurrentWord();
+    } else {
+      if (e.shiftKey) {
+        judgeCurrentWord();
+      }
+    }
+  }
 });
 
-//起動時初期化
 init()
 
-//説明欄の処理
 const expEl = document.getElementById('exp');
 if (window.self !== window.top) {
-    expEl.hidden = true;
+  if (expEl) expEl.hidden = true;
 }
 
 if (expEl) {
