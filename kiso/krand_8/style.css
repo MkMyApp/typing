@@ -1,78 +1,140 @@
-:root{
-  --line-width:800px;
-  --line-font-size:64px;
-  --line-height:1.2;
-  --line-padding-x:8px;
-  --line-border:1px solid #c0c0c0;
+:root {
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 8px;
+
+  /* --- 背景画像の設定 --- */
+  --bg-image-url: url("none");
+
+  /* --- 基本カラー設定 (style.cssに準拠) --- */
+  --bg-main-color: #ffffff;           /* 基本の背景色（白） */
+  --text-main-color: #000000;         /* 基本の文字色（黒） */
+  --text-sub-color: #808080;          /* タイトル・スコアの基本色（グレー） */
+
+  /* --- 枠線・パーツのカラー --- */
+  --border-default-color: #c0c0c0;   /* 出題・入力枠の基本枠線色 */
+  --border-focus-color: #808080;     /* 入力枠フォーカス時の枠線色 */
+  --border-box-color: #cccccc;        /* 説明欄の枠線色 (#ccc) */
+
+  /* 要素ごとの背景色 */
+  --target-bg-color: #f0f0f0;
+  --editor-bg-color: #f0f0ff;
+  --box-bg-color: #ffffff;
+
+  /* --- 文字判定・スコアのカラー --- */
+  --char-default-color: #000000;       /* 未判定文字の色 */
+  --char-correct-color: #0000ff;       /* 正解文字の色（青） */
+  --char-wrong-color: #ff0000;         /* 不正解文字の色（レッド） */
+  --char-wrong-bg-color: transparent;  /* 不正解文字の背景色（透過） */
+
+  --score-correct-color: #008000;      /* スコア正解時 */
+  --score-wrong-color: #ff0000;        /* スコア不正解時 */
+
+  /* 枠線スタイルのまとめ */
+  --line-border: 1px solid var(--border-default-color);
 }
 
-body{
-  font-family:sans-serif;
-  text-align:center;
-  margin:50px;
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 50px;
+
+  /* --- 背景画像の設定 --- */
+  background-image: var(--bg-image-url);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: var(--bg-main-color);
+  color: var(--text-main-color);
 }
 
-#title{
-  font-size:2em;
-  font-weight:bold;
-  color:#808080;
-  margin-bottom:6px;
+/* --- タイトル & スコア --- */
+#title {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--text-sub-color);
+  margin-bottom: 6px;
 }
 
-#result{
-  font-size:2em;
-  font-weight:bold;
-  margin:15px 0 30px;
-  color:#808080;
+#result {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 15px 0 30px;
+  color: var(--text-sub-color);
 }
 
-.line{
-  width:var(--line-width);
-  margin:10px auto;
-  box-sizing:border-box;
-  font-family:monospace;
-  font-size:var(--line-font-size);
-  line-height:var(--line-height);
+/* スコア判定時 */
+#result[data-status="correct"] {
+  color: var(--score-correct-color);
+}
+#result[data-status="wrong"] {
+  color: var(--score-wrong-color);
 }
 
-#target{
-  padding:6px var(--line-padding-x);
-  border:var(--line-border);
-  background:#f0f0f0;
-  text-align:left;
-  white-space:pre;
-  min-height:calc(1em * var(--line-height) + 20px);
+.line {
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  border-radius: 8px;
 }
 
-#editor{
-  display:block;
-  width:var(--line-width);
-  margin:10px auto;
-  box-sizing:border-box;
-  font-family:monospace;
-  font-size:var(--line-font-size);
-  line-height:var(--line-height);
-  padding:6px var(--line-padding-x);
-  border:var(--line-border);
-  background:#f0f0ff;
-  text-align:left;
-  outline:none;
-  overflow:hidden;
-  height:calc(1em * var(--line-height) + 20px);
-  min-height:calc(1em * var(--line-height) + 20px);
+/* --- 出題枠 (#target) --- */
+#target {
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--target-bg-color);
+  color: var(--text-main-color);
+  text-align: left;
+  white-space: pre;
+  min-height: calc(1em * var(--line-height) + 20px);
+}
+
+/* --- 入力枠 (#editor) --- */
+#editor {
+  display: block;
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--editor-bg-color);
+  color: var(--text-main-color);
+  text-align: left;
+  outline: none;
+  overflow: hidden;
+  height: calc(1em * var(--line-height) + 20px);
+  min-height: calc(1em * var(--line-height) + 20px);
   resize: none;
+  border-radius: 8px;
 }
 
-#exp,#dl{
+#editor:focus {
+  border-color: var(--border-focus-color);
+}
+
+/* --- 説明欄・ファイル選択枠 (#exp, #dl) --- */
+#exp, #dl {
   white-space: pre-wrap;
-	text-align: left;
-	width: 500px;
-	padding: 20px;
-	margin: 50px auto;
-	border: 2px solid #ccc;
-	font-size: 1em;
-	line-height:1.5em;
-	cursor: pointer;
+  text-align: left;
+  width: 500px;
+  padding: 20px;
+  margin: 50px auto;
+  border: 2px solid var(--border-box-color);
+  background: var(--box-bg-color);
+  color: var(--text-main-color);
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
 .align-center {
@@ -80,4 +142,16 @@ body{
 }
 .align-left {
   text-align: left !important;
+}
+
+/* --- 一文字ごとの判定カラー --- */
+.char-default {
+  color: var(--char-default-color);
+}
+.char-correct {
+  color: var(--char-correct-color);
+}
+.char-wrong {
+  color: var(--char-wrong-color);
+  background-color: var(--char-wrong-bg-color);
 }

@@ -25,9 +25,9 @@
 
   /* --- 文字判定・スコアのカラー --- */
   --char-default-color: #000000;       /* 未判定文字の色 */
-  --char-correct-color: #008000;       /* 正解文字の色（グリーン） */
+  --char-correct-color: #0000ff;       /* 正解文字の色（青） */
   --char-wrong-color: #ff0000;         /* 不正解文字の色（レッド） */
-  --char-wrong-bg-color: #ffe6e6;      /* 不正解文字の背景色（極薄い赤） */
+  --char-wrong-bg-color: transparent;  /* 不正解文字の背景色（透過） */
 
   --score-correct-color: #008000;      /* スコア正解時 */
   --score-wrong-color: #ff0000;        /* スコア不正解時 */
@@ -150,10 +150,8 @@ body {
 }
 .char-correct {
   color: var(--char-correct-color);
-  font-weight: bold;
 }
 .char-wrong {
   color: var(--char-wrong-color);
   background-color: var(--char-wrong-bg-color);
-  font-weight: bold;
 }
