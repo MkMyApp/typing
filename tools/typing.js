@@ -35,10 +35,9 @@ function typed(){
   return editorEl.value.replace(/\n/g, '')
 }
 
-/* --- [変更点1] JSの直指定を削除し、正解・不正解の評価クラスをセット --- */
 function updateScore(status = ''){
   resultEl.textContent = `${correct} / ${qIndex} / ${limit}`
-  resultEl.dataset.status = status; // CSS側で [data-status="correct"] などで装飾可能
+  resultEl.dataset.status = status; 
 }
 
 function shuffle(array){
@@ -49,7 +48,6 @@ function shuffle(array){
   return array
 }
 
-/* --- [変更点2] インラインstyle指定ではなく、クラスを付与 --- */
 function colorize(answer, user){
   const a = [...answer]
   const u = [...user]
@@ -71,7 +69,6 @@ function colorize(answer, user){
   targetEl.innerHTML = html
 }
 
-/* --- [変更点3] textAlign の直接指定を「align-center/align-left」クラスの切替に変更 --- */
 function setAlignMode(mode){
   if(mode === 'center'){
     targetEl.classList.add('align-center');
