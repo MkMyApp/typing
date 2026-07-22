@@ -6,22 +6,20 @@
   --line-border: 1px solid #c0c0c0;
   --line-shadow: none;
 
-  /* 背景画像ありの定義 画像なしは　none*/
-  --body-background-image: url("filename");
-
+  --body-background-image: url("bg05.jpg");
   --body-background-color: #ffffff;
   --body-color: #000000;
   
-  --title-color: #808080;
-  --score-color: #808080;
-
+  --title-color: #ffffff;
+  --score-color: #ffffff;
+  
   --score-correct-color: #8080f0;
   --score-wrong-color: #f08080;
 
   --char-default-color: #000000;
   --char-correct-color: #8080f0;
   --char-wrong-color: #f08080;
-
+  
   --target-back-color: #f0f0f0;
   --editor-back-color: #f0f0ff;
 }

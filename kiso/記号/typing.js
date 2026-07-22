@@ -113,8 +113,9 @@ function showFinalResult(){
   const sec = (endTime - startTime) / 1000
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
 
+  // 最終スコアを表示
   resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`
-  updateScore('')
+  resultEl.dataset.status = ''
 
   setAlignMode('center')
   

@@ -1,41 +1,36 @@
 :root {
-  /* --- レイアウト設定（変更なし） --- */
+  /* --- レイアウト設定 --- */
   --line-width: 800px;
   --line-font-size: 64px;
   --line-height: 1.2;
   --line-padding-x: 8px;
+  --line-border: 3px solid var(--border-default-color);
+  --line-shadow: 0 4px 12px rgba(157, 78, 221, 0.1);
 
-  /* --- 背景画像の設定（画像なし・グラデーションベース） --- */
-  --bg-image-url: none;
+  /* --- カラー設定（ゆめかわファンタジー） --- */
+  --body-background-color: #f3e8ff;
+  --body-color: #4a3b5c;
 
-  /* --- 基本カラー設定（ゆめかわファンタジー） --- */
-  --bg-main-color: #f3e8ff;           /* 全体の背景色（ミルキーラベンダー） */
-  --text-main-color: #4a3b5c;         /* 基本の文字色（やわらかいダークパープル） */
-  --text-sub-color: #9d4edd;          /* タイトル・スコアの基本色（パステルパープル） */
+  --title-color: #9d4edd;
+  --score-color: #9d4edd;
 
-  /* --- 枠線・パーツのカラー --- */
-  --border-default-color: #d8b4fe;   /* 出題・入力枠の枠線色（やわらかい紫） */
-  --border-focus-color: #f472b6;     /* 入力枠フォーカス時の枠線色（パステルピンク） */
-  --border-box-color: #e9d5ff;        /* 説明欄の枠線色 */
+  --border-default-color: #d8b4fe;
+  --border-focus-color: #f472b6;
+  --border-box-color: #e9d5ff;
 
-  --target-bg-color: #ffffff;         /* 出題枠 (#target) の背景色（ミルキーホワイト） */
-  --editor-bg-color: #faf5ff;         /* 入力枠 (#editor) の背景色 */
-  --box-bg-color: #ffffff;            /* 説明欄 (#exp, #dl) の背景色 */
+  --target-back-color: #ffffff;
+  --editor-back-color: #faf5ff;
 
-  /* --- 文字判定・スコアのカラー --- */
-  --char-default-color: #6b7280;       /* 未入力文字の色（落ち着いたグレー） */
+  --char-default-color: #6b7280;
 
-  /* 正解文字：さわやかなミントグリーン */
+  /* 正解カラー（ミントグリーン） */
   --char-correct-color: #10b981;
   --score-correct-color: #10b981;
 
-  /* 不正解文字：やさしいストロベリーピンク（暗くならず、しっかり識別できる） */
+  /* 不正解カラー（ストロベリーピンク） */
   --char-wrong-color: #9f1239;
   --char-wrong-bg-color: #fecdd3;
   --score-wrong-color: #f472b6;
-
-  /* 枠線スタイルのまとめ */
-  --line-border: 3px solid var(--border-default-color);
 }
 
 body {
@@ -43,26 +38,28 @@ body {
   text-align: center;
   margin: 50px;
 
-  /* パステル調のふんわりとしたグラデーション背景 */
+  /* パステル調のグラデーション背景 */
   background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 50%, #e0f2fe 100%);
   background-attachment: fixed;
-  color: var(--text-main-color);
+  color: var(--body-color);
 }
 
 /* --- タイトル & スコア --- */
 #title {
+  font-family: 'Hiragino Maru Gothic ProN', 'Rounded Mplus 1c', sans-serif;
   font-size: 2em;
   font-weight: bold;
-  color: var(--text-sub-color);
+  color: var(--title-color);
   margin-bottom: 6px;
   text-shadow: 2px 2px 0px #ffffff;
 }
 
 #result {
+  font-family: 'Hiragino Maru Gothic ProN', 'Rounded Mplus 1c', sans-serif;
   font-size: 2em;
   font-weight: bold;
   margin: 15px 0 30px;
-  color: var(--text-sub-color);
+  color: var(--score-color);
   text-shadow: 2px 2px 0px #ffffff;
 }
 
@@ -80,19 +77,21 @@ body {
   font-family: monospace;
   font-size: var(--line-font-size);
   line-height: var(--line-height);
-  border-radius: 16px; /* 丸みを強くしてかわいらしく */
+  border-radius: 16px;
 }
 
 /* --- 出題枠 (#target) --- */
 #target {
+  font-family: monospace;
   padding: 6px var(--line-padding-x);
   border: var(--line-border);
-  background: var(--target-bg-color);
-  color: var(--text-main-color);
+  background: var(--target-back-color);
+  color: var(--body-color);
   text-align: left;
   white-space: pre;
   min-height: calc(1em * var(--line-height) + 20px);
-  box-shadow: 0 4px 12px rgba(157, 78, 221, 0.1);
+  border-radius: 16px;
+  box-shadow: var(--line-shadow);
 }
 
 /* --- 入力枠 (#editor) --- */
@@ -106,8 +105,8 @@ body {
   line-height: var(--line-height);
   padding: 6px var(--line-padding-x);
   border: var(--line-border);
-  background: var(--editor-bg-color);
-  color: var(--text-main-color);
+  background: var(--editor-back-color);
+  color: var(--body-color);
   text-align: left;
   outline: none;
   overflow: hidden;
@@ -115,7 +114,7 @@ body {
   min-height: calc(1em * var(--line-height) + 20px);
   resize: none;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(157, 78, 221, 0.1);
+  box-shadow: var(--line-shadow);
 }
 
 #editor:focus {
@@ -131,8 +130,8 @@ body {
   padding: 20px;
   margin: 50px auto;
   border: 3px solid var(--border-box-color);
-  background: var(--box-bg-color);
-  color: var(--text-main-color);
+  background: var(--target-back-color);
+  color: var(--body-color);
   font-size: 1em;
   line-height: 1.5em;
   cursor: pointer;
@@ -140,6 +139,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* --- JS切り替え・クラス指定用 --- */
 .align-center {
   text-align: center !important;
 }

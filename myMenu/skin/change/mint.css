@@ -1,42 +1,54 @@
 :root {
+  /* --- レイアウト設定 --- */
   --line-width: 800px;
   --line-font-size: 64px;
   --line-height: 1.2;
   --line-padding-x: 12px;
-  --line-border: 2px solid #b2d8d8; /* ミント系の優しいボーダー */
+  --line-border: 2px solid #b2d8d8;
+  --line-shadow: 0 2px 5px rgba(33, 104, 89, 0.06);
 
-  /* ★ ミントグリーン基調に合わせた文字・判定カラー */
-  --char-default-color: #2d4a43; /* 文字：深みのあるディープミントグレー */
-  --char-correct-color: #0d8a6f; /* 正解：鮮やかすぎないエメラルドミント */
-  --char-wrong-color: #d9534f;   /* 不正解：ミントと相性の良いソフトなコーラルレッド */
-  
+  /* --- カラー設定（ミントトーン） --- */
+  --body-background-color: #f0f7f5;
+  --body-color: #2d4a43;
+
+  --title-color: #216859;
+  --score-color: #3b7a6d;
+
   --score-correct-color: #0d8a6f;
   --score-wrong-color: #d9534f;
+
+  --char-default-color: #2d4a43;
+  --char-correct-color: #0d8a6f;
+  --char-wrong-color: #d9534f;
+
+  --target-back-color: #ffffff;
+  --editor-back-color: #e1f0ec;
 }
 
 body {
   font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
   text-align: center;
   margin: 50px;
-  background-color: #f0f7f5; /* ほんのりミントを感じる清潔感のある薄い背景 */
-  color: #2d4a43;
+  background-color: var(--body-background-color);
+  color: var(--body-color);
 }
 
 #title {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
   font-size: 1.8em;
   font-weight: 600;
-  color: #216859; /* 落ち着いたダークミントグリーン */
+  color: var(--title-color);
   margin-bottom: 8px;
 }
 
 #result {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
   font-size: 1.8em;
   font-weight: 600;
   margin: 15px 0 30px;
-  color: #4a7c59; /* シックな和風ミント調 */
+  color: var(--score-color);
 }
 
-/* --- スコア欄の判定カラー --- */
 #result[data-status="correct"] {
   color: var(--score-correct-color);
 }
@@ -46,7 +58,7 @@ body {
 
 .line {
   width: var(--line-width);
-  margin: 12px auto;
+  margin: 10px auto;
   box-sizing: border-box;
   font-family: 'Consolas', 'Courier New', Courier, monospace;
   font-size: var(--line-font-size);
@@ -55,13 +67,16 @@ body {
 }
 
 #target {
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
   padding: 8px var(--line-padding-x);
   border: var(--line-border);
-  background: #ffffff;
+  background: var(--target-back-color);
+  color: var(--char-default-color);
   text-align: left;
   white-space: pre;
   min-height: calc(1em * var(--line-height) + 24px);
-  box-shadow: 0 2px 5px rgba(33, 104, 89, 0.06); /* ミント系のほのかな影 */
+  box-shadow: var(--line-shadow);
+  border-radius: 6px;
 }
 
 #editor {
@@ -74,19 +89,20 @@ body {
   line-height: var(--line-height);
   padding: 8px var(--line-padding-x);
   border: var(--line-border);
-  background: #e1f0ec; /* 入力欄：ひと目で判別できるアイスミント色 */
-  color: #2d4a43;
+  background: var(--editor-back-color);
+  color: var(--body-color);
   text-align: left;
   outline: none;
   overflow: hidden;
   height: calc(1em * var(--line-height) + 24px);
   min-height: calc(1em * var(--line-height) + 24px);
+  box-shadow: var(--line-shadow);
   resize: none;
+  border-radius: 6px;
 }
 
-/* フォーカス時に枠線を少し際立たせる設定 */
 #editor:focus {
-  border-color: #0d8a6f;
+  border-color: #88c4c4;
 }
 
 #exp, #dl {
@@ -94,16 +110,18 @@ body {
   text-align: left;
   width: 500px;
   padding: 20px;
-  margin: 40px auto;
-  border: 1px solid #b2d8d8;
-  background: #ffffff;
-  color: #2d4a43;
-  font-size: 0.95em;
-  line-height: 1.6em;
+  margin: 50px auto;
+  border: var(--line-border);
+  background-color: var(--target-back-color);
+  color: var(--body-color);
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
   border-radius: 6px;
+  box-shadow: var(--line-shadow);
 }
 
-/* --- JS切り替え用クラス --- */
+/* --- JS切り替え・クラス指定用 --- */
 .align-center {
   text-align: center !important;
 }
