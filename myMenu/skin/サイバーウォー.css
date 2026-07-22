@@ -1,39 +1,43 @@
 :root {
-  /* --- レイアウト設定 --- */
+  /* --- レイアウト設定（変更なし） --- */
   --line-width: 800px;
   --line-font-size: 64px;
   --line-height: 1.2;
   --line-padding-x: 8px;
 
   /* --- 背景画像の設定 --- */
-  --bg-image-url: url("none");
+  --bg-image-url: url("bg09.png");
 
-  /* --- 基本カラー設定 (style.cssに準拠) --- */
-  --bg-main-color: #ffffff;           /* 基本の背景色（白） */
-  --text-main-color: #000000;         /* 基本の文字色（黒） */
-  --text-sub-color: #808080;          /* タイトル・スコアの基本色（グレー） */
+  /* --- 基本カラー設定（サイバーウォー・対比） --- */
+  --bg-main-color: #040810;           /* 画像読込前のベース（極めて深い黒青） */
+  --text-main-color: #d1f7ff;         /* 基本の文字色（明るいシアンホワイト・右側画面由来） */
+  --text-sub-color: #00e5ff;          /* タイトル・スコアの基本色（鮮やかなシアン・防御・FW由来） */
 
   /* --- 枠線・パーツのカラー --- */
-  --border-default-color: #c0c0c0;   /* 出題・入力枠の基本枠線色 */
-  --border-focus-color: #808080;     /* 入力枠フォーカス時の枠線色 */
-  --border-box-color: #cccccc;        /* 説明欄の枠線色 (#ccc) */
+  --border-default-color: #123456;   /* 出題・入力枠の基本枠線色（深い青） */
+  --border-focus-color: #00e5ff;     /* 入力枠フォーカス時の枠線色（シアン・活性化） */
+  --border-box-color: #123456;        /* 説明欄の枠線色 */
 
-  /* 要素ごとの背景色 */
-  --target-bg-color: #f0f0f0;
-  --editor-bg-color: #f0f0ff;
-  --box-bg-color: #ffffff;
+  /* 半透明（rgba）にして背景画像を透かしつつ、文字の視認性を確保 */
+  /* 画像中央のデジタル障壁のような、光を帯びた半透明の質感に */
+  --target-bg-color: rgba(6, 15, 30, 0.85);   /* 出題枠 (#target) の背景色 */
+  --editor-bg-color: rgba(10, 25, 50, 0.90);   /* 入力枠 (#editor) の背景色 */
+  --box-bg-color: rgba(6, 15, 30, 0.88);      /* 説明欄 (#exp, #dl) の背景色 */
 
   /* --- 文字判定・スコアのカラー --- */
-  --char-default-color: #000000;       /* 未判定文字の色 */
-  --char-correct-color: #008000;       /* 正解文字の色（グリーン） */
-  --char-wrong-color: #ff0000;         /* 不正解文字の色（レッド） */
-  --char-wrong-bg-color: #ffe6e6;      /* 不正解文字の背景色（極薄い赤） */
+  --char-default-color: #d1f7ff;       /* 入力前・未判定文字の色 */
 
-  --score-correct-color: #008000;      /* スコア正解時 */
-  --score-wrong-color: #ff0000;        /* スコア不正解時 */
+  /* 正解文字（防御成功）：画像右側の「DEFENDING」「シールド」のシアン（水色） */
+  --char-correct-color: #00ffff;
+  --score-correct-color: #00ffff;
+
+  /* 不正解文字（ミス・攻撃）：画像左側の「BREACH」「ATTACKING」「雷撃」の赤・紫 */
+  --char-wrong-color: #ff0055;         /* 不正解文字の色（鮮やかなマゼンタレッド） */
+  --char-wrong-bg-color: #4a002a;      /* 不正解文字の背景色（暗い赤紫のハイライト） */
+  --score-wrong-color: #ff0055;        /* スコア不正解時の文字色 */
 
   /* 枠線スタイルのまとめ */
-  --line-border: 1px solid var(--border-default-color);
+  --line-border: 2px solid var(--border-default-color);
 }
 
 body {
@@ -57,6 +61,8 @@ body {
   font-weight: bold;
   color: var(--text-sub-color);
   margin-bottom: 6px;
+  /* 画像のデジタル発光のようなグロー効果 */
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
 }
 
 #result {
@@ -64,14 +70,17 @@ body {
   font-weight: bold;
   margin: 15px 0 30px;
   color: var(--text-sub-color);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
 }
 
 /* スコア判定時 */
 #result[data-status="correct"] {
   color: var(--score-correct-color);
+  text-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 #result[data-status="wrong"] {
   color: var(--score-wrong-color);
+  text-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
 }
 
 .line {
@@ -93,6 +102,8 @@ body {
   text-align: left;
   white-space: pre;
   min-height: calc(1em * var(--line-height) + 20px);
+  /* 障壁のような外側のグロー */
+  box-shadow: 0 0 15px rgba(18, 52, 86, 0.5);
 }
 
 /* --- 入力枠 (#editor) --- */
@@ -119,6 +130,8 @@ body {
 
 #editor:focus {
   border-color: var(--border-focus-color);
+  /* 防御フィールド活性化のような強いシアンのグロー */
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
 }
 
 /* --- 説明欄・ファイル選択枠 (#exp, #dl) --- */
@@ -144,16 +157,20 @@ body {
   text-align: left !important;
 }
 
-/* --- 一文字ごとの判定カラー --- */
+/* --- 一文字ごとの判定カラー（対決の再現） --- */
 .char-default {
   color: var(--char-default-color);
 }
 .char-correct {
+  /* 防御成功：クッキリと明るいシアン＋太字 */
   color: var(--char-correct-color);
   font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 .char-wrong {
+  /* 攻撃成功（ミス）：鮮やかな赤紫＋暗赤色背景＋太字 */
   color: var(--char-wrong-color);
   background-color: var(--char-wrong-bg-color);
   font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
 }

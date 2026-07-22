@@ -1,39 +1,39 @@
 :root {
-  /* --- レイアウト設定 --- */
+  /* --- レイアウト設定（変更なし） --- */
   --line-width: 800px;
   --line-font-size: 64px;
   --line-height: 1.2;
   --line-padding-x: 8px;
 
   /* --- 背景画像の設定 --- */
-  --bg-image-url: url("none");
+  --bg-image-url: url("bg08.png");     /* 拡張子を png に修正 */
 
-  /* --- 基本カラー設定 (style.cssに準拠) --- */
-  --bg-main-color: #ffffff;           /* 基本の背景色（白） */
-  --text-main-color: #000000;         /* 基本の文字色（黒） */
-  --text-sub-color: #808080;          /* タイトル・スコアの基本色（グレー） */
+  /* --- 基本カラー設定（サイバーミリタリー） --- */
+  --bg-main-color: #0b1325;           /* 画像読込前のベース（ダークディープブルー） */
+  --text-main-color: #e0f7fa;         /* 基本の文字色（明るいシアンホワイト） */
+  --text-sub-color: #00e5ff;          /* タイトル・スコアの基本色（ネオンブルー） */
 
   /* --- 枠線・パーツのカラー --- */
-  --border-default-color: #c0c0c0;   /* 出題・入力枠の基本枠線色 */
-  --border-focus-color: #808080;     /* 入力枠フォーカス時の枠線色 */
-  --border-box-color: #cccccc;        /* 説明欄の枠線色 (#ccc) */
+  --border-default-color: #1a4971;   /* 出題・入力枠の基本枠線色 */
+  --border-focus-color: #00e5ff;     /* 入力枠フォーカス時の枠線色 */
+  --border-box-color: #1a4971;        /* 説明欄の枠線色 */
 
-  /* 要素ごとの背景色 */
-  --target-bg-color: #f0f0f0;
-  --editor-bg-color: #f0f0ff;
-  --box-bg-color: #ffffff;
+  /* 背景を半透明にして視認性と作戦モニター感を両立 */
+  --target-bg-color: rgba(10, 20, 38, 0.88);
+  --editor-bg-color: rgba(15, 30, 55, 0.92);
+  --box-bg-color: rgba(10, 20, 38, 0.85);
 
   /* --- 文字判定・スコアのカラー --- */
-  --char-default-color: #000000;       /* 未判定文字の色 */
-  --char-correct-color: #008000;       /* 正解文字の色（グリーン） */
-  --char-wrong-color: #ff0000;         /* 不正解文字の色（レッド） */
-  --char-wrong-bg-color: #ffe6e6;      /* 不正解文字の背景色（極薄い赤） */
+  --char-default-color: #e0f7fa;       /* 入力前・未判定文字の色 */
+  --char-correct-color: #76ff03;       /* 正解文字の色（レーザーグリーン） */
+  --char-wrong-color: #ff1744;         /* 不正解文字の色（警告レッド） */
+  --char-wrong-bg-color: #4a0e17;      /* 不正解文字の背景色 */
 
-  --score-correct-color: #008000;      /* スコア正解時 */
-  --score-wrong-color: #ff0000;        /* スコア不正解時 */
+  --score-correct-color: #76ff03;      /* スコア正解時 */
+  --score-wrong-color: #ff1744;        /* スコア不正解時 */
 
   /* 枠線スタイルのまとめ */
-  --line-border: 1px solid var(--border-default-color);
+  --line-border: 2px solid var(--border-default-color);
 }
 
 body {
@@ -57,6 +57,7 @@ body {
   font-weight: bold;
   color: var(--text-sub-color);
   margin-bottom: 6px;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
 }
 
 #result {
@@ -64,14 +65,17 @@ body {
   font-weight: bold;
   margin: 15px 0 30px;
   color: var(--text-sub-color);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
 }
 
 /* スコア判定時 */
 #result[data-status="correct"] {
   color: var(--score-correct-color);
+  text-shadow: 0 0 8px rgba(118, 255, 3, 0.6);
 }
 #result[data-status="wrong"] {
   color: var(--score-wrong-color);
+  text-shadow: 0 0 8px rgba(255, 23, 68, 0.6);
 }
 
 .line {
@@ -119,6 +123,7 @@ body {
 
 #editor:focus {
   border-color: var(--border-focus-color);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
 }
 
 /* --- 説明欄・ファイル選択枠 (#exp, #dl) --- */
