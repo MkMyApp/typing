@@ -12,23 +12,41 @@
 <textarea id="editor" class="line" spellcheck="false"></textarea>
 
 <script>
-  const TITLE_MSG = "問題タイトル";
+  const TITLE_MSG = "タイプ練習にタイプ音";
   const START_MSG = "Enter⏎でスタート";
-  const INPUT_MSG = "英数 かな 確認";
-  const RANDOM = 10; // 出題数
-  const WIDTH = "25ch";
-  const IME = 'ON'; // 'OFF'
+  const INPUT_MSG = "英数 確認";
+  const RANDOM = 0;
+  const WIDTH = "35ch";
+  const IME = 'OFF';
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
-test1
-test2
+<script src="typing.js"></script>
+<script src="sound.js"></script>
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
 
 <script src="typing.js"></script>
-<script src="sound.js"></script>
-
+<style>
+#soundSelect {
+	margin-top:20px;
+	font-size:24px;
+}
+</style>
+<select id="soundSelect"></select>
+<script>
+const soundList = [
+  'sound1.mp3',
+  'sound2.mp3',
+  'sound3.mp3',
+  'sound4.mp3',
+  'sound5.mp3',
+  'sound6.mp3',
+  'sound7.mp3',
+  'sound8.mp3',
+];
+</script>
+<script src="selsound.js"></script>
 
 </body>
 </html>
