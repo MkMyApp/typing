@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "いろはうた ログ取得";
+  const START_MSG = "Enter⏎でスタート";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 0; // 出題数
+  const WIDTH = "20ch";
+  const IME = 'OFF'; // 'OFF'
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+いろはにほへと
+ちりぬるを
+わかよたれそ
+つねならむ
+うゐのおくやま
+けふこえて
+あさきゆめみし
+ゑひもせす
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script src="typing.js"></script>
+<script src="recode.js"></script>
+</body>
+</html>
