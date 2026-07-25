@@ -18,6 +18,7 @@
   --char-default-color: #000000;
   --char-correct-color: #0055ff;
   --char-wrong-color: #d95f02;
+  --char-wrong-back-color: #ffebd5;
   
   --target-back-color: #f2f2f2;
   --editor-back-color: #e8f0fe;
@@ -54,23 +55,17 @@ body {
   color: var(--score-wrong-color);
 }
 
-.line span.correct {
-  color: var(--char-correct-color);
-}
-
-.line span.wrong {
-  color: var(--char-wrong-color);
-  background-color: #ffebd5;
-}
-
-#target {
-  display: block;
+.line {
   width: var(--line-width);
   margin: 10px auto;
   box-sizing: border-box;
   font-family: monospace;
   font-size: var(--line-font-size);
   line-height: var(--line-height);
+}
+
+#target {
+  font-family: monospace;
   padding: 6px var(--line-padding-x);
   border: var(--line-border);
   background: var(--target-back-color);
@@ -112,4 +107,23 @@ body {
 
 #exp pre {
   white-space: pre-wrap;
+}
+
+/* --- JS切り替え・クラス指定用 --- */
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}
+
+.char-default {
+  color: var(--char-default-color);
+}
+.char-correct {
+  color: var(--char-correct-color);
+}
+.char-wrong {
+  color: var(--char-wrong-color);
+  background-color: var(--char-wrong-back-color);
 }
