@@ -22,11 +22,11 @@
 </header>
 <main>
 <div class="center-block">
-<a href="いろはlog.html" taget="_blank">いろはうた</a><br>
+<a href="いろはlog.html" target="_blank">いろはうた</a><br>
 かな　IME入力　確定:Enter つぎへ:Enter<br>
-<a href="攻殻log.html" taget="_blank">攻殻機動隊</a><br>
+<a href="攻殻log.html" target="_blank">攻殻機動隊</a><br>
 かな漢字変換　確定:Enter つぎへ:Shift+Enter<br>
-<a href="setData.html" taget="_blank">データ分析</a><br>
+<a href="setData.html" target="_blank">データ分析</a><br>
 問題データ入力<br>
 <hr>
 <a href="record.js" download>record.js</a><br>
@@ -39,8 +39,55 @@
 ダウンロードフォルダにCSVファイルで保存される<br>
 <a href="分析プロンプト.txt">分析プロンプト</a><br>
 <a href="アドバイスプロンプト.txt">アドバイスプロンプト</a><br>
+<button onclick="copyToClipboard()">分析プロンプトをコピー</button>
+<br>
+<a href="https://gemini.google.com/app" target="_blank">Gemini</a><br>
+Geminiが開きます。<br>
+クリップボードからプロンプトを貼り付け<br>
+条件を修正してから<br>
+ダウンロードフォルダがデータ.csvをドロップします<br>
 </div>
+<script>
+function copyToClipboard() {
+  // コピーしたいテキスト
+  const textToCopy = `
+  タイピング練習アプリから出力された打鍵ログ（CSVデータ）です。
+このログを詳しく解析し、タイピングの評価とアドバイスを出力してください。
+【入力環境の前提条件】
+・モード：IME ON（日本語入力）
+  - 送信操作：Shift + Enter または Enter 2回押し
+・モード：IME OFF（直接入力）
+  - 送信操作：Enter 1回押し
+【分析してほしい項目】
+1. 総合評価
+   - 全体の打鍵速度（推定WPM/CPMまたは打鍵/秒）
+   - タイピングのリズムや安定度
+2. 良かった点（強み）
+   - スムーズに入力できているフレーズやキー操作
+3. 課題とミスの傾向
+   - 打鍵間隔（思考時間・迷い）が長くなっている苦手なキーや文字
+   - バックスペース等の修正行動が発生した箇所とその原因
+   - 送信操作（Shift+Enter等）やIME変換操作で生じているタイムロス
+4. 今後の練習へのアドバイス
+   - 指の動きやキー配置の意識など、具体的に改善できるポイント
+【出力形式】
+箇条書きとシンプルな表を使って、わかりやすく読みやすい形式で出力してください。
+`;
 
+  // クリップボードに書き込み
+  navigator.clipboard.writeText(textToCopy).then(() => {
+		alert(
+      "【プロンプトをコピーしました】\n\n" +
+      "1. 「Geminiを開く」リンクをクリック\n" +
+      "2. Geminiの入力欄に Ctrl+V で貼り付け\n" +
+      "3. 条件を修正\n" +
+      "4. PCのダウンロードフォルダから「データ.csv」をドラッグ＆ドロップしてください"
+    );
+  }).catch(err => {
+    console.error("コピーに失敗しました: ", err);
+  });
+}
+</script>
 </main>
 <footer style="font-size:200%;text-align:center;">
 <p>
