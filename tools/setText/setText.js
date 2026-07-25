@@ -96,3 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function setFont() {
+  if (dataEl.style.fontSize === 'var(--line-font-size)') {
+    dataEl.style.fontSize = '18px';
+  } else {
+    dataEl.style.fontSize = 'var(--line-font-size)';
+  }
+}

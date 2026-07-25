@@ -11,13 +11,15 @@
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
 
-<link rel="stylesheet" href="setALL.css">
+<link rel="stylesheet" href="setData.css">
 <div id="setBox">
 	<div id="set">
-		題　名：<input id="TITLE_MSG" value="問題作成"><br>
-		開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+	  <div hidden>
+		題　名：<input id="TITLE_MSG" value="データ分析"><br>
+		開　始：<input id="START_MSG" value="Enter⏎"><br>
 		文字種：<input id="INPUT_MSG" value="英数 かな"><br>
 		シフト：<input id="IME" value="ON"><br>
+    </div>
 		問題数：<input id="RANDOM" value="0"><br>
 		文字幅：<input id="WIDTH" value="25ch"><button class="sBtn" onclick="setMaxLength()">最長幅</button><br>
 	</div>
@@ -35,7 +37,7 @@
 <textarea id="txtdata" placeholder="問題文を入力">
 </textarea>
 </div>
-<script src="setALL.js"></script>
+<script src="setData.js"></script>
 
 <script src="typing.js"></script>
 </body>
