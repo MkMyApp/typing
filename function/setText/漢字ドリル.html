@@ -10,26 +10,28 @@
 <div id="result"></div>
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+	<script>
+		const TITLE_MSG = "漢字ドリル";
+		const START_MSG = "Enter⏎でスタート";
+		const INPUT_MSG = "かな";
+		const RANDOM = 10;
+		const WIDTH = "32ch";
+	</script>
 
 <link rel="stylesheet" href="setText.css">
 <div id="setBox">
-<button class="Btn" onclick="loadFile()">読込</button>
-<button class="Btn" onclick="saveFile()">保存</button>
-<button class="Btn" onclick="updateStrData()">設定</button>
-<br>
-</div>
+	<div class="btn-container">
+		<button class="Btn" onclick="loadFile()">読込</button>
+		<button class="Btn" onclick="saveFile()">保存</button>
+		<button class="Btn" onclick="updateStrData()">設定</button>
+	</div>
 
-<script>
-const TITLE_MSG = "漢字ドリル";
-const START_MSG = "Enter⏎でスタート";
-const INPUT_MSG = "かな";
-const RANDOM = 10;
-const WIDTH = "32ch";
-</script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" placeholder="漢字ドリルの問題を入力">
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
+</div>
+
 
 <script src="setText.js"></script>
 

@@ -11,14 +11,6 @@
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
 
-<link rel="stylesheet" href="setText.css">
-<div id="setBox">
-<button class="Btn" onclick="loadFile()">えらぶ</button>
-<button class="Btn" onclick="saveFile()">のこす</button>
-<button class="Btn" onclick="updateStrData()">はじめ</button>
-<br>
-</div>
-
 <script>
 const TITLE_MSG = "ひらがなドリル";
 const START_MSG = "Enter⏎";
@@ -26,10 +18,19 @@ const INPUT_MSG = "かな";
 const RANDOM = 10;
 const WIDTH = "16ch";
 </script>
+
+<link rel="stylesheet" href="setText.css">
+<div id="setBox">
+  <div class="btn-container">
+	<button class="Btn" onclick="loadFile()">えらぶ</button>
+	<button class="Btn" onclick="saveFile()">のこす</button>
+	<button class="Btn" onclick="updateStrData()">はじめ</button>
+	</div>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" placeholder="ひらがな練習の問題を入力">
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
+</div>
 
 <script src="setText.js"></script>
 
