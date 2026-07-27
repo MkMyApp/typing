@@ -47,7 +47,7 @@
     }
 
     dlEl.style.display = 'block';
-    dlEl.innerHTML = `<strong>[ Click to Download CSV Log ]</strong><br>ここをクリックして結果CSVを保存`;
+    dlEl.innerHTML = `<strong>[ Click to Download Log.txt ]</strong><br>ここをクリックしてログファイルを保存`;
 
     // クリック時に手動ダウンロード発動（ブラウザにブロックされません）
     dlEl.onclick = function() {
