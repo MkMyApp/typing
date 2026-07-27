@@ -56,7 +56,7 @@
       const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
       const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
       
-      saveFile(blob, `typing_log_${Date.now()}.csv`);
+      saveFile(blob, `typing_log_${Date.now()}.txt`);
     };
   }
 
