@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>CSS Link</title>
+<style>
+  body { 
+    margin: 20px; 
+    display: flex; 
+    gap: 20px; 
+    font-family: sans-serif;
+  }
+  
+  /* 左側のサイドバー */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+  }
+
+  /* H1の下の余白を調整 */
+  h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+  }
+
+  .toolbar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px; /* セクションごとの間隔 */
+  }
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+  }
+
+  .section-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  /* 右側のテキストエリア */
+  textarea {
+    flex: none; 
+    width: 320px;
+    height: 480px;
+    resize: both;
+    min-width: 320px; 
+    min-height: 480px;
+    padding: 10px;
+    font-family: monospace;
+    line-height: 1.5;
+    overflow: auto; 
+  }
+
+  button {
+    width: 80%;
+    height: 48px;
+    font-size: 12pt;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h1>CSS Link</h1>
+  
+  <div class="toolbar-section">
+    <div class="section-title">出力形式</div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink" name="answer" value="link" checked>
+      <label for="modeLink">リンク</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeCss" name="answer" value="css">
+      <label for="modeCss">css 配列</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modePlainCss" name="answer" value="plainCss">
+      <label for="modePlainCss">css テキスト</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeName" name="answer" value="name">
+      <label for="modeName">name 配列</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modePlainText" name="answer" value="text">
+      <label for="modePlainText">name テキスト</label>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="section-title">並び順</div>
+    <div class="radio-group">
+      <input type="radio" id="SortName" name="sort" value="name">
+      <label for="SortName">ファイル名順</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="SortDate" name="sort" value="date" checked>
+      <label for="SortDate">タイムスタンプ順</label>
+    </div>
+  </div>
+  
+  <button id="btnReverse">逆順</button>
+  
+  <button id="btnLoad">フォルダ選択</button>
+</div>
+
+<textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
+
+<script>
+
+async function buildCssListFromDirectoryHandle(dirHandle) {
+  const files = [];
+  const mode = document.querySelector('input[name="answer"]:checked').value;
+  const sortMode = document.querySelector('input[name="sort"]:checked').value;
+
+  for await (const [name, handle] of dirHandle.entries()) {
+    if (handle.kind === "file") {
+      if (name.toLowerCase().endsWith(".css")) {
+        const file = await handle.getFile();
+        files.push({ name: name, modified: file.lastModified });
+      }
+    }
+  }
+
+  if (sortMode === "name") {
+    files.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+  } else {
+    files.sort((a, b) => b.modified - a.modified);
+  }
+
+  let result = "";
+  for (const file of files) {
+    const title = file.name.replace(/\.css$/i, "");
+    switch (mode) {
+      case "link":
+        result += `<link rel="stylesheet" href="${file.name}">\n`;
+        break;
+      case "css":
+        result += `'${file.name}',\n`;
+        break;
+      case "plainCss":
+        result += `${file.name}\n`;
+        break;
+      case "name":
+        result += `'${title}',\n`;
+        break;
+      case "text":
+        result += `${title}\n`;
+        break;
+    }
+  }
+  return { files, result };
+}
+
+async function listCssFiles() {
+  const textarea = document.getElementById("output");
+  try {
+    const dirHandle = await window.showDirectoryPicker();
+    const { files, result } = await buildCssListFromDirectoryHandle(dirHandle);
+    textarea.value = result;
+  } catch (err) {
+    if (err.name !== 'AbortError') console.error(err);
+  }
+}
+
+document.getElementById("btnLoad").addEventListener("click", listCssFiles);
+
+// 逆順ボタンのイベントリスナー
+document.getElementById("btnReverse").addEventListener("click", () => {
+  const textarea = document.getElementById("output");
+  if (!textarea.value.trim()) return;
+  
+  // 末尾の無駄な空行を除去してから改行で分割し、反転させて再結合
+  const lines = textarea.value.trimEnd().split(/\r?\n/);
+  textarea.value = lines.reverse().join("\n") + "\n";
+});
+
+const output = document.getElementById("output");
+output.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  const item = e.dataTransfer.items[0];
+  if (item?.getAsFileSystemHandle) {
+    const handle = await item.getAsFileSystemHandle();
+    if (handle?.kind === "directory") {
+      const { files, result } = await buildCssListFromDirectoryHandle(handle);
+      output.value = result;
+    }
+  }
+});
+output.addEventListener("dragover", (e) => e.preventDefault());
+</script>
+</body>
+</html>

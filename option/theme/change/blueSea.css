@@ -1,0 +1,131 @@
+:root {
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 8px;
+  --line-border: 1px solid #b0c4de; /* 柔らかなライトスチールブルー */
+
+  --body-background-color: #f4f9fc; /* 穏やかな波打ち際を思わせるごく薄い砂浜・水面色 */
+  --body-color: #1c3d5a; /* 深海のような落ち着いたダークブルー（文字用） */
+  
+  /* --- 主張を抑えた薄いカラー（タイトル・スコア用） --- */
+  --title-color: #a0b8cc; /* 水面に溶け込むようなペールブルー */
+  --score-color: #a0b8cc;
+  
+  /* --- スコア判定カラー --- */
+  --score-correct-color: #0077b6; /* 澄んだアクアブルー */
+  --score-wrong-color: #e66868; /* 珊瑚のようなソフトなコーラルピンク */
+
+  /* --- 文字表示カラー --- */
+  --char-default-color: #1c3d5a;
+  --char-correct-color: #0077b6; /* 正解：鮮やかな海の色 */
+  --char-wrong-color: #e66868; /* 不正解：警告用の珊瑚色 */
+  
+  /* --- 入力・ターゲットエリア背景 --- */
+  --target-back-color: #e0f2fe; /* 浅瀬のみずみずしいライトブルー */
+  --editor-back-color: #f0f9ff; /* 爽快感のあるごく淡いシアンブルー */
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 50px;
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+}
+
+#title {
+  font-family: sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--title-color);
+  margin-bottom: 6px;
+}
+
+#result {
+  font-family: sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 15px 0 30px;
+  color: var(--score-color);
+}
+
+/* --- スコア欄の判定カラー --- */
+#result[data-status="correct"] {
+  color: var(--score-correct-color);
+}
+#result[data-status="wrong"] {
+  color: var(--score-wrong-color);
+}
+
+.line {
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+}
+
+#target {
+  font-family: monospace;
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--target-back-color);
+  color: var(--char-default-color);
+  text-align: left;
+  white-space: pre;
+  min-height: calc(1em * var(--line-height) + 20px);
+}
+
+#editor {
+  display: block;
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--editor-back-color);
+  color: var(--char-default-color);
+  text-align: left;
+  outline: none;
+  overflow: hidden;
+  height: calc(1em * var(--line-height) + 20px);
+  min-height: calc(1em * var(--line-height) + 20px);
+  resize: none;
+}
+
+#exp, #dl {
+  white-space: pre-wrap;
+  text-align: left;
+  width: 500px;
+  padding: 20px;
+  margin: 50px auto;
+  border: var(--line-border);
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
+}
+
+/* --- JS切り替え・クラス指定用 --- */
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}
+
+.char-default {
+  color: var(--char-default-color);
+}
+.char-correct {
+  color: var(--char-correct-color);
+}
+.char-wrong {
+  color: var(--char-wrong-color);
+}

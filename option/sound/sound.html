@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "タイプ練習にタイプ音";
+  const START_MSG = "Enter⏎でスタート";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 0;
+  const WIDTH = "35ch";
+  const IME = 'OFF';
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+タイピングに効果音をつけると
+練習に集中できなくなりますね。
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script src="typing.js"></script>
+<style>
+#soundSelect {
+	margin-top: 20px;
+	font-size: 20px;
+	padding: 8px 12px;
+	box-sizing: border-box;
+	line-height: 1.4;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+</style>
+<select id="soundSelect"></select>
+<script>
+const soundList = [
+'sound (1).mp3',
+'sound (2).mp3',
+'sound (3).mp3',
+'sound (4).mp3',
+'sound (5).mp3',
+'sound (6).mp3',
+'sound (7).mp3',
+'sound (8).mp3',
+'sound (9).mp3',
+'sound (10).mp3',
+'sound (11).mp3',
+'sound (12).mp3',
+'sound (13).mp3',
+'sound (14).mp3',
+'sound (15).mp3',
+'sound (16).mp3',
+'sound (17).mp3',
+'sound (18).mp3',
+'sound (19).mp3',
+'sound (20).mp3',
+'sound (21).mp3',
+'sound (22).mp3',
+'sound (23).mp3',
+'sound (24).mp3',
+'sound (25).mp3',
+'sound (26).mp3',
+'sound (27).mp3',
+'sound (28).mp3',
+'sound (29).mp3',
+];
+</script>
+<script src="selsound.js"></script>
+
+</body>
+</html>

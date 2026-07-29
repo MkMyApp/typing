@@ -1,0 +1,171 @@
+:root {
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 8px;
+  --line-border: 1px solid rgba(160, 175, 160, 0.4); /* 淡い竹色の落ち着いたボーダー */
+  --line-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  /* --- 背景画像の設定 --- */
+  --body-background-image: url("bg07.png");
+  --body-background-color: #121612; /* 深い暗竹色 */
+
+  /* --- カラー設定（和風・水墨静寂トーン） --- */
+  --body-color: #d8e0d8; /* 墨絵に馴染む淡い利休灰風 */
+
+  /* ★ タイトル・スコア（控えめで上品なカラー） ★ */
+  --title-color: #a8b8a0; /* 控えめな淡い竹色 */
+  --score-color: #a8b8a0;
+
+  /* 判定用カラー（静寂に馴染む渋めの和色） */
+  --score-correct-color: #5c8a72; /* 藍鉄／渋い緑藍 */
+  --score-wrong-color: #b85252;   /* 茜色／落ち着いた赤 */
+
+  --char-default-color: #e6eae6; /* 明るめの月白（文字視認性確保） */
+  --char-correct-color: #5c9e7a; /* 竹緑 */
+  --char-wrong-color: #c85a5a;   /* 落ち着いた朱赤 */
+
+  /* ★ 背景が綺麗に透ける半透明設定 ★ */
+  --target-back-color: rgba(18, 24, 20, 0.75); /* 深い和の暗色（75%不透明） */
+  --editor-back-color: rgba(28, 36, 30, 0.80); /* 入力枠（80%不透明） */
+}
+
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Shippori Mincho", "MS Mincho", serif; /* 雰囲気のある明朝体 */
+  text-align: center;
+  margin: 50px;
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+
+  /* 背景画像の設定 */
+  background-image: var(--body-background-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ★ 控えめなタイトル ★ */
+#title {
+  font-family: inherit;
+  font-size: 1.8em; /* サイズをやや小ぶりに */
+  font-weight: 500; /* 太さを抑えて上品に */
+  color: var(--title-color);
+  margin-bottom: 6px;
+  letter-spacing: 0.1em; /* 和風のゆとり */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* 控えめな影 */
+}
+
+/* ★ 控えめなスコア ★ */
+#result {
+  font-family: inherit;
+  font-size: 1.6em;
+  font-weight: 500;
+  margin: 15px 0 30px;
+  color: var(--score-color);
+  letter-spacing: 0.05em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* --- スコア欄の判定カラー --- */
+#result[data-status="correct"] {
+  color: var(--score-correct-color);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+#result[data-status="wrong"] {
+  color: var(--score-wrong-color);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.line {
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  border-radius: 4px;
+}
+
+#target {
+  font-family: monospace;
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--target-back-color);
+  color: var(--char-default-color);
+  text-align: left;
+  white-space: pre;
+  min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
+  backdrop-filter: blur(2px); /* 背景画像をうっすらボカして文字を読みやすく */
+  border-radius: 4px;
+}
+
+#editor {
+  display: block;
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--editor-back-color);
+  color: var(--char-default-color);
+  text-align: left;
+  outline: none;
+  overflow: hidden;
+  height: calc(1em * var(--line-height) + 20px);
+  min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
+  backdrop-filter: blur(2px);
+  resize: none;
+  border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#editor:focus {
+  border-color: #8a9a86; /* フォーカス時に静かな苔色 */
+  box-shadow: var(--line-shadow), 0 0 8px rgba(138, 154, 134, 0.4);
+}
+
+#exp, #dl {
+  white-space: pre-wrap;
+  text-align: left;
+  width: 500px;
+  padding: 20px;
+  margin: 50px auto;
+  border: var(--line-border);
+  background-color: var(--target-back-color);
+  color: var(--body-color);
+  font-size: 1em;
+  line-height: 1.5em;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: var(--line-shadow);
+  backdrop-filter: blur(2px);
+}
+
+/* --- JS切り替え・クラス指定用 --- */
+.align-center {
+  text-align: center !important;
+}
+.align-left {
+  text-align: left !important;
+}
+
+.char-default {
+  color: var(--char-default-color);
+}
+.char-correct {
+  color: var(--char-correct-color);
+  font-weight: bold;
+}
+.char-wrong {
+  color: var(--char-wrong-color);
+  background-color: rgba(200, 90, 90, 0.2); /* ほのかな赤のハイライト */
+  font-weight: bold;
+  border-radius: 2px;
+}
