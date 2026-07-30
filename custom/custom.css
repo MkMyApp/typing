@@ -4,6 +4,7 @@
   margin: 0px auto;
   padding: 15px;
   width: fit-content;
+  min-width: 545px;
   border: 1px solid #eee;
 }
 
@@ -25,7 +26,7 @@
 
 #custom textarea {
   display: block;
-  width: 42ch;
+  width: 52ch;
   min-width: 120px;
   height: 120px;
   min-height: 120px;
@@ -33,12 +34,25 @@
   margin-left: 10px;
   margin-bottom: 0px;
   box-sizing: border-box;
-  overflow-y: hidden;
+  white-space: pre;
+  overflow: auto;
   font-family: monospace;
-  font-size: 24px;
+  font-size: 20px;
   padding: 6px 8px;
   border: 1px solid #c0c0c0;
   background: #ffffff;
+  text-align: left;
+}
+
+.ruler {
+  width: max-content;
+  box-sizing: border-box;
+  font-family: monospace;
+  margin: 20px auto;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #808080;
+  padding-left: 1ch;
   text-align: left;
 }
 
@@ -99,18 +113,6 @@ font-family: monospace;
   height: 10px !important;
   margin: 0 !important;
   cursor: pointer;
-}
-
-.ruler {
-  width: max-content;
-  box-sizing: border-box;
-  font-family: monospace;
-  margin: 20px auto;
-  font-size: 24px;
-  letter-spacing: 0;
-  color: #808080;
-  padding-left: 1ch;
-  text-align: left;
 }
 
 .dl-container {

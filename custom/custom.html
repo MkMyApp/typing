@@ -26,19 +26,12 @@
 	  </div>
 
 	  <div id="text">
-	    <span class="ruler">+----5----10---15---20---25---30---35---40</span>
+	    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
 	    <textarea id="txtdata"></textarea>
-	    <span class="ruler">+----5----10---15---20---25---30---35---40</span>
+	    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
 	  </div>
 	</div>
 	<div class="contena">
-		  <div class="btnbox">
-			<button class="btn" onclick="dedupeLines()">重複</button>
-			<button class="btn" onclick="sortByLength()">長順</button>
-			<button class="btn" onclick="formatText()">整形</button>
-			<button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
-	  </div>
-
 	  <div class="btnbox">
 			<button class="btn" onclick="repText()">分割</button>
 			<button class="btn" onclick="catText()">結合</button>
@@ -56,6 +49,14 @@
 			  <input type="radio" name="sepchr" value=":" >コロン
 			</label>
 	  </div>
+
+		  <div class="btnbox">
+				<button class="btn" onclick="dedupeLines()">重複</button>
+				<button class="btn" onclick="sortByLength()">長順</button>
+				<button class="btn" onclick="formatText()">整形</button>
+				<button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
+	  </div>
+
 	  <div class="btnbox">
 	    変更元:<input type="text" id="fromChars">
 	    <button class="sBtn" onclick="replaceText()">置換</button><br>
@@ -63,6 +64,7 @@
 	    <button class="sBtn" onclick="convert()">変換</button><br>
 			<span id="msg"></span><br>
 	  </div>
+
 	  <div class="btnbox">
 	 	  <button class="btn" onclick="toUpperText()">A-Z</button>
 		  <button class="btn" onclick="toLowerText()">a-z</button>

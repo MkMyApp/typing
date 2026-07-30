@@ -2,113 +2,66 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>ファイル一覧</title>
+<title>ファイルリスト</title>
 <style>
-  body { 
-    margin: 20px; 
-    display: flex; 
-    gap: 20px; 
-    font-family: sans-serif;
-  }
-  
-  /* 左側のサイドバー */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 160px;
-  }
-
-  /* H1の下の余白を調整 */
-  h1 {
-    margin: 0 0 10px 0;
-    font-size: 1.5em;
-  }
-
-  .toolbar-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px; /* セクションごとの間隔 */
-  }
-
-  .radio-group {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9em;
-  }
-
-  .section-title {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  /* 右側のテキストエリア */
-  textarea {
-    flex: none; 
-    width: 320px;
-    height: 480px;
-    resize: both;
-    min-width: 320px; 
-    min-height: 480px;
-    padding: 10px;
-    font-family: monospace;
-    line-height: 1.5;
-    overflow: auto; 
-  }
-
-  button {
-    width: 80%;
-    height: 48px;
-    font-size: 12pt;
-    cursor: pointer;
-    margin-top: 20px;
-  }
+  body { margin: 20px; display: flex; gap: 20px; font-family: sans-serif; }
+  .sidebar { display: flex; flex-direction: column; width: 160px; }
+  h1 { margin: 0 0 10px 0; font-size: 1.5em; }
+  .toolbar-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .radio-group { display: flex; align-items: center; gap: 5px; font-size: 0.9em; }
+  .section-title { font-weight: bold; color: #333; margin-bottom: 5px; }
+  textarea { flex: none; width: 320px; height: 480px; resize: both; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; line-height: 1.5; overflow: auto; }
+  button { width: 80%; height: 48px; font-size: 12pt; cursor: pointer; margin-top: 20px; }
 </style>
 </head>
 <body>
 
 <div class="sidebar">
-  <h1>Html List</h1>
-  
+  <h1>FileList</h1>
   <div class="toolbar-section">
+    <div class="section-title">抽出条件</div>
+    <div class="radio-group">
+      <input type="radio" id="filterAll" name="filter" value="all" checked>
+      <label for="filterAll">すべて</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterHtml" name="filter" value="html">
+      <label for="filterHtml">htmlのみ</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterNotHtml" name="filter" value="notHtml">
+      <label for="filterNotHtml">html以外</label>
+    </div>
+
+    <div class="toolbar-section">
     <div class="section-title">出力形式</div>
     <div class="radio-group">
       <input type="radio" id="modeLink" name="answer" value="link" checked>
-      <label for="modeLink">リンク</label>
+      <label for="modeLink">Link</label>
     </div>
     <div class="radio-group">
-      <input type="radio" id="modeHtml" name="answer" value="html">
-      <label for="modeHtml">html 配列</label>
+      <input type="radio" id="modeCSV" name="answer" value="csv">
+      <label for="modeCSV">CSV</label>
     </div>
     <div class="radio-group">
-      <input type="radio" id="modePlainHtml" name="answer" value="plainHtml">
-      <label for="modePlainHtml">html テキスト</label>
+      <input type="radio" id="modeText" name="answer" value="text">
+      <label for="modeText">Text</label>
     </div>
-    <div class="radio-group">
-      <input type="radio" id="modeName" name="answer" value="name">
-      <label for="modeName">name 配列</label>
-    </div>
-    <div class="radio-group">
-      <input type="radio" id="modePlainText" name="answer" value="text">
-      <label for="modePlainText">name テキスト</label>
-    </div>
+  </div>
+
   </div>
 
   <div class="toolbar-section">
     <div class="section-title">並び順</div>
     <div class="radio-group">
       <input type="radio" id="SortName" name="sort" value="name">
-      <label for="SortName">ファイル名順</label>
+      <label for="SortName">名前順</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="SortDate" name="sort" value="date" checked>
-      <label for="SortDate">タイムスタンプ順</label>
+      <label for="SortDate">日付順</label>
     </div>
   </div>
-  
-  <button id="btnReverse">逆順</button>
   
   <button id="btnLoad">フォルダ選択</button>
 </div>
@@ -116,18 +69,22 @@
 <textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
 
 <script>
-
-async function buildHtmlListFromDirectoryHandle(dirHandle) {
+async function buildFileListFromDirectoryHandle(dirHandle) {
   const files = [];
-  const mode = document.querySelector('input[name="answer"]:checked').value;
+  const filter = document.querySelector('input[name="filter"]:checked').value;
+  const format = document.querySelector('input[name="answer"]:checked').value;
   const sortMode = document.querySelector('input[name="sort"]:checked').value;
 
   for await (const [name, handle] of dirHandle.entries()) {
     if (handle.kind === "file") {
-      if (name.toLowerCase().endsWith(".html") && name.toLowerCase() !== "index.html") {
-        const file = await handle.getFile();
-        files.push({ name: name, modified: file.lastModified });
-      }
+      const isHtml = name.toLowerCase().endsWith('.html') || name.toLowerCase().endsWith('.htm');
+      
+      // フィルター判定
+      if (filter === "html" && !isHtml) continue;
+      if (filter === "notHtml" && isHtml) continue;
+
+      const file = await handle.getFile();
+      files.push({ name: name, modified: file.lastModified });
     }
   }
 
@@ -137,52 +94,30 @@ async function buildHtmlListFromDirectoryHandle(dirHandle) {
     files.sort((a, b) => b.modified - a.modified);
   }
 
-  let result = "";
-  for (const file of files) {
-    const title = file.name.replace(/\.html$/i, "");
-    switch (mode) {
-      case "link":
-        result += `<p><a href="${file.name}">${title}</a></p>\n`;
-        break;
-      case "html":
-        result += `'${file.name}',\n`;
-        break;
-      case "plainHtml":
-        result += `${file.name}\n`;
-        break;
-      case "name":
-        result += `'${title}',\n`;
-        break;
-      case "text":
-        result += `${title}\n`;
-        break;
-    }
+let result = "";
+for (const file of files) {
+  if (format === "text") {
+    result += `${file.name}\n`;
+  } else if (format === "csv") {
+    result += `'${file.name}',\n`;
+  } else {
+    result += `<p><a href="${file.name}">${file.name}</a></p>\n`;
   }
-  return { files, result };
+}
+  return result;
 }
 
-async function listHtmlFiles() {
+async function listFiles() {
   const textarea = document.getElementById("output");
   try {
     const dirHandle = await window.showDirectoryPicker();
-    const { files, result } = await buildHtmlListFromDirectoryHandle(dirHandle);
-    textarea.value = result;
+    textarea.value = await buildFileListFromDirectoryHandle(dirHandle);
   } catch (err) {
     if (err.name !== 'AbortError') console.error(err);
   }
 }
 
-document.getElementById("btnLoad").addEventListener("click", listHtmlFiles);
-
-// 逆順ボタンのイベントリスナー
-document.getElementById("btnReverse").addEventListener("click", () => {
-  const textarea = document.getElementById("output");
-  if (!textarea.value.trim()) return;
-  
-  // 末尾の無駄な空行を除去してから改行で分割し、反転させて再結合
-  const lines = textarea.value.trimEnd().split(/\r?\n/);
-  textarea.value = lines.reverse().join("\n") + "\n";
-});
+document.getElementById("btnLoad").addEventListener("click", listFiles);
 
 const output = document.getElementById("output");
 output.addEventListener("drop", async (e) => {
@@ -191,8 +126,7 @@ output.addEventListener("drop", async (e) => {
   if (item?.getAsFileSystemHandle) {
     const handle = await item.getAsFileSystemHandle();
     if (handle?.kind === "directory") {
-      const { files, result } = await buildHtmlListFromDirectoryHandle(handle);
-      output.value = result;
+      output.value = await buildFileListFromDirectoryHandle(handle);
     }
   }
 });
