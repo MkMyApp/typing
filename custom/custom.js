@@ -1,3 +1,49 @@
+// ファイルを開く
+async function loadText(){
+  try{
+    const [handle] = await window.showOpenFilePicker({
+      types: [{
+        description: "Text Files",
+        accept: { "text/plain": [".txt"] }
+      }]
+    });
+
+    const file = await handle.getFile();
+    const text = await file.text();
+
+    document.getElementById("txtdata").value = text;
+
+  }catch(e){
+    console.log(e);
+  }
+}
+
+// ダイアログを開いて保存する
+async function saveText() {
+	let currentFileName = "temp.txt";
+  const text = document.getElementById("txtdata").value;
+
+  try {
+    // 常にファイル保存ダイアログを開く
+    const handle = await window.showSaveFilePicker({
+      suggestedName: currentFileName,
+      types: [{
+        description: "Text Files",
+        accept: { "text/plain": [".txt"] }
+      }]
+    });
+
+    // 書き込み処理
+    const writable = await handle.createWritable();
+    await writable.write(text);
+    await writable.close();
+    
+  } catch (e) {
+    // ユーザーがキャンセルした場合
+    console.log("保存がキャンセルされました", e);
+  }
+}
+
 function replaceText() {
   const fromStr = document.getElementById('fromChars').value;
   const toStr = document.getElementById('toChars').value;
