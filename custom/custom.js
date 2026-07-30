@@ -92,6 +92,7 @@ function hanSpc() {
   textArea.value = textArea.value.replace(/　/g, ' ');
 };
 
+//重複する行を削除
 function dedupeLines() {
   const textarea = document.getElementById("txtdata");
   
@@ -109,6 +110,25 @@ function dedupeLines() {
   }
 
   textarea.value = result.join('\n');
+}
+
+//文字列の長さ順にソート
+function sortByLength() {
+  const el = document.getElementById('txtdata');
+  const lines = el.value.split('\n').filter(line => line.trim() !== '');
+  lines.sort((a, b) => a.length - b.length);
+  el.value = lines.join('\n');
+}
+
+// テキストを整形する処理
+function formatText() {
+  const el = document.getElementById('txtdata');
+  let text = el.value;
+
+//text = text.replaceAll("\t", "  ");
+  text = text.replace(/^[ \t\u3000]+/gm, "");
+  text = text.replace(/[ \t\u3000]+$/gm, "");
+  el.value = text;
 }
 
 // 行数をカウントして問題数(input)に設定する関数
