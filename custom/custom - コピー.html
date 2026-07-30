@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>問題作成</title>
+</head>
+<body>
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line"></div>
+  <textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<div id="custom">
+	<div class="contena">
+	  <link rel="stylesheet" href="custom.css">
+	  <script src="custom.js" defer></script>
+
+	  <div id="set">
+	    題　名：<input id="TITLE_MSG" value="タイピング練習"><br>
+	    開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
+	    文字種：<input id="INPUT_MSG" value="英数 かな"><br>
+   		シフト：<input id="IME" value="ON OFF"><br>
+	    問題数：<input id="RANDOM" value="0"><button class="sBtn" onclick="countLines()">問題行数</button><br>
+	    文字幅：<input id="WIDTH" value="25ch"><button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
+	  </div>
+
+	  <div id="text">
+	    <span class="ruler">+----5----10---15---20---25---30---35---40</span>
+	    <textarea id="txtdata"></textarea>
+	    <span class="ruler">+----5----10---15---20---25---30---35---40</span>
+	  </div>
+	</div>
+	<div class="contena">
+	  <div class="btnbox">
+			<button class="btn" onclick="repText()">分割</button>
+			<button class="btn" onclick="catText()">結合</button>
+			<button class="btn" onclick="dedupeLines()">重複</button>
+			<button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
+	  </div>
+		<div class="radiobox">
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value=" " checked>スペース
+			</label>
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value="," >カンマ
+			</label>
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value=":" >コロン
+			</label>
+	  </div>
+	  <div class="btnbox">
+	    変更元:<input type="text" id="fromChars">
+	    <button class="sBtn" onclick="replaceText()">置換</button><br>
+	    変更先:<input type="text" id="toChars">
+	    <button class="sBtn" onclick="convert()">変換</button><br>
+			<span id="msg"></span><br>
+	  </div>
+	  <div class="btnbox">
+	 	  <button class="btn" onclick="toUpperText()">A-Z</button>
+		  <button class="btn" onclick="toLowerText()">a-z</button>
+		  <button class="btn" onclick="zenSpc()">全角</button>
+		  <button class="btn" onclick="hanSpc()">半角</button>
+	  </div>
+	</div>
+	<div class="contena">
+	  <div class="btnbox">
+	    <button class="btn" onclick="updateSettings()">テスト</button>
+	    <button class="btn" onclick="clrText('txtComp')">クリア</button>
+	    <button class="btn" onclick="composeText()">出力</button>
+	    <button class="btn" onclick="saveFile()">保存</button>
+		  <textarea id="txtComp" style="margin-top:20px;"></textarea>
+	  </div>
+	</div>
+	<div class="dl-container">
+		<span class="DL">右クリック ファイル保存</span><br>
+    <span class="DL"><a href="custom.html">custom.html</a></span>
+    <span class="DL"><a href="custom.css">custom.css</a></span>
+    <span class="DL"><a href="custom.js">custom.js</a></span>
+    <span class="DL"><a href="typing.js">typing.js</a></span>
+    <span class="DL"><a href="style.css">style.css</a></span>
+	</div>
+</div>
+
+<script src="typing.js"></script>
+</body>
+</html>
