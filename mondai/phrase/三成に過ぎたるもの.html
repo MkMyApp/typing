@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "三成に過ぎたるもの";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "33ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+三成に過ぎたるものが二つあり
+島の左近と佐和山の城
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+</body>
+</html>
