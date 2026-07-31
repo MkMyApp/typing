@@ -18,6 +18,7 @@
 
 <div class="sidebar">
   <h1>FileList</h1>
+  
   <div class="toolbar-section">
     <div class="section-title">抽出条件</div>
     <div class="radio-group">
@@ -26,14 +27,29 @@
     </div>
     <div class="radio-group">
       <input type="radio" id="filterHtml" name="filter" value="html">
-      <label for="filterHtml">htmlのみ</label>
+      <label for="filterHtml">html</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="filterNotHtml" name="filter" value="notHtml">
       <label for="filterNotHtml">html以外</label>
     </div>
-
-    <div class="toolbar-section">
+    <div class="radio-group">
+      <input type="radio" id="filterJs" name="filter" value="js">
+      <label for="filterJs">js</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterCss" name="filter" value="css">
+      <label for="filterCss">css</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterPng" name="filter" value="png">
+      <label for="filterPng">png</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterMp3" name="filter" value="mp3">
+      <label for="filterMp3">mp3</label>
+    </div>
+  </div><div class="toolbar-section">
     <div class="section-title">出力形式</div>
     <div class="radio-group">
       <input type="radio" id="modeLink" name="answer" value="link" checked>
@@ -47,8 +63,6 @@
       <input type="radio" id="modeText" name="answer" value="text">
       <label for="modeText">Text</label>
     </div>
-  </div>
-
   </div>
 
   <div class="toolbar-section">
@@ -69,6 +83,20 @@
 <textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
 
 <script>
+// フィルター判定用の関数（拡張子を追加してもここだけでOK）
+function isMatchFilter(fileName, filter) {
+  if (filter === "all") return true;
+
+  const lowerName = fileName.toLowerCase();
+  const isHtml = lowerName.endsWith('.html') || lowerName.endsWith('.htm');
+
+  if (filter === "html") return isHtml;
+  if (filter === "notHtml") return !isHtml;
+
+  // js, css, png, mp3 など、指定された拡張子と一致するか判定
+  return lowerName.endsWith(`.${filter}`);
+}
+
 async function buildFileListFromDirectoryHandle(dirHandle) {
   const files = [];
   const filter = document.querySelector('input[name="filter"]:checked').value;
@@ -77,11 +105,8 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
 
   for await (const [name, handle] of dirHandle.entries()) {
     if (handle.kind === "file") {
-      const isHtml = name.toLowerCase().endsWith('.html') || name.toLowerCase().endsWith('.htm');
-      
-      // フィルター判定
-      if (filter === "html" && !isHtml) continue;
-      if (filter === "notHtml" && isHtml) continue;
+      // 一致しないファイルはスキップ
+      if (!isMatchFilter(name, filter)) continue;
 
       const file = await handle.getFile();
       files.push({ name: name, modified: file.lastModified });
@@ -94,16 +119,16 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
     files.sort((a, b) => b.modified - a.modified);
   }
 
-let result = "";
-for (const file of files) {
-  if (format === "text") {
-    result += `${file.name}\n`;
-  } else if (format === "csv") {
-    result += `'${file.name}',\n`;
-  } else {
-    result += `<p><a href="${file.name}">${file.name}</a></p>\n`;
+  let result = "";
+  for (const file of files) {
+    if (format === "text") {
+      result += `${file.name}\n`;
+    } else if (format === "csv") {
+      result += `'${file.name}',\n`;
+    } else {
+      result += `<p><a href="${file.name}">${file.name}</a></p>\n`;
+    }
   }
-}
   return result;
 }
 

@@ -75,31 +75,57 @@ function convert() {
     document.getElementById('txtdata').value = output;
 }
 
+// ラジオボタンから安全に区切り文字（separator）を取得する共通関数
+function getSelectedSeparator() {
+  const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
+  if (!selectedRadio) return " ";
+
+  let val = selectedRadio.value;
+
+  // HTMLのvalue属性からの取得結果に応じたエスケープ文字の安全な処理
+  if (val === '\\t' || val === '\t') {
+    return '\t';
+  }
+  return val;
+}
+
+// 分割処理（選択した区切り文字で区切って改行にする）
 function repText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
+  if (!text) return;
 
-  // ラジオボタンで選択されている値（スペース、カンマ、コロン）を取得
-  const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
-  const separator = selectedRadio ? selectedRadio.value : " ";
+  const separator = getSelectedSeparator();
 
-  // 正規表現の特殊文字をエスケープして置換を実行
-  const regex = new RegExp(separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1'), 'g');
-  const replacedText = text.replace(regex, '\n');
+  // 正規表現の特殊文字（| や \ や ? など）をエスケープ
+  const escapedSep = separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1');
+  const regex = new RegExp(escapedSep, 'g');
+
+  // 指定の区切り文字を改行に置換し、各行のトリムと空行除去を行う
+  const replacedText = text
+    .replace(regex, '\n')
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join('\n');
 
   textArea.value = replacedText;
 }
 
+// 結合処理（改行区切りのテキストを選択した区切り文字で1行にする）
 function catText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
+  if (!text) return;
 
-  // ラジオボタンで選択されている値（スペース、カンマ、コロン）を取得
-  const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
-  const separator = selectedRadio ? selectedRadio.value : " ";
+  const separator = getSelectedSeparator();
 
+  // 改行で分割し、前後の無駄な空白を取り除いて空行を排除してから結合
   const lines = text.split(/\r?\n/);
-  const replacedText = lines.map(line => line.trim()).join(separator);
+  const replacedText = lines
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join(separator);
 
   textArea.value = replacedText;
 }

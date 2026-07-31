@@ -95,13 +95,14 @@ font-family: monospace;
 }
 
 .radio-label {
+  display: inline-block;
+  width: 48px;
+  cursor: pointer;
   font-size: 16px;
-  display: inline-flex;
   align-items: center;
   gap: 2px;
   margin-right: 12px;
   margin-bottom: 0px;
-  cursor: pointer;
   user-select: none;
 }
 
