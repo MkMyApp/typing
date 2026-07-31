@@ -62,9 +62,6 @@
   margin-bottom: 20px;
 }
 
-#msg {
-	margin-left: 80px;
-}
 .btnbox {
   display: block;
   margin-top: 20px;
@@ -115,14 +112,25 @@ font-family: monospace;
   cursor: pointer;
 }
 
-.dl-container {
-    display: flex;
-    gap: 15px;
-    margin-top:20px;
-}
 .DL {
   font-size: 16px;
+  margin-right:20px;
+  text-decoration: none;
 }
+
+.DL a {
+		color:blue;
+    text-decoration: none;
+}
+
+.DL a:link{
+  color:b;ie;
+}
+
+.DL a:visited {
+  color: purple;
+}
+
 .DL a {
 		color:blue;
     text-decoration: none;

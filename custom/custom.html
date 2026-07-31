@@ -11,7 +11,9 @@
   <div id="target" class="line"></div>
   <textarea id="editor" class="line" spellcheck="false"></textarea>
 
+<!------カスタマイズボックス------------------------>	
 <div id="custom">
+<!------typing.jsデータ設定モジュール------------------------>
 	<div class="contena">
 	  <link rel="stylesheet" href="custom.css">
 	  <script src="custom.js" defer></script>
@@ -31,6 +33,7 @@
 	    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
 	  </div>
 	</div>
+<!------textarea編集モジュール------------------------>
 	<div class="contena">
 	  <div class="btnbox">
 			<button class="btn" onclick="repText()">分割</button>
@@ -61,8 +64,7 @@
 	    変更元:<input type="text" id="fromChars">
 	    <button class="sBtn" onclick="replaceText()">置換</button><br>
 	    変更先:<input type="text" id="toChars">
-	    <button class="sBtn" onclick="convert()">変換</button><br>
-			<span id="msg"></span><br>
+	    <button class="sBtn" onclick="convert()">変換</button>
 	  </div>
 
 	  <div class="btnbox">
@@ -72,6 +74,7 @@
 		  <button class="btn" onclick="hanSpc()">半角</button>
 	  </div>
 	</div>
+<!------テスト　html保存モジュール------------------------>
 	<div class="contena">
 	  <div class="btnbox">
 	    <button class="btn" onclick="updateSettings()">テスト</button>
@@ -81,15 +84,17 @@
 		  <textarea id="txtComp" style="margin-top:20px;"></textarea>
 	  </div>
 	</div>
-	<div class="dl-container">
-		<span class="DL">右クリック ファイル保存</span><br>
-    <span class="DL"><a href="custom.html">custom.html</a></span>
-    <span class="DL"><a href="custom.css">custom.css</a></span>
-    <span class="DL"><a href="custom.js">custom.js</a></span>
-    <span class="DL"><a href="typing.js">typing.js</a></span>
-    <span class="DL"><a href="style.css">style.css</a></span>
+
+<!------ダウンロードモジュール------------------------>
+	<div class="contena">
+    <a href="typing.js" class="DL">typing.js</a>
+    <a href="style.css" class="DL">style.css</a>
+    <a href="custom.html" class="DL">custom.html</a>
+    <a href="custom.css" class="DL">custom.css</a>
+    <a href="custom.js" class="DL">custom.js</a>
 	</div>
 </div>
+<!------カスタマイズボックス------------------------>	
 
 <script src="typing.js"></script>
 </body>
