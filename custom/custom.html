@@ -2,8 +2,18 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="style.css">
 <title>問題作成</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="custom.css">
+<style>
+  /*モジュール非表示　display: none; */
+	#custom  { }
+	#dataMod { }
+	#editMod { }
+	#saveMod { }
+	#dl1Mod  { }
+	#dl2Mod  { }
+</style>
 </head>
 <body>
   <div id="title"></div>
@@ -14,17 +24,27 @@
 <!------カスタマイズボックス------------------------>	
 <div id="custom">
 <!------typing.jsデータ設定モジュール------------------------>
-	<div class="contena">
-	  <link rel="stylesheet" href="custom.css">
+	<div id="dataMod" class="contena">
 	  <script src="custom.js" defer></script>
 
 	  <div id="set">
-	    題　名：<input id="TITLE_MSG" value="タイピング練習"><br>
-	    開　始：<input id="START_MSG" value="Enter⏎でスタート"><br>
-	    文字種：<input id="INPUT_MSG" value="英数 かな"><br>
-   		シフト：<input id="IME" value="ON OFF"><br>
-	    問題数：<input id="RANDOM" value="0"><button class="sBtn" onclick="countLines()">問題行数</button><br>
-	    文字幅：<input id="WIDTH" value="25ch"><button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
+	    題　名：<input id="TITLE_MSG" value="タイピング練習">
+	    <button class="sBtn" onclick="updateSettings()">テスト</button><br>
+
+	    開　始：<input id="START_MSG" value="Enter⏎でスタート">
+      <button class="sBtn" onclick="setFont()">フォント</button><br>
+
+	    文字種：<input id="INPUT_MSG" value="英数 かな">
+	    <button hidden class="sBtn" onclick=""></button><br>
+
+   		シフト：<input id="IME" value="ON OFF">
+	    <button hidden class="sBtn" onclick=""></button><br>
+
+	    問題数：<input id="RANDOM" value="0">
+	    <button class="sBtn" onclick="countLines()">問題行数</button><br>
+
+	    文字幅：<input id="WIDTH" value="25ch">
+	    <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
 	  </div>
 
 	  <div id="text">
@@ -34,7 +54,7 @@
 	  </div>
 	</div>
 <!------textarea編集モジュール------------------------>
-	<div class="contena">
+	<div id="editMod" class="contena">
 	  <div class="btnbox">
 			<button class="btn" onclick="repText()">分割</button>
 			<button class="btn" onclick="catText()">結合</button>
@@ -42,23 +62,23 @@
       <button class="btn" onclick="saveText()">保存</button>
 	  </div>
 		<div class="radiobox">
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value=" " checked>"　"
+			<label class="radio-label small">
+			  <input type="radio" name="sepchr" value=" " checked>Spc
 			</label>
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value="," >，
-			</label>
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value=":" >：
-			</label>
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value="|" >｜
-			</label>
-			<label class="radio-label">
+			<label class="radio-label small">
 			  <input type="radio" name="sepchr" value="\t" >Tab
 			</label>
 			<label class="radio-label">
-			  <input type="radio" name="sepchr" value="\" >￥
+			  <input type="radio" name="sepchr" value="," >,
+			</label>
+			<label class="radio-label">
+			  <input type="radio" name="sepchr" value=":" >:
+			</label>
+			<label class="radio-label small">
+			  <input type="radio" name="sepchr" value="|" >|
+			</label>
+			<label class="radio-label small">
+			  <input type="radio" name="sepchr" value="\"> \
 			</label>
 	  </div>
 
@@ -84,9 +104,8 @@
 	  </div>
 	</div>
 <!------テスト　html保存モジュール------------------------>
-	<div class="contena">
+	<div id="saveMod" class="contena">
 	  <div class="btnbox">
-	    <button class="btn" onclick="updateSettings()">テスト</button>
 	    <button class="btn" onclick="clrText('txtComp')">クリア</button>
 	    <button class="btn" onclick="composeText()">出力</button>
 	    <button class="btn" onclick="saveFile()">保存</button>
@@ -95,9 +114,11 @@
 	</div>
 
 <!------ダウンロードモジュール------------------------>
-	<div class="contena">
+	<div id="dl1Mod" class="contena">
     <a href="typing.js" class="DL">typing.js</a>
     <a href="style.css" class="DL">style.css</a>
+  </div>
+	<div id="dl2Mod" class="contena">
     <a href="custom.html" class="DL">custom.html</a>
     <a href="custom.css" class="DL">custom.css</a>
     <a href="custom.js" class="DL">custom.js</a>

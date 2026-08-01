@@ -193,6 +193,19 @@ function formatText() {
   el.value = text;
 }
 
+
+function setFont() {
+  const dataEl = document.getElementById("txtdata");
+  const widthEl = document.getElementById("WIDTH");
+  if (dataEl.style.fontSize === 'var(--line-font-size)') {
+    dataEl.style.fontSize = '20px';
+    dataEl.style.width = '52ch';
+  } else {
+    dataEl.style.fontSize = 'var(--line-font-size)';
+    dataEl.style.width = widthEl.value;
+  }
+}
+
 // 行数をカウントして問題数(input)に設定する関数
 function countLines() {
   const txtdata = document.getElementById("txtdata").value;

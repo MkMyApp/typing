@@ -26,6 +26,7 @@
 
 #custom textarea {
   display: block;
+  font-size: 20px;
   width: 52ch;
   min-width: 120px;
   height: 120px;
@@ -37,7 +38,6 @@
   white-space: pre;
   overflow: auto;
   font-family: monospace;
-  font-size: 20px;
   padding: 6px 8px;
   border: 1px solid #c0c0c0;
   background: #ffffff;
@@ -95,17 +95,19 @@ font-family: monospace;
 }
 
 .radio-label {
-  display: inline-block;
-  width: 48px;
-  cursor: pointer;
-  font-size: 16px;
+  display: inline-flex;
+  width:36px;
   align-items: center;
-  gap: 2px;
-  margin-right: 12px;
+  gap: 4px;            /* ボタンと文字の間隔 */
+  font-size: 18px;     /* 記号 ( , : | \ ) のサイズ */
+  cursor: pointer;
   margin-bottom: 0px;
-  user-select: none;
 }
 
+  /* Spc と Tab だけサイズを下げてバランスを調整 */
+  .radio-label.small {
+    font-size: 12px;     /* 単語 (Spc, Tab) のサイズ */
+  }
 .radio-label input[type="radio"] {
   width: 12px !important;
   height: 10px !important;
