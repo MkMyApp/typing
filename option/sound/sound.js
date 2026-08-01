@@ -1,3 +1,4 @@
+let sound_src = "sound.mp3";
 const audio = new Audio(sound_src);
 
 function playSound() {

@@ -54,6 +54,7 @@ button{
 </p>
 <button onclick="loadFile()">読込</button>
 <button onclick="saveFile()">保存</button>
+<button onclick="formatText()">整形</button>
 <br>
 <textarea id="text">
 </textarea>
@@ -192,6 +193,19 @@ textarea.addEventListener("drop", async function(e){
   updateStatus();
 });
 
+// テキストを整形する処理
+function formatText() {
+  const textarea = document.getElementById("text");
+  let text = textarea.value;
+
+  text = text.replaceAll("\t", "  ");
+  text = text.replace(/[ \t\u3000]+$/gm, "");
+  textarea.value = text;
+
+  // 状態の更新
+  setModified();
+  updateStatus();
+}
 </script>
 </body>
 </html>

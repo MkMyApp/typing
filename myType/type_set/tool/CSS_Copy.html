@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>CSS Copy to style.css</title>
+<style>
+  body { margin: 20px; display: flex; gap: 20px; font-family: sans-serif; }
+  .sidebar { display: flex; flex-direction: column; width: 180px; gap: 10px; }
+  h1 { margin: 0 0 10px 0; font-size: 1.5em; }
+  select { flex: none; width: 320px; height: 480px; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; font-size: 14px; overflow: auto; }
+  button { width: 100%; height: 48px; font-size: 11pt; cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h1>CSS Copy to style.css</h1>
+  <button id="btnLoad">フォルダ選択</button>
+  <button id="btnCopy" disabled>style.css に上書き</button>
+</div>
+
+<select id="output" size="20"></select>
+
+<script>
+let currentDirHandle = null;
+
+async function buildCssListFromDirectoryHandle(dirHandle) {
+  const files = [];
+
+  for await (const [name, handle] of dirHandle.entries()) {
+    if (handle.kind === "file" && name.toLowerCase().endsWith(".css")) {
+      files.push(name);
+    }
+  }
+
+  files.sort((a, b) => a.localeCompare(b, undefined, {numeric: true, sensitivity: 'base'}));
+  return files;
+}
+
+function renderList(files) {
+  const select = document.getElementById("output");
+  const btnCopy = document.getElementById("btnCopy");
+  select.innerHTML = "";
+  btnCopy.disabled = true;
+
+  if (files.length === 0) {
+    const opt = document.createElement("option");
+    opt.textContent = "（.css ファイルが見つかりませんでした）";
+    opt.disabled = true;
+    select.appendChild(opt);
+    return;
+  }
+
+  files.forEach(fileName => {
+    const opt = document.createElement("option");
+    opt.value = fileName;
+    opt.textContent = fileName;
+    select.appendChild(opt);
+  });
+}
+
+async function handleDirectorySelect(dirHandle) {
+  currentDirHandle = dirHandle;
+  const files = await buildCssListFromDirectoryHandle(dirHandle);
+  renderList(files);
+}
+
+// フォルダ選択ボタン
+document.getElementById("btnLoad").addEventListener("click", async () => {
+  try {
+    const dirHandle = await window.showDirectoryPicker();
+    await handleDirectorySelect(dirHandle);
+  } catch (err) {
+    if (err.name !== 'AbortError') console.error(err);
+  }
+});
+
+// リスト選択時にボタンを有効化
+const output = document.getElementById("output");
+output.addEventListener("change", () => {
+  const btnCopy = document.getElementById("btnCopy");
+  btnCopy.disabled = !output.value;
+});
+
+// ドラッグ＆ドロップ対応
+output.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  const item = e.dataTransfer.items[0];
+  if (item?.getAsFileSystemHandle) {
+    const handle = await item.getAsFileSystemHandle();
+    if (handle?.kind === "directory") {
+      await handleDirectorySelect(handle);
+    }
+  }
+});
+output.addEventListener("dragover", (e) => e.preventDefault());
+
+// 「style.css に上書き」ボタンの処理
+document.getElementById("btnCopy").addEventListener("click", async () => {
+  const selectedFile = output.value;
+  if (!selectedFile) return;
+
+  try {
+    if (currentDirHandle) {
+      // フォルダを選択済みの場合は直接フォルダ内に style.css として書き込む
+      const sourceFileHandle = await currentDirHandle.getFileHandle(selectedFile);
+      const sourceFile = await sourceFileHandle.getFile();
+      const content = await sourceFile.text();
+
+      // style.css ファイルハンドルを取得（存在しなければ作成）
+      const targetFileHandle = await currentDirHandle.getFileHandle("style.css", { create: true });
+      const writable = await targetFileHandle.createWritable();
+      await writable.write(content);
+      await writable.close();
+
+      alert(`「${selectedFile}」の内容を 「style.css」 にコピーしました！`);
+      
+      // リスト再更新（style.css が新規作成された場合のため）
+      await handleDirectorySelect(currentDirHandle);
+    }
+  } catch (err) {
+    console.error(err);
+    alert("ファイルのコピーに失敗しました。");
+  }
+});
+</script>
+</body>
+</html>
