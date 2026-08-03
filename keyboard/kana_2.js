@@ -253,3 +253,7 @@ function cnv(input) {
 
     return input.split('').map(char => map[char] || char).join('');
 }
+
+//2段表示の設定
+adjustButtonLayout();
+

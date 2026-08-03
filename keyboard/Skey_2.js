@@ -235,3 +235,5 @@ window.adjustButtonLayout = function() {
     });
 };
 
+//2段表示の設定
+adjustButtonLayout();

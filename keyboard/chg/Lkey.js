@@ -30,8 +30,8 @@ style.textContent = `
     box-sizing: border-box;
   }
 
-  #IME { font-size: 8px;}
-  #BS { font-size: 8px; width: 48px;}
+  #ESC { font-size: 8px;}
+  #BS { font-size: 10px;}
 	#Tab {
 		font-size: 8px;
 		width:48px;
@@ -40,13 +40,13 @@ style.textContent = `
 	}
 	#LCtrl {
     font-size: 8px;
-		width:52px;
+		width:48px;
 	  justify-content: flex-start;
 	  padding-left: 10px;
 	}
 	#RCtrl {
 		font-size: 8px;
-		width: 54px;
+		width: 48px;
 	  justify-content: flex-end;
 	  padding-right: 10px;
 	}
@@ -58,10 +58,11 @@ style.textContent = `
 	}
 	#Enter {
 		font-size: 8px;
-		width: 58px;
+		width: 56px;
 	  justify-content: flex-end;
 	  padding-right: 10px;
 	}
+	#Ent { font-size: 12px; width:40px;}
 	#LShift { 
 	    font-size: 8px; 
 	    width: 80px; 
@@ -70,35 +71,40 @@ style.textContent = `
 	  }
 	#RShift { 
     font-size: 8px; 
-    width: 81px; 
+    width: 64px; 
     justify-content: flex-end;
     padding-right: 10px;
   }
-	#Spc { font-size: 8px; width: 232px;}
-	#LWin { font-size: 12px; width: 45px;}
-	#RWin { font-size: 12px; width: 45px;}
-	#LAlt { font-size: 8px; width: 45px;}
-	#RAlt { font-size: 8px; width: 45px;}
+	#Spc { font-size: 8px; width: 128px;}
+  #ON { font-size: 8px;}
+  #OFF { font-size: 6px;}
+  #kana { font-size: 8px;}
+	#LWin { font-size: 8px; width: 42px;}
+	#RWin { font-size: 8px;}
+	#LAlt { font-size: 8px; width: 42px;}
+	#RAlt { font-size: 8px; width: 42px;}
+	#Menu { font-size: 8px;}
 `;
 document.head.appendChild(style);
 
 // 2. キーボードのHTML構造を定義
 const keyboardHtml = `
 <div class="KB">
-<button>~\`</button>
-<button>!1</button>
-<button>@2</button>
-<button>#3</button>
-<button>$4</button>
-<button>%5</button>
-<button>^6</button>
-<button>&7</button>
-<button>*8</button>
-<button>(9</button>
-<button>)0</button>
-<button>_-</button>
-<button>+=</button>
-<button id="BS">BackSpace</button>
+<button id="ESC">ESC</button>
+<button>1</button>
+<button>2</button>
+<button>3</button>
+<button>4</button>
+<button>5</button>
+<button>6</button>
+<button>7</button>
+<button>8</button>
+<button>9</button>
+<button>0</button>
+<button>-</button>
+<button>^</button>
+<button>\\</button>
+<button id="BS">BS</button>
 <br>
 <button id="Tab">Tab</button>
 <button>Q</button>
@@ -111,9 +117,9 @@ const keyboardHtml = `
 <button>I</button>
 <button>O</button>
 <button>P</button>
-<button>{[</button>
-<button>}]</button>
-<button>|＼</button>
+<button>@</button>
+<button>[</button>
+<button id="Enter">Enter</button>
 <br>
 <button id="Caps">CapsLock</button>
 <button>A</button>
@@ -125,9 +131,10 @@ const keyboardHtml = `
 <button>J</button>
 <button>K</button>
 <button>L</button>
-<button>:;</button>
-<button>"'</button>
-<button id="Enter">Enter⏎</button>
+<button>;</button>
+<button>:</button>
+<button>]</button>
+<button id="Ent">⏎</button>
 <br>
 <button id="LShift">Shift</button>
 <button>Z</button>
@@ -137,17 +144,22 @@ const keyboardHtml = `
 <button>B</button>
 <button>N</button>
 <button>M</button>
-<button><,</button>
-<button>>.</button>
-<button>?／</button>
+<button>,</button>
+<button>.</button>
+<button>／</button>
+<button>＼</button>
 <button id="RShift">Shift</button>
 <br>
 <button id="LCtrl">Ctrl</button>
-<button id="LWin">⌘</button>
+<button id="LWin">Win</button>
 <button id="LAlt">Alt</button>
+<button id="OFF">無変換</button>
 <button id="Spc">&nbsp;</button>
+<button id="ON">変換</button>
+<button id="kana">かな</button>
 <button id="RAlt">Alt</button>
-<button id="RWin">⌘</button>
+<button id="RWin">Win</button>
+<button id="Menu">Menu</button>
 <button id="RCtrl">Ctrl</button>
 </div>
 `;
@@ -155,24 +167,16 @@ const keyboardHtml = `
 // 3. ページの body の最後にHTMLを追加
 document.body.insertAdjacentHTML('beforeend', keyboardHtml);
 
-// 4. CHARS に基づいて色を付ける関数 (idなしボタンのみ対象)
+// 4. CHARS に基づいて色を付ける関数
 window.applyColor = function(CHARS, BackColor, ForColor) {
     const buttons = document.querySelectorAll('.KB button');
-    if (ForColor == "") { ForColor = BackColor; }
+  	if (ForColor == "") { ForColor = BackColor; }
 
     buttons.forEach(btn => {
-        // idがついているボタンは対象外とする
-        if (btn.id) return;
-
-        // ボタン内の文字列を1文字ずつの配列に変換
-        const charsInBtn = btn.textContent.trim().split('');
-        
-        // ボタン内のいずれかの文字が CHARS に含まれているか判定
-        const hasMatch = charsInBtn.some(char => CHARS.includes(char));
-
-        if (hasMatch) {
+        const char = btn.textContent.trim();
+        if (char !== "" && CHARS.includes(char)) {
             btn.style.backgroundColor = BackColor;
-            btn.style.color = ForColor;
+           	btn.style.color = ForColor;
             btn.style.border = "1px solid #888";
             btn.style.boxSizing = "border-box";
         }
@@ -194,33 +198,3 @@ window.applyTransparent = function() {
       btn.style.color = "transparent";
   });
 };
-
-// ボタンの文字を縦に並べる関数
-window.adjustButtonLayout = function() {
-    const buttons = document.querySelectorAll('.KB button');
-    
-    buttons.forEach(btn => {
-        // 1. idがあるボタンは処理対象から外す
-        if (btn.id) return;
-
-        const text = btn.textContent.trim();
-        
-        // 2. 2文字の場合のみ、HTMLを書き換えて制御する
-        if (text.length === 2) {
-            const char1 = text[0];
-            const char2 = text[1];
-            
-            // ボタンの中身を書き換え
-            btn.innerHTML = `<span style="display:block; line-height:1; font-size:12px;">${char1}</span><span style="display:block; line-height:1; font-size:12px;">${char2}</span>`;
-            
-            // ボタン自体はflexのまま維持するため、これ以上のstyle変更は行わない
-            // もしボタン内の配置がずれる場合は以下で中央寄せを維持
-            btn.style.display = "inline-flex";
-            btn.style.flexDirection = "column";
-            btn.style.justifyContent = "center";
-            btn.style.alignItems = "center";
-        }
-    });
-};
-//2段表示の設定
-adjustButtonLayout();
