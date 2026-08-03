@@ -1,25 +1,36 @@
 :root {
-  --line-width: 800px;
-  --line-font-size: 64px;
-  --line-height: 1.2;
-  --line-padding-x: 8px;
-  --line-border: 1px solid #c0c0c0;
+  /* 背景画像ありの定義 画像なしは　none
+  --body-background-image: url("filename");
+  */
 
+  /* --- カラー設定 --- */
   --body-background-color: #ffffff;
   --body-color: #000000;
   
   --title-color: #808080;
   --score-color: #808080;
-  
+
   --score-correct-color: #8080f0;
   --score-wrong-color: #f08080;
 
   --char-default-color: #000000;
   --char-correct-color: #8080f0;
   --char-wrong-color: #f08080;
-  
+
   --target-back-color: #f0f0f0;
   --editor-back-color: #f0f0ff;
+
+  --border-color: #c0c0c0;
+  --shadow-color: #d0d0d0;
+  
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 12px;
+
+  --line-border: 2px solid var(--border-color);
+  --line-shadow: 0 2px 5px var(--shadow-color);
 }
 
 body {
@@ -28,6 +39,13 @@ body {
   margin: 50px;
   background-color: var(--body-background-color);
   color: var(--body-color);
+ 
+  /* 背景画像の設定 */
+  background-image: var(--body-background-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #title {
@@ -72,6 +90,7 @@ body {
   text-align: left;
   white-space: pre;
   min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
 }
 
 #editor {
@@ -91,6 +110,7 @@ body {
   overflow: hidden;
   height: calc(1em * var(--line-height) + 20px);
   min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
   resize: none;
 }
 

@@ -20,11 +20,21 @@
     margin: 0px 10px 30px 10px;
     }
     
+    button {
+    	width:120px;
+    	height:48px;
+	    margin: 0px 0px 0px 0px;
+    	font-size:20px;
+    	display: flex;
+      justify-content: center; /* 左右の中央揃え */
+      align-items: center;     /* 上下の中央揃え */
+    }
+ 
     iframe {
-    width: 1250px;
-    height: 480px;
-    border: 1px solid #cccc;
-    margin: 0px 0px 10px 50px;
+	    width: 1250px;
+	    height: 480px;
+	    border: 1px solid #cccc;
+	    margin: 20px 0px 10px 50px;
     }
 
     .label-text {
@@ -33,6 +43,7 @@
     margin: 0 10px;
     display: inline-block;
     vertical-align: top;
+
 }
   </style>
 </head>
@@ -45,6 +56,13 @@
 </header>
 <main>
 <div class="container">
+		<label class="label-text">色設定　</label>
+		<select id="cSelect" onchange="changePage('cSelect')">
+			<option value="">選択</option>
+			<option value="abcColor.html">英数</option>
+			<option value="kanaColor.html">ひらがな</option>
+		</select>
+		
     <label class="label-text">サンプル</label>
     <select id="pageSelect" onchange="changePage('pageSelect')">
         <option value="">選択</option>
@@ -63,7 +81,7 @@
         <option value="USkey.html">USキーボード配列と運指</option>
         <option value="finger.html">指の色分け</option>
     </select>
-
+<br>
     <label class="label-text">QWERTY</label>
     <select id="eSelect" onchange="changePage('eSelect')">
 	    <option value="">選択</option>
@@ -83,19 +101,7 @@
 	    <option value="Eキー配列.html">キー配列</option>
       <option value="fHome.html">指の色分け</option>
     </select>
-    
-    <label class="label-text">ローマ字</label>
-		<select id="rSelect" onchange="changePage('rSelect')">
-			<option value="">選択</option>
-			<option value="roma_a.html">ローマ字母音</option>
-			<option value="roma_k.html">ローマ字清音</option>
-			<option value="roma_g.html">ローマ字濁音</option>
-			<option value="roma_x.html">ローマ字その他</option>
-			<option value="roma_h.html">ローマ字ヘボン</option>
-			<option value="roma_all.html">ローマ字全部</option>
-			<option value="roma_pro.html">数字と記号</option>
-		</select>
-<br>
+
     <label class="label-text">ひらがな</label>
 		<select id="kSelect" onchange="changePage('kSelect')">
 			<option value="">選択</option>
@@ -117,6 +123,18 @@
       <option value="K50on.html">五十音色分け</option>
 		</select>
 
+    <label class="label-text">ローマ字</label>
+		<select id="rSelect" onchange="changePage('rSelect')">
+			<option value="">選択</option>
+			<option value="roma_a.html">ローマ字母音</option>
+			<option value="roma_k.html">ローマ字清音</option>
+			<option value="roma_g.html">ローマ字濁音</option>
+			<option value="roma_x.html">ローマ字その他</option>
+			<option value="roma_h.html">ローマ字ヘボン</option>
+			<option value="roma_all.html">ローマ字全部</option>
+			<option value="roma_pro.html">数字と記号</option>
+		</select>
+<br>
     <label class="label-text">五十音行</label>
 		<select id="gSelect" onchange="changePage('gSelect')">
 			<option value="">選択</option>
@@ -149,20 +167,22 @@
 			<option value="fkana_W.html">わ行</option>
 		</select>
 		<br>
+
     <iframe id="displayFrame" src="key.html" title="コンテンツ表示エリア"></iframe>
 </div>
 
 <script>
-    function changePage(selID) {
-        const select = document.getElementById(selID);
-        const iframe = document.getElementById("displayFrame");
-        const selectedValue = select.value;
+  function changePage(selID) {
+      const select = document.getElementById(selID);
+      const iframe = document.getElementById("displayFrame");
+      const selectedValue = select.value;
 
-        if (selectedValue) {
-            iframe.src = selectedValue;
-        }
-    }
+      if (selectedValue) {
+          iframe.src = selectedValue;
+      }
+  }
 </script>
+
 <div class="box" style="font-size:150%;">
 機能キーの文字を透過
 setTransparent()

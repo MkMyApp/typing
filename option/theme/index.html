@@ -23,18 +23,50 @@
 ＞<a href="type.html" download>type.html 問題のテンプレート</a><br>
 ＞<a href="typing.js" download>typing.js スクリプト</a><br>
 ＞<a href="style.css" download>style.css スタイルシート</a><br>
-＞<a href="type.css" download>type.css 背景画像ありスタイルシート</a><br>
 <img src="typeFiles.png"><br>
 <br>
 style.css type.css を編集する。<br>
-<a href="../../tools/imgList.html" target="_blank">フォルダ内の画像ファイルのリスト作成<br><img src="piclist.png"></a><br>
 <a href="change/CSS_Copy.html" target="_blank">フォルダ内のCSSファイルをstyle.cssに上書きする<br><img src="csscopy.png"></a><br>
-<a href="../../tools/CSS_Link.html" target="_blank">フォルダ内のCSSファイルのリスト作成<br><img src="CSSlist.png"></a><br>
 <br>
 AIでCSSの作成<br>
 <img src="ai1.png"><br>
-<img src="ai2.png"><br>
-<a href="change/index.html"><img src="ai3.png"></a><br>
+<pre>
+  /* 背景画像ありの定義 画像なしは　none
+  --body-background-image: url("filename");
+  */
+
+  /* --- カラー設定 --- */
+  --body-background-color: #ffffff;
+  --body-color: #000000;
+  
+  --title-color: #808080;
+  --score-color: #808080;
+
+  --score-correct-color: #8080f0;
+  --score-wrong-color: #f08080;
+
+  --char-default-color: #000000;
+  --char-correct-color: #8080f0;
+  --char-wrong-color: #f08080;
+
+  --target-back-color: #f0f0f0;
+  --editor-back-color: #f0f0ff;
+
+  --border-color: #c0c0c0;
+  --shadow-color: #d0d0d0;
+  
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 12px;
+
+  --line-border: 2px solid var(--border-color);
+  --line-shadow: 0 2px 5px var(--shadow-color);
+}
+</pre>
+
+<a href="css/cssChg.html"><img src="ai3.png"></a><br>
 
 </div>
 </main>

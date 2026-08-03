@@ -1,0 +1,114 @@
+:root {
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 12px;
+  --line-border: 2px solid #82c0cc;
+  --line-shadow: 0 4px 12px rgba(72, 149, 239, 0.08);
+
+  /* --- カラー設定 --- */
+  --body-background-color: #f0f7f9; /* 淡いシアンペール */
+  --body-color: #16324f;            /* 締め色のダークブルー */
+
+  --title-color: #3a86c8;           /* クリアなシアンブルー */
+  --score-color: #4895ef;
+
+  /* アクセントにパレットのピンク系を採用 */
+  --score-correct-color: #e65c9c;   /* 正解：華やかなコーラルピンク */
+  --score-wrong-color: #d90429;     /* 不正解：ディープローズ */
+
+  --char-default-color: #16324f;
+  --char-correct-color: #e65c9c;   /* 正解文字色：コーラルピンク */
+  --char-wrong-color: #d90429;
+
+  --target-back-color: #ffffff;
+  --editor-back-color: #fff0f5;     /* 入力欄：淡いさくらピンク（ほんのり甘めの差し色） */
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 50px;
+  background-color: var(--body-background-color);
+  color: var(--body-color);
+}
+
+#title {
+  font-family: sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--title-color);
+  margin-bottom: 20px;
+}
+
+#result {
+  font-family: monospace;
+  font-size: 1.5em;
+  color: var(--score-color);
+  margin-bottom: 30px;
+}
+
+#result[data-status="correct"] {
+  color: var(--score-correct-color);
+}
+
+#result[data-status="wrong"] {
+  color: var(--score-wrong-color);
+}
+
+.line {
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+}
+
+#target {
+  font-family: monospace;
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--target-back-color);
+  color: var(--char-default-color);
+  text-align: left;
+  white-space: pre;
+  min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
+  border-radius: 8px;
+}
+
+#editor {
+  display: block;
+  width: var(--line-width);
+  margin: 10px auto;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--line-font-size);
+  line-height: var(--line-height);
+  padding: 6px var(--line-padding-x);
+  border: var(--line-border);
+  background: var(--editor-back-color);
+  color: var(--body-color);
+  text-align: left;
+  outline: none;
+  overflow: hidden;
+  height: calc(1em * var(--line-height) + 20px);
+  min-height: calc(1em * var(--line-height) + 20px);
+  box-shadow: var(--line-shadow);
+  resize: none;
+  border-radius: 8px;
+}
+
+#editor:focus {
+  border-color: #f72585; /* フォーカス時に青からピンクへ切り替わるアクセント */
+}
+
+.correct {
+  color: var(--char-correct-color);
+}
+
+.wrong {
+  color: var(--char-wrong-color);
+}

@@ -30,6 +30,10 @@
       <label for="filterHtml">html</label>
     </div>
     <div class="radio-group">
+      <input type="radio" id="filterFolder" name="filter" value="folder">
+      <label for="filterFolder">フォルダー</label>
+    </div>
+    <div class="radio-group">
       <input type="radio" id="filterNotHtml" name="filter" value="notHtml">
       <label for="filterNotHtml">html以外</label>
     </div>
@@ -44,6 +48,10 @@
     <div class="radio-group">
       <input type="radio" id="filterPng" name="filter" value="png">
       <label for="filterPng">png</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterJpg" name="filter" value="jpg">
+      <label for="filterJpg">jpg</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="filterMp3" name="filter" value="mp3">
@@ -83,11 +91,19 @@
 <textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
 
 <script>
-// フィルター判定用の関数（拡張子を追加してもここだけでOK）
-function isMatchFilter(fileName, filter) {
+// フィルター判定用の関数
+function isMatchFilter(name, handle, filter) {
   if (filter === "all") return true;
 
-  const lowerName = fileName.toLowerCase();
+  // フォルダ判定
+  if (filter === "folder") {
+    return handle.kind === "directory";
+  }
+
+  // フォルダを除外してファイルのみを対象にする
+  if (handle.kind !== "file") return false;
+
+  const lowerName = name.toLowerCase();
   const isHtml = lowerName.endsWith('.html') || lowerName.endsWith('.htm');
 
   if (filter === "html") return isHtml;
@@ -98,35 +114,46 @@ function isMatchFilter(fileName, filter) {
 }
 
 async function buildFileListFromDirectoryHandle(dirHandle) {
-  const files = [];
+  const items = [];
   const filter = document.querySelector('input[name="filter"]:checked').value;
   const format = document.querySelector('input[name="answer"]:checked').value;
   const sortMode = document.querySelector('input[name="sort"]:checked').value;
 
   for await (const [name, handle] of dirHandle.entries()) {
+    // フィルター判定（名前とhandleの両方を渡す）
+    if (!isMatchFilter(name, handle, filter)) continue;
+
+    let modified = 0;
     if (handle.kind === "file") {
-      // 一致しないファイルはスキップ
-      if (!isMatchFilter(name, filter)) continue;
-
       const file = await handle.getFile();
-      files.push({ name: name, modified: file.lastModified });
+      modified = file.lastModified;
     }
+
+    items.push({ 
+      name: name, 
+      kind: handle.kind, 
+      modified: modified 
+    });
   }
 
+  // ソート処理
   if (sortMode === "name") {
-    files.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+    items.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
   } else {
-    files.sort((a, b) => b.modified - a.modified);
+    items.sort((a, b) => b.modified - a.modified);
   }
 
+  // 出力文字列の生成
   let result = "";
-  for (const file of files) {
+  for (const item of items) {
     if (format === "text") {
-      result += `${file.name}\n`;
+      result += `${item.name}\n`;
     } else if (format === "csv") {
-      result += `'${file.name}',\n`;
+      result += `'${item.name}',\n`;
     } else {
-      result += `<p><a href="${file.name}">${file.name}</a></p>\n`;
+      // フォルダの場合は末尾に/を付けてリンク化（必要に応じて調整可能）
+      const path = item.kind === "directory" ? `${item.name}/` : item.name;
+      result += `<p><a href="${path}">${item.name}</a></p>\n`;
     }
   }
   return result;
@@ -156,6 +183,7 @@ output.addEventListener("drop", async (e) => {
   }
 });
 output.addEventListener("dragover", (e) => e.preventDefault());
+
 </script>
 </body>
 </html>

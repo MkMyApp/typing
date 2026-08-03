@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" id="theme-style" href="style.css">
+	<title>テーマ変更テスト</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "テーマ変更";
+  const START_MSG = "Enter⏎でスタート";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 0; // 出題数
+  const WIDTH = "20ch";
+  const IME = 'ON'; // 'OFF'
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+あいうえお
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script src="typing.js"></script>
+<script src="cssChg.js"></script>
+</script>
+</body>
+</html>
