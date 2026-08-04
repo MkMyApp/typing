@@ -49,14 +49,14 @@ function showDownloadButton() {
   }
 
   dlEl.style.display = 'block';
-  dlEl.innerHTML = `<strong>[ Click to Download CSV Log ]</strong><br>ここをクリックして結果CSVを保存`;
+  dlEl.innerHTML = `<strong>[ Click to Download data Log ]</strong><br>ここをクリックして結果を保存`;
 
   // クリック時に手動ダウンロード発動（ブラウザにブロックされません）
   dlEl.onclick = function() {
-    const csvHeader = 'targetWord,timeSec,code,key\n';
-    const csvContent = csvHeader + logRows.join('\n');
+    const dataHeader = 'targetWord,timeSec,code,key\n';
+    const dataContent = dataHeader + logRows.join('\n') + '\n';;
     const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([bom, dataContent], { type: 'text/data;charset=utf-8;' });
     
     saveFile(blob, `typing_log_${Date.now()}.csv`);
   };
