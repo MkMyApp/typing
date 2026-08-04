@@ -70,10 +70,6 @@ const menuList = [
 'english/初級英単語60.html',
 ]
 
-// ランダムでsrcを設定
-let newIndex = Math.floor(Math.random() * menuList.length);
-iframeElement.src = "mondai/" + menuList[newIndex];
-
 //iframeの読み込み完了時に高さを合わせる処理
 
   try {
@@ -84,7 +80,9 @@ iframeElement.src = "mondai/" + menuList[newIndex];
     console.error("高さを取得できませんでした:", e);
   }
 });
-
+// ランダムでsrcを設定
+let newIndex = Math.floor(Math.random() * menuList.length);
+iframeElement.src = "mondai/" + menuList[newIndex];
 </script>
 <div class="menu">
 <a href="mondai/kiso/index.html" target="_blank">[基礎]</a>
