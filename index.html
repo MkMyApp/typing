@@ -43,6 +43,10 @@ color: blue;
 
 <iframe id="frm_type"></iframe>
 <script>
+const iframeElement = document.getElementById('frm_type');
+
+iframeElement.addEventListener('load', function() {
+
 const menuList = [
 'kanji/部活動.html',
 'kanji/星座名.html',
@@ -66,10 +70,12 @@ const menuList = [
 'english/初級英単語60.html',
 ]
 
-const iframeElement = document.getElementById('frm_type');
+// ランダムでsrcを設定
+let newIndex = Math.floor(Math.random() * menuList.length);
+iframeElement.src = "mondai/" + menuList[newIndex];
 
 //iframeの読み込み完了時に高さを合わせる処理
-iframeElement.addEventListener('load', function() {
+
   try {
     // iframe内部のコンテンツの高さを取得して適用
     const contentHeight = iframeElement.contentWindow.document.documentElement.scrollHeight;
@@ -78,10 +84,6 @@ iframeElement.addEventListener('load', function() {
     console.error("高さを取得できませんでした:", e);
   }
 });
-
-// ランダムでsrcを設定
-let newIndex = Math.floor(Math.random() * menuList.length);
-iframeElement.src = "mondai/" + menuList[newIndex];
 
 </script>
 <div class="menu">
