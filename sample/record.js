@@ -59,6 +59,7 @@ function showDownloadButton() {
     const blob = new Blob([bom, dataContent], { type: 'text/data;charset=utf-8;' });
     
     saveFile(blob, `typing_log_${Date.now()}.csv`);
+    dlEl.style.display = 'none';
   };
 }
 
