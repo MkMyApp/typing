@@ -271,8 +271,30 @@ function updateSettings() {
 	document.getElementById("editor").focus();
 }
 
+function customDivDisplay(mode) {
+	const customDiv = document.getElementById("custom");
+	if (customDiv) {
+		customDiv.style.display = mode;
+	}
+}
+
+function testPlay() {
+	updateSettings();
+	customDivDisplay("none")
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    customDivDisplay("block")
+  }
+});
+
 window.addEventListener('DOMContentLoaded', () => {
     updateSettings();
+    const txtdata = document.getElementById("txtdata");
+    if (txtdata && txtdata.value.trim() !== "") {
+      customDivDisplay("none")
+    }
 });
 
 function adjustTextareaHeight(id) {
