@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+	const TITLE_MSG = "初級英単語60";
+	const START_MSG = "Enter⏎";
+	const INPUT_MSG = "英数";
+	const RANDOM = "10";
+	const WIDTH = "16ch";
+	const IME = "OFF"
+</script>
+<!-------10--------20--------30--------40--------->
+<textarea id="txtdata" hidden>
+apple
+banana
+cherry
+grape
+lemon
+orange
+peach
+pear
+strawberry
+melon
+kiwi
+mango
+pineapple
+cat
+dog
+bird
+fish
+rabbit
+mouse
+elephant
+lion
+tiger
+giraffe
+monkey
+zebra
+bear
+wolf
+fox
+horse
+cow
+red
+blue
+green
+yellow
+purple
+pink
+brown
+black
+white
+gray
+silver
+gold
+sky
+sun
+moon
+star
+book
+pen
+desk
+chair
+table
+house
+water
+bread
+milk
+tea
+coffee
+school
+friend
+happy
+</textarea>
+<!-------10--------20--------30--------40--------->
+
+<script src="typing.js"></script>
+<script src="record.js"></script>
+<div id="dl" hidden></div>
+<div id="exp">
+
+タイピングしたデータはブラウザのデフォルトパスに保存されます。
+
+評価依頼プロンプト
+
+タイピングのデータを評価してください。
+
+【測定条件】※不要な選択肢を削って編集してください
+入力方式:直接入力/ローマ字入力/かな入力
+1行入力後:Enterでつぎへ/Shift+Enterでつぎへ
+データ形式:targetWord,timeSec,code,key
+対象:指導者向け/学習者の学年・年齢
+
+【評価・分析してほしい項目】
+1. 全体的な評価（打鍵速度、WPMの推定、スムーズさ）
+2. 1単語ごとの所要時間と、特定のキーや文字でのつまづき・傾向の有無
+3. 苦手そうなキーの配置や、今後の改善アドバイス
+
+【測定データ】※保存したファイルを結合します。
+targetWord,timeSec,code,key
+
+</div>
+</body>
+</html>
