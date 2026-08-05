@@ -1,17 +1,3 @@
-const iframeElement = document.getElementById('frm_type');
-
-iframeElement.addEventListener('load', function() {
-
-//iframeの読み込み完了時に高さを合わせる処理
-
-  try {
-    // iframe内部のコンテンツの高さを取得して適用
-    const contentHeight = iframeElement.contentWindow.document.documentElement.scrollHeight;
-    iframeElement.style.height = contentHeight + 'px';
-  } catch (e) {
-    console.error("高さを取得できませんでした:", e);
-  }
-});
 // ランダムでsrcを設定
 const menuList = [
 'kanji/部活動.html',
@@ -35,5 +21,6 @@ const menuList = [
 'hiragana/ひらがな.html',
 'english/初級英単語60.html',
 ]
+const iframeElement = document.getElementById('frm_type');
 let newIndex = Math.floor(Math.random() * menuList.length);
 iframeElement.src = "mondai/" + menuList[newIndex];
