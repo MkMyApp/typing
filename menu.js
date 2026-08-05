@@ -1,14 +1,18 @@
-// 1. まず変数を宣言・要素の取得を行う
-const iframeElement = document.getElementById('frm_type');
-
-// 2. イベントリスナーを登録する
-iframeElement.addEventListener('load', function() {
-    // iframe内部のコンテンツの高さを取得して適用
-    const contentHeight = iframeElement.contentWindow.document.documentElement.scrollHeight;
-    iframeElement.style.height = contentHeight + 'px';
+// ページ内のすべての iframe に対して高さを自動調整する処理を適用
+document.querySelectorAll('iframe').forEach(iframeElement => {
+    iframeElement.addEventListener('load', function() {
+        try {
+            // iframe内部のコンテンツの高さを取得して適用
+            const contentHeight = iframeElement.contentWindow.document.documentElement.scrollHeight;
+            iframeElement.style.height = contentHeight + 'px';
+        } catch (e) {
+            // ドメインが異なる場合（クロスドメイン制限）の安全対策
+            console.warn('iframeの高さを取得できませんでした:', e);
+        }
+    });
 });
 
-// 3. ランダムでsrcを設定する
+// ランダムでsrcを設定する処理
 const menuList = [
     'kanji/部活動.html',
     'kanji/星座名.html',
@@ -32,5 +36,8 @@ const menuList = [
     'english/初級英単語60.html',
 ];
 
-let newIndex = Math.floor(Math.random() * menuList.length);
-iframeElement.src = "mondai/" + menuList[newIndex];
+const frmType = document.getElementById('frm_type');
+if (frmType) {
+    let newIndex = Math.floor(Math.random() * menuList.length);
+    frmType.src = "mondai/" + menuList[newIndex];
+}
