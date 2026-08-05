@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>タイピング練習</title>
+	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
+	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
+<style>
+/* AIプロンプトを表示する枠（指定のID） */
+#prompt {
+  background-color: #f2f5f7; /* 背景の薄いグレー（画像風） */
+  border-radius: 8px;        /* 角を丸くする */
+  padding: 24px 32px;        /* 内側の余白 */
+  margin-top: 15px;          /* 上の文字との間隔 */
+  line-height: 1.8;          /* 行間を広げて読みやすくする */
+  color: #333333;            /* 文字色 */
+  font-size: 0.9em;          /* 親要素に対する文字サイズ調整 */
+}
+
+h3 {
+	font-size:120%;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>タイピング練習</h1>
+<span style="text-align:center;">
+<h2>タイピング練習を作って自分のパソコンで練習</h2>
+</span>
+</header>
+<main>
+<div class="box" style="font-size:150%;">
+<h3>AIを使った問題の作成</h3>
+AIに依頼するプロンプト<br>
+<div id="prompt">
+タイピング練習の問題文を作ってください。<br>
+1行につき1つの単語（または短文）のみを出力し、改行で区切る。<br>
+番号（1. 2. や ①など）、箇条書き記号（・や -）、説明文は付けない。<br>
+「以下がリストです」などの前置きや、末尾の挨拶は一切出力せず、問題データのみを出力する。<br>
+１行の文字数は30文字以下<br>
+問題数は５０問程度。<br>
+練習の対象は小学校高学年<br>
+テーマは「◯◯◯◯」<br>
+</div>
+<div>
+<h3>どんなテーマがいいかな</h3>
+  <section>
+      <h4>動物・植物</h4>
+      <ol>
+          <li>虫の名前</li>
+          <li>魚の名前</li>
+          <li>花の名前</li>
+          <li>鳥の名前</li>
+          <li>陸の動物の名前</li>
+          <li>海の動物の名前</li>
+      </ol>
+  </section>
+
+  <section>
+      <h4>食べ物</h4>
+      <ol>
+          <li>ケーキの名前</li>
+          <li>果物の名前</li>
+          <li>野菜の名前</li>
+          <li>スナック菓子の名前</li>
+          <li>飲み物の名前</li>
+          <li>焼肉の部位の名前</li>
+      </ol>
+  </section>
+
+  <section>
+      <h4>地理・乗り物</h4>
+      <ul>
+          <li>山手線の駅名</li>
+          <li>都道府県</li>
+          <li>国名</li>
+          <li>地域のお店の名前</li>
+      </ul>
+  </section>
+
+  <section>
+      <h4>音楽・文化・歴史</h4>
+      <ul>
+          <li>曲名</li>
+          <li>楽器の名前</li>
+          <li>映画のタイトル</li>
+          <li>本のタイトル</li>
+          <li>少女マンガのタイトル</li>
+          <li>戦国武将の名前</li>
+      </ul>
+  </section>
+
+  <section>
+      <h4>身の回りの物</h4>
+      <ul>
+          <li>丸いもの</li>
+          <li>冷たいもの</li>
+          <li>長いもの</li>
+          <li>「あ」で始まる言葉</li>
+          <li>春といえば</li>
+          <li>新年といえば</li>
+          <li>日本といえば</li>
+          <li>お笑い芸人の名前</li>
+          <li>芸能人の名前</li>
+          <li>スポーツの名前</li>
+      </ul>
+  </section>
+
+  <hr>
+
+  <h4>【定番】誰でも盛り上がれるお題</h4>
+
+  <section>
+      <h3>食べ物</h3>
+      <ul>
+          <li>お寿司のネタ</li>
+          <li>ラーメン屋の名前</li>
+          <li>おにぎりの具</li>
+          <li>サンドイッチの具</li>
+          <li>おでんの具</li>
+          <li>給食のメニュー</li>
+          <li>コンビニのホットスナックの名前</li>
+          <li>お酒の名前</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>スポーツ</h3>
+      <ul>
+          <li>運動会の競技名</li>
+          <li>野球選手の名前</li>
+          <li>サッカー選手の名前</li>
+          <li>オリンピックの競技種目</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>自然・地理</h3>
+      <ul>
+          <li>日本の山の名前</li>
+          <li>日本の川の名前</li>
+          <li>東京23区名</li>
+          <li>日本の観光名所</li>
+          <li>県庁所在地</li>
+          <li>世界遺産の名前</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>音楽・文化</h3>
+      <ul>
+          <li>〇〇（元号）時代の歌手の名前</li>
+          <li>童謡の曲名</li>
+          <li>〇〇（アーティスト名）の曲名</li>
+          <li>アイドルグループの名前</li>
+          <li>作家の名前</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>身の回りの物</h3>
+      <ul>
+          <li>遊園地のアトラクション名</li>
+          <li>ファストフード店の名前</li>
+          <li>色の名前</li>
+          <li>テレビ番組名</li>
+          <li>アメリカの州名</li>
+          <li>ファッションブランドの名前</li>
+          <li>カフェチェーン店の名前</li>
+          <li>海外有名人の名前</li>
+      </ul>
+  </section>
+
+  <hr>
+
+  <h4>【面白い】答えが難しい</h4>
+
+  <section>
+      <h3>言葉遊び系</h3>
+      <ul>
+          <li>必殺技っぽい名前</li>
+          <li>言われたい口説き文句</li>
+          <li>厨二病な言葉</li>
+          <li>一度は言ってみたい決め台詞</li>
+          <li>〇〇（作品名）に出てくるセリフ</li>
+          <li>ダジャレ</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>趣味趣向系</h3>
+      <ul>
+          <li>アニメ</li>
+          <li>テレビドラマ</li>
+          <li>感動して泣いた映画</li>
+          <li>楽器</li>
+          <li>お笑い芸人</li>
+      </ul>
+  </section>
+
+  <section>
+      <h3>知識系</h3>
+      <ul>
+          <li>国民の祝日の名前</li>
+          <li>神話に登場する神さまの名前</li>
+          <li>歴代総理大臣の名前</li>
+          <li>元素記号の種類</li>
+          <li>栄養素の種類</li>
+          <li>歴史上の俳人、歌人の名前</li>
+          <li>国家資格の名前</li>
+          <li>日本の寺院名</li>
+          <li>歴代のオリンピック金メダリストの名前</li>
+          <li>FIFAワールドカップ歴代優勝国</li>
+      </ul>
+  </section>
+
+  <hr>
+
+  <h4>【学生向け】小学生や中学生も楽しめるお題</h4>
+  <section>
+      <ul>
+          <li>校庭にあるもの</li>
+          <li>体育館にあるもの</li>
+          <li>キャラクターの名前</li>
+          <li>〇〇（アニメ名）に出てくるキャラクターの名前</li>
+          <li>ユーチューバーの名前</li>
+          <li>四字熟語</li>
+          <li>ことわざ</li>
+          <li>百人一首</li>
+          <li>好きな給食の献立</li>
+          <li>苦手な体育の種目</li>
+          <li>部活動の名前・大学のサークル名</li>
+      </ul>
+  </section>
+</div>
+</main>
+<footer style="font-size:200%;text-align:center;">
+<p>
+<a href="javascript:window.close();">❌Close</a>
+</p>
+</footer>
+</body>
+</html>
