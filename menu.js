@@ -1,5 +1,3 @@
-const iframeElement = document.getElementById('frm_type');
-
 iframeElement.addEventListener('load', function() {
 //iframeの読み込み完了時に高さを合わせる処理
     // iframe内部のコンテンツの高さを取得して適用
@@ -30,6 +28,7 @@ const menuList = [
 'hiragana/ひらがな.html',
 'english/初級英単語60.html',
 ]
+
 const iframeElement = document.getElementById('frm_type');
 let newIndex = Math.floor(Math.random() * menuList.length);
 iframeElement.src = "mondai/" + menuList[newIndex];
