@@ -1,10 +1,5 @@
-// --------------------------------------------------
-// すべての iframe の読み込みと高さ調整 + スクロール処理
-// --------------------------------------------------
-const iframes = document.querySelectorAll('iframe');
-let loadedCount = 0;
-
-iframes.forEach(iframeElement => {
+// ページ内のすべての iframe の高さを調整
+document.querySelectorAll('iframe').forEach(iframeElement => {
     iframeElement.addEventListener('load', function() {
         try {
             const doc = iframeElement.contentWindow.document;
@@ -17,31 +12,16 @@ iframes.forEach(iframeElement => {
                 }
             };
 
-            // 初回高さ調整
+            // 初回調整
             adjustHeight();
 
-            // 内部コンテンツのサイズ変化を継続的に監視
+            // 内部コンテンツのサイズ変化を継続的に監視する設定
             if (window.ResizeObserver && doc.body) {
                 const observer = new ResizeObserver(() => adjustHeight());
                 observer.observe(doc.body);
             }
         } catch (e) {
             console.warn('iframeの高さを取得できませんでした:', e);
-        }
-
-        // 読み込み完了した iframe をカウント
-        loadedCount++;
-
-        // すべての iframe の読み込み（高さの確定）が終わったら一番上にスクロール
-        if (loadedCount === iframes.length) {
-            // レイアウトのガタつきを吸収するため少しだけ遅延を入れる
-            setTimeout(() => {
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth' // スムーススクロール（即時スクロールにしたい場合は 'auto'）
-                });
-            }, 50);
         }
     });
 });
