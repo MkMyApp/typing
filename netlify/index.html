@@ -2,16 +2,42 @@
 <html lang="ja">
 <head>
 	<meta charset="UTF-8">
+  <base target="_blank">
 	<title>Netlifyで公開</title>
 	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
 	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
 <style>
+#menu {
+width: fit-content;
+max-width: 95%;
+height: auto;
+line-height: 2em;
+padding: 10px;
+display: block;
+gap: 2rem;
+justify-content: center;
+flex-wrap: wrap;
+margin: 0px auto;
+border: none;
+font-size: 24px;
+}
+
+#menu a {
+text-decoration: none;
+color: blue;
+}
+
+#menu a:hover {
+ color: red;
+}
+
 </style>
 </head>
 <body>
-<span style="text-align:center;">
-<h2>Netlifyで公開する</h2>
-</span>
+<div style="text-align:center;font-size:200%;">
+Netlifyで公開する
+</div>
+<div id="menu">
 <a href="upload.zip" download>upload.zip</a><br>
 タイピング練習のファイルをフォルダにコピーしてindex.htmlにリネーム<br>
 <a href="link.zip" download>link.zip</a><br>
@@ -20,11 +46,11 @@
 リンクするURLを編集する<br><br>
 <br>
 netlifyにSign upしてLog in<br>
-<a href="https://www.netlify.com/" target="_blank"><img src = "Netlify_logo.png"></a><br>
+<a href="https://www.netlify.com/"><img src = "Netlify_logo.png"></a><br>
 フォルダをドロップ<br>
 <img src = "upload.png"><br>
 URLの変更<br>
-<a href="URL_tool.html" target="_blank"><img src = "URL_tool.png"></a><br>
-
+<a href="URL_tool.html"><img src = "URL_tool.png"></a><br>
+</div>
 </body>
 </html>
