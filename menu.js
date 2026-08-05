@@ -3,7 +3,7 @@ document.querySelectorAll('iframe').forEach(iframeElement => {
     iframeElement.addEventListener('load', function() {
         try {
             const doc = iframeElement.contentWindow.document;
-            
+            iframeElement.style.height = '0px';
             // 高さを設定する関数
             const adjustHeight = () => {
                 const contentHeight = doc.documentElement.scrollHeight || doc.body.scrollHeight;
