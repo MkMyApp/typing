@@ -10,41 +10,40 @@
 <div id="result"></div>
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
-<script src="typing.js" defer></script>
-<script src="random.js" defer></script>
 <script>
 const length = 8;
 const lines = 50;
-const strdata = `ちとしはまのりれ`;
+const strdata = `AIUEO`;
 
-const TITLE_MSG = "かなホームランダム";
+const TITLE_MSG = "ローマ字あいうえお";
 const START_MSG = "Enter⏎";
-const INPUT_MSG = "かな";
-const RANDOM = 10;
-const WIDTH = "20ch";
+const INPUT_MSG = "英数";
 const IME = "OFF";
+const RANDOM = 10;
+const WIDTH = "12ch";
 </script>
 <!---5----10---15---20---25---30---35---40--->
 <textarea id="txtdata" hidden>
-
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
 
-<script src="kana.js"></script>
+<script src="Lkey.js"></script>
 <script>
 setTransparent();//機能キーの文字を透過
 applyTransparent();//文字色を透過
-applyColor("ち","#F29", "#FFF");
-applyColor("と","#F60", "#FFF");
-applyColor("し","#3A5", "#FFF");
-applyColor("は","#F00", "#FFF");
-applyColor("ま","#00F", "#FFF");
-applyColor("の","#3A5", "#FFF");
-applyColor("り","#F60", "#FFF");
-applyColor("れ","#F29", "#FFF");
+applyColor("A","#F29", "#FFF");
+applyColor("E","#3A5", "#FFF");
+applyColor("U","#00F", "#FFF");
+applyColor("I","#3A5", "#FFF");
+applyColor("O","#F60", "#FFF");
 </script>
+
+<script src="typing.js"></script>
 <script src="record.js"></script>
 <div id="exp">
+ローマ字入力　あいうえおの特訓
+練習の前に、CapsLockで大文字にします。
 
 タイピングしたデータはブラウザのデフォルトパスに保存されます。
 
@@ -53,9 +52,9 @@ applyColor("れ","#F29", "#FFF");
 タイピングのデータを評価してください。
 
 【測定条件】
-問題:ひらがなホームポジションランダム４文字
-入力方式:かな入力/ローマ字入力
-かな漢字変換確定 Enter 入力完了 Enterの2回押し
+問題:AIUEOの８文字のランダム
+入力方式:直接入力
+入力完了 Enterキー
 データ形式:targetWord,timeSec,code,key
 対象:指導者向け/学習者の学年・年齢
 
