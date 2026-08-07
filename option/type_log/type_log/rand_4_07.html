@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const length = 4;
+const lines = 50;
+const strdata = `
+QWERTYUIOP
+ASDFGHJKL
+ZXCVBNM
+`;
+
+const TITLE_MSG = "上中下段";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "英数";
+const IME = "OFF";
+const RANDOM = 10;
+const WIDTH = "12ch";
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
+<div id="dl" hidden></div>
+<script src="Lkey.js"></script>
+<script>
+setTransparent();//機能キーの文字を透過
+//applyTransparent();//文字色を透過
+applyColor("QAZ","#F29", "#FFF");
+applyColor("WSX","#F60", "#FFF");
+applyColor("EDC","#3A5", "#FFF");
+applyColor("RFV","#F00", "#FFF");
+applyColor("TGB","#F00", "#FFF");
+applyColor("YHN","#00F", "#FFF");
+applyColor("UJM","#00F", "#FFF");
+applyColor("IK","#3A5", "#FFF");
+applyColor("POL","#F60", "#FFF");
+</script>
+
+<script src="typing.js"></script>
+<script src="record.js"></script>
+<div id="exp">
+
+タイピングしたデータはブラウザのデフォルトパスに保存されます。
+
+評価依頼プロンプト
+
+タイピングのデータを評価してください。
+
+【測定条件】
+問題:A-Zランダム４文字
+入力方式:直接入力
+1行入力後:Enterでつぎへ
+データ形式:targetWord,timeSec,code,key
+対象:指導者向け/学習者の学年・年齢
+
+【評価・分析してほしい項目】
+1. 全体的な評価（打鍵速度、WPMの推定、スムーズさ）
+2. 1単語ごとの所要時間と、特定のキーや文字でのつまづき・傾向の有無
+3. 苦手そうなキーの配置や、今後の改善アドバイス
+
+【測定データ】※保存したファイルを結合します。
+targetWord,timeSec,code,key
+
+</div>
+<script src="exp.js"></script>
+</body>
+</html>

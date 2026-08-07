@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="花火.css">
+  <title>タイピングゲーム</title>
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+const TITLE_MSG = "タイピング練習";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "29ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+タイピング練習は、
+過度なフラッシュや
+派手なエフェクト
+大きな音が
+集中を妨げたり
+目の負担になるため
+控えめなデザインが
+推奨されます。
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="花火.js"></script>
+</body>
+</html>
