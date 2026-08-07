@@ -187,7 +187,12 @@ body {
   pointer-events: none;
 }
 
-/* 入力エリア（textarea）だけはキー・マウス入力ができるように許可 */
+/* キー・マウス入力ができるように許可 */
 .ui-layer #editor {
   pointer-events: auto;
 }
+
+#log {
+  pointer-events: auto;
+}
+

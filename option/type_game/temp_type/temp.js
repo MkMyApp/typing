@@ -52,9 +52,13 @@ function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
   if (!isTracking) return;
 
   // 各種計算結果を出力
-  strOutput(
-    `[キー入力] Key: '${key}' (Code: ${code}) | 間隔: ${pressSec.toFixed(3)}s | 文字数: ${charCount}ch | 速度: ${instantCpm}cpm`
-  );
+  strOutput(``);
+  strOutput(`[キー入力]`);
+  strOutput(`キー　: '${key}'`);
+  strOutput(`コード: ${code}`);
+  strOutput(`間　隔: ${pressSec.toFixed(3)}s`);
+  strOutput(`文字数: ${charCount}ch`);
+  strOutput(`速　度: ${instantCpm}cpm`);
 }
 
 /**
@@ -70,7 +74,16 @@ function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
 
   // 渡された引数をそのまま出力に使用
-  strOutput(`[入力完了] 解答単語: ${targetWord} -> ${lineChars}ch ${lineSec.toFixed(2)}sec ${cpm}cpm (正解率: ${accuracy}%)`);
+  const lineScore = Math.round(cpm * (accuracy / 100));
+  strOutput(``);
+  strOutput(`[入力完了]`);
+  strOutput(`単　語: ${targetWord}`);
+  strOutput(`文字数: ${lineChars}ch`);
+  strOutput(`時　間: ${lineSec.toFixed(2)}sec`);
+  strOutput(`速　度: ${cpm}cpm`);
+  strOutput(`正解率: ${accuracy}%`);
+　strOutput(`スコア: ${lineScore}pt`);
+  strOutput(``);
 }
 
 /**
@@ -92,10 +105,43 @@ function onNextQuestion(questionIndex) {
 /**
  * 5. 全問クリア（リザルト表示）時のイベントハンドラ
  */
+function getRank(cpm, accuracy) {
+　//正解率 80%以下
+　if (accuracy < 80) return "C"; 
+  // 1分間に約500文字以上＋高精度
+  if (cpm >= 500 && accuracy >= 100) return "神";
+  // 1分間に約360文字以上＋高精度
+  if (cpm >= 360 && accuracy >= 99) return "超人";
+  // 1分間に約280文字以上＋高精度
+  if (cpm >= 280 && accuracy >= 98) return "名人";
+  // 1分間に約200文字以上＋高精度
+  if (cpm >= 200 && accuracy >= 95) return "S+";
+  // 1分間に約160文字以上
+  if (cpm >= 160 && accuracy >= 90) return "S";
+  // 1分間に約120文字以上
+  if (cpm >= 120 && accuracy >= 85) return "A";
+  // 1分間に約80文字以上
+  if (cpm >= 80)  return "B";
+  // 1秒間に約1.3文字以下
+  return "C";
+}
+
 function onGameComplete(totalCpm, totalAccuracy) {
   const tChars = typeof totalChars !== 'undefined' ? totalChars : 0;
   const tSec = (typeof endTime !== 'undefined' && typeof startTime !== 'undefined') ? (endTime - startTime) / 1000 : 0;
-  strOutput(`[タイピング終了] ${tChars}ch ${tSec.toFixed(2)}sec ${totalCpm}cpm (正解率: ${totalAccuracy}%)`);
+
+  // --- 最終スコアとランクの計算 ---
+  const finalScore = Math.round(totalCpm * Math.pow(totalAccuracy / 100, 2));
+  const rank = getRank(totalCpm, totalAccuracy);
+
+  strOutput(``);
+  strOutput(`[タイピング終了]`);
+  strOutput(`文字数: ${tChars}ch`);
+  strOutput(`時　間: ${tSec.toFixed(2)}sec`);
+  strOutput(`速　度: ${totalCpm}cpm`);
+  strOutput(`正解率: ${totalAccuracy}%`);
+　strOutput(`スコア: ${finalScore}pt`);
+　strOutput(`ランク: ${rank}`);
 }
 
 // ==================================================
@@ -104,6 +150,8 @@ function onGameComplete(totalCpm, totalAccuracy) {
 
 // キー打鍵間隔の計算用タイムスタンプ
 let lastKeyPressTime = 0;
+// ★ 追加: 直近で押された物理キーのコードを保持する変数
+let lastKeyCode = '';
 
 // テキスト入力の監視
 const editorElForGame = document.getElementById('editor');
@@ -129,7 +177,7 @@ if (editorElForGame) {
     // オブジェクトとしてまとめて渡す
     onKeyPress({
       key: e.data || e.inputType, // 入力文字
-      code: e.code || 'Input',
+      code: lastKeyCode || 'Input', // ★ 修正: 保存しておいた lastKeyCode を渡す
       pressSec: pressSec,
       charCount: charCount,
       instantCpm: instantCpm
@@ -140,6 +188,9 @@ if (editorElForGame) {
 // 2. 判定・問題判定用キーダウンの監視
 function handleKeyDown(e) {
   if (!isTracking) return;
+
+  // ★ 追加: 押されたキーの code (KeyA や Enter など) を保存
+  lastKeyCode = e.code;
 
   const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
 
