@@ -34,6 +34,35 @@ function updateAndDraw() {
 // アニメーションループ起動
 requestAnimationFrame(updateAndDraw);
 
+// ==================================================
+//  ランク設定
+// ==================================================
+
+function getRank(cpm, accuracy) {
+　//正解率 50%以下
+　if (accuracy < 50) return "F"; 
+  // 1分間に約500文字以上＋高精度
+  if (cpm >= 500 && accuracy >= 100) return "神";
+  // 1分間に約360文字以上＋高精度
+  if (cpm >= 360 && accuracy >= 99) return "超人";
+  // 1分間に約280文字以上＋高精度
+  if (cpm >= 280 && accuracy >= 98) return "名人";
+  // 1分間に約200文字以上＋高精度
+  if (cpm >= 200 && accuracy >= 95) return "S+";
+  // 1分間に約160文字以上
+  if (cpm >= 160 && accuracy >= 90) return "S";
+  // 1分間に約120文字以上
+  if (cpm >= 120 && accuracy >= 85) return "A";
+  // 1分間に約80文字以上
+  if (cpm >= 80 && accuracy >= 80)  return "B";
+  // 1分間に約60文字以下
+  if (cpm >= 60 && accuracy >= 70)  return "C";
+  // 1分間に約40文字以下
+  if (cpm >= 40 && accuracy >= 60)  return "D";
+  // 1分間に約20文字以下
+  if (cpm >= 20 && accuracy >= 50)  return "E";
+  return "F";
+}
 
 // ==================================================
 //  各種イベントフック
@@ -72,9 +101,9 @@ function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
  */
 function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
-
-  // 渡された引数をそのまま出力に使用
   const lineScore = Math.round(cpm * (accuracy / 100));
+　const rank = getRank(cpm, accuracy);
+
   strOutput(``);
   strOutput(`[入力完了]`);
   strOutput(`単　語: ${targetWord}`);
@@ -83,6 +112,8 @@ function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
   strOutput(`速　度: ${cpm}cpm`);
   strOutput(`正解率: ${accuracy}%`);
 　strOutput(`スコア: ${lineScore}pt`);
+　strOutput(`ランク: ${rank}`);
+
   strOutput(``);
 }
 
@@ -105,26 +136,6 @@ function onNextQuestion(questionIndex) {
 /**
  * 5. 全問クリア（リザルト表示）時のイベントハンドラ
  */
-function getRank(cpm, accuracy) {
-　//正解率 80%以下
-　if (accuracy < 80) return "C"; 
-  // 1分間に約500文字以上＋高精度
-  if (cpm >= 500 && accuracy >= 100) return "神";
-  // 1分間に約360文字以上＋高精度
-  if (cpm >= 360 && accuracy >= 99) return "超人";
-  // 1分間に約280文字以上＋高精度
-  if (cpm >= 280 && accuracy >= 98) return "名人";
-  // 1分間に約200文字以上＋高精度
-  if (cpm >= 200 && accuracy >= 95) return "S+";
-  // 1分間に約160文字以上
-  if (cpm >= 160 && accuracy >= 90) return "S";
-  // 1分間に約120文字以上
-  if (cpm >= 120 && accuracy >= 85) return "A";
-  // 1分間に約80文字以上
-  if (cpm >= 80)  return "B";
-  // 1秒間に約1.3文字以下
-  return "C";
-}
 
 function onGameComplete(totalCpm, totalAccuracy) {
   const tChars = typeof totalChars !== 'undefined' ? totalChars : 0;
