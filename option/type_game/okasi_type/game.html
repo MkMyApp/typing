@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>スイーツタイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "スイーツタイピング";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "20";
+const WIDTH = "30ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+クレープ
+ハロハロ
+抹茶パフェ
+いちごパフェ
+ごまプリン
+杏仁豆腐
+プリンアラモード
+焼きプリン
+プリン
+マンゴープリン
+落雁
+芋けんぴ
+五色豆
+トゥンカロン
+ジャイアントコーン
+求肥
+パルミエ
+いちご飴
+ポテトチップス
+大学芋
+チョコレートベーコン
+月餅
+スモア
+黒糖くるみ
+フロランタン
+カンノーロ
+クロナッツ
+プレスせんべい
+チョコレートパフェ
+チーズボール
+チュロス
+ひなあられ
+ポン菓子
+ハニートースト
+たまごボーロ
+マリトッツォ
+ホワイトチョコいちご
+チョコいちご
+黒棒
+柿の種
+ヘーゼルナッツ
+マラサダ
+麩菓子
+クラッカー
+グラブジャムン
+ラスグラ
+ホットク
+チョコムース
+フォンダンショコラ
+シブースト
+ティラミス
+ブッセ
+ミルクレープ
+ファーブルトン
+パブロバ
+パイナップルケーキ
+ショートケーキ
+シュトーレン
+モンブラン
+チョコミントケーキ
+アニバーサリーケーキ
+カップケーキ
+ブッシュドノエル
+いちごオムレット
+ザッハトルテ
+フルーツパウンドケーキ
+ファンネルケーキ
+バナナオムレット
+ケーキサンド
+チーズケーキ
+パウンドケーキ
+ロールケーキ
+シフォンケーキ
+ケーキポップ
+ダッチベビー
+生ドーナツ
+チェリー生ドーナツ
+フルーツサンド
+ドーサ
+ワダ
+イドゥリ
+パンケーキ
+レッドベルベットケーキ
+クリスマスケーキ
+プチパンケーキ
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

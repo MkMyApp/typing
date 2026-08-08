@@ -2,13 +2,13 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="temp.css">
+  <link rel="stylesheet" href="ghost.css">
   <title>タイピングゲーム</title>
 
 </head>
 <body>
 <div class="game-container">
-  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <canvas id="gameCanvas"></canvas>
   <div class="ui-layer">
     <div id="title"></div>
     <div id="result"></div>
@@ -19,23 +19,29 @@
 <textarea id="editor" class="line" spellcheck="false"></textarea>
 
 <script>
-const TITLE_MSG = "タイピング練習";
+const TITLE_MSG = "ゴーストタイピング";
 const START_MSG = "Enter⏎でスタート";
 const INPUT_MSG = "かな";
 const RANDOM = "0";
-const WIDTH = "29ch";
+const WIDTH = "20ch";
 const IME = "ON";
 </script>
 <!-------10--------20--------30--------40-->
 <textarea id="txtdata" hidden>
-あいうえお
-aiueo
-ABCDEFG
-山川雪月花魚鳥木
+暗闇に潜む影よ
+古き契約は過ぎ
+聖なる光の網で
+汝の形を繋がん
+駆けよ疾風の風
+破れ静寂の静けさ
+我の意志の刃で
+幻影に導を渡す
+去れや光の明日へ
+永久の静寂へ還れ
 </textarea>
 <!-------10--------20--------30--------40-->
 
 <script src="typing.js"></script>
-<script src="temp.js"></script>
+<script src="ghost.js"></script>
 </body>
 </html>

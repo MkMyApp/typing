@@ -136,12 +136,15 @@ body {
 }
 
 /* 確認用のテキストエリア */
-	#log {
-	  width:600px;
-	  height:400px;
-	  margin:0px auto;
-	  display:none;
-	}
+#log {
+  display: none;
+  width: 600px;
+  height: 400px;
+  margin: 0px auto;
+  font-size: 12px;
+  color: #888;
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
 /* 重ね合わせ用の枠 */
 .game-container {
@@ -182,5 +185,9 @@ body {
 
 /* 入力エリア（textarea）だけはキー・マウス入力ができるように許可 */
 .ui-layer #editor {
+  pointer-events: auto;
+}
+
+#log {
   pointer-events: auto;
 }

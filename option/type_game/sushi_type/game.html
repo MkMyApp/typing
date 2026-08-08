@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>シン寿司タイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "シン寿司タイピング";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "20";
+const WIDTH = "16ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+まぐろ
+赤身
+中とろ
+大とろ
+炙りとろ
+たい
+真鯛
+はまち
+ぶり
+寒ぶり
+かつお
+金目鯛
+のどぐろ
+こはだ
+いわし
+炙りサーモン
+焼きはらす
+えび
+甘えび
+いか
+たこ
+ほたて
+炙りほたて
+赤貝
+ホッキ貝
+えんがわ
+炙りえんがわ
+シャコ
+かずのこ
+たまご
+穴子
+煮あなご
+うなぎ
+いなり
+いなり寿司
+ハンバーグ
+肉寿司
+芽ねぎ
+バッテラ
+いくら
+うに
+しらす
+白子
+ツナマヨ
+とろたく巻
+たくあん巻
+納豆巻
+ガリ
+シャリ
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
