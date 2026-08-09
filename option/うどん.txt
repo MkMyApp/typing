@@ -1,0 +1,8 @@
+function generateUdonMaster() {
+  const toppings = ["とまたま", "ごつのごぼうてん", "讃岐海老天", "明太生醤油", "特製かまあげかたまえ"];
+  const meats = ["ぎゅうにく", "豚しゃぶ", "鶏天"];
+  const bases = ["うどん", "ぶっかけうどん", "カレーうどん"];
+
+  // 組み合わせで「とまたまぎゅうにくぶっかけうどん」等を自動生成
+  return `${toppings[0]}${meats[0]}${bases[2]}`; 
+}

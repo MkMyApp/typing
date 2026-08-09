@@ -1,0 +1,17 @@
+// スタバの呪文を無限生成する悪魔の関数
+function generateStarbucksSpell() {
+  const sizes = ["ショート", "トール", "グランデ", "ベンティ"];
+  const milks = ["ソイミルクに変更", "アーモンドミルクに変更", "オーツミルクに変更", "ブレベミルクに変更"];
+  const syrups = ["バニラシロップ追加", "キャラメルシロップ追加", "ホワイトモカシロップ追加"];
+  const toppings = ["エクストラホイップ", "エクストラパウダー", "チョコチップ追加", "チョコレートソース追加", "キャラメルソース追加"];
+  const bases = ["ダークモカチップフラペチーノ", "抹茶クリームフラペチーノ", "エスプレッソアフォガートフラペチーノ"];
+
+  // ランダムに組み合わせて一つの呪文（問題文）を作る
+  const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+  const randomMilk = milks[Math.floor(Math.random() * milks.length)];
+  const randomSyrup = syrups[Math.floor(Math.random() * syrups.length)];
+  const randomTopping = toppings[Math.floor(Math.random() * toppings.length)];
+  const randomBase = bases[Math.floor(Math.random() * bases.length)];
+
+  return `${randomSize} ${randomMilk} ${randomSyrup} ${randomTopping} ${randomBase}`;
+}
