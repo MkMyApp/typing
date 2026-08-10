@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>Starbucks</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "Starbucks";
+  const START_MSG = "Enter⏎でスタート";
+  const INPUT_MSG = "英数 確認";
+  const IME = 'OFF';
+  const RANDOM = 10;
+  // const WIDTH = "50ch";
+</script>
+
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script>
+  function makeWord() {
+  const sizes = ["", "Short", "Tall", "Grande", "Venti"];
+  
+  const milks = [
+    "",
+    "2% Milk",
+    "Nonfat Milk",
+    "Soymilk",
+    "Almondmilk",
+    "Oatmilk",
+    "Breve"
+  ];
+
+  const syrups = [
+    "",
+    "No Syrup",
+    "Vanilla Syrup",
+    "Caramel Syrup",
+    "White Mocha Syrup",
+    "Mocha Syrup"
+  ];
+
+  const toppings = [
+    "",
+    "Extra Whip",
+    "Extra Powder",
+    "Java Chips",
+    "Chocolate Drizzle",
+    "Caramel Drizzle",
+    "Honey",
+    "Espresso Shot"
+  ];
+
+  const bases = [
+    "Coffee Frappuccino",
+    "Caramel Frappuccino",
+    "Dark Mocha Frappuccino",
+    "Espresso Frappuccino",
+    "Matcha Creme Frappuccino",
+    "Chai Latte",
+    "Iced Caffe Latte",
+    "Caffe Americano",
+    "Cappuccino"
+  ];
+
+  const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+  const randomMilk = milks[Math.floor(Math.random() * milks.length)];
+  const randomSyrup = syrups[Math.floor(Math.random() * syrups.length)];
+  const randomTopping = toppings[Math.floor(Math.random() * toppings.length)];
+  const randomBase = bases[Math.floor(Math.random() * bases.length)];
+
+  // スペースあり（またはスペースなし）で結合
+  return [randomSize, randomMilk, randomSyrup, randomTopping, randomBase]
+    .filter(Boolean)
+    .join(' ');
+}
+
+function getDisplayLength(str) {
+  let length = 0;
+  for (const char of str) {
+    // 全角文字（ASCII外）は 2、半角文字は 1 と扱う
+    if (char.match(/[^\x01-\x7E]/)) {
+      length += 2;
+    } else {
+      length += 1;
+    }
+  }
+  return length;
+}
+
+function makeWords() {
+  let words = '';
+  let maxDisplayLength = 0;
+
+  for (let i = 0; i < 100; i++) {
+    const word = makeWord();
+    const displayLength = getDisplayLength(word);
+
+    if (displayLength > maxDisplayLength) {
+      maxDisplayLength = displayLength;
+    }
+    words = words + word + '\n';
+  }
+
+  // 表示上の最長幅（半角換算）に +10 して ch 単位で指定
+  window.WIDTH = `${maxDisplayLength + 10}ch`;
+
+  return words;
+}
+
+  document.getElementById('txtdata').value = makeWords();
+</script>
+<script src="typing.js"></script>
+</body>
+</html>

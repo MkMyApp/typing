@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>スターバックス</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+  const TITLE_MSG = "スターバックス";
+  const START_MSG = "Enter⏎でスタート";
+  const INPUT_MSG = "かな 確認";
+  const IME = 'ON';
+  const RANDOM = 10;
+  // const WIDTH = "50ch";
+</script>
+
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script>
+  function makeWord() {
+	const sizes = [
+		"ショート", 
+		"トール",
+		"グランデ",
+		"ベンティ",
+	];
+	
+	const milks = [
+	  "",                   // 標準（変更なし）
+	  "低脂肪タイプ",
+	  "無脂肪乳",
+	  "ソイミルク",
+	  "アーモンドミルク",
+	  "オーツミルク",
+	  "ブレベミルク",
+	  "ノンミルク"           // ミルク抜き
+	];
+
+	const syrups = [
+	  "",                     // 標準（変更なし）
+	  "ノンシロップ",         // シロップ抜き（もともとシロップが入るドリンク用）
+	  "バニラシロップ",
+	  "キャラメルシロップ",
+	  "ホワイトモカシロップ",
+	  "モカシロップ",     // チョコレート風味
+	  "タヒチアンバニラシロップ" // 季節限定・店舗限定系
+	];
+
+  const toppings = [
+    "",
+    "エクストラホイップ",
+    "エクストラパウダー",
+    "チョコチップ",
+    "チョコレートソース",
+    "キャラメルソース",
+    "ハチミツ",
+    "ブラウンシュガー",
+    "エスプレッソショット",
+    "ムースフォーム"
+  ];
+
+const bases = [
+  "コーヒーフラペチーノ",
+  "キャラメルフラペチーノ",
+  "ダークモカチップフラペチーノ",
+  "エスプレッソアフォガートフラペチーノ",
+  "抹茶クリームフラペチーノ",
+  "ほうじ茶クリームフラペチーノ",
+  "バニラクリームフラペチーノ",
+  "マンゴーパッションティーフラペチーノ",
+  "ドリップコーヒー",
+  "スターバックスラテ",
+  "ソイラテ",
+  "カフェアメリカーノ",
+  "カプチーノ",
+  "カフェモカ",
+  "キャラメルマキアート",
+  "抹茶ティーラテ",
+  "ほうじ茶ティーラテ",
+  "チャイティーラテ"
+];
+
+  const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+  const randomMilk = milks[Math.floor(Math.random() * milks.length)];
+  const randomSyrup = syrups[Math.floor(Math.random() * syrups.length)];
+  const randomTopping = toppings[Math.floor(Math.random() * toppings.length)];
+  const randomBase = bases[Math.floor(Math.random() * bases.length)];
+
+  // 空文字（""）を除外して半角スペースで結合する
+  return [randomSize, randomMilk, randomSyrup, randomTopping, randomBase]
+    .filter(Boolean)
+    .join('');
+}
+
+function getDisplayLength(str) {
+  let length = 0;
+  for (const char of str) {
+    // 全角文字（ASCII外）は 2、半角文字は 1 と扱う
+    if (char.match(/[^\x01-\x7E]/)) {
+      length += 2;
+    } else {
+      length += 1;
+    }
+  }
+  return length;
+}
+
+function makeWords() {
+  let words = '';
+  let maxDisplayLength = 0;
+
+  for (let i = 0; i < 100; i++) {
+    const word = makeWord();
+    const displayLength = getDisplayLength(word);
+
+    if (displayLength > maxDisplayLength) {
+      maxDisplayLength = displayLength;
+    }
+    words = words + word + '\n';
+  }
+
+  // 表示上の最長幅（半角換算）に +10 して ch 単位で指定
+  window.WIDTH = `${maxDisplayLength + 10}ch`;
+
+  return words;
+}
+
+  document.getElementById('txtdata').value = makeWords();
+</script>
+<script src="typing.js"></script>
+</body>
+</html>
