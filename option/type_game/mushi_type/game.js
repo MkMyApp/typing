@@ -164,7 +164,7 @@ let activeEnemies = [];
 let effects = []; // 「流れる」「打鍵成功」などの演出用配列
 let animationFrameId = null;
 const ENEMY_HEIGHT = 100; // 画像描画時の標準縦幅
-const BASE_SPEED = 0.5;   // 左へ進む速度
+const BASE_SPEED = 1;   // 左へ進む速度
 
 // ==================================================
 //  単語リストの自動流し込み & タイピング初期化
@@ -193,7 +193,7 @@ function spawnEnemy() {
 
   const enemy = {
     img: img,
-    x: canvas ? canvas.width : 1024,
+    x: canvas ? canvas.width - 64 : 1024,
     y: (canvas ? canvas.height - ENEMY_HEIGHT : 434 - ENEMY_HEIGHT) / 2,
     width: 180,
     height: ENEMY_HEIGHT,
