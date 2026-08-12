@@ -19,47 +19,51 @@ function speakText(text) {
     }
 }
 
-// ボタンクリック時の処理
 document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('button');
-    const editInput = document.getElementById('editor'); //
+    const editInput = document.getElementById('editor');
     
+    // --- ボタン処理 ---
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             let text;
 
             if (button.id === 'speak') {
                 text = editInput.value.trim();
-
-             } else if (button.id === 'CLR') {
+            } else if (button.id === 'CLR') {
                 editInput.value = "";
-
             } else if (button.id === 'BS') {
                 editInput.value = editInput.value.slice(0, -1);
-
             } else if (button.id === 'EntBtn') {
-            	if (!typeStarted){
-							  startType();
-								editorEl.value = '';
-							} else {
-								judgeCurrentWord();
-							}
-              return;
-
+                if (!typeStarted){
+                    startType();
+                    editorEl.value = '';
+                } else {
+                    judgeCurrentWord();
+                }
+                return;
             } else if (button.id === 'Spc') {
                 editInput.value = editInput.value + " ";
-
             } else if (button.id === 'Zen') {
-                editInput.value = editInput.value + "　";
-
-            }else {
+                editInput.value = editInput.value + " ";
+            } else {
                 text = button.textContent.trim();
                 editInput.value = editInput.value + text;
             }
             speakText(text);
         });
     });
+
+    //Enterキーでの読み上げ処理 ---
+    editInput.addEventListener('keydown', (e) => {
+        // Enterキーであり、かつIME変換中でない場合のみ実行
+        if (e.key === 'Enter' && !e.isComposing) {
+            const text = editInput.value.trim();
+            speakText(text);
+        }
+    });
 });
+
 // --- ボタンの色設定に関する処理 ---
 
 const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn => !btn.id);
