@@ -218,33 +218,6 @@ function loadWords(text){
     .filter(Boolean)
 }
 
-function init(){
-
-  let TITLE;
-  if (typeof TITLE_MSG !== 'undefined') {
-    TITLE = TITLE_MSG;
-    document.title = TITLE;
-  } else {
-    TITLE = document.title;
-  }
-
-  titleEl.textContent = TITLE
-
-  document.documentElement.style.setProperty('--line-width', WIDTH)
-
-  loadWords(document.getElementById('txtdata').value)
-
-  if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
-    limit = RANDOM
-  } else {
-    limit = words.length
-  }
-
-  showStart()
-
-  setTimeout(() => editorEl.focus(), 0)
-}
-
 editorEl.addEventListener('compositionstart', () => {
   composing = true
 })
@@ -291,16 +264,31 @@ editorEl.addEventListener('keydown', e => {
   }
 });
 
+function init(){
+
+  let TITLE;
+  if (typeof TITLE_MSG !== 'undefined') {
+    TITLE = TITLE_MSG;
+    document.title = TITLE;
+  } else {
+    TITLE = document.title;
+  }
+
+  titleEl.textContent = TITLE
+
+  document.documentElement.style.setProperty('--line-width', WIDTH)
+
+  loadWords(document.getElementById('txtdata').value)
+
+  if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
+    limit = RANDOM
+  } else {
+    limit = words.length
+  }
+
+  showStart()
+
+  setTimeout(() => editorEl.focus(), 0)
+}
+
 init()
-
-const expEl = document.getElementById('exp');
-if (window.self !== window.top) {
-  if (expEl) expEl.hidden = true;
-}
-
-if (expEl) {
-  expEl.addEventListener('click', function() {
-    this.hidden = true;
-    editorEl.focus();
-  });
-}
