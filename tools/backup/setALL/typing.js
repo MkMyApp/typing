@@ -99,16 +99,27 @@ function showStart(){
 }
 
 function buildSchedule(){
-  const list = words.map((_, i) => i)
+  if (words.length === 0) return []
 
-  if(RANDOM > 0){
-    shuffle(list)
-    return list.slice(0, Math.min(RANDOM, words.length))
+  // RANDOMが未設定（0以下）の場合はそのまま全件リストを返す
+  if (typeof RANDOM === 'undefined' || RANDOM <= 0) {
+    return words.map((_, i) => i)
+  }
+
+  const list = []
+
+  // RANDOMの指定数に達するまでループして追加
+  while (list.length < RANDOM) {
+    // 全問題のインデックス配列を作成してシャッフル（1周分）
+    const round = shuffle(words.map((_, i) => i))
+    
+    // RANDOMを超えないように必要な分だけ切り取って結合
+    const needed = RANDOM - list.length
+    list.push(...round.slice(0, needed))
   }
 
   return list
 }
-
 function showFinalResult(){
   const sec = (endTime - startTime) / 1000
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
@@ -223,9 +234,9 @@ function init(){
 
   loadWords(document.getElementById('txtdata').value)
 
-  if(RANDOM > 0){
-    limit = Math.min(RANDOM, words.length)
-  }else{
+  if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
+    limit = RANDOM
+  } else {
     limit = words.length
   }
 
