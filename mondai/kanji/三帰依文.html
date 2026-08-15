@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>三帰依文</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "三帰依文";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "19ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+南無帰依仏
+南無帰依法
+南無帰依僧
+帰依仏無上尊
+帰依法離塵尊
+帰依僧和合尊
+帰依仏竟
+帰依法竟
+帰依僧竟
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+<div id="exp">
+南無帰依仏。（なむきえぶつ）
+南無帰依法。（なむきえほう）
+南無帰依僧。（なむきえほう）
+帰依仏無上尊。（きえぶつむじょうそん）
+帰依法離塵尊。（きえほうりじんそん）
+帰依僧和合尊。（きえそうわごうそん）
+帰依仏竟。（きえぶつきょう）
+帰依法竟。（きえほうきょう）
+帰依僧竟。（きえそうきょう）
+
+</div>
+</body>
+</html>
