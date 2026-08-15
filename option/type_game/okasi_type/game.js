@@ -91,7 +91,7 @@ const SWEETS_MAP = {
   'シブースト': 'sweets_chiboust.png',
   'ティラミス': 'sweets_tiramisu.png',
   'ブッセ': 'sweets_busse.png',
-  'ミルレープ': 'sweets_mille_crepe.png',
+  'ミルクレープ': 'sweets_mille_crepe.png',
   'ファーブルトン': 'sweets_cake_far_breton.png',
   'パブロバ': 'sweets_cake_pavlova.png',
   'パブロヴァ': 'sweets_cake_pavlova.png',
