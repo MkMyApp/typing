@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>戦国合戦</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "戦国合戦";
+const START_MSG = "Enter⏎スタート";
+const INPUT_MSG = "かな確認";
+const RANDOM = "10";
+const WIDTH = "37ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+織田信長
+今川義元
+武田信玄
+明智光秀
+豊臣秀吉
+徳川家康
+仙石秀久
+藤堂高虎
+黒田長政
+上杉謙信
+伊達政宗
+真田昌幸
+真田幸村
+毛利元就
+長宗我部元親
+島津義弘
+北条氏康
+前田利家
+石田三成
+直江兼続
+黒田官兵衛
+竹中半兵衛
+本多忠勝
+立花宗茂
+柴田勝家
+浅井長政
+朝倉義景
+徳川秀忠
+榊原康政
+酒井忠次
+陣内左司馬
+浅井政澄
+磯野員昌
+遠藤直経
+佐久間信盛
+丹羽長秀
+木下藤吉郎
+稲葉一鉄
+氏家直元
+安藤守就
+井伊直政
+福島正則
+細川忠興
+浅野幸長
+加藤嘉明
+池田輝政
+山内一豊
+小早川秀秋
+吉川広家
+毛利秀元
+宇喜多秀家
+小西行長
+大谷吉継
+長宗我部盛親
+島左近
+蒲生頼郷
+安国寺恵瓊
+脇坂安治
+朽木元綱
+赤座直保
+小川祐忠
+京極高次
+毛利輝元
+最上義光
+上杉景勝
+羽柴秀長
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
