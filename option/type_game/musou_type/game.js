@@ -12,23 +12,94 @@ let lastEarnedScore = 0;
 // ==================================================
 // フォールバック用のランダム画像配列（対応表にない単語が出た場合に使用）
 const ENEMY_IMAGES = [
-  'megahorn_x.jpg',
+  'go.png',
 ];
 
-// ★ 出題文字列（漢字＋全角スペース＋よみ）と画像ファイル名の対応表
+// ★ 出題文字列 と画像ファイル名の対応表
 const MUSHI_MAP = {
-'侍': '01-samurai-attack.png',
-'忍者': '02-ninja-attack.png',
-'武僧': '03-busou-attack.png',
-'山伏': '04-yamabushi-attack.png',
-'巫女': '05-miko-attack.png',
-'陰陽師': '06-onmyoji-attack.png',
-'鬼': '07-oni-attack.png',
-'天狗': '08-tengu-attack.png',
-'雷神': '09-raijin-attack.png',
-'風神': '10-fujin-attack.png',
-'将軍': '11-shogun-attack.png',
-'九尾': '12-kyuubi-attack.png',
+  // 侍
+  '侍': '01-samurai-attack.png',
+  '燕返し': '01-samurai-attack.png',
+  '居合斬り': '01-samurai-attack.png',
+  '桜花乱舞': '01-samurai-attack.png',
+  '絶一文字': '01-samurai-attack.png',
+
+  // 忍者
+  '忍者': '02-ninja-attack.png',
+  '苦無投げ': '02-ninja-attack.png',
+  '影分身': '02-ninja-attack.png',
+  '秘伝飯綱落とし': '02-ninja-attack.png',
+  '風魔手裏剣': '02-ninja-attack.png',
+
+  // 武僧
+  '武僧': '03-busou-attack.png',
+  '金剛波': '03-busou-attack.png',
+  '鉄山靠': '03-busou-attack.png',
+  '阿修羅連撃': '03-busou-attack.png',
+  '羅漢百裂拳': '03-busou-attack.png',
+
+  // 山伏
+  '山伏': '04-yamabushi-attack.png',
+  '錫杖打ち': '04-yamabushi-attack.png',
+  '霊符投げ': '04-yamabushi-attack.png',
+  '破邪の祈祷': '04-yamabushi-attack.png',
+  '修験不動明王陣': '04-yamabushi-attack.png',
+
+  // 巫女
+  '巫女': '05-miko-attack.png',
+  '破魔矢': '05-miko-attack.png',
+  '神楽鈴': '05-miko-attack.png',
+  '天照の光': '05-miko-attack.png',
+  '神降ろし八咫烏': '05-miko-attack.png',
+
+  // 陰陽師
+  '陰陽師': '06-onmyoji-attack.png',
+  '呪符': '06-onmyoji-attack.png',
+  '式神召喚': '06-onmyoji-attack.png',
+  '急々如律令': '06-onmyoji-attack.png',
+  '泰山府君祭': '06-onmyoji-attack.png',
+
+  // 鬼
+  '鬼': '07-oni-attack.png',
+  '金棒振り下ろし': '07-oni-attack.png',
+  '怪力乱神': '07-oni-attack.png',
+  '百鬼夜行': '07-oni-attack.png',
+  '大江山酒呑烈波': '07-oni-attack.png',
+
+  // 天狗
+  '天狗': '08-tengu-attack.png',
+  '飛翔斬り': '08-tengu-attack.png',
+  '羽団扇': '08-tengu-attack.png',
+  '鞍馬の神風': '08-tengu-attack.png',
+  '大天狗竜巻起こし': '08-tengu-attack.png',
+
+  // 雷神
+  '雷神': '09-raijin-attack.png',
+  '紫電': '09-raijin-attack.png',
+  '雷鼓打ち': '09-raijin-attack.png',
+  '轟雷連打': '09-raijin-attack.png',
+  '天罰雷霆万鈞': '09-raijin-attack.png',
+
+  // 風神
+  '風神': '10-fujin-attack.png',
+  '旋風': '10-fujin-attack.png',
+  '鎌鼬': '10-fujin-attack.png',
+  '暴風域': '10-fujin-attack.png',
+  '神風烈波': '10-fujin-attack.png',
+
+  // 将軍
+  '将軍': '11-shogun-attack.png',
+  '大太刀斬り': '11-shogun-attack.png',
+  '大号令': '11-shogun-attack.png',
+  '天下布武': '11-shogun-attack.png',
+  '三千世界の一撃': '11-shogun-attack.png',
+
+  // 九尾
+  '九尾': '12-kyuubi-attack.png',
+  '狐火': '12-kyuubi-attack.png',
+  '幻惑': '12-kyuubi-attack.png',
+  '白面金毛幻炎': '12-kyuubi-attack.png',
+  '妖狐殺生石': '12-kyuubi-attack.png',
 };
 
 // 画面サイズ・背景設定
@@ -47,7 +118,7 @@ let activeEnemies = [];
 let effects = []; // 「流れる」「打鍵成功」などの演出用配列
 let animationFrameId = null;
 const ENEMY_HEIGHT = 256; // 画像描画時の標準縦幅
-const BASE_SPEED = 2;   // 左へ進む速度
+const BASE_SPEED = 1;   // 左へ進む速度
 
 // ==================================================
 //  単語リストの自動流し込み & タイピング初期化
