@@ -70,9 +70,14 @@
     <div class="radio-group">
       <input type="radio" id="modeLink3" name="answer" value="link3">
       <label for="modeLink3">Link</label>
-    </div>    <div class="radio-group">
-      <input type="radio" id="modeCSV" name="answer" value="csv">
-      <label for="modeCSV">'CSV',</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeCSV1" name="answer" value="csv1">
+      <label for="modeCSV1">'CSV',</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeCSV2" name="answer" value="csv2">
+      <label for="modeCSV2">"CSV",</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeText" name="answer" value="text">
@@ -161,8 +166,10 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
       result += `<a href="${path}">${item.name}</a><br>\n`;
     } else if (format === "link3") {
       result += `<a href="${path}">${item.name}</a>\n`;
-    } else if (format === "csv") {
+    } else if (format === "csv1") {
       result += `'${item.name}',\n`;
+    } else if (format === "csv2") {
+      result += `"${item.name}",\n`;
     } else if (format === "text") {
       result += `${item.name}\n`;
     }
