@@ -10,7 +10,7 @@
   .toolbar-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
   .radio-group { display: flex; align-items: center; gap: 5px; font-size: 0.9em; }
   .section-title { font-weight: bold; color: #333; margin-bottom: 5px; }
-  textarea { flex: none; width: 320px; height: 480px; resize: both; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; line-height: 1.5; overflow: auto; }
+  textarea { flex: none; width: 480px; height: 640px; resize: both; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; line-height: 1.5; overflow: auto; }
   button { width: 80%; height: 48px; font-size: 12pt; cursor: pointer; margin-top: 20px; }
 </style>
 </head>
@@ -61,15 +61,18 @@
     <div class="section-title">出力形式</div>
     <div class="radio-group">
       <input type="radio" id="modeLink1" name="answer" value="link1" checked>
-      <label for="modeLink1">Link1</label>
+      <label for="modeLink1">&lt;p&gt;Link&lt;/p&gt;</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeLink2" name="answer" value="link2">
-      <label for="modeLink2">Link2</label>
+      <label for="modeLink2">Link&lt;br&gt;</label>
     </div>
     <div class="radio-group">
+      <input type="radio" id="modeLink3" name="answer" value="link3">
+      <label for="modeLink3">Link</label>
+    </div>    <div class="radio-group">
       <input type="radio" id="modeCSV" name="answer" value="csv">
-      <label for="modeCSV">CSV</label>
+      <label for="modeCSV">'CSV',</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeText" name="answer" value="text">
@@ -155,6 +158,8 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
     if (format === "link1") {
       result += `<p><a href="${path}">${item.name}</a></p>\n`;
     } else if (format === "link2") {
+      result += `<a href="${path}">${item.name}</a><br>\n`;
+    } else if (format === "link3") {
       result += `<a href="${path}">${item.name}</a>\n`;
     } else if (format === "csv") {
       result += `'${item.name}',\n`;
@@ -163,6 +168,7 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
     }
   }
   return result;
+}
 
 async function listFiles() {
   const textarea = document.getElementById("output");
