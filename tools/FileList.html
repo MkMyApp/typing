@@ -60,8 +60,12 @@
   </div><div class="toolbar-section">
     <div class="section-title">出力形式</div>
     <div class="radio-group">
-      <input type="radio" id="modeLink" name="answer" value="link" checked>
-      <label for="modeLink">Link</label>
+      <input type="radio" id="modeLink1" name="answer" value="link1" checked>
+      <label for="modeLink1">Link1</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink2" name="answer" value="link2">
+      <label for="modeLink2">Link2</label>
     </div>
     <div class="radio-group">
       <input type="radio" id="modeCSV" name="answer" value="csv">
@@ -143,21 +147,22 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
     items.sort((a, b) => b.modified - a.modified);
   }
 
-  // 出力文字列の生成
+// 出力文字列の生成
   let result = "";
   for (const item of items) {
-    if (format === "text") {
-      result += `${item.name}\n`;
+    const path = item.kind === "directory" ? `${item.name}/` : item.name;
+
+    if (format === "link1") {
+      result += `<p><a href="${path}">${item.name}</a></p>\n`;
+    } else if (format === "link2") {
+      result += `<a href="${path}">${item.name}</a>\n`;
     } else if (format === "csv") {
       result += `'${item.name}',\n`;
-    } else {
-      // フォルダの場合は末尾に/を付けてリンク化（必要に応じて調整可能）
-      const path = item.kind === "directory" ? `${item.name}/` : item.name;
-      result += `<p><a href="${path}">${item.name}</a></p>\n`;
+    } else if (format === "text") {
+      result += `${item.name}\n`;
     }
   }
   return result;
-}
 
 async function listFiles() {
   const textarea = document.getElementById("output");
