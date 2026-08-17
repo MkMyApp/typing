@@ -290,10 +290,13 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    updateSettings();
     const txtdata = document.getElementById("txtdata");
     if (txtdata && txtdata.value.trim() !== "") {
-      customDivDisplay("none")
+      formatText();
+      updateSettings();
+      customDivDisplay("none");
+    } else {
+      updateSettings();
     }
 });
 
