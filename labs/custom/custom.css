@@ -1,0 +1,146 @@
+.contena {
+  font-size: 24px;
+  text-align: left;
+  margin: 0px auto;
+  padding: 15px;
+  width: fit-content;
+  min-width: 545px;
+  border: 1px solid #eee;
+}
+
+#custom {
+  text-align: left;
+  margin: 40px auto 20px;
+  width: fit-content;
+  border: none;
+}
+
+#custom input {
+  font-family: sans-serif;
+  font-size: 24px;
+  width: 300px;
+  height: 34px;
+  margin-bottom: 6px;
+  vertical-align: middle;
+}
+
+#custom textarea {
+  display: block;
+  font-size: 20px;
+  width: 52ch;
+  min-width: 120px;
+  height: 120px;
+  min-height: 120px;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  white-space: pre;
+  overflow: auto;
+  font-family: monospace;
+  padding: 6px 8px;
+  border: 1px solid #c0c0c0;
+  background: #ffffff;
+  text-align: left;
+}
+
+.ruler {
+  width: max-content;
+  box-sizing: border-box;
+  font-family: monospace;
+  margin: 20px auto;
+  font-size: 20px;
+  letter-spacing: 0;
+  color: #808080;
+  padding-left: 1ch;
+  text-align: left;
+}
+
+#set {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.btnbox {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.sBtn {
+font-family: monospace;
+  font-size: 20px;
+  width: 100px;
+  height: 40px;
+  vertical-align: top;
+  margin-left: 4px;
+  box-sizing: border-box;
+}
+
+.btn {
+  font-family: monospace;
+  font-size: 24px;
+  width: 100px;
+  height: 48px;
+  margin-right: 32px;
+  margin-bottom: 0px;
+}
+
+.radiobox {
+  display: block;
+  margin-left:10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.radio-label {
+  display: inline-flex;
+  width:36px;
+  align-items: center;
+  gap: 4px;            /* ボタンと文字の間隔 */
+  font-size: 18px;     /* 記号 ( , : | \ ) のサイズ */
+  cursor: pointer;
+  margin-bottom: 0px;
+}
+
+  /* Spc と Tab だけサイズを下げてバランスを調整 */
+  .radio-label.small {
+    font-size: 12px;     /* 単語 (Spc, Tab) のサイズ */
+  }
+.radio-label input[type="radio"] {
+  width: 12px !important;
+  height: 10px !important;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.DL {
+  font-size: 16px;
+  margin-right:20px;
+  text-decoration: none;
+}
+
+.DL a {
+		color:blue;
+    text-decoration: none;
+}
+
+.DL a:link{
+  color:b;ie;
+}
+
+.DL a:visited {
+  color: purple;
+}
+
+.DL a {
+		color:blue;
+    text-decoration: none;
+}
+
+.DL a:hover {
+		color:red;
+    text-decoration: underline;
+}
+
