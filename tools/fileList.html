@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ファイルリスト</title>
+<style>
+  body { margin: 20px; display: flex; gap: 20px; font-family: sans-serif; }
+  .sidebar { display: flex; flex-direction: column; width: 160px; }
+  h1 { margin: 0 0 10px 0; font-size: 1.5em; }
+  .toolbar-section { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .radio-group { display: flex; align-items: center; gap: 5px; font-size: 0.9em; }
+  .section-title { font-weight: bold; color: #333; margin-bottom: 5px; }
+  textarea { flex: none; width: 480px; height: 640px; resize: both; min-width: 320px; min-height: 480px; padding: 10px; font-family: monospace; line-height: 1.5; overflow: auto; }
+  button { width: 80%; height: 48px; font-size: 12pt; cursor: pointer; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h1>FileList</h1>
+  
+  <div class="toolbar-section">
+    <div class="section-title">抽出条件</div>
+    <div class="radio-group">
+      <input type="radio" id="filterAll" name="filter" value="all" checked>
+      <label for="filterAll">すべて</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterHtml" name="filter" value="html">
+      <label for="filterHtml">html</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterFolder" name="filter" value="folder">
+      <label for="filterFolder">フォルダー</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterNotHtml" name="filter" value="notHtml">
+      <label for="filterNotHtml">html以外</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterJs" name="filter" value="js">
+      <label for="filterJs">js</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterCss" name="filter" value="css">
+      <label for="filterCss">css</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterPng" name="filter" value="png">
+      <label for="filterPng">png</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterJpg" name="filter" value="jpg">
+      <label for="filterJpg">jpg</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="filterMp3" name="filter" value="mp3">
+      <label for="filterMp3">mp3</label>
+    </div>
+  </div><div class="toolbar-section">
+    <div class="section-title">出力形式</div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink1" name="answer" value="link1" checked>
+      <label for="modeLink1">&lt;p&gt;Link&lt;/p&gt;</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink2" name="answer" value="link2">
+      <label for="modeLink2">Link&lt;br&gt;</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeLink3" name="answer" value="link3">
+      <label for="modeLink3">Link</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeCSV1" name="answer" value="csv1">
+      <label for="modeCSV1">'CSV',</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeCSV2" name="answer" value="csv2">
+      <label for="modeCSV2">"CSV",</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="modeText" name="answer" value="text">
+      <label for="modeText">Text</label>
+    </div>
+  </div>
+
+  <div class="toolbar-section">
+    <div class="section-title">並び順</div>
+    <div class="radio-group">
+      <input type="radio" id="SortName" name="sort" value="name">
+      <label for="SortName">名前順</label>
+    </div>
+    <div class="radio-group">
+      <input type="radio" id="SortDate" name="sort" value="date" checked>
+      <label for="SortDate">日付順</label>
+    </div>
+  </div>
+  
+  <button id="btnLoad">フォルダ選択</button>
+</div>
+
+<textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
+
+<script>
+// フィルター判定用の関数
+function isMatchFilter(name, handle, filter) {
+  if (filter === "all") return true;
+
+  // フォルダ判定
+  if (filter === "folder") {
+    return handle.kind === "directory";
+  }
+
+  // フォルダを除外してファイルのみを対象にする
+  if (handle.kind !== "file") return false;
+
+  const lowerName = name.toLowerCase();
+  const isHtml = lowerName.endsWith('.html') || lowerName.endsWith('.htm');
+
+  if (filter === "html") return isHtml;
+  if (filter === "notHtml") return !isHtml;
+
+  // js, css, png, mp3 など、指定された拡張子と一致するか判定
+  return lowerName.endsWith(`.${filter}`);
+}
+
+async function buildFileListFromDirectoryHandle(dirHandle) {
+  const items = [];
+  const filter = document.querySelector('input[name="filter"]:checked').value;
+  const format = document.querySelector('input[name="answer"]:checked').value;
+  const sortMode = document.querySelector('input[name="sort"]:checked').value;
+
+  for await (const [name, handle] of dirHandle.entries()) {
+    // フィルター判定（名前とhandleの両方を渡す）
+    if (!isMatchFilter(name, handle, filter)) continue;
+
+    let modified = 0;
+    if (handle.kind === "file") {
+      const file = await handle.getFile();
+      modified = file.lastModified;
+    }
+
+    items.push({ 
+      name: name, 
+      kind: handle.kind, 
+      modified: modified 
+    });
+  }
+
+  // ソート処理
+  if (sortMode === "name") {
+    items.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+  } else {
+    items.sort((a, b) => b.modified - a.modified);
+  }
+
+// 出力文字列の生成
+  let result = "";
+  for (const item of items) {
+    const path = item.kind === "directory" ? `${item.name}/` : item.name;
+
+    if (format === "link1") {
+      result += `<p><a href="${path}">${item.name}</a></p>\n`;
+    } else if (format === "link2") {
+      result += `<a href="${path}">${item.name}</a><br>\n`;
+    } else if (format === "link3") {
+      result += `<a href="${path}">${item.name}</a>\n`;
+    } else if (format === "csv1") {
+      result += `'${item.name}',\n`;
+    } else if (format === "csv2") {
+      result += `"${item.name}",\n`;
+    } else if (format === "text") {
+      result += `${item.name}\n`;
+    }
+  }
+  return result;
+}
+
+async function listFiles() {
+  const textarea = document.getElementById("output");
+  try {
+    const dirHandle = await window.showDirectoryPicker();
+    textarea.value = await buildFileListFromDirectoryHandle(dirHandle);
+  } catch (err) {
+    if (err.name !== 'AbortError') console.error(err);
+  }
+}
+
+document.getElementById("btnLoad").addEventListener("click", listFiles);
+
+const output = document.getElementById("output");
+output.addEventListener("drop", async (e) => {
+  e.preventDefault();
+  const item = e.dataTransfer.items[0];
+  if (item?.getAsFileSystemHandle) {
+    const handle = await item.getAsFileSystemHandle();
+    if (handle?.kind === "directory") {
+      output.value = await buildFileListFromDirectoryHandle(handle);
+    }
+  }
+});
+output.addEventListener("dragover", (e) => e.preventDefault());
+
+</script>
+</body>
+</html>
