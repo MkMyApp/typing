@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>研究の動機</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "研究の動機";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "41ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+タイピング練習の多くは
+ランダム単語の入力ですが
+実際の文章作成では
+全文の入力とかな漢字変換の
+スムーズさが欠かせません。
+そこで、実用的な定型文を用い
+変換操作まで含めた
+打鍵ログを取得するプログラムを用いて
+個人情報を除外した純粋な入力データを
+生成AIに分析させることで
+従来のスコア表示では見えない
+打鍵の癖や課題を可視化できます。
+8月下旬からでも
+客観的で質の高い研究を
+完結できると考え
+本テーマに取り組みました。
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+</body>
+</html>
