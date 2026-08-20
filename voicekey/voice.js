@@ -66,42 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- ボタンの色設定に関する処理 ---
 
+// id属性を持たない「文字キー」のみを対象として抽出
 const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn => !btn.id);
 
 function updateButtonColors(str) {
   targetButtons.forEach(btn => {
     const char = btn.textContent.trim();
     
-    // 対象の文字であれば「active」クラスを付与し、そうでなければ除去する
-    if (str === null || str === undefined || str.includes(char)) {
-      btn.style.opacity = "1";    // 表示させる
+    // 空文字キー以外で、指定文字列に含まれている場合は文字色を「黒」にする
+    if (char !== '' && str && str.includes(char)) {
+      btn.style.color = "#000";         // 文字色を黒に設定
       btn.style.pointerEvents = "auto";
     } else {
-      btn.style.opacity = "0.2";  // 薄くして無効に見せる（あるいは display: none など）
-      btn.style.pointerEvents = "none";
+      btn.style.color = "transparent";  // 文字色を透過に設定
+      btn.style.pointerEvents = "auto";
     }
   });
 }
 
-// URLパラメータを取得（優先）
+// URLパラメータ（?chars=...）を取得して処理を実行
 const urlParams = new URLSearchParams(window.location.search);
 const paramValue = urlParams.get('chars');
 
-if (paramValue !== null) {
-  // URLパラメータがある場合はそれを適用
-  updateButtonColors(paramValue);
-} else {
-  // URLパラメータがない場合、str.js を動的に読み込む
-  const script = document.createElement('script');
-  script.src = 'str.js';
-  script.onload = () => {
-    // 読み込み成功時、str.jsで定義された strBlack を使用
-    // ※ typeof で存在確認を行い、なければ null を渡す
-    updateButtonColors(typeof strBlack !== 'undefined' ? strBlack : null);
-  };
-  script.onerror = () => {
-    // str.js が見つからない場合は全ボタンを黒にする
-    updateButtonColors(null);
-  };
-  document.head.appendChild(script);
-}
+// URLパラメータがあればその文字列を渡し、なければ null（透過のまま）を渡す
+updateButtonColors(paramValue);

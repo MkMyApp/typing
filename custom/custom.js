@@ -190,9 +190,8 @@ function formatText() {
 //text = text.replaceAll("\t", "  ");
   text = text.replace(/^[ \t\u3000]+/gm, "");
   text = text.replace(/[ \t\u3000]+$/gm, "");
-  el.value = text;
+  el.value = text.trim();
 }
-
 
 function setFont() {
   const dataEl = document.getElementById("txtdata");
@@ -290,14 +289,22 @@ window.addEventListener('keydown', (event) => {
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-    const txtdata = document.getElementById("txtdata");
-    if (txtdata && txtdata.value.trim() !== "") {
-      formatText();
-      updateSettings();
-      customDivDisplay("none");
-    } else {
-      updateSettings();
-    }
+  document.getElementById("TITLE_MSG").value = TITLE_MSG;
+  document.getElementById("START_MSG").value = START_MSG;
+  document.getElementById("INPUT_MSG").value = INPUT_MSG;
+  document.getElementById("IME").value = IME;
+  document.getElementById("RANDOM").value = Number(RANDOM);
+  document.getElementById("WIDTH").value = WIDTH;
+
+  const txtdata = document.getElementById("txtdata");
+  formatText();
+
+  if (txtdata && txtdata.value.trim() !== "") {
+    updateSettings();
+    customDivDisplay("none");
+  } else {
+    updateSettings();
+  }
 });
 
 function adjustTextareaHeight(id) {
@@ -350,9 +357,9 @@ const configText = `<script>
 const TITLE_MSG = "${titleMsg}";
 const START_MSG = "${startMsg}";
 const INPUT_MSG = "${inputMsg}";
+const IME = "${imeVal}";
 const RANDOM = "${randomVal}";
 const WIDTH = "${widthVal}";
-const IME = "${imeVal}";
 <\/script>
 `;
 

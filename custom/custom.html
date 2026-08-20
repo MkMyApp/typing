@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="custom.css">
 <style>
   /*モジュール非表示　display: none; */
-	#custom  { }
-	#dataMod { }
-	#editMod { }
-	#saveMod { }
-	#dl1Mod  { }
-	#dl2Mod  { }
+  #custom  { }
+  #dataMod { }
+  #editMod { }
+  #saveMod { }
+  #dl1Mod  { }
+  #dl2Mod  { }
 </style>
 </head>
 <body>
@@ -21,110 +21,120 @@
   <div id="target" class="line"></div>
   <textarea id="editor" class="line" spellcheck="false"></textarea>
 
-<!------カスタマイズボックス------------------------>	
+<!------カスタマイズボックス------------------------>  
 <div id="custom">
-<!------typing.jsデータ設定モジュール------------------------>
-	<div id="dataMod" class="contena">
-	  <script src="custom.js" defer></script>
+  <!------typing.jsデータ設定モジュール------------------------>
+  <div id="dataMod" class="contena">
+    <div id="set">
+      題　名：<input id="TITLE_MSG">
+      <button class="sBtn" onclick="testPlay()">テスト</button><br>
 
-	  <div id="set">
-	    題　名：<input id="TITLE_MSG" value="タイピング練習">
-	    <button class="sBtn" onclick="testPlay()">テスト</button><br>
-
-	    開　始：<input id="START_MSG" value="Enter⏎でスタート">
+      開　始：<input id="START_MSG">
       <button class="sBtn" onclick="setFont()">フォント</button><br>
 
-	    文字種：<input id="INPUT_MSG" value="英数 かな">
-	    <button hidden class="sBtn" onclick=""></button><br>
+      文字種：<input id="INPUT_MSG">
+      <button hidden class="sBtn" onclick=""></button><br>
 
-   		シフト：<input id="IME" value="ON OFF">
-	    <button hidden class="sBtn" onclick=""></button><br>
+        シフト：<input id="IME">
+      <button hidden class="sBtn" onclick=""></button><br>
 
-	    問題数：<input id="RANDOM" value="0">
-	    <button class="sBtn" onclick="countLines()">問題行数</button><br>
+      問題数：<input id="RANDOM">
+      <button class="sBtn" onclick="countLines()">問題行数</button><br>
 
-	    文字幅：<input id="WIDTH" value="25ch">
-	    <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
-	  </div>
+      文字幅：<input id="WIDTH">
+      <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
+    </div>
+    <!------問題文設定------------------------>
+    <script>
+      let TITLE_MSG = "問題タイトル";
+      let START_MSG = "Enter⏎でスタート";
+      let INPUT_MSG = "英数 かな 確認"; //文字種確認メッセージ
+      let IME       = "ON"; // つぎにすすむ　ON:Shift+Enter OFF:ENTER
+      let RANDOM    = 0; // ランダム選択出題数 0:順番に全行
+      let WIDTH     = "25ch"; // 入力エリア幅 半角文字数 単位 ch
 
-	  <div id="text">
-	    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
-	    <textarea id="txtdata"></textarea>
-	    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
-	  </div>
-	</div>
+    </script>
+    <div id="text">
+    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
+    <textarea id="txtdata">
+    </textarea>
+    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
+   </div>
+</div>
+<script src="custom.js"></script>
+
 <!------textarea編集モジュール------------------------>
-	<div id="editMod" class="contena">
-	  <div class="btnbox">
-			<button class="btn" onclick="repText()">分割</button>
-			<button class="btn" onclick="catText()">結合</button>
+  <div id="editMod" class="contena">
+    <div class="btnbox">
+      <button class="btn" onclick="repText()">分割</button>
+      <button class="btn" onclick="catText()">結合</button>
       <button class="btn" onclick="loadText()">読込</button>
       <button class="btn" onclick="saveText()">保存</button>
-	  </div>
-		<div class="radiobox">
-			<label class="radio-label small">
-			  <input type="radio" name="sepchr" value=" " checked>Spc
-			</label>
-			<label class="radio-label small">
-			  <input type="radio" name="sepchr" value="\t" >Tab
-			</label>
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value="," >,
-			</label>
-			<label class="radio-label">
-			  <input type="radio" name="sepchr" value=":" >:
-			</label>
-			<label class="radio-label small">
-			  <input type="radio" name="sepchr" value="|" >|
-			</label>
-			<label class="radio-label small">
-			  <input type="radio" name="sepchr" value="\"> \
-			</label>
-	  </div>
+    </div>
+    <div class="radiobox">
+      <label class="radio-label small">
+        <input type="radio" name="sepchr" value=" " checked>Spc
+      </label>
+      <label class="radio-label small">
+        <input type="radio" name="sepchr" value="\t" >Tab
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="sepchr" value="," >,
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="sepchr" value=":" >:
+      </label>
+      <label class="radio-label small">
+        <input type="radio" name="sepchr" value="|" >|
+      </label>
+      <label class="radio-label small">
+        <input type="radio" name="sepchr" value="\"> \
+      </label>
+    </div>
 
-		  <div class="btnbox">
-				<button class="btn" onclick="dedupeLines()">重複</button>
-				<button class="btn" onclick="sortByLength()">長順</button>
-				<button class="btn" onclick="formatText()">整形</button>
-				<button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
-	  </div>
+      <div class="btnbox">
+        <button class="btn" onclick="dedupeLines()">重複</button>
+        <button class="btn" onclick="sortByLength()">長順</button>
+        <button class="btn" onclick="formatText()">整形</button>
+        <button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
+    </div>
 
-	  <div class="btnbox">
-	    変更元:<input type="text" id="fromChars">
-	    <button class="sBtn" onclick="replaceText()">置換</button><br>
-	    変更先:<input type="text" id="toChars">
-	    <button class="sBtn" onclick="convert()">変換</button>
-	  </div>
+    <div class="btnbox">
+      変更元:<input type="text" id="fromChars">
+      <button class="sBtn" onclick="replaceText()">置換</button><br>
+      変更先:<input type="text" id="toChars">
+      <button class="sBtn" onclick="convert()">変換</button>
+    </div>
 
-	  <div class="btnbox">
-	 	  <button class="btn" onclick="toUpperText()">A-Z</button>
-		  <button class="btn" onclick="toLowerText()">a-z</button>
-		  <button class="btn" onclick="zenSpc()">全角</button>
-		  <button class="btn" onclick="hanSpc()">半角</button>
-	  </div>
-	</div>
+    <div class="btnbox">
+       <button class="btn" onclick="toUpperText()">A-Z</button>
+      <button class="btn" onclick="toLowerText()">a-z</button>
+      <button class="btn" onclick="zenSpc()">全角</button>
+      <button class="btn" onclick="hanSpc()">半角</button>
+    </div>
+  </div>
 <!------テスト　html保存モジュール------------------------>
-	<div id="saveMod" class="contena">
-	  <div class="btnbox">
-	    <button class="btn" onclick="clrText('txtComp')">クリア</button>
-	    <button class="btn" onclick="composeText()">出力</button>
-	    <button class="btn" onclick="saveFile()">保存</button>
-		  <textarea id="txtComp" style="margin-top:20px;"></textarea>
-	  </div>
-	</div>
+  <div id="saveMod" class="contena">
+    <div class="btnbox">
+      <button class="btn" onclick="clrText('txtComp')">クリア</button>
+      <button class="btn" onclick="composeText()">出力</button>
+      <button class="btn" onclick="saveFile()">保存</button>
+      <textarea id="txtComp" style="margin-top:20px;"></textarea>
+    </div>
+  </div>
 
 <!------ダウンロードモジュール------------------------>
-	<div id="dl1Mod" class="contena">
+  <div id="dl1Mod" class="contena">
     <a href="typing.js" class="DL">typing.js</a>
     <a href="style.css" class="DL">style.css</a>
   </div>
-	<div id="dl2Mod" class="contena">
+  <div id="dl2Mod" class="contena">
     <a href="custom.html" class="DL">custom.html</a>
     <a href="custom.css" class="DL">custom.css</a>
     <a href="custom.js" class="DL">custom.js</a>
-	</div>
+  </div>
 </div>
-<!------カスタマイズボックス------------------------>	
+<!------カスタマイズボックス------------------------>  
 
 <script src="typing.js"></script>
 </body>
