@@ -1,7 +1,6 @@
 :root {
-  /* 背景画像ありの定義 画像なしは　none
-  --body-background-image: url("filename");
-  */
+  /* 背景画像ありの定義 url("filename") 画像なしは　none */
+  --body-background-image: none;
 
   /* --- カラー設定 --- */
   --body-background-color: #ffffff;

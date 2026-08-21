@@ -1,5 +1,5 @@
 :root {
-  /* 背景画像ありの定義 url("net.png")/none   */
+  /* 背景画像ありの定義 url("filename") 画像なしは　none */
   --body-background-image: none;
 
   /* --- カラー設定 --- */
