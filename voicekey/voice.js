@@ -73,12 +73,17 @@ function updateButtonColors(str) {
   targetButtons.forEach(btn => {
     const char = btn.textContent.trim();
     
-    // 空文字キー以外で、指定文字列に含まれている場合は文字色を「黒」にする
-    if (char !== '' && str && str.includes(char)) {
-      btn.style.color = "#000";         // 文字色を黒に設定
+    // パラメータ自体がない(null)場合は全てのキーを表示する
+    if (str === null) {
+      btn.style.color = "#000";
+      btn.style.pointerEvents = "auto";
+    } 
+    // パラメータがある場合は、含まれている文字だけ黒にする
+    else if (char !== '' && str.includes(char)) {
+      btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
     } else {
-      btn.style.color = "transparent";  // 文字色を透過に設定
+      btn.style.color = "transparent";
       btn.style.pointerEvents = "auto";
     }
   });
@@ -88,5 +93,4 @@ function updateButtonColors(str) {
 const urlParams = new URLSearchParams(window.location.search);
 const paramValue = urlParams.get('chars');
 
-// URLパラメータがあればその文字列を渡し、なければ null（透過のまま）を渡す
 updateButtonColors(paramValue);
