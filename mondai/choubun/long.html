@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>長文タイピング練習</title>
+</head>
+<body>
+<div id="title">長文タイピング</div>
+<div id="result"></div>
+<script>
+  const box_x = 40;
+  const box_y = 8;
+  const font  = '20px';
+  const mode = 'horizontal';
+  //'test'; // 確認
+  //'vertical'; // 縦並び
+  //'horizontal'; // 横並び 
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+古池や
+蛙飛び込む
+水の音
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
