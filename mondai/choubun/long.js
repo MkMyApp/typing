@@ -161,3 +161,24 @@ function init() {
 }
 
 init()
+
+// #txtdata のリサイズを監視して box_x / box_y 換算で表示
+const resizeObserver = new ResizeObserver(() => {
+  // フォントサイズと行高を取得
+  const computed = window.getComputedStyle(txtdataEl)
+  const fontSize = parseFloat(computed.fontSize) || 20
+  const lineHeight = parseFloat(computed.lineHeight) || (fontSize * 1.5)
+
+  // パディング（上下左右各15px）を引いた実質コンテンツ幅・高さを取得
+  const contentWidth = txtdataEl.clientWidth - 30
+  const contentHeight = txtdataEl.clientHeight - 30
+
+  // 1ch (半角1文字幅 ≒ fontSize * 0.6) と 1lh (1行高) で割り算
+  const chWidth = fontSize * 0.6
+  const boxX = Math.round(contentWidth / chWidth)
+  const boxY = Math.round(contentHeight / lineHeight)
+
+  resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
+})
+
+resizeObserver.observe(txtdataEl)

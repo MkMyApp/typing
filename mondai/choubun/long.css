@@ -73,11 +73,15 @@ body {
   width: 100%;
 }
 
-#txtdata, #editor {
+#txtdata {
   outline: none;
-  resize: vertical;
+  resize: both;
 }
 
+#editor {
+  outline: none;
+  resize: none;
+}
 .char-default {
 	color: var(--char-default-color);
 }
