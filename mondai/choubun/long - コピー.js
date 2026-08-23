@@ -10,12 +10,6 @@ let startTime = 0
 let isStarted = false
 let isFinished = false
 
-// 全角英数字・全角スペース・記号を半角に変換する関数
-function toHalfWidth(str) {
-  return str.normalize('NFKC')
-    .replace(/[‐－―ー]/g, '-')
-}
-
 function applyBoxConfig() {
   const rootStyle = document.documentElement.style
 
@@ -71,13 +65,13 @@ function applyBoxConfig() {
     }
 
     if (mode === 't') {
-      txtdataEl.style.display = 'block'
-      targetEl.style.display = 'none'
-      editorEl.style.display = 'none'
+			txtdataEl.style.display = 'block'
+			targetEl.style.display = 'none'
+			editorEl.style.display = 'none'
     } else {
-      txtdataEl.style.display = 'none'
-      targetEl.style.display = 'block'
-      editorEl.style.display = 'block'
+			txtdataEl.style.display = 'none'
+			targetEl.style.display = 'block'
+			editorEl.style.display = 'block'
     }
   }
 }
@@ -109,12 +103,7 @@ function resetToStart() {
   isFinished = false
   editorEl.disabled = false
   
-  let rawText = txtdataEl.value
-  if (typeof lang !== 'undefined' && lang === 'e') {
-    rawText = toHalfWidth(rawText)
-  }
-
-  targetText = rawText.trim()
+  targetText = txtdataEl.value.trim()
   resultEl.textContent = `${targetText.length}ch`
   editorEl.value = ''
   editorEl.placeholder = 'キーを押すとスタート\nShift+Enterで完了'
@@ -153,11 +142,7 @@ function finish() {
 }
 
 txtdataEl.addEventListener('input', () => {
-  let rawText = txtdataEl.value
-  if (typeof lang !== 'undefined' && lang === 'e') {
-    rawText = toHalfWidth(rawText)
-  }
-  targetText = rawText.trim()
+  targetText = txtdataEl.value.trim()
   colorize()
 })
 
@@ -175,13 +160,13 @@ editorEl.addEventListener('input', () => {
 editorEl.addEventListener('keydown', e => {
   if (e.isComposing || e.keyCode === 229) return
 
-  // Esc キーでリスタート
+  // 2. Esc キーでリスタート
   if (e.key === 'Escape') {
     e.preventDefault()
     resetToStart()
   }
 
-  // タイピング中：Shift+Enter で判定終了
+  // 1. タイピング中：Shift+Enter で判定終了
   if (isStarted) {
     if (e.key === 'Enter' && e.shiftKey) {
       e.preventDefault()
@@ -215,8 +200,6 @@ const resizeObserver = new ResizeObserver(() => {
   resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
 })
 
-if (typeof mode !== 'undefined' && mode === 't') {
-  resizeObserver.observe(txtdataEl)
-}
-
+if (mode === 't') {resizeObserver.observe(txtdataEl)}
 init()
+
