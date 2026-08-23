@@ -3,21 +3,26 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="long.css">
-  <title>長文</title>
+  <title>長文タイピングの使い方</title>
 </head>
 <body>
-<div id="title">長文</div>
+<div id="title">長文タイピングの使い方</div>
 <div id="result"></div>
 <script>
   const box_x = 43;
   const box_y = 8;
   const font  = '20px';
-  const mode = 't';
-  //'t'確認'v'縦並び 'h' 横並び
+  const mode = 'v';
 </script>
 
 <div id="box-container">
 <textarea id="txtdata" class="box" spellcheck="false">
+長文タイピングの使い方
+キーを押すと計測が始まります。
+文字種が違っていたらIMEの設定を変更して確認。
+ESCを押すとやり直しができます。
+入力が終わったらShift+Enterで評価が表示されます。
+ESCを押すと再挑戦できます。
 </textarea>
 <div id="target" class="box"></div>
 <textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>

@@ -13,19 +13,36 @@ let isFinished = false
 function applyBoxConfig() {
   const rootStyle = document.documentElement.style
 
+  // 言語モード（lang）による折り返しスタイルの切り替え
+  const boxes = [txtdataEl, targetEl, editorEl]
+  const isEnglish = (typeof lang !== 'undefined' && lang === 'e')
+
+  boxes.forEach(box => {
+    if (box) {
+      box.style.wordBreak = isEnglish ? 'normal' : 'break-all'
+      box.style.overflowWrap = isEnglish ? 'break-word' : 'normal'
+    }
+  })
+
+  // フォントサイズの設定（未設定時はデフォルト20px）
+  const fontSizePx = (typeof font !== 'undefined') ? parseFloat(font) : 20
+  rootStyle.setProperty('--box-font-size', (typeof font !== 'undefined') ? font : '20px')
+
+  // 1ch（半角1文字の目安幅 ≒ fontSize * 0.6）と 1lh（行高 ≒ fontSize * 1.5）から幅・高さをピクセル計算
   if (typeof box_x !== 'undefined') {
-    rootStyle.setProperty('--box-chars', box_x)
+    const chWidth = fontSizePx * 0.6
+    const calculatedWidth = Math.round(box_x * chWidth + 30) // パディング左右15px * 2
+    rootStyle.setProperty('--box-width', `${calculatedWidth}px`)
   }
+
   if (typeof box_y !== 'undefined') {
-    rootStyle.setProperty('--box-lines', box_y)
-  }
-  if (typeof font !== 'undefined') {
-    rootStyle.setProperty('--box-font-size', font)
+    const lineHeight = fontSizePx * 1.5
+    const calculatedHeight = Math.round(box_y * lineHeight + 30) // パディング上下15px * 2
+    rootStyle.setProperty('--box-height', `${calculatedHeight}px`)
   }
 
   // mode による配置と非表示の切り替え
   if (typeof mode !== 'undefined') {
-    // #target と #editor を包むコンテナ要素を取得または作成
     let container = document.getElementById('box-container')
     if (!container) {
       container = document.createElement('div')
@@ -35,22 +52,26 @@ function applyBoxConfig() {
       container.appendChild(editorEl)
     }
 
-    // Flexboxをベースにして切り替える
     container.style.display = 'flex'
     container.style.justifyContent = 'center'
     container.style.alignItems = 'center'
 
-    if (mode === 'horizontal') {
-      container.style.flexDirection = 'row' // 横並び
+    if (mode === 'h') {
+      container.style.flexDirection = 'row'
       container.style.gap = '20px'
     } else {
-      container.style.flexDirection = 'column' // 縦並び
+      container.style.flexDirection = 'column'
       container.style.gap = '10px'
     }
 
-    // mode が 'test' でない場合は #txtdata を非表示にする[cite: 3]
-    if (mode !== 'test') {
-      txtdataEl.style.display = 'none'
+    if (mode === 't') {
+			txtdataEl.style.display = 'block'
+			targetEl.style.display = 'none'
+			editorEl.style.display = 'none'
+    } else {
+			txtdataEl.style.display = 'none'
+			targetEl.style.display = 'block'
+			editorEl.style.display = 'block'
     }
   }
 }
@@ -160,8 +181,6 @@ function init() {
   resetToStart()
 }
 
-init()
-
 // #txtdata のリサイズを監視して box_x / box_y 換算で表示
 const resizeObserver = new ResizeObserver(() => {
   // フォントサイズと行高を取得
@@ -181,4 +200,6 @@ const resizeObserver = new ResizeObserver(() => {
   resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
 })
 
-resizeObserver.observe(txtdataEl)
+if (mode === 't') {resizeObserver.observe(txtdataEl)}
+init()
+
