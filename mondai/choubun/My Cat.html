@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>My Cat</title>
+</head>
+<body>
+<div id="title">My Cat</div>
+<div id="result"></div>
+<script>
+  const box_x = 24;
+  const box_y = 5;
+  const font  = '32px';
+  const lang  = 'e';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'v';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+I have a cat. His name is Tama. He is small and white. Tama likes milk. He can run fast. I love my cat.
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
