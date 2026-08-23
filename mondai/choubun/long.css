@@ -53,9 +53,12 @@ body {
   text-align: left;
 
   /* 折返しルールを完全統一 */
+  /* 改行コードを保持し、幅に合わせて自動折り返し */
   white-space: pre-wrap;
+  /* 英単語の途中でも幅に達したら強制的に改行 */
   word-break: break-all;
-  overflow-wrap: anywhere;
+  /* はみ出しによるスクロールバーを出さない */
+  overflow-x: hidden;
 
   /* スクロール機能は維持しつつ非表示 */
   overflow-y: scroll;
