@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>セミ</title>
+</head>
+<body>
+<div id="title">セミ</div>
+<div id="result"></div>
+<script>
+  const box_x = 40;
+  const box_y = 10;
+  const font  = '20px';
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+セミは夏になると大きな声で鳴き始める昆虫で木にとまって樹液を吸って暮らしています。何年も長い間を土の中で幼虫として過ごし夏になると地上に出て羽化します。成虫になってからの寿命は数週間ほどと短いです。抜け殻を観察すると種類やオスとメスの違いが分かります。種類によって鳴き声や活動する時間帯が違うので声をよく聞くと見分けやすいです。
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>

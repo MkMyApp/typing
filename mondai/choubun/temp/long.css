@@ -1,0 +1,94 @@
+:root {
+  --box-chars: 60;          /* 半角文字数（単位なし） */
+  --box-lines: 6;           /* 行数（単位なし） */
+  --box-font-size: 24px;
+  --line-height: 1.5;
+
+  --char-default-color  : #333333;
+  --char-correct-color  : #0000F0;
+  --char-wrongfont-color: #FFFFFF;
+  --char-wrongback-color: #FF0000;
+
+  /* 文字数 × 1ch ＋ 左右のパディング(15px * 2) */
+  --box-width: calc(var(--box-chars) * 1ch + 30px);
+  
+  /* 行数 × 1lh ＋ 上下のパディング(15px * 2) */
+  --box-height: calc(var(--box-lines) * 1lh + 30px);
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 40px auto;
+  background-color: #f9f9f9;
+}
+
+#title { 
+  font-size: 1.8em; 
+  font-weight: bold; 
+  margin-bottom: 10px; 
+}
+
+#result { 
+  font-size: 1.8em; 
+  margin-bottom: 20px; 
+  color: #666; 
+  font-family: monospace; 
+}
+
+/* 共通枠組み[cite: 4] */
+.box {
+  display: block;
+  width: var(--box-width);
+  height: var(--box-height);
+  margin: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: var(--box-font-size);
+  line-height: var(--line-height);
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: left;
+
+  /* 折返しルールを完全統一 */
+  /* 改行コードを保持し、幅に合わせて自動折り返し */
+  white-space: pre-wrap;
+  /* 英単語の途中でも幅に達したら強制的に改行 */
+  word-break: break-all;
+  /* はみ出しによるスクロールバーを出さない */
+  overflow-x: hidden;
+
+  /* スクロール機能は維持しつつ非表示 */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* ボックス全体を包むコンテナの設定 */
+#box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#txtdata {
+  outline: none;
+  resize: both;
+}
+
+#editor {
+  outline: none;
+  resize: none;
+}
+.char-default {
+	color: var(--char-default-color);
+}
+.char-correct {
+	color: var(--char-correct-color);
+}
+.char-wrong {
+	color: var(--char-wrongfont-color);
+	background-color: var(--char-wrongback-color);
+}

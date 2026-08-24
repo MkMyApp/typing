@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>カナブン</title>
+</head>
+<body>
+<div id="title">カナブン</div>
+<div id="result"></div>
+<script>
+  const box_x = 40;
+  const box_y = 10;
+  const font  = '20px';
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+カナブンは平たい体と緑褐色や銅色の渋い輝きが特徴の昆虫です。クワガタムシやカブトムシと同じように夏のクヌギやコナラの木に集まり樹液を吸って暮らします。素早く飛ぶのが得意で昼間から活発に動き回ります。幼虫は腐葉土などの枯れ葉を食べて育ち土を豊かな状態にしてくれます。コガネムシと似ていますが葉を食べず自然の循環を助ける役割を持つ身近な虫です。
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
