@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>タイピングの速度.html</title>
+</head>
+<body>
+<div id="title">タイピングの速度</div>
+<div id="result"></div>
+<script>
+  const box_x = 70;
+  const box_y = 20;
+  const font  = '20px';
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+「文字が打てればいいのか、早い必要があるのか」という点ですが、結論から言うと「思考や文章作成のテンポを止めずに打てる程度の速度（1秒に1文字程度）」があれば、一般的な事務職などの応募要件としては十分クリアしているケースがほとんどです。
+
+この「1分間に60文字」というのは、タイピングソフトやゲームで画面に出てくる文字を高速連打する速度ではありません。「頭で考えたり原稿を見たりしながら、変換・確定を含めて1秒に1文字ペースで文章を入力する速度」のことです。
+
+データ入力・文字起こし特化の業務:
+正確性とさらなるスピード（1分間に100～150文字以上など）が求められることがあります。
+
+一般事務・書類作成・メール対応・企画立案:
+手元を見ずに（またはスムーズに）1分間に50～60文字程度が打てれば、日常業務で困ることはほぼありません。速さよりも「打ち間違いがないこと（正確性）」や「Word・Excelの基本操作」のほうが重要視されます。
+
+「タッチタイプタッチで爆速で打てる」必要は必ずしもありません。「画面を見ながらスムーズに文章を入力でき、変換ミスを修正できる」レベルであれば自信を持って応募して問題ありません。
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
