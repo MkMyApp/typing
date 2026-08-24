@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>タイピング練習プロンプト2</title>
+</head>
+<body>
+<div id="title">タイピング練習プロンプト2</div>
+<div id="result"></div>
+<script>
+  const box_x = 48;
+  const box_y = 18;
+  const font  = '20px';
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<div id="box-container">
+<textarea id="txtdata" class="box" spellcheck="false">
+【依頼】
+タイピングの[練習目的]を目的とした長文テキストを3パターン作成してください。
+
+【練習目的の指定例】
+・「ー（長音記号）」を多く含む文章（カタカナ語多め）
+・「ん（nn）」や「っ（xtu/ltu）」の打鍵を多く含ませる文章
+・母音「あ・い・う・え・お」の出現頻度が高くなるような明るいトーンの文章
+
+【制約条件】
+・文字数：180文字前後
+・指定した打鍵パターンが自然に多く含まれるテーマ（例：長音指定なら「海外のスイーツ」など）を選択すること
+・英数字・特殊記号は不使用
+</textarea>
+<div id="target" class="box"></div>
+<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
