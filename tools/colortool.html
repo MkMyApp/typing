@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RGB Color Picker</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 420px;
+    }
+
+    #rgbDiv {
+      height: 120px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      color: #ffffff;
+      font-weight: bold;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.1s ease;
+    }
+
+    #rgbLabel {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    #rgbHex {
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      font-family: monospace;
+      text-align: center;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid currentColor;
+      color: inherit;
+      width: 110px;
+      outline: none;
+      font-weight: bold;
+      padding: 2px 0;
+    }
+
+    .slider-group {
+      margin-bottom: 22px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .label-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #rLabel, #gLabel, #bLabel, #yLabel {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #rLabel { color: #ff4d4f; }
+    #gLabel { color: #52c41a; }
+    #bLabel { color: #1890ff; }
+    #yLabel { color: #8c8c8c; }
+
+    .hex-input {
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: bold;
+      margin-left: 4px;
+      width: 68px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 3px 6px;
+      transition: background-color 0.1s ease, color 0.1s ease;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 12px;
+      border-radius: 6px;
+      background: #e8e8e8;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #rSlider::-webkit-slider-thumb { background: #ff4d4f; }
+    #rSlider::-moz-range-thumb { background: #ff4d4f; }
+
+    #gSlider::-webkit-slider-thumb { background: #52c41a; }
+    #gSlider::-moz-range-thumb { background: #52c41a; }
+
+    #bSlider::-webkit-slider-thumb { background: #1890ff; }
+    #bSlider::-moz-range-thumb { background: #1890ff; }
+
+    #ySlider::-webkit-slider-thumb { background: #8c8c8c; }
+    #ySlider::-moz-range-thumb { background: #8c8c8c; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="rgbDiv">
+      <span id="rgbLabel">RGB</span>
+      <input type="text" id="rgbHex" value="#000000" maxlength="7">
+    </div>
+
+    <div id="rDiv" class="slider-group">
+      <div class="slider-header">
+        <div class="label-container">
+          <span id="rLabel">R</span>
+          <input type="text" id="rHex" class="hex-input" value="#00" maxlength="4">
+        </div>
+      </div>
+      <input type="range" id="rSlider" min="0" max="255" value="0">
+    </div>
+
+    <div id="gDiv" class="slider-group">
+      <div class="slider-header">
+        <div class="label-container">
+          <span id="gLabel">G</span>
+          <input type="text" id="gHex" class="hex-input" value="#00" maxlength="4">
+        </div>
+      </div>
+      <input type="range" id="gSlider" min="0" max="255" value="0">
+    </div>
+
+    <div id="bDiv" class="slider-group">
+      <div class="slider-header">
+        <div class="label-container">
+          <span id="bLabel">B</span>
+          <input type="text" id="bHex" class="hex-input" value="#00" maxlength="4">
+        </div>
+      </div>
+      <input type="range" id="bSlider" min="0" max="255" value="0">
+    </div>
+
+    <div id="yGroupDiv" class="slider-group">
+      <div class="slider-header">
+        <div class="label-container">
+          <span id="yLabel">Y</span>
+          <input type="text" id="yHex" class="hex-input" value="#00" maxlength="4">
+        </div>
+      </div>
+      <input type="range" id="ySlider" min="0" max="255" value="0">
+    </div>
+  </div>
+
+  <script>
+    var rSlider = document.getElementById('rSlider');
+    var gSlider = document.getElementById('gSlider');
+    var bSlider = document.getElementById('bSlider');
+    var ySlider = document.getElementById('ySlider');
+
+    var rHex = document.getElementById('rHex');
+    var gHex = document.getElementById('gHex');
+    var bHex = document.getElementById('bHex');
+    var yHex = document.getElementById('yHex');
+
+    var rgbDiv = document.getElementById('rgbDiv');
+    var rgbHex = document.getElementById('rgbHex');
+
+    function updateSliderTrack(sliderEl, r, g, b) {
+      var val = Number(sliderEl.value);
+      var percent = (val / 255) * 100;
+      var activeColor = '#' + 
+        r.toString(16).padStart(2, '0') + 
+        g.toString(16).padStart(2, '0') + 
+        b.toString(16).padStart(2, '0');
+
+      sliderEl.style.background = 'linear-gradient(to right, ' + activeColor + ' ' + percent + '%, #e8e8e8 ' + percent + '%)';
+    }
+
+    function updateFromSliders() {
+      var rVal = Number(rSlider.value);
+      var gVal = Number(gSlider.value);
+      var bVal = Number(bSlider.value);
+
+      var rHexStr = rVal.toString(16).toUpperCase().padStart(2, '0');
+      var gHexStr = gVal.toString(16).toUpperCase().padStart(2, '0');
+      var bHexStr = bVal.toString(16).toUpperCase().padStart(2, '0');
+
+      rHex.value = '#' + rHexStr;
+      gHex.value = '#' + gHexStr;
+      bHex.value = '#' + bHexStr;
+
+      updateInputStyles(rHex, rVal, 0, 0);
+      updateInputStyles(gHex, 0, gVal, 0);
+      updateInputStyles(bHex, 0, 0, bVal);
+
+      updateSliderTrack(rSlider, rVal, 0, 0);
+      updateSliderTrack(gSlider, 0, gVal, 0);
+      updateSliderTrack(bSlider, 0, 0, bVal);
+
+      var brightness = Math.round((rVal * 299 + gVal * 587 + bVal * 114) / 1000);
+      ySlider.value = brightness;
+      var yHexStr = brightness.toString(16).toUpperCase().padStart(2, '0');
+      yHex.value = '#' + yHexStr;
+      updateInputStyles(yHex, brightness, brightness, brightness);
+      updateSliderTrack(ySlider, brightness, brightness, brightness);
+
+      renderPreview(rVal, gVal, bVal, rHexStr, gHexStr, bHexStr, brightness);
+    }
+
+    function updateFromYSlider() {
+      var oldR = Number(rSlider.value);
+      var oldG = Number(gSlider.value);
+      var oldB = Number(bSlider.value);
+
+      var oldY = (oldR * 299 + oldG * 587 + oldB * 114) / 1000;
+      var targetY = Number(ySlider.value);
+
+      if (oldY === 0) {
+        rSlider.value = targetY;
+        gSlider.value = targetY;
+        bSlider.value = targetY;
+      } else {
+        var ratio = targetY / oldY;
+        var newR = Math.min(255, Math.max(0, Math.round(oldR * ratio)));
+        var newG = Math.min(255, Math.max(0, Math.round(oldG * ratio)));
+        var newB = Math.min(255, Math.max(0, Math.round(oldB * ratio)));
+
+        rSlider.value = newR;
+        gSlider.value = newG;
+        bSlider.value = newB;
+      }
+
+      updateFromSliders();
+    }
+
+    function updateInputStyles(inputEl, r, g, b) {
+      var bgHex = '#' + 
+        r.toString(16).padStart(2, '0') + 
+        g.toString(16).padStart(2, '0') + 
+        b.toString(16).padStart(2, '0');
+
+      inputEl.style.backgroundColor = bgHex;
+
+      var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      if (brightness > 128) {
+        inputEl.style.color = '#000000';
+      } else {
+        inputEl.style.color = '#ffffff';
+      }
+    }
+
+    function renderPreview(rVal, gVal, bVal, rHexStr, gHexStr, bHexStr, brightness) {
+      var combinedHex = '#' + rHexStr + gHexStr + bHexStr;
+      rgbHex.value = combinedHex;
+
+      rgbDiv.style.backgroundColor = combinedHex;
+
+      if (brightness > 128) {
+        rgbDiv.style.color = '#000000';
+      } else {
+        rgbDiv.style.color = '#ffffff';
+      }
+    }
+
+    function commitHexInput(inputEl, sliderEl) {
+      var rawVal = inputEl.value.trim();
+      var decVal;
+
+      if (rawVal.startsWith('#')) {
+        var cleanHex = rawVal.slice(1).trim();
+        decVal = parseInt(cleanHex, 16);
+      } else {
+        decVal = parseInt(rawVal, 10);
+      }
+
+      if (!isNaN(decVal)) {
+        if (decVal < 0) decVal = 0;
+        if (decVal > 255) decVal = 255;
+        sliderEl.value = decVal;
+      }
+
+      if (sliderEl === ySlider) {
+        updateFromYSlider();
+      } else {
+        updateFromSliders();
+      }
+    }
+
+    function commitFullRgbHexInput() {
+      var rawVal = rgbHex.value.trim().replace('#', '');
+      
+      if (rawVal.length === 3) {
+        rawVal = rawVal[0] + rawVal[0] + rawVal[1] + rawVal[1] + rawVal[2] + rawVal[2];
+      }
+
+      if (rawVal.length === 6) {
+        var rVal = parseInt(rawVal.substring(0, 2), 16);
+        var gVal = parseInt(rawVal.substring(2, 4), 16);
+        var bVal = parseInt(rawVal.substring(4, 6), 16);
+
+        if (!isNaN(rVal) && !isNaN(gVal) && !isNaN(bVal)) {
+          rSlider.value = rVal;
+          gSlider.value = gVal;
+          bSlider.value = bVal;
+        }
+      }
+
+      updateFromSliders();
+    }
+
+    rSlider.addEventListener('input', updateFromSliders);
+    gSlider.addEventListener('input', updateFromSliders);
+    bSlider.addEventListener('input', updateFromSliders);
+    ySlider.addEventListener('input', updateFromYSlider);
+
+    rHex.addEventListener('change', function() { commitHexInput(rHex, rSlider); });
+    gHex.addEventListener('change', function() { commitHexInput(gHex, gSlider); });
+    bHex.addEventListener('change', function() { commitHexInput(bHex, bSlider); });
+    yHex.addEventListener('change', function() { commitHexInput(yHex, ySlider); });
+
+    rgbHex.addEventListener('change', commitFullRgbHexInput);
+
+    function setupKeydown(inputEl, commitFn) {
+      inputEl.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          commitFn();
+          inputEl.blur();
+        }
+      });
+    }
+
+    setupKeydown(rHex, function() { commitHexInput(rHex, rSlider); });
+    setupKeydown(gHex, function() { commitHexInput(gHex, gSlider); });
+    setupKeydown(bHex, function() { commitHexInput(bHex, bSlider); });
+    setupKeydown(yHex, function() { commitHexInput(yHex, ySlider); });
+    setupKeydown(rgbHex, commitFullRgbHexInput);
+
+    updateFromSliders();
+  </script>
+</body>
+</html>
