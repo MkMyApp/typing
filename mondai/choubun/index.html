@@ -1,86 +1,162 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>タイピング練習室 長文</title>
-<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
-<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>index</title>
+	<style>
+		body {
+			font-family: sans-serif;
+			padding: 20px;
+			background-color: #f4f4f9;
+			color: #333;
+		}
+
+		/* h1・h2の見出しデザイン */
+		h1 {
+			font-size: 32px;
+			margin: 0 0 24px 0;
+			padding-bottom: 8px;
+			border-bottom: 3px solid #333;
+		}
+		h2 {
+			font-size: 24px;
+			margin: 30px 0 16px 0;
+			padding-left: 10px;
+			border-left: 5px solid #4a90e2;
+		}
+
+		/* 通常のリンクボタン（カード型） */
+		a {
+			box-sizing: border-box;
+			display: inline-block;
+			width: 240px;
+			height: 60px;
+			line-height: 28px;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 15px 2px;
+			background-color: #ffffff;
+			color: #303030;
+			text-decoration: none;
+			text-align: center;
+			border-radius: 8px;
+			border: 1px solid #ccc;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin: 0 10px 15px 0;
+			transition: background-color 0.2s, transform 0.1s;
+		}
+		a:hover {
+			background-color: #f0f4f9;
+		}
+		a:active {
+			color: #f03030;
+			background-color: #e2e8f0;
+			transform: translateY(1px);
+		}
+
+		/* h2 内の submenu ボタン専用スタイル */
+		h2 a {
+			display: inline-block;
+			width: auto;
+			height: auto;
+			line-height: 1.2;
+			font-size: 20px;
+			padding: 6px 16px;
+			background-color: #4a90e2;
+			color: #ffffff;
+			border: none;
+			border-radius: 20px;
+			box-shadow: 0 2px 4px rgba(74, 144, 226, 0.3);
+			margin: 0;
+			vertical-align: middle;
+		}
+		h2 a:hover {
+			background-color: #357abd;
+		}
+		h2 a:active {
+			color: #ffffff;
+			background-color: #2a5f9e;
+		}
+	</style>
+	<title>長文練習</title>
 </head>
 <body>
-<header>
-<h1>タイピング練習室</h1>
-<span style="text-align:center;">
-<h2>長文タイピング</h2>
-<h4>複数行の練習</h4>
-</span>
-</header>
-<main>
-<div class="box">
-<span class="sep"><a href="menu.html">使い方</a></span>
-<p><a href="長文タイピングの使い方.html">長文タイピングの使い方</a></p>
-
-<span class="sep">New!</span>紅殻のパンドラ
-<p><a href="紅殻のパンドラ.html">紅殻のパンドラ</a></p>
-<p><a href="タイピングの速度.html">タイピングの速度</a></p>
-<p><a href="タイピング練習プロンプト1.html">タイピング練習プロンプト1</a></p>
-<p><a href="タイピング練習プロンプト2.html">タイピング練習プロンプト2</a></p>
-<p><a href="タイピング練習プロンプト3.html">タイピング練習プロンプト3</a></p>
-<p><a href="カブトムシ.html">カブトムシ</a></p>
-<p><a href="クワガタムシ.html">クワガタムシ</a></p>
-<p><a href="コガネムシ.html">コガネムシ</a></p>
-<p><a href="カナブン.html">カナブン</a></p>
-<p><a href="カマキリ.html">カマキリ</a></p>
-<p><a href="セミ.html">セミ</a></p>
-<p><a href="SilentNight.html">SilentNight</a></p>
-<p><a href="When you wish upon a star.html">When you wish upon a star</a></p>
-<p><a href="DoReMiSong.html">DoReMiSong</a></p>
-<p><a href="My Cat.html">My Cat 小学生レベル</a></p>
-<p><a href="My Special Sunday.html">My Special Sunday　中1レベル</a></p>
-<p><a href="生成AIの普及.html">生成AIの普及.html</a></p>
-<p><a href="草枕.html">草枕</a></p>
-<p><a href="枕草子.html">枕草子</a></p>
-<p><a href="吾輩は猫である.html">吾輩は猫である</a></p>
-<p><a href="攻殻機動隊.html">攻殻機動隊</a></p>
-
-<span class="sep">コミック・アニメ</span>
-<p><a href="紅殻のパンドラ.html">紅殻のパンドラ</a></p>
-<p><a href="攻殻機動隊.html">攻殻機動隊</a></p>
-
-<span class="sep">自由研究</span>
-<p><a href="カブトムシ.html">カブトムシ</a></p>
-<p><a href="クワガタムシ.html">クワガタムシ</a></p>
-<p><a href="コガネムシ.html">コガネムシ</a></p>
-<p><a href="カナブン.html">カナブン</a></p>
-<p><a href="カマキリ.html">カマキリ</a></p>
-<p><a href="セミ.html">セミ</a></p>
-
-<span class="sep">文学・古典</span>
-<p><a href="草枕.html">草枕</a></p>
-<p><a href="枕草子.html">枕草子</a></p>
-<p><a href="吾輩は猫である.html">吾輩は猫である</a></p>
-
-<span class="sep">長文練習</span>
-<p><a href="生成AIの普及.html">生成AIの普及.html</a></p>
-
-<span class="sep">プロンプト</span>
-<p><a href="タイピング練習プロンプト1.html">タイピング練習プロンプト1</a></p>
-<p><a href="タイピング練習プロンプト2.html">タイピング練習プロンプト2</a></p>
-<p><a href="タイピング練習プロンプト3.html">タイピング練習プロンプト3</a></p>
-
-<span class="sep">英語</span>
-<p><a href="SilentNight.html">SilentNight</a></p>
-<p><a href="When you wish upon a star.html">When you wish upon a star</a></p>
-<p><a href="DoReMiSong.html">DoReMiSong</a></p>
-<p><a href="My Cat.html">My Cat 小学生レベル</a></p>
-<p><a href="My Special Sunday.html">My Special Sunday　中1レベル</a></p>
-
-<span class="sep">未整理</span>
+	<h1>長文の練習</h1>
+<div>
+<a href="menu.html">使い方</a>
+<a href="長文タイピングの使い方.html">長文タイピングの使い方</a>
 </div>
-</main>
-<footer style="font-size:200%;text-align:center;">
-<p>
-<a href="javascript:window.close();">❌Close</a>
-</p>
-</footer>
+
+<div>
+<h2>New!</h2>
+<a href="紅殻のパンドラ.html">紅殻のパンドラ</a>
+<a href="タイピングの速度.html">タイピングの速度</a>
+<a href="タイピング練習プロンプト1.html">タイピング練習プロンプト1</a>
+<a href="タイピング練習プロンプト2.html">タイピング練習プロンプト2</a>
+<a href="タイピング練習プロンプト3.html">タイピング練習プロンプト3</a>
+<a href="カブトムシ.html">カブトムシ</a>
+<a href="クワガタムシ.html">クワガタムシ</a>
+<a href="コガネムシ.html">コガネムシ</a>
+<a href="カナブン.html">カナブン</a>
+<a href="カマキリ.html">カマキリ</a>
+<a href="セミ.html">セミ</a>
+<a href="SilentNight.html">SilentNight</a>
+<a href="When you wish upon a star.html">When you wish upon a star</a>
+<a href="DoReMiSong.html">DoReMiSong</a>
+<a href="My Cat.html">My Cat 小学生レベル</a>
+<a href="My Special Sunday.html">My Special Sunday　中1レベル</a>
+<a href="生成AIの普及.html">生成AIの普及</a>
+<a href="草枕.html">草枕</a>
+<a href="枕草子.html">枕草子</a>
+<a href="吾輩は猫である.html">吾輩は猫である</a>
+<a href="攻殻機動隊.html">攻殻機動隊</a>
+</div>
+
+<div><h2>コミック・アニメ</h2>
+<a href="紅殻のパンドラ.html">紅殻のパンドラ</a>
+<a href="攻殻機動隊.html">攻殻機動隊</a>
+</div>
+
+<div>
+<h2>自由研究</h2>
+<a href="カブトムシ.html">カブトムシ</a>
+<a href="クワガタムシ.html">クワガタムシ</a>
+<a href="コガネムシ.html">コガネムシ</a>
+<a href="カナブン.html">カナブン</a>
+<a href="カマキリ.html">カマキリ</a>
+<a href="セミ.html">セミ</a>
+</div>
+
+<div>
+<h2>文学・古典</h2>
+<a href="草枕.html">草枕</a>
+<a href="枕草子.html">枕草子</a>
+<a href="吾輩は猫である.html">吾輩は猫である</a>
+</div>
+
+<div>
+<h2>AI生成</h2>
+<a href="生成AIの普及.html">生成AIの普及</a>
+</div>
+
+<div><h2>プロンプト</h2>
+<a href="タイピング練習プロンプト1.html">タイピング練習プロンプト1</a>
+<a href="タイピング練習プロンプト2.html">タイピング練習プロンプト2</a>
+<a href="タイピング練習プロンプト3.html">タイピング練習プロンプト3</a>
+</div>
+
+<div>
+<h2>英語</h2>
+<a href="SilentNight.html">SilentNight</a>
+<a href="When you wish upon a star.html">When you wish upon a star</a>
+<a href="DoReMiSong.html">DoReMiSong</a>
+<a href="My Cat.html">My Cat 小学生レベル</a>
+<a href="My Special Sunday.html">My Special Sunday　中1レベル</a>
+</div>
+
+<div>
+<h2>未整理</h2>
+</div>
 </body>
 </html>
