@@ -91,6 +91,9 @@ function colorize() {
   const user = [...editorEl.value]
   let html = ''
 
+  // LF が定義されていて、かつ true（または 1 など）の場合のみ showLF を true にする
+  const showLF = (typeof LF !== 'undefined') && Boolean(LF)
+
   for (let i = 0; i < answer.length; i++) {
     const ca = answer[i]
     const cu = user[i]
@@ -99,7 +102,17 @@ function colorize() {
     if (cu !== undefined) {
       cls = (cu === ca) ? 'char-correct' : 'char-wrong'
     }
-    html += `<span class="${cls}">${esc(ca)}</span>`
+
+    if (ca === '\n') {
+      // showLF が true のときのみ ⏎ マークを表示
+      if (showLF) {
+        html += `<span class="${cls} char-newline">⏎</span>\n`
+      } else {
+        html += '\n'
+      }
+    } else {
+      html += `<span class="${cls}">${esc(ca)}</span>`
+    }
   }
   targetEl.innerHTML = html
 }

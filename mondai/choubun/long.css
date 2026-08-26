@@ -8,6 +8,8 @@
   --char-correct-color  : #0000F0;
   --char-wrongfont-color: #FFFFFF;
   --char-wrongback-color: #FF0000;
+  --char-enter-color    : #FFFFFF;
+  --char-enterback-color: #8080FF;
 
   /* 文字数 × 1ch ＋ 左右のパディング(15px * 2) */
   --box-width: calc(var(--box-chars) * 1ch + 30px);
@@ -91,4 +93,11 @@ body {
 .char-wrong {
 	color: var(--char-wrongfont-color);
 	background-color: var(--char-wrongback-color);
+}
+.char-newline {
+  opacity: 0.8;
+  font-size: 0.9em;
+  color:var(--char-enter-color);
+  background-color:var(--char-enterback-color);
+  user-select: none;
 }

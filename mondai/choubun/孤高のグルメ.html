@@ -3,24 +3,26 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="long.css">
-  <title>長文</title>
+  <title>孤高のグルメ</title>
 </head>
 <body>
-<div id="title">長文</div>
+<div id="title">孤高のグルメ</div>
 <div id="result"></div>
 <script>
-  const box_x = 43;
-  const box_y = 8;
+  const box_x = 40;
+  const box_y = 6;
   const font  = '20px';
-  const LF  = true;//改行マーク⏎表示
-  const lang  = 'j';//e英文　j日本語
+  const LF = 1;
+  const lang  = 't';//e英文　j日本語
 	//折り返しスタイルの切り替え
-  const mode = 't';
+  const mode = 'v';
   //'t'確認'v'縦並び 'h' 横並び
 </script>
 
 <div id="box-container">
 <textarea id="txtdata" class="box" spellcheck="false">
+時間や社会にとらわれず幸福に空腹を満たすとき、つかの間、彼は自分勝手になり自由になる。
+誰にも邪魔されず気を使わず物を食べるという孤高の行為、この行為こそが現代人に平等に与えられた最高の癒しといえるのである。
 </textarea>
 <div id="target" class="box"></div>
 <textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
