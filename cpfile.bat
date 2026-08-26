@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-set FILES=typing.js style.css type.html
+set FILES=typing.js style.css type.html index.css
 
 rem /r オプションで、階層の深さを問わず全てのサブフォルダを走査します
 for /r /d %%i in (*) do (
