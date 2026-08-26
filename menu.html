@@ -30,7 +30,7 @@
 			box-sizing: border-box;
 			display: inline-block;
 			width: auto;
-			min-width:240px;
+			min-width: 240px;
 			height: auto;
 			line-height: 28px;
 			font-size: 20px;
@@ -55,30 +55,20 @@
 			transform: translateY(1px);
 		}
 
-		/* h2 内の submenu ボタン専用スタイル */
+		/* h2 内のサブメニュー用リンク（シンプル化） */
 		h2 a {
-			display: inline-block;
-			width: auto;
-			min-width: 200px;
-			height: auto;
-			line-height: 1.2;
-			font-size: 24px;
-			padding: 8px 16px;
-			background-color: #ffffff;
-			color: #303030;
-			border: 1px solid #ccc;
-			border-radius: 6px;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			color: inherit;
+			text-decoration: underline;
+			border: none;
+			background: none;
+			box-shadow: none;
+			padding: 0;
 			margin: 0;
-			vertical-align: middle;
-			text-align: left; /* 文字を左寄せ */
+			min-width: auto;
 		}
 		h2 a:hover {
-			background-color: #357abd;
-		}
-		h2 a:active {
-			color: #ffffff;
-			background-color: #2a5f9e;
+			color: #4a90e2;
+			background: none;
 		}
 	</style>
 <title>index</title>
@@ -88,7 +78,7 @@
 
 	<div>
 		<h2>subtitle</h2>
-		<a href="filename">texttexttexttexttexttext</a>
+		<a href="filename">text--------------------------text</a>
 		<a href="filename">text</a>
 	</div>
 

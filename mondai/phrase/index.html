@@ -1,147 +1,228 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: sans-serif;
+			padding: 20px;
+			background-color: #f4f4f9;
+			color: #333;
+		}
+
+		/* h1・h2の見出しデザイン */
+		h1 {
+			font-size: 32px;
+			margin: 0 0 24px 0;
+			padding-bottom: 8px;
+			border-bottom: 3px solid #333;
+		}
+		h2 {
+			font-size: 24px;
+			margin: 30px 0 16px 0;
+			padding-left: 10px;
+			border-left: 5px solid #4a90e2;
+		}
+
+		/* 通常のリンクボタン（カード型） */
+		a {
+			box-sizing: border-box;
+			display: inline-block;
+			width: auto;
+			min-width: 240px;
+			height: auto;
+			line-height: 28px;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 15px 20px;
+			background-color: #ffffff;
+			color: #303030;
+			text-decoration: none;
+			text-align: center;
+			border-radius: 8px;
+			border: 1px solid #ccc;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin: 0 10px 15px 0;
+			transition: background-color 0.2s, transform 0.1s;
+		}
+		a:hover {
+			background-color: #f0f4f9;
+		}
+		a:active {
+			color: #f03030;
+			background-color: #e2e8f0;
+			transform: translateY(1px);
+		}
+
+		/* h2 内のサブメニュー用リンク（シンプル化） */
+		h2 a {
+			color: inherit;
+			text-decoration: underline;
+			border: none;
+			background: none;
+			box-shadow: none;
+			padding: 0;
+			margin: 0;
+			min-width: auto;
+		}
+		h2 a:hover {
+			color: #4a90e2;
+			background: none;
+		}
+	</style>
 <title>タイピング練習室 フレーズ</title>
-<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
-<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
-</head>
 <body>
-<header>
-<h1>タイピング練習室</h1>
-<span style="text-align:center;">
-<h2>短文タイピング</h2>
-<h4>１行短文の練習</h4>
-</span>
-</header>
-<main>
-<div class="box">
-<span class="sep">New!</span>
-<p><a href="厭離穢土欣求浄土.html">厭離穢土欣求浄土</a></p>
+<h1>短文の練習</h1>
 
-<span class="sep">文学・名言</span>
-<p><a href="書を捨て町に出よう.html">寺山修司</a></p>
-
-<span class="sep">歴史</span>
-<p><a href="本能寺の変.html">本能寺の変</a></p>
-<p><a href="日本海海戦.html">日本海海戦</a></p>
-<p><a href="三成に過ぎたるもの.html">三成に過ぎたるもの</a></p>
-<span class="sep">ビジネス</span>
-<p><a href="お祈りメール.html">お祈りメール</a></p>
-<p><a href="今回の結果.html">今回の結果</a></p>
-<p><a href="限られた採用枠.html">限られた採用枠</a></p>
-<p><a href="慎重に選考を.html">慎重に選考を</a></p>
-<p><a href="せっかくの.html">せっかくの</a></p>
-<p><a href="お忙しいところ.html">お忙しいところ</a></p>
-<p><a href="今回の件を.html">今回の件を</a></p>
-<p><a href="私の不徳.html">私の不徳</a></p>
-<p><a href="誠に申し訳なく.html">誠に申し訳なく</a></p>
-<p><a href="多大なるご迷惑を.html">多大なるご迷惑を</a></p>
-<p><a href="申し訳ございません。.html">申し訳ございません。</a></p>
-<p><a href="失礼いたしました。.html">失礼いたしました。</a></p>
-<p><a href="まずは取り急ぎ、ご報告まで。.html">まずは取り急ぎ、ご報告まで。</a></p>
-<p><a href="引き続き、よろしくお願いいたします。.html">引き続き、よろしくお願いいたします。</a></p>
-<p><a href="以後、細心の注意を払ってまいります。.html">以後、細心の注意を払ってまいります。</a></p>
-<p><a href="ご期待に沿えず、誠に申し訳ございません。.html">ご期待に沿えず、誠に申し訳ございません。</a></p>
-<p><a href="お忙しいところ恐縮ですが、.html">お忙しいところ恐縮ですが、</a></p>
-<p><a href="承知いたしました。.html">承知いたしました。</a></p>
-<p><a href="何卒よろしくお願い申し上げます。.html">何卒よろしくお願い申し上げます。</a></p>
-<p><a href="ご確認のほど、よろしくお願いいたします。.html">ご確認のほど、よろしくお願いいたします。</a></p>
-<p><a href="お世話になっております。.html">お世話になっております。</a></p>
-
-<span class="sep">名言格言</span>
-<p><a href="厭離穢土欣求浄土.html">厭離穢土欣求浄土</a></p>
-<p><a href="西洋の格言.html">西洋の格言</a></p>
-<p><a href="ヘミングウェイ.html">ヘミングウェイ</a></p>
-<p><a href="パスカル『パンセ』.html">パスカル『パンセ』</a></p>
-<p><a href="親鸞の言葉.html">親鸞の言葉</a></p>
-<p><a href="急がば回れ.html">急がば回れ</a></p>
-<p><a href="太宰治『走れメロス』.html">太宰治『走れメロス』</a></p>
-<p><a href="川端康成『雪国』.html">川端康成『雪国』</a></p>
-<p><a href="夏目漱石吾輩は猫である.html">夏目漱石吾輩は猫である</a></p>
-<p><a href="ハムレット.html">ハムレット</a></p>
-<p><a href="ソクラテス.html">ソクラテス</a></p>
-<p><a href="中島敦.html">中島敦</a></p>
-<p><a href="マーティン・ルーサー・キング・ジュニア.html">マーティン・ルーサー・キング・ジュニア</a></p>
-<p><a href="松尾芭蕉『奥の細道』.html">松尾芭蕉『奥の細道』</a></p>
-
-<span class="sep">セリフ</span>
-<p><a href="シン・ゴジラより.html">私は好きにした</a></p>
-<p><a href="暴れん坊将軍.html">暴れん坊将軍</a></p>
-<p><a href="水戸黄門.html">水戸黄門</a></p>
-<p><a href="お代官様.html">お代官様</a></p>
-<p><a href="敵は本能寺にあり.html">敵は本能寺にあり</a></p>
-<p><a href="是非に及ばず.html">是非に及ばず</a></p>
-<p><a href="アナベル・ガトー.html">アナベル・ガトー</a></p>
-<p><a href="デスラー総統.html">デスラー総統</a></p>
-<p><a href="ちょっと何言ってるか分からない.html">ちょっと何言ってるか分からない</a></p>
-<p><a href="踊る大捜査線.html">踊る大捜査線</a></p>
-<p><a href="だめだこりゃ.html">だめだこりゃ</a></p>
-<p><a href="石川五ェ門.html">石川五ェ門</a></p>
-<p><a href="腐ってやがる.html">腐ってやがる</a></p>
-<p><a href="それが、大人の特権だ.html">それが、大人の特権だ</a></p>
-<p><a href="若さ故の過ち.html">若さ故の過ち</a></p>
-<p><a href="謀ったなシャア.html">謀ったなシャア</a></p>
-<p><a href="北斗の拳.html">北斗の拳</a></p>
-<p><a href="孔明の罠.html">孔明の罠</a></p>
-<p><a href="バルス.html">バルス</a></p>
-<p><a href="40秒で支度しな.html">40秒で支度しな</a></p>
-<p><a href="3分間待ってやる.html">3分間待ってやる</a></p>
-<p><a href="見ろ、人がゴミのようだ.html">見ろ、人がゴミのようだ</a></p>
-
-<span class="sep">呪文</span>
-<p><a href="『メリー・ポピンズ』おまじない.html">『メリー・ポピンズ』おまじない</a></p>
-<p><a href="『メリー・ポピンズ』おまじない_英語.html">『メリー・ポピンズ』おまじない_英語</a></p>
-<p><a href="『シンデレラ』魔法の呪文_英語.html">『シンデレラ』魔法の呪文_英語</a></p>
-<p><a href="『シンデレラ』魔法の呪文.html">『シンデレラ』魔法の呪文</a></p>
-<p><a href="ひらけゴマ.html">ひらけゴマ</a></p>
-<p><a href="アブラカダブラ.html">アブラカダブラ</a></p>
-<p><a href="Abracadabra.html">Abracadabra</a></p>
-
-<span class="sep"><a href="念仏/index.html">念仏選択</a></span>
-<p><a href="念仏/南無大師遍照金剛.html">南無大師遍照金剛</a></p>
-<p><a href="念仏/南無観世音菩薩.html">南無観世音菩薩</a></p>
-<p><a href="念仏/南無釈迦牟尼仏.html">南無釈迦牟尼仏</a></p>
-<p><a href="念仏/南無地蔵願王菩薩.html">南無地蔵願王菩薩</a></p>
-<p><a href="念仏/南無阿弥陀仏.html">南無阿弥陀仏</a></p>
-<p><a href="念仏/南無妙法蓮華経.html">南無妙法蓮華経</a></p>
-
-<span class="sep">聖書の言葉</span>
-<p><a href="マタイによる福音書7章13節.html">マタイによる福音書7章13節</a></p>
-<p><a href="マタイによる福音書4-4.html">マタイによる福音書4-4</a></p>
-
-<span class="sep">英語のフレーズ</span>
-<p><a href="yomi.html">なんてよむ</a></p>
-
-<span class="sep">英語の早口言葉</span>
-<p><a href="Betty bought.html">Betty bought</a></p>
-<p><a href="Fresh fried fish.html">Fresh fried fish</a></p>
-<p><a href="woodchuck.html">woodchuck</a></p>
-<p><a href="She sells.html">She sells</a></p>
-<p><a href="Peter Piper.html">Peter Piper</a></p>
-
-<span class="sep">略語</span>
-<p><a href="巨災対.html">巨災対</a></p>
-
-<span class="sep"><a href="英語慣用句.html">英語慣用句</a></span>
-<p><a href="I'll be back.html">I'll be back</a></p>
-<p><a href="I shall return.html">I shall return</a></p>
-<p><a href="Walls have ears.html">Walls have ears</a></p>
-<p><a href="Better late than never.html">Better late than never</a></p>
-<p><a href="Practice.html">Practice</a></p>
-<p><a href="Laughter.html">Laughter</a></p>
-<p><a href="Failure.html">Failure</a></p>
-<p><a href="Time is money.html">Time is money</a></p>
-<p><a href="spilt milk.html">spilt milk</a></p>
-
-<span class="sep">未整理</span>
-<p><a href="担任の名前.html">担任の名前</a></p>
+<div>
+<h2>New!</h2>
+<a href="厭離穢土欣求浄土.html">厭離穢土欣求浄土</a>
 </div>
-</main>
-<footer style="font-size:200%;text-align:center;">
-<p>
-<a href="javascript:window.close();">❌Close</a>
-</p>
-</footer>
+
+<div>
+<h2>文学・名言</h2>
+<a href="書を捨て町に出よう.html">寺山修司</a>
+</div>
+
+<div>
+<h2>歴史</h2>
+<a href="本能寺の変.html">本能寺の変</a>
+<a href="日本海海戦.html">日本海海戦</a>
+<a href="三成に過ぎたるもの.html">三成に過ぎたるもの</a>
+</div>
+<div>
+<h2>ビジネス</h2>
+<a href="お祈りメール.html">お祈りメール</a>
+<a href="今回の結果.html">今回の結果</a>
+<a href="限られた採用枠.html">限られた採用枠</a>
+<a href="慎重に選考を.html">慎重に選考を</a>
+<a href="せっかくの.html">せっかくの</a>
+<a href="お忙しいところ.html">お忙しいところ</a>
+<a href="今回の件を.html">今回の件を</a>
+<a href="私の不徳.html">私の不徳</a>
+<a href="誠に申し訳なく.html">誠に申し訳なく</a>
+<a href="多大なるご迷惑を.html">多大なるご迷惑を</a>
+<a href="申し訳ございません。.html">申し訳ございません。</a>
+<a href="失礼いたしました。.html">失礼いたしました。</a>
+<a href="まずは取り急ぎ、ご報告まで。.html">まずは取り急ぎ、ご報告まで。</a>
+<a href="引き続き、よろしくお願いいたします。.html">引き続き、よろしくお願いいたします。</a>
+<a href="以後、細心の注意を払ってまいります。.html">以後、細心の注意を払ってまいります。</a>
+<a href="ご期待に沿えず、誠に申し訳ございません。.html">ご期待に沿えず、誠に申し訳ございません。</a>
+<a href="お忙しいところ恐縮ですが、.html">お忙しいところ恐縮ですが、</a>
+<a href="承知いたしました。.html">承知いたしました。</a>
+<a href="何卒よろしくお願い申し上げます。.html">何卒よろしくお願い申し上げます。</a>
+<a href="ご確認のほど、よろしくお願いいたします。.html">ご確認のほど、よろしくお願いいたします。</a>
+<a href="お世話になっております。.html">お世話になっております。</a>
+</div>
+
+<div>
+<h2>名言格言</h2>
+<a href="厭離穢土欣求浄土.html">厭離穢土欣求浄土</a>
+<a href="西洋の格言.html">西洋の格言</a>
+<a href="ヘミングウェイ.html">ヘミングウェイ</a>
+<a href="パスカル『パンセ』.html">パスカル『パンセ』</a>
+<a href="親鸞の言葉.html">親鸞の言葉</a>
+<a href="急がば回れ.html">急がば回れ</a>
+<a href="太宰治『走れメロス』.html">太宰治『走れメロス』</a>
+<a href="川端康成『雪国』.html">川端康成『雪国』</a>
+<a href="夏目漱石吾輩は猫である.html">夏目漱石吾輩は猫である</a>
+<a href="ハムレット.html">ハムレット</a>
+<a href="ソクラテス.html">ソクラテス</a>
+<a href="中島敦.html">中島敦</a>
+<a href="マーティン・ルーサー・キング・ジュニア.html">マーティン・ルーサー・キング・ジュニア</a>
+<a href="松尾芭蕉『奥の細道』.html">松尾芭蕉『奥の細道』</a>
+</div>
+
+<div>
+<h2>セリフ</h2>
+<a href="シン・ゴジラより.html">私は好きにした</a>
+<a href="暴れん坊将軍.html">暴れん坊将軍</a>
+<a href="水戸黄門.html">水戸黄門</a>
+<a href="お代官様.html">お代官様</a>
+<a href="敵は本能寺にあり.html">敵は本能寺にあり</a>
+<a href="是非に及ばず.html">是非に及ばず</a>
+<a href="アナベル・ガトー.html">アナベル・ガトー</a>
+<a href="デスラー総統.html">デスラー総統</a>
+<a href="ちょっと何言ってるか分からない.html">ちょっと何言ってるか分からない</a>
+<a href="踊る大捜査線.html">踊る大捜査線</a>
+<a href="だめだこりゃ.html">だめだこりゃ</a>
+<a href="石川五ェ門.html">石川五ェ門</a>
+<a href="腐ってやがる.html">腐ってやがる</a>
+<a href="それが、大人の特権だ.html">それが、大人の特権だ</a>
+<a href="若さ故の過ち.html">若さ故の過ち</a>
+<a href="謀ったなシャア.html">謀ったなシャア</a>
+<a href="北斗の拳.html">北斗の拳</a>
+<a href="孔明の罠.html">孔明の罠</a>
+<a href="バルス.html">バルス</a>
+<a href="40秒で支度しな.html">40秒で支度しな</a>
+<a href="3分間待ってやる.html">3分間待ってやる</a>
+<a href="見ろ、人がゴミのようだ.html">見ろ、人がゴミのようだ</a>
+</div>
+
+<div>
+<h2>呪文</h2>
+<a href="『メリー・ポピンズ』おまじない.html">『メリー・ポピンズ』おまじない</a>
+<a href="『メリー・ポピンズ』おまじない_英語.html">『メリー・ポピンズ』おまじない_英語</a>
+<a href="『シンデレラ』魔法の呪文_英語.html">『シンデレラ』魔法の呪文_英語</a>
+<a href="『シンデレラ』魔法の呪文.html">『シンデレラ』魔法の呪文</a>
+<a href="ひらけゴマ.html">ひらけゴマ</a>
+<a href="アブラカダブラ.html">アブラカダブラ</a>
+<a href="Abracadabra.html">Abracadabra</a>
+</div>
+
+<div>
+<h2><a href="念仏/index.html">念仏選択</a></h2>
+<a href="念仏/南無大師遍照金剛.html">南無大師遍照金剛</a>
+<a href="念仏/南無観世音菩薩.html">南無観世音菩薩</a>
+<a href="念仏/南無釈迦牟尼仏.html">南無釈迦牟尼仏</a>
+<a href="念仏/南無地蔵願王菩薩.html">南無地蔵願王菩薩</a>
+<a href="念仏/南無阿弥陀仏.html">南無阿弥陀仏</a>
+<a href="念仏/南無妙法蓮華経.html">南無妙法蓮華経</a>
+</div>
+
+<div>
+<h2>聖書の言葉</h2>
+<a href="マタイによる福音書7章13節.html">マタイによる福音書7章13節</a>
+<a href="マタイによる福音書4-4.html">マタイによる福音書4-4</a>
+</div>
+
+<div>
+<h2>英語のフレーズ</h2>
+<a href="yomi.html">なんてよむ</a>
+</div>
+
+<div>
+<h2>英語の早口言葉</h2>
+<a href="Betty bought.html">Betty bought</a>
+<a href="Fresh fried fish.html">Fresh fried fish</a>
+<a href="woodchuck.html">woodchuck</a>
+<a href="She sells.html">She sells</a>
+<a href="Peter Piper.html">Peter Piper</a>
+</div>
+
+<div>
+<h2>略語</h2>
+<a href="巨災対.html">巨災対</a>
+</div>
+
+<div>
+<h2><a href="英語慣用句.html">英語慣用句</a></h2>
+<a href="I'll be back.html">I'll be back</a>
+<a href="I shall return.html">I shall return</a>
+<a href="Walls have ears.html">Walls have ears</a>
+<a href="Better late than never.html">Better late than never</a>
+<a href="Practice.html">Practice</a>
+<a href="Laughter.html">Laughter</a>
+<a href="Failure.html">Failure</a>
+<a href="Time is money.html">Time is money</a>
+<a href="spilt milk.html">spilt milk</a>
+</div>
+
+<div>
+<h2>未整理</h2>
+<a href="担任の名前.html">担任の名前</a>
+</div>
+
 </body>
 </html>
