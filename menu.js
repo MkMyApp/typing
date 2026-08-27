@@ -5,12 +5,17 @@ document.querySelectorAll('iframe').forEach(iframeElement => {
             const doc = iframeElement.contentWindow.document;
             iframeElement.style.height = '0px';
             // 高さを設定する関数
-            const adjustHeight = () => {
-                const contentHeight = doc.documentElement.scrollHeight || doc.body.scrollHeight;
-                if (contentHeight > 0) {
-                    iframeElement.style.height = contentHeight + 'px';
-                }
-            };
+						const adjustHeight = () => {
+						    // scrollHeight と offsetHeight のうち、より大きい方を取得
+						    const bodyHeight = Math.max(doc.body.scrollHeight, doc.body.offsetHeight);
+						    const htmlHeight = Math.max(doc.documentElement.scrollHeight, doc.documentElement.offsetHeight);
+						    const contentHeight = Math.max(bodyHeight, htmlHeight);
+
+						    if (contentHeight > 0) {
+						        // 余白のズレを吸収するため +10px ほどの余裕を持たせる
+						        iframeElement.style.height = (contentHeight + 10) + 'px';
+						    }
+						};
 
             // 初回調整
             adjustHeight();
