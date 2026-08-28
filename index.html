@@ -3,57 +3,75 @@
 <head>
 <meta charset="utf-8">
 <style>
-iframe {
-  width: 100%;
-  height: 500px;
-  border: none;
-  white-space: normal;
-  margin: 0 auto;
-  padding: 0;
-  overflow: hidden;
-}
-
-.menu {
-	width: 100%;
-	max-width: 95%;
-	height: auto;
-	line-height: 2em;
-	padding: 10px;
-	display: block;
-	gap: 2rem;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin: 0px auto;
+body {
 	border: none;
 	font-size: 24px;
+	line-height: 1.2em;
+	width:800px;
+	padding: 10px;
+	margin: 20px auto 20px;
 }
 
-.menu a {
+h1 {
+	display: block;
+	font-size:180%;
+}
+
+h2 {
+	display: block;
+	font-size:120%;
+}
+
+a {
+	color:#000000;
 	text-decoration: none;
+	line-height:1.2em;
+	border-left: 16px solid blue;
+	border-bottom: 1px solid blue;
+	padding-left: 8px;
+	padding-bottom: 2px;
+	margin-right: 12px;
+	margin-bottom:8px;
+	display: inline-block;
+}
+
+a:hover {
 	color: blue;
 }
 
-.menu a:hover {
-	color: red;
-}
 </style>
 <title>タイピング練習</title>
 </head>
 <body>
-<img src="type.png" onclick="location.reload();" style="display: block; margin: 0 auto; width: 640px; cursor: pointer;">
+<h1>タイピング練習</h1>
+<h2>練習メニュー</h2>
+<a href="mondai/kiso/index.html">[基礎]</a>
+<a href="mondai/english/index.html">[英数]</a>
+<a href="mondai/hiragana/index.html">[かな]</a>
+<a href="mondai/kanji/index.html">[漢字]</a>
+<a href="mondai/phrase/index.html">[短文]</a>
+<a href="mondai/choubun/index.html">[長文]</a>
 
-<iframe id="frm_type"></iframe>
-<script src="frm_type_set.js"></script>
+<h2>操作方法メニュー</h2>
+<a href="Setting/exp/index.html">操作方法</a>
+<a href="Setting/index1.html">変換の設定</a>
+<a href="Setting/index2.html">辞書登録</a>
 
-<div class="menu">
-<iframe src="mondai.html"></iframe><br>
-</div>
-<div class="menu">
-<iframe src="Setting/index.html"></iframe><br>
-<iframe src="menu2.html"></iframe><br>
-<iframe src="menu3.html"></iframe><br>
-<iframe src="menu4.html"></iframe><br>
-</div>
-<script src="iframeSet.js"></script>
+<h2>作成方法メニュー</h2>
+<a href="myType/index.html">問題の作り方</a>
+<a href="tools/index.html">問題作成ツール</a>
+<a href="myMenu/index.html">メニュー作成</a>
+<a href="option/index.html">機能追加</a>
+<a href="labs/index.html">開発メモ</a>
+
+<h2>開発メニュー</h2>
+<a href="a2z/index.html">A-Z音声付き練習</a>
+<a href="voice/index.html">音声タイピング</a>
+<a href="voicekey/index.html">文字と配列の学習</a>
+<a href="scr_key/index.html">スクリーンキーボード</a>
+<a href="keyboard/index.html">キーボード運指図</a>
+<a href="sound/index.html">タイピングに音をつける</a>
+<a href="capture/index.html">タイピング練習を動画キャプチャする</a>
+<a href="type_log/index.html">タイピングのログと分析</a>
 </body>
 </html>
