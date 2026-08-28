@@ -1,61 +1,77 @@
 <!doctype html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>タイピング練習室　問題生成</title>
-	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
-	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
+<meta charset="UTF-8">
+<style>
+body {
+	border: none;
+	font-size: 24px;
+	line-height: 2em;
+	width:640px;
+	padding: 10px;
+	margin: 20px auto 20px;
+}
+
+a {
+	color:#000000;
+	text-decoration: none;
+	line-height:1.2em;
+	border-left: 8px solid blue;
+	border-bottom: 1px solid blue;
+	padding-left: 8px;
+	padding-bottom: 2px;
+	margin-bottom:8px;
+	display: inline-block;
+}
+
+a:hover {
+	color: blue;
+}
+</style>
+<title>開発</title>
+<base target="_blank">
 </head>
 <body>
-<header>
-<h1>タイピング練習室</h1>
-<span style="text-align:center;">
-<h2>開発</h2>
-</span>
-</header>
-<main>
-<div class="box">
-<span class="sep">function生成</span>
-<p><a href="type.html">タイピングテンプレート</a></p>
-<p><a href="typing.js">typing.js</a></p>
-<p><a href="style.css">style.css</a></p>
-<p><a href="function.html">問題生成サンプル</a></p>
-<p><a href="にこにこ.html">にこにこタイピング</a></p>
-<p><a href="テンキー4桁.html">テンキー4桁タイピング</a></p>
-
-<span class="sep">入力文字から問題生成</span>
-<p><a href="random.html">ランダム文字列生成</a></p>
-<p><a href="rand8.html">英数8文字ランダム</a></p>
-<p><a href="krand8.html">かな8文字ランダム</a></p>
-<p><a href="shuffle.html">A-Zシャッフル</a></p>
-<p><a href="mkpass.html">8文字生成</a></p>
-
-<span class="sep">ドリルタイピング</span>
-<p><a href="setText/setText.html">問題.txt読み込み</a></p>
-<p><a href="setText/漢字ドリル.html">漢字ドリル</a></p>
-<p><a href="setText/ひらがなどりる.html">ひらがなどりる</a></p>
-
-<span class="sep"><a href="RTA/index.html">リアルタイムアタック</a> タイピングのログを記録します</span>
-
-<p><a href="RTA/いろはうた.html">いろはうた</a></p>
-<p><a href="RTA/あいうえお全部.html">あいうえお全部</a></p>
-<p><a href="RTA/あいうえおランダム.html">あいうえおランダム</a></p>
-<p><a href="RTA/いろはうた漢字.html">いろはうた漢字</a></p>
-<p><a href="RTA/いろはうた1行.html">いろはうた1行</a></p>
-
-<span class="sep">実験</span>
-<p><a href="skin/index.html" target="_blank">テーマの変更</a><br>　タイピング練習のCSSを編集します。<br></p>
-<p><a href="karaage/index.html" target="_blank">からあげクン</a><br>　カスタムツールにデータ入り<br></p>
-<p><a href="custom/index.html" target="_blank">作成設定済み</a><br>　customアプリのデータ入り<br></p>
-<p><a href="cyber/index.html">CyterBattleMaker</a><br>　電脳戦をしよう　攻勢防壁　迷宮防壁を作る</p>
-<p><a href="絵日記/index.html">絵日記タイピング</a><br>　夏休みの絵日記を練習する</p>
-
+<h1>開発</h1>
+<div>
+<span class="sep">function生成</span><br>
+<a href="type.html">タイピングテンプレート</a>
+<a href="typing.js">typing.js</a>
+<a href="style.css">style.css</a>
+<a href="function.html">問題生成サンプル</a>
+<a href="にこにこ.html">にこにこタイピング</a>
+<a href="テンキー4桁.html">テンキー4桁タイピング</a>
 </div>
-</main>
-<footer style="font-size:200%;text-align:center;">
-<p>
-<a href="javascript:window.close();">❌Close</a>
-</p>
-</footer>
+<div>
+<span class="sep">入力文字から問題生成</span><br>
+<a href="random.html">ランダム文字列生成</a>
+<a href="rand8.html">英数8文字ランダム</a>
+<a href="krand8.html">かな8文字ランダム</a>
+<a href="shuffle.html">A-Zシャッフル</a>
+<a href="mkpass.html">8文字生成</a>
+</div>
+<div>
+<span class="sep">ドリルタイピング</span><br>
+<a href="setText/setText.html">問題.txt読み込み</a>
+<a href="setText/漢字ドリル.html">漢字ドリル</a>
+<a href="setText/ひらがなどりる.html">ひらがなどりる</a>
+</div>
+<div>
+<span class="sep"><a href="RTA/index.html">リアルタイムアタック</a></span><br>
+
+<a href="RTA/いろはうた.html">いろはうた</a>
+<a href="RTA/あいうえお全部.html">あいうえお全部</a>
+<a href="RTA/あいうえおランダム.html">あいうえおランダム</a>
+<a href="RTA/いろはうた漢字.html">いろはうた漢字</a>
+<a href="RTA/いろはうた1行.html">いろはうた1行</a>
+</div>
+<div>
+<span class="sep">実験</span><br>
+<a href="skin/index.html" target="_blank">テーマの変更</a>
+<a href="karaage/index.html" target="_blank">からあげクン</a>
+<a href="custom/index.html" target="_blank">作成設定済み</a>
+<a href="cyber/index.html">CyterBattleMaker</a>
+<a href="絵日記/index.html">絵日記タイピング</a>
+</div>
 </body>
 </html>

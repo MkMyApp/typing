@@ -1,45 +1,48 @@
 <!doctype html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>タイピング練習</title>
-	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
-	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
+<meta charset="UTF-8">
 <style>
+body {
+	border: none;
+	font-size: 24px;
+	line-height: 2em;
+	width:1200px;
+	padding: 10px;
+	margin: 20px auto 20px;
+}
+
+a {
+	color:#000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: blue;
+}
+
 #frm_type {
-  width: 100%;
-  height: 520px;
+  width: 1200px;
+  height: 640px;
   border: none;
   white-space: normal;
   margin: 0 auto;
   padding: 0;
 }
 
-.center-block {
-  width: fit-content; 
-  margin: 20px auto;
-  text-align: left;
-}
 </style>
 </head>
 <body>
-<header>
-<h1>タイピング練習</h1>
-<span style="text-align:center;">
-<h2>打鍵音をつける</h2>
-</span>
-</header>
-<main>
+<h1>打鍵音をつける</h1>
 <iframe id="frm_type" src="sound.html"></iframe>
-<div class="center-block">
-	<a href="../myType/index.html">マイ・タイピング練習の作り方</a><br>
-	ローカルで自分だけのタイピング練習を作る<br>
-	<a href="sound.js" download>sound.js</a><br>
-	サウンドモジュールをダウンロード<br>
-	タイプ練習に組み込み<br>
-	タイピング音はネットから探します<br>
-	&lt;script&gt;const sound_src="sound.mp3";&lt;/script&gt;<br>
-	&lt;script src="sound.js"&gt;&lt;/script&gt;
+<a href="../myType/index.html">マイ・タイピング練習の作り方</a><br>
+ローカルで自分だけのタイピング練習を作る<br>
+<a href="sound.js" download>sound.js</a><br>
+サウンドモジュールをダウンロード<br>
+タイプ練習に組み込み<br>
+タイピング音はネットから探します<br>
+&lt;script&gt;const sound_src="sound.mp3";&lt;/script&gt;<br>
+&lt;script src="sound.js"&gt;&lt;/script&gt;
 <hr>
 きよがよタイピング<br>
 <a href="kimigayo.html" target="_blank">クリックしてひらく</a><br>
@@ -47,13 +50,5 @@
 なぜタイピングするのに「効果音」を入れたのか<br>
 動画キャプチャするためなのだ<br>
 
-</div>
-
-</main>
-<footer style="font-size:200%;text-align:center;">
-<p>
-<a href="javascript:window.close();">❌Close</a>
-</p>
-</footer>
 </body>
 </html>
