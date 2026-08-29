@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>運指作成</title>
+</head>
+<body>
+
+<script>const sVal = 2;</script>
+<script src="Lkey.js"></script>
+<script src="colorChg.js"></script>
+
+<script>
+// 特殊キーの文字を透明化
+setTransparent();
+// 初期着色設定 (ホームポジション)
+applyColor("A", "#F29", "#FFF");
+applyColor("S", "#F60", "#FFF");
+applyColor("D", "#3A5", "#FFF");
+applyColor("F", "#F00", "#FFF");
+applyColor("J", "#00F", "#FFF");
+applyColor("K", "#3A5", "#FFF");
+applyColor("L", "#F60", "#FFF");
+applyColor(";", "#F29", "#FFF");
+// クリックで色切り替え機能を有効化
+enableKeyClickToggle();
+</script>
+</body>
+</html>
