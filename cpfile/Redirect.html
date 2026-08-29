@@ -5,13 +5,13 @@
     <title>Redirect</title>
 </head>
 <body>
-    このページは移動しました。<a id="redirect-link" href="../study_app/voice/index.html">クリック</a>
+    このページは移動しました。<a id="redirect-link" href="https://example.com">クリック</a>
     <script>
-        // 1秒待つ
+        // 3秒待つ
         setTimeout(() => {
             const targetUrl = document.getElementById("redirect-link").href;
             window.location.href = targetUrl;
-        }, 1000);
+        }, 3000);
     </script>
 </body>
 </html>
