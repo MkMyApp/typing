@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイピング練習</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 20px;
+      color: #333333;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* 表示エリア（問題文）のフォント設定 */
+    .display-area {
+      font-family: inherit;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      line-height: 1.5;
+      width: 100%;
+      padding: 20px;
+      background-color: #f4f6f8;
+      border: 2px solid #e1e4e8;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      min-height: 40px;
+      text-align: left;
+      word-break: break-all;
+    }
+
+    /* 入力エリアのフォント設定 */
+    input[type="text"] {
+      font-family: inherit;
+      font-size: 24px;
+      width: 100%;
+      letter-spacing: 0.05em;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0066cc;
+    }
+
+    /* 結果メッセージのスタイル */
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      min-height: 28px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>タイピング練習</h1>
+
+  <textarea id="sentenceInput" hidden>
+		あいうえお
+		かきくけこ
+		さしすせそ
+		たちつてと
+		なにぬねの
+		はひふへほ
+		まみむめも
+		やゆよ
+		らりるれろ
+		わをん
+  </textarea>
+
+  <div class="display-area" id="targetDisplay"></div>
+
+  <input type="text" id="userInput" placeholder="ここに入力してEnterで確定" disabled>
+
+  <div class="result" id="resultMessage"></div>
+
+  <script>
+    var sentences = [];
+    var currentIndex = 0;
+
+    var textarea = document.getElementById('sentenceInput');
+    var targetDisplay = document.getElementById('targetDisplay');
+    var userInput = document.getElementById('userInput');
+    var resultMessage = document.getElementById('resultMessage');
+
+    function loadSentence() {
+      var text = textarea ? textarea.value : '';
+
+      sentences = text
+        .split(/\r?\n/)
+        .map(function(line) {
+          return line.trim();
+        })
+        .filter(function(line) {
+          return line.length > 0;
+        });
+
+      currentIndex = 0;
+      displaySentence();
+    }
+
+    function displaySentence() {
+      if (sentences.length === 0) {
+        targetDisplay.textContent = 'データがありません。';
+        userInput.disabled = true;
+        return;
+      }
+
+      targetDisplay.textContent = sentences[currentIndex];
+      userInput.disabled = false;
+      userInput.value = '';
+      userInput.focus();
+    }
+
+    function checkAnswer() {
+      if (sentences.length === 0) {
+        return;
+      }
+
+      var currentTarget = sentences[currentIndex];
+      var inputValue = userInput.value.trim();
+
+      if (inputValue === currentTarget) {
+        resultMessage.textContent = '正解！';
+        resultMessage.style.color = '#28a745';
+
+        // 次の問題に進む
+        currentIndex = currentIndex + 1;
+        if (currentIndex >= sentences.length) {
+          currentIndex = 0;
+        }
+        displaySentence();
+      } else {
+        resultMessage.textContent = '不正解です。再入力してください。';
+        resultMessage.style.color = '#dc3545';
+      }
+    }
+
+    // 起動時に自動でデータを読み込み
+    document.addEventListener('DOMContentLoaded', function() {
+      loadSentence();
+    });
+
+    // キー入力イベント
+    userInput.addEventListener('keydown', function(event) {
+      // IME変換中のEnterは無視
+      if (event.isComposing || event.keyCode === 229) {
+        return;
+      }
+
+      // 確定時のEnterキー押下で判定を実行
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        checkAnswer();
+      }
+    });
+  </script>
+</body>
+</html>

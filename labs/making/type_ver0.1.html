@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイピング練習</title>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f5f7;
+  }
+  .container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+  }
+  .label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  .display-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+    min-height: 2.5rem;
+    color: #333;
+  }
+  .input-box {
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    outline: none;
+  }
+  .input-box:focus {
+    border-color: #4a90e2;
+  }
+  .status {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #2e7d32;
+    height: 1.5rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="label">お題</div>
+  <div id="targetText" class="display-text"></div>
+  <input type="text" id="userInput" class="input-box" placeholder="ここに入力..." autofocus autocomplete="off">
+  <div id="statusMessage" class="status"></div>
+</div>
+
+<script>
+  const sentences = [
+    "あいうえお",
+    "かきくけこ",
+    "さしすせそ",
+    "たちつてと",
+    "なにぬねの",
+    "はひふへほ",
+    "まみむめも",
+    "やゆよ",
+    "らりるれろ",
+    "わをん"
+  ];
+
+  let currentIndex = 0;
+  let isComposing = false;
+
+  const targetTextElement = document.getElementById("targetText");
+  const userInputElement = document.getElementById("userInput");
+  const statusMessageElement = document.getElementById("statusMessage");
+
+  function loadSentence() {
+    targetTextElement.textContent = sentences[currentIndex];
+    userInputElement.value = "";
+    statusMessageElement.textContent = "";
+  }
+
+  function checkInput() {
+    if (isComposing) {
+      return;
+    }
+
+    const currentInput = userInputElement.value;
+    const targetText = sentences[currentIndex];
+
+    if (currentInput === targetText) {
+      statusMessageElement.textContent = "クリア！";
+      userInputElement.value = "";
+      
+      setTimeout(function() {
+        currentIndex = currentIndex + 1;
+        if (currentIndex >= sentences.length) {
+          currentIndex = 0;
+        }
+        loadSentence();
+      }, 300);
+    }
+  }
+
+  userInputElement.addEventListener("compositionstart", function() {
+    isComposing = true;
+  });
+
+  userInputElement.addEventListener("compositionend", function() {
+    isComposing = false;
+    checkInput();
+  });
+
+  userInputElement.addEventListener("input", function() {
+    checkInput();
+  });
+
+  loadSentence();
+</script>
+
+</body>
+</html>

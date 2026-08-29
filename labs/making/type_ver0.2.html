@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイピング練習</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 14px;
+    }
+    .display-area {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      min-height: 30px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+    .result {
+      font-weight: bold;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>タイピング練習</h1>
+
+  <label for="sentenceInput">文章データ（1行1問）:</label>
+  <textarea id="sentenceInput" placeholder="文章を入力してください&#10;改行で区切られます"></textarea>
+
+  <button type="button" id="loadBtn">データを読み込む</button>
+
+  <hr>
+
+  <div class="display-area" id="targetDisplay"></div>
+
+  <input type="text" id="userInput" placeholder="ここに入力してEnterで確定" disabled>
+
+  <div class="result" id="resultMessage"></div>
+
+  <script>
+    var sentences = [];
+    var currentIndex = 0;
+
+    var textarea = document.getElementById('sentenceInput');
+    var loadBtn = document.getElementById('loadBtn');
+    var targetDisplay = document.getElementById('targetDisplay');
+    var userInput = document.getElementById('userInput');
+    var resultMessage = document.getElementById('resultMessage');
+
+    function loadSentence() {
+      var text = textarea ? textarea.value : '';
+
+      sentences = text
+        .split(/\r?\n/)
+        .map(function(line) {
+          return line.trim();
+        })
+        .filter(function(line) {
+          return line.length > 0;
+        });
+
+      currentIndex = 0;
+      displaySentence();
+    }
+
+    function displaySentence() {
+      if (sentences.length === 0) {
+        targetDisplay.textContent = 'データがありません。テキストエリアに文章を入力して読み込んでください。';
+        userInput.disabled = true;
+        return;
+      }
+
+      targetDisplay.textContent = sentences[currentIndex];
+      userInput.disabled = false;
+      userInput.value = '';
+      userInput.focus();
+    }
+
+    function checkAnswer() {
+      if (sentences.length === 0) {
+        return;
+      }
+
+      var currentTarget = sentences[currentIndex];
+      var inputValue = userInput.value.trim();
+
+      if (inputValue === currentTarget) {
+        resultMessage.textContent = '正解！';
+        resultMessage.style.color = 'green';
+
+        // 次の問題に進む（setTimeoutなしで即時切り替え）
+        currentIndex = currentIndex + 1;
+        if (currentIndex >= sentences.length) {
+          currentIndex = 0;
+        }
+        displaySentence();
+      } else {
+        resultMessage.textContent = '不正解です。再入力してください。';
+        resultMessage.style.color = 'red';
+      }
+    }
+
+    // イベントリスナー設定
+    loadBtn.addEventListener('click', function() {
+      loadSentence();
+      resultMessage.textContent = '';
+    });
+
+    userInput.addEventListener('keydown', function(event) {
+      // IME変換中のEnterは無視
+      if (event.isComposing || event.keyCode === 229) {
+        return;
+      }
+
+      // 確定時のEnterキー押下で判定を実行
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        checkAnswer();
+      }
+    });
+  </script>
+</body>
+</html>

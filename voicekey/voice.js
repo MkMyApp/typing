@@ -89,8 +89,8 @@ function updateButtonColors(str) {
   });
 }
 
-// URLパラメータ（?chars=...）を取得して処理を実行
+// URLパラメータ（?ch=...）を取得して処理を実行
 const urlParams = new URLSearchParams(window.location.search);
-const paramValue = urlParams.get('chars');
+const paramValue = urlParams.get('ch');
 
 updateButtonColors(paramValue);
