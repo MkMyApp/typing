@@ -79,16 +79,11 @@ function applyBoxConfig() {
     }
 
     if (mode === 't') {
-      const showLF = (typeof LF !== 'undefined') && Boolean(LF)
       container.style.flexDirection = 'column'
       container.style.gap = '10px'
       txtdataEl.style.display = 'block'
+      targetEl.style.display = 'block'
       editorEl.style.display = 'none'
-      if (showLF) {
-	      targetEl.style.display = 'block'
-  		} else {
-	      targetEl.style.display = 'none'
-  		}
     }
   }
 }
@@ -220,40 +215,28 @@ function init() {
   resetToStart()
 }
 
-// 直前の boxX, boxY を保持する変数
-let lastBoxX = null
-let lastBoxY = null
-
+// #txtdata のリサイズを監視して box_x / box_y 換算で表示 ＆ サイズを連動
 const resizeObserver = new ResizeObserver(() => {
-  // 1. フォントサイズと行高を取得
+  // フォントサイズと行高を取得
   const computed = window.getComputedStyle(txtdataEl)
   const fontSize = parseFloat(computed.fontSize) || 20
   const lineHeight = parseFloat(computed.lineHeight) || (fontSize * 1.5)
 
-  // 2. 実質コンテンツ幅・高さを取得
+  // パディング（上下左右各15px）を引いた実質コンテンツ幅・高さを取得
   const contentWidth = txtdataEl.clientWidth - 30
   const contentHeight = txtdataEl.clientHeight - 30
 
-  // 3. box_x / box_y を計算
+  // 1ch (半角1文字幅 ≒ fontSize * 0.6) と 1lh (1行高) で割り算
   const chWidth = fontSize * 0.6
   const boxX = Math.round(contentWidth / chWidth)
   const boxY = Math.round(contentHeight / lineHeight)
 
-  // 4. 前回と値が変わったときのみ CSS 変数とテキストを更新（ループ防止）
-  if (boxX !== lastBoxX || boxY !== lastBoxY) {
-    lastBoxX = boxX
-    lastBoxY = boxY
+  resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
 
-    resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
-
-    // ピクセル換算してCSS変数へ反映（または applyBoxConfig 相当の計算式）
-    const calculatedWidth = Math.round(boxX * chWidth + 30)
-    const calculatedHeight = Math.round(boxY * lineHeight + 30)
-
-    const rootStyle = document.documentElement.style
-    rootStyle.setProperty('--box-width', `${calculatedWidth}px`)
-    rootStyle.setProperty('--box-height', `${calculatedHeight}px`)
-  }
+  // ★ここに直接組み込みます
+  const rootStyle = document.documentElement.style
+  rootStyle.setProperty('--box-width', `${txtdataEl.clientWidth}px`)
+  rootStyle.setProperty('--box-height', `${txtdataEl.clientHeight}px`)
 })
 
 if (typeof mode !== 'undefined' && mode === 't') {

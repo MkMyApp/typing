@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>タイピング１</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "タイピング１";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな 確認";
+const IME = "ON";
+const RANDOM = "0";
+const WIDTH = "23ch";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+ひらがなでないと
+だめさ
+かんがえたことを
+はやくうちたいなら
+ろーまじでは
+はやくなれないよ
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+</body>
+</html>
