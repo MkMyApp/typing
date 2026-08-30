@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (button.id === 'Zen') {
                 editInput.value = editInput.value + " ";
             } else {
-                text = button.textContent.trim();
-                editInput.value = editInput.value + text;
+                text = button.value || button.textContent.trim();
+								editInput.value = editInput.value + text;
             }
             speakText(text);
         });
@@ -71,24 +71,28 @@ const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn
 
 function updateButtonColors(str) {
   targetButtons.forEach(btn => {
-    const char = btn.textContent.trim();
-    
-    // パラメータ自体がない(null)場合は全てのキーを表示する
-    if (str === null) {
+    // value属性が存在するかどうかをチェック
+    const hasValue = btn.hasAttribute('value');
+    const char = btn.value;
+
+    // 1. value属性がないボタンは常に表示
+    // 2. URLパラメータ(str)がない場合も表示
+    if (!hasValue || str === null) {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
     } 
-    // パラメータがある場合は、含まれている文字だけ黒にする
+    // 3. value属性があり、かつパラメータに含まれている文字のみ表示
     else if (char !== '' && str.includes(char)) {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
-    } else {
+    } 
+    // 4. それ以外のvalue属性を持つボタンは透明にする
+    else {
       btn.style.color = "transparent";
       btn.style.pointerEvents = "auto";
     }
   });
 }
-
 // URLパラメータ（?ch=...）を取得して処理を実行
 const urlParams = new URLSearchParams(window.location.search);
 const paramValue = urlParams.get('ch');

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="root.css">
+    <link rel="stylesheet" href="body.css">
+    <link rel="stylesheet" href="custom.css">
+    <style id="dynamic-style"></style>
+    <title>配色カスタマイズ</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="target" class="line"></div>
+    <textarea id="editor"
+      class="line" spellcheck="false">
+    </textarea>
+
+    <script>
+      const TITLE_MSG = "配色カスタマイズ";
+      const START_MSG = "Enter⏎";
+      const INPUT_MSG = "英数 かな 確認";
+      const RANDOM = 0; // 出題数 0:順番
+      const WIDTH = "25ch";
+      const IME = "ON"; // OFF
+    </script>
+
+    <!---5----10---15---20---25---30---35---40--->
+    <textarea id="txtdata" hidden>
+    あいうえお
+    かきくけこ
+    </textarea>
+    <!---5----10---15---20---25---30---35---40--->
+
+    <script src="typing.js"></script>
+
+    <!-- 設定操作用エリア -->
+    <div class="config-container">
+      <button id="cssset">Set</button>
+      <textarea id="cssdata" spellcheck="false">
+:root {
+  /* 背景画像ありの定義 url("filename")*/
+  --body-background-image: none;
+
+  /* --- カラー設定 --- */
+  --body-background-color: #ffffff;
+  --body-color: #000000;
+  
+  --title-color: #808080;
+  --score-color: #808080;
+
+  --score-correct-color: #8080f0;
+  --score-wrong-color: #f08080;
+
+  --char-default-color: #000000;
+  --char-correct-color: #8080f0;
+  --char-wrong-color: #f08080;
+
+  --target-back-color: #f0f0f0;
+  --editor-back-color: #f0f0ff;
+
+  --border-color: #c0c0c0;
+  --shadow-color: #d0d0d0;
+  
+  /* --- レイアウト設定 --- */
+  --line-width: 800px;
+  --line-font-size: 64px;
+  --line-height: 1.2;
+  --line-padding-x: 12px;
+
+  --line-border: 2px solid var(--border-color);
+  --line-shadow: 0 2px 5px var(--shadow-color);
+}
+      </textarea>
+    </div>
+
+<script>
+  const cssSetBtn = document.getElementById('cssset');
+  const cssDataEl = document.getElementById('cssdata');
+  const dynamicStyleEl = document.getElementById('dynamic-style');
+
+  cssSetBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // ページの再読み込み（リロード）を防止
+    dynamicStyleEl.textContent = cssDataEl.value;
+  });
+</script>
+  </body>
+</html>

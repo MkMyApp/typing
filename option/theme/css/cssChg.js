@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'mint.css',
     'ファンシー.css',
     'blueSea.css',
+    'アースカラー.css',
     't_type.css',
     'd_type.css',
     'p_type.css',

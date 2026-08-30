@@ -1,27 +1,35 @@
 :root {
+  /* 背景画像ありの定義 url("filename") 画像なしは none */
+  --body-background-image: none;
+
+  /* --- カラー設定 --- */
+  --body-background-color: #f2ebd9; /* 全体背景：落ち着いた生成りベージュ */
+  --body-color: #3b2c24;            /* メイン文字：ダークブラウン */
+  
+  --title-color: #5d3d21;           /* タイトル文字：濃いブラウン */
+  --score-color: #7d6e63;           /* スコア文字：ミディアムブラウン */
+
+  --score-correct-color: #4a7c59;   /* 正解時：落ち着いたセージグリーン */
+  --score-wrong-color: #b85b4f;     /* ミス時：シックなテラコッタレッド */
+
+  --char-default-color: #3b2c24;    /* 文字標準色：ダークブラウン */
+  --char-correct-color: #4a7c59;    /* 正解文字：落ち着いたセージグリーン */
+  --char-wrong-color: #b85b4f;      /* ミス文字：シックなテラコッタレッド */
+
+  --target-back-color: #e8ded0;     /* 出題枠背景：やや濃いめの生成り */
+  --editor-back-color: #faf6ee;     /* 入力エリア背景：明るいアイボリー */
+
+  --border-color: #cbb89e;           /* 枠線：くすみトーンのベージュ */
+  --shadow-color: #d8cbba;           /* 影色：なじむ温かみのある影 */
+  
+  /* --- レイアウト設定 --- */
   --line-width: 800px;
   --line-font-size: 64px;
   --line-height: 1.2;
-  --line-padding-x: 8px;
-  --line-border: 1px solid #d0d5dd;
-  --line-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --line-padding-x: 12px;
 
-  /* 配色：light.cssのトーン */
-  --body-background-color: #f7f9fa;
-  --body-color: #2d3748;
-  
-  --title-color: #4a5568;
-  --score-color: #718096;
-  
-  --score-correct-color: #2b6cb0;
-  --score-wrong-color: #c53030;
-
-  --char-default-color: #333333;
-  --char-correct-color: #2b6cb0;
-  --char-wrong-color: #c53030;
-  
-  --target-back-color: #ffffff;
-  --editor-back-color: #edf2f7;
+  --line-border: 2px solid var(--border-color);
+  --line-shadow: 0 2px 5px var(--shadow-color);
 }
 
 body {
@@ -30,6 +38,13 @@ body {
   margin: 50px;
   background-color: var(--body-background-color);
   color: var(--body-color);
+ 
+  /* 背景画像の設定 */
+  background-image: var(--body-background-image);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #title {
@@ -105,7 +120,7 @@ body {
   padding: 20px;
   margin: 50px auto;
   border: var(--line-border);
-  background-color: var(--target-back-color);
+  background-color: var(--body-background-color);
   color: var(--body-color);
   font-size: 1em;
   line-height: 1.5em;

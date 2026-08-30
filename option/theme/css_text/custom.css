@@ -1,0 +1,45 @@
+/* --- 設定変更エリアのスタイル --- */
+.config-container {
+  width: var(--line-width, 800px);
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 内部のボタンとテキストエリアを中央揃え */
+}
+
+#cssset {
+  display: block;
+  width: 120px;
+  height: 48px;
+  margin-bottom: 8px;
+  padding: 6px 16px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--body-color, #333);
+  background-color: var(--target-back-color, #f0f0f0);
+  border: var(--line-border, 1px solid #ccc);
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#cssset:hover {
+  opacity: 0.8;
+}
+
+#cssdata {
+  display: block;
+  width: 640px;
+  height: 220px;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 20px;
+  line-height: 1.4;
+  padding: 10px;
+  border: var(--line-border, 1px solid #ccc);
+  background-color: #fafafa;
+  color: #333;
+  border-radius: 4px;
+  resize: both;
+  outline: none;
+}
