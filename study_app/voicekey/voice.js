@@ -65,34 +65,37 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- ボタンの色設定に関する処理 ---
-
-// id属性を持たない「文字キー」のみを対象として抽出
-const targetButtons = Array.from(document.querySelectorAll('button')).filter(btn => !btn.id);
-
 function updateButtonColors(str) {
-  targetButtons.forEach(btn => {
-    // value属性が存在するかどうかをチェック
-    const hasValue = btn.hasAttribute('value');
-    const char = btn.value;
+  // id属性を持たない「文字キー」をその場で取得
+  const targetBtns = Array.from(document.querySelectorAll('button')).filter(btn => !btn.id);
 
-    // 1. value属性がないボタンは常に表示
-    // 2. URLパラメータ(str)がない場合も表示
-    if (!hasValue || str === null) {
+  targetBtns.forEach(btn => {
+    // value属性があればそれを使い、無ければ表示文字(textContent)を取得
+    const char = (btn.value || btn.textContent).trim();
+
+    // 1. ?ch パラメータが存在しない(null)場合は、すべての文字を黒にする
+    if (str === null) {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
     } 
-    // 3. value属性があり、かつパラメータに含まれている文字のみ表示
-    else if (char !== '' && str.includes(char)) {
+    // 2. 空白（スペース）のボタンは常に黒表示
+    else if (char === '' || char === ' ') {
+      btn.style.color = "#000";
+      btn.style.pointerEvents = "auto";
+    }
+    // 3. ?ch に含まれている文字と一致したら 黒(#000) にする
+    else if (str.includes(char)) {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
     } 
-    // 4. それ以外のvalue属性を持つボタンは透明にする
+    // 4. それ以外（一致しない文字）は 透明(transparent) にする
     else {
       btn.style.color = "transparent";
-      btn.style.pointerEvents = "auto";
+      btn.style.pointerEvents = "none";
     }
   });
 }
+
 // URLパラメータ（?ch=...）を取得して処理を実行
 const urlParams = new URLSearchParams(window.location.search);
 const paramValue = urlParams.get('ch');
