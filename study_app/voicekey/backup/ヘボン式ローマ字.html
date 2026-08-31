@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード配列</title>
+<style>
+.contena {
+  display: inline-block;
+  border:solid 1px #ddd;
+  padding:10px;
+
+	transform-origin: top left;
+  transform: scale(2);
+}
+
+.KB {
+  padding:10px;
+  border:none;
+  display: inline-block;
+  vertical-align: top;
+  transform-origin: top left;
+  transform: scale(1);
+}
+
+button {
+	width:32px;
+	height:32px;
+	font-size:12px;
+	padding:0px;
+	margin-bottom:8px;
+	margin-right:2px;
+}
+
+#editor {
+	width:295px;
+	height:32px;
+	font-size:20px;
+
+}
+
+#CLR {
+	width:32px;
+	font-size:14px;
+	font-family: monospace;
+　font-weight: bold;
+}
+
+#BS {
+	width:32px;
+	font-size:14px;
+	font-family: monospace;
+　font-weight: bold;
+}
+
+#speak {
+	width:32px;
+	font-size:12px;
+}
+</style>
+</head>
+<body>
+<div class="contena">
+<input id="editor" type="text">
+<button id="BS">BS</button>
+<button id="speak">🔊</button>
+<button id="CLR">AC</button>
+<br>
+<div class="KB">
+<button>&nbsp;</button>
+<button>あ</button>
+<button>い</button>
+<button>う</button>
+<button>え</button>
+<button>お</button>
+<br>
+<button>あ</button>
+<button value="あ">A</button>
+<button value="い">I</button>
+<button value="う">U</button>
+<button value="え">E</button>
+<button value="お">O</button>
+<br>
+<button>か</button>
+<button value="か">KA</button>
+<button value="き">KI</button>
+<button value="く">KU</button>
+<button value="け">KE</button>
+<button value="こ">KO</button>
+<br>
+<button>さ</button>
+<button value="さ">SA</button>
+<button value="し">SHI</button>
+<button value="す">SU</button>
+<button value="せ">SE</button>
+<button value="そ">SO</button>
+<br>
+<button>た</button>
+<button value="た">TA</button>
+<button value="ち">CHI</button>
+<button value="つ">TSU</button>
+<button value="て">TE</button>
+<button value="と">TO</button>
+<br>
+<button>な</button>
+<button value="な">NA</button>
+<button value="に">NI</button>
+<button value="ぬ">NU</button>
+<button value="ね">NE</button>
+<button value="の">NO</button>
+</div>
+<div class="KB">
+<button>&nbsp;</button>
+<button>あ</button>
+<button>い</button>
+<button>う</button>
+<button>え</button>
+<button>お</button>
+<br>
+<button>は</button>
+<button value="は">HA</button>
+<button value="ひ">HI</button>
+<button value="ふ">FU</button>
+<button value="へ">HE</button>
+<button value="ほ">HO</button>
+<br>
+<button>ま</button>
+<button value="ま">MA</button>
+<button value="み">MI</button>
+<button value="む">MU</button>
+<button value="め">ME</button>
+<button value="も">MO</button>
+<br>
+<button>や</button>
+<button value="や">YA</button>
+<button>&nbsp;</button>
+<button value="ゆ">YU</button>
+<button>&nbsp;</button>
+<button value="よ">YO</button>
+<br>
+<button>ら</button>
+<button value="ら">RA</button>
+<button value="り">RI</button>
+<button value="る">RU</button>
+<button value="れ">RE</button>
+<button value="ろ">RO</button>
+<br>
+<button>わ</button>
+<button value="わ">WA</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button value="を">WO</button>
+</div>
+</div>
+<script src="voice.js" defer></script>
+</body>
+</html>

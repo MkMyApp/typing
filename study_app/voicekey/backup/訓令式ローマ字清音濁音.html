@@ -14,34 +14,21 @@
 }
 
 .KB {
+  padding:10px;
+  border:none;
   display: inline-block;
-  padding:10px;
-  border:none;
-  vertical-align: top;
-	transform-origin: top left;
-  transform: scale(1);
-}
-
-.NO {
-  display: none;
-  padding:10px;
-  border:none;
   vertical-align: top;
 	transform-origin: top left;
   transform: scale(1);
 }
 
 button {
-	display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  box-sizing: border-box;
-	width:36px;
-	height:36px;
+	width:32px;
+	height:32px;
 	font-size:14px;
 	padding:0px;
-	margin:0px 2px 8px 0px;
+	margin-bottom:8px;
+	margin-right:2px;
 }
 
 #editor {
@@ -53,14 +40,14 @@ button {
 
 #CLR {
 	width:32px;
-	font-size:12px;
+	font-size:14px;
 	font-family: monospace;
  font-weight: bold;
 }
 
 #BS {
 	width:32px;
-	font-size:12px;
+	font-size:14px;
 	font-family: monospace;
  font-weight: bold;
 }
@@ -68,17 +55,15 @@ button {
 #speak {
 	width:32px;
 	font-size:12px;
-	font-family: monospace;
-  font-weight: bold;
 }
 </style>
 </head>
 <body>
 <div class="contena">
 <input id="editor" type="text"></input>
-<button id="BS">⬅️</button>
+<button id="BS">BS</button>
 <button id="speak">🔊</button>
-<button id="CLR">🔄</button>
+<button id="CLR">AC</button>
 <br>
 <div class="KB">
 <button>&nbsp;</button>
@@ -104,15 +89,15 @@ button {
 <br>
 <button>さ</button>
 <button value="さ">SA</button>
-<button value="し">SHI</button>
+<button value="し">SI</button>
 <button value="す">SU</button>
 <button value="せ">SE</button>
 <button value="そ">SO</button>
 <br>
 <button>た</button>
 <button value="た">TA</button>
-<button value="ち">CHI</button>
-<button value="つ">TSU</button>
+<button value="ち">TI</button>
+<button value="つ">TU</button>
 <button value="て">TE</button>
 <button value="と">TO</button>
 <br>
@@ -134,7 +119,7 @@ button {
 <button>は</button>
 <button value="は">HA</button>
 <button value="ひ">HI</button>
-<button value="ふ">FU</button>
+<button value="ふ">HU</button>
 <button value="へ">HE</button>
 <button value="ほ">HO</button>
 <br>
@@ -166,7 +151,7 @@ button {
 <button>&nbsp;</button>
 <button value="を">WO</button>
 </div>
-<div class="NO">
+<div class="KB">
 <button>&nbsp;</button>
 <button>あ</button>
 <button>い</button>
@@ -183,15 +168,15 @@ button {
 <br>
 <button>ざ</button>
 <button value="ざ">ZA</button>
-<button value="じ">JI</button>
+<button value="じ">ZI</button>
 <button value="ず">ZU</button>
 <button value="ぜ">ZE</button>
 <button value="ぞ">ZO</button>
 <br>
 <button>だ</button>
 <button value="だ">DA</button>
-<button value="ぢ">JI</button>
-<button value="づ">ZU</button>
+<button value="ぢ">DI</button>
+<button value="づ">DU</button>
 <button value="で">DE</button>
 <button value="ど">DO</button>
 <br>
@@ -209,113 +194,7 @@ button {
 <button value="ぺ">PE</button>
 <button value="ぽ">PO</button>
 </div>
-<div class="NO">
-<button>&nbsp;</button>
-<button>や</button>
-<button>ゆ</button>
-<button>よ</button>
-<br>
-<button>き</button>
-<button value="きゃ">KYA</button>
-<button value="きゅ">KYU</button>
-<button value="きょ">KYO</button>
-<br>
-<button>し</button>
-<button value="しゃ">SHA</button>
-<button value="しゅ">SHU</button>
-<button value="しょ">SHO</button>
-<br>
-<button>ち</button>
-<button value="ちゃ">CHA</button>
-<button value="ちゅ">CHU</button>
-<button value="ちょ">CHO</button>
-<br>
-<button>に</button>
-<button value="にゃ">NYA</button>
-<button value="にゅ">NYU</button>
-<button value="にょ">NYO</button>
-<br>
-<button>ひ</button>
-<button value="ひゃ">HYA</button>
-<button value="ひゅ">HYU</button>
-<button value="ひょ">HYO</button>
-<br>
-<button>み</button>
-<button value="みゃ">MYA</button>
-<button value="みゅ">MYU</button>
-<button value="みょ">MYO</button>
-<br>
-<button>り</button>
-<button value="りゃ">RYA</button>
-<button value="りゅ">RYU</button>
-<button value="りょ">RYO</button>
-<br>
 </div>
-<div class="NO">
-<button>&nbsp;</button>
-<button>や</button>
-<button>ゆ</button>
-<button>よ</button>
-<br>
-<button>ぎ</button>
-<button value="ぎゃ">GYA</button>
-<button value="ぎゅ">GYU</button>
-<button value="ぎょ">GYO</button>
-<br>
-<button>じ</button>
-<button value="じゃ">JA</button>
-<button value="じゅ">JU</button>
-<button value="じょ">JO</button>
-<br>
-<button>ぢ</button>
-<button value="ぢゃ">JA</button>
-<button value="ぢゅ">JU</button>
-<button value="ぢょ">JO</button>
-<br>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<br>
-<button>び</button>
-<button value="びゃ">BYA</button>
-<button value="びゅ">BYU</button>
-<button value="びょ">BYO</button>
-<br>
-<button>ぴ</button>
-<button value="ぴゃ">PYA</button>
-<button value="ぴゅ">PYU</button>
-<button value="ぴょ">PYO</button>
-<br>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<button>&nbsp;</button>
-<br>
-</div>
-</div>
-<script>
-	document.querySelectorAll('.contena button').forEach(button => {
-  // 1. ボタンのテキスト表記を小文字に置換
-  /*
-  button.textContent = button.textContent.toLowerCase();
-  // (value属性が存在する場合はそちらも小文字に統一)
-  if (button.value) {
-    button.value = button.value.toLowerCase();
-  }
-  */
-  // 2. 既存の文字数によるフォントサイズ調整処理
-  const text = button.textContent.trim();
-  if (text.length === 2) {
-    button.style.fontSize = '12px';
-  }
-  if (text.length >= 3) {
-    button.style.fontSize = '10px';
-    button.style.marginBottom = '0px';
-    button.style.marginTop = '0px';
-  }
-});
-</script>
 <script src="voice.js" defer></script>
 </body>
 </html>
