@@ -76,14 +76,23 @@ function updateButtonColors(str) {
     // 1. ?ch パラメータが存在しない(null)場合は、すべての文字を黒にする
     if (str === null) {
       btn.style.color = "#000";
-      btn.style.pointerEvents = "auto";
+      if (btn.classList.contains('Label')) {
+	      btn.style.pointerEvents = "none";
+			} else {
+	      btn.style.pointerEvents = "auto";
+	    }
     } 
     // 2. 空白（スペース）のボタンは常に黒表示
     else if (char === '' || char === ' ') {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
     }
-    // 3. ?ch に含まれている文字と一致したら 黒(#000) にする
+    // 3. 常に黒表示したい「特別なクラス」がある場合のみ指定する
+    else if (btn.classList.contains('Label')) {
+      btn.style.color = "#000";
+      btn.style.pointerEvents = "none";
+    }
+    // 4. ?ch に含まれている文字と一致したら 黒(#000) にする
     else if (str.includes(char)) {
       btn.style.color = "#000";
       btn.style.pointerEvents = "auto";
