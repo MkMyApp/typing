@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>かなカナ</title>
+<style>
+.contena {
+  display: inline-block;
+  border:solid 1px #ddd;
+  padding:10px;
+	transform-origin: top left;
+  transform: scale(2);
+}
+
+.KB {
+  padding:10px;
+  border:none;
+  display: block;
+  vertical-align: top;
+	transform-origin: top left;
+  transform: scale(1);
+}
+
+/*
+	block inline-block none
+*/
+#h1 {display: none;}
+#h2 {display: none;}
+#k1 {display: none;}
+#k2 {display: none;}
+#hv {display: inline-block;}
+#kv {display: none;}
+#i1 {display: none;}
+#i2 {display: none;}
+
+button {
+	width:32px;
+	height:32px;
+	font-size:20px;
+	margin-bottom:4px;
+	margin-right:2px;
+}
+
+#editor {
+	width:250px;
+	height:32px;
+	font-size:20px;
+	margin-right:10px;
+
+}
+
+#CLR {
+	width:32px;
+	font-size:14px;
+	font-family: monospace;
+　font-weight: bold;
+}
+
+#BS {
+	width:32px;
+	font-size:14px;
+	font-family: monospace;
+　font-weight: bold;
+}
+
+#speak {
+	width:32px;
+	font-size:12px;
+}
+
+.Tab {width:48px;}
+.LCtrl {width:48px;}
+.Caps {width:64px;}
+.Enter {width:56px;}
+.Ent {width:40px;}
+.LShift {width:80px;}
+.RShift {width:64px;}
+.Spc {width: 128px;}
+.Win {width: 42px;}
+.LAlt {width: 42px;}
+.RAlt {width: 42px;}
+.RCtrl {width: 48px;}
+
+</style>
+</head>
+<body>
+<div class="contena">
+<input id="editor" type="text">
+<button id="BS">BS</button>
+<button id="speak">🔊</button>
+<button id="CLR">AC</button>
+<br>
+
+<!-- ひらがな横 -->
+<div class="KB" id="h1">
+<button>あ</button>
+<button>い</button>
+<button>う</button>
+<button>え</button>
+<button>お</button>
+<br>
+<button>か</button>
+<button>き</button>
+<button>く</button>
+<button>け</button>
+<button>こ</button>
+<br>
+<button>さ</button>
+<button>し</button>
+<button>す</button>
+<button>せ</button>
+<button>そ</button>
+<br>
+<button>た</button>
+<button>ち</button>
+<button>つ</button>
+<button>て</button>
+<button>と</button>
+<br>
+<button>な</button>
+<button>に</button>
+<button>ぬ</button>
+<button>ね</button>
+<button>の</button>
+</div>
+<div class="KB"id="h2">
+<button>は</button>
+<button>ひ</button>
+<button>ふ</button>
+<button>へ</button>
+<button>ほ</button>
+<br>
+<button>ま</button>
+<button>み</button>
+<button>む</button>
+<button>め</button>
+<button>も</button>
+<br>
+<button>や</button>
+<button>　</button>
+<button>ゆ</button>
+<button>　</button>
+<button>よ</button>
+<br>
+<button>ら</button>
+<button>り</button>
+<button>る</button>
+<button>れ</button>
+<button>ろ</button>
+<br>
+<button>わ</button>
+<button>　</button>
+<button>　</button>
+<button>　</button>
+<button>を</button>
+</div>
+
+<!-- カタカナ横 -->
+<div class="KB" id="k1">
+<button>ア</button>
+<button>イ</button>
+<button>ウ</button>
+<button>エ</button>
+<button>オ</button>
+<br>
+<button>カ</button>
+<button>キ</button>
+<button>ク</button>
+<button>ケ</button>
+<button>コ</button>
+<br>
+<button>サ</button>
+<button>シ</button>
+<button>ス</button>
+<button>セ</button>
+<button>ソ</button>
+<br>
+<button>タ</button>
+<button>チ</button>
+<button>ツ</button>
+<button>テ</button>
+<button>ト</button>
+<br>
+<button>ナ</button>
+<button>ニ</button>
+<button>ヌ</button>
+<button>ネ</button>
+<button>ノ</button>
+</div>
+<div class="KB" id="k2">
+<button>ハ</button>
+<button>ヒ</button>
+<button>フ</button>
+<button>ヘ</button>
+<button>ホ</button>
+<br>
+<button>マ</button>
+<button>ミ</button>
+<button>ム</button>
+<button>メ</button>
+<button>モ</button>
+<br>
+<button>ヤ</button>
+<button>　</button>
+<button>ユ</button>
+<button>　</button>
+<button>ヨ</button>
+<br>
+<button>ラ</button>
+<button>リ</button>
+<button>ル</button>
+<button>レ</button>
+<button>ロ</button>
+<br>
+<button>ワ</button>
+<button>　</button>
+<button>　</button>
+<button>　</button>
+<button>ヲ</button>
+</div>
+
+<!-- ひらがな縦 -->
+<div class="KB" id="hv">
+<button>わ</button>
+<button>ら</button>
+<button>や</button>
+<button>ま</button>
+<button>は</button>
+<button>な</button>
+<button>た</button>
+<button>さ</button>
+<button>か</button>
+<button>あ</button>
+<br>
+<button>　</button>
+<button>り</button>
+<button>　</button>
+<button>み</button>
+<button>ひ</button>
+<button>に</button>
+<button>ち</button>
+<button>し</button>
+<button>き</button>
+<button>い</button>
+<br>
+<button>ん</button>
+<button>る</button>
+<button>ゆ</button>
+<button>む</button>
+<button>ふ</button>
+<button>ぬ</button>
+<button>つ</button>
+<button>す</button>
+<button>く</button>
+<button>う</button>
+<br>
+<button>　</button>
+<button>れ</button>
+<button>　</button>
+<button>め</button>
+<button>へ</button>
+<button>ね</button>
+<button>て</button>
+<button>せ</button>
+<button>け</button>
+<button>え</button>
+<br>
+<button>を</button>
+<button>ろ</button>
+<button>よ</button>
+<button>も</button>
+<button>ほ</button>
+<button>の</button>
+<button>と</button>
+<button>そ</button>
+<button>こ</button>
+<button>お</button>
+</div>
+
+<!-- カタカナ縦 -->
+<div class="KB" id="kv">
+<button>ワ</button>
+<button>ラ</button>
+<button>ヤ</button>
+<button>マ</button>
+<button>ハ</button>
+<button>ナ</button>
+<button>タ</button>
+<button>サ</button>
+<button>カ</button>
+<button>ア</button>
+<br>
+<button>　</button>
+<button>リ</button>
+<button>　</button>
+<button>ミ</button>
+<button>ヒ</button>
+<button>ニ</button>
+<button>チ</button>
+<button>シ</button>
+<button>キ</button>
+<button>イ</button>
+<br>
+<button>ン</button>
+<button>ル</button>
+<button>ユ</button>
+<button>ム</button>
+<button>フ</button>
+<button>ヌ</button>
+<button>ツ</button>
+<button>ス</button>
+<button>ク</button>
+<button>ウ</button>
+<br>
+<button>　</button>
+<button>レ</button>
+<button>　</button>
+<button>メ</button>
+<button>ヘ</button>
+<button>ネ</button>
+<button>テ</button>
+<button>セ</button>
+<button>ケ</button>
+<button>エ</button>
+<br>
+<button>ヲ</button>
+<button>ロ</button>
+<button>ヨ</button>
+<button>モ</button>
+<button>ホ</button>
+<button>ノ</button>
+<button>ト</button>
+<button>ソ</button>
+<button>コ</button>
+<button>オ</button>
+</div>
+
+<!-- いろは -->
+<div class="KB" id="i1">
+<button>い</button>
+<button>ろ</button>
+<button>は</button>
+<button>に</button>
+<button>ほ</button>
+<button>へ</button>
+<button>と</button>
+<br>
+<button>ち</button>
+<button>り</button>
+<button>ぬ</button>
+<button>る</button>
+<button>を</button>
+<br>
+<button>わ</button>
+<button>か</button>
+<button>よ</button>
+<button>た</button>
+<button>れ</button>
+<button>そ</button>
+<br>
+<button>つ</button>
+<button>ね</button>
+<button>な</button>
+<button>ら</button>
+<button>む</button>
+</div>
+<div class="KB" id="i2">
+<button>う</button>
+<button>ゐ</button>
+<button>の</button>
+<button>お</button>
+<button>く</button>
+<button>や</button>
+<button>ま</button>
+<br>
+<button>け</button>
+<button>ふ</button>
+<button>こ</button>
+<button>え</button>
+<button>て</button>
+<br>
+<button>あ</button>
+<button>さ</button>
+<button>き</button>
+<button>ゆ</button>
+<button>め</button>
+<button>み</button>
+<button>し</button>
+<br>
+<button>ゑ</button>
+<button>ひ</button>
+<button>も</button>
+<button>せ</button>
+<button>す</button>
+</div>
+
+</div>
+<script src="voice.js" defer></script>
+</body>
+</html>

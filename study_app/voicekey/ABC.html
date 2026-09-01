@@ -8,29 +8,47 @@
   display: inline-block;
   border:solid 1px #ddd;
   padding:10px;
+
 	transform-origin: top left;
   transform: scale(2);
 }
 
 .KB {
+  display: inline-block;
   padding:10px;
   border:none;
-  display: inline-block;
+  vertical-align: top;
+	transform-origin: top left;
+  transform: scale(1);
+}
+
+.NO {
+  display: none;
+  padding:10px;
+  border:none;
   vertical-align: top;
 	transform-origin: top left;
   transform: scale(1);
 }
 
 button {
-	width:48px;
+	display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-sizing: border-box;
+	width:32px;
 	height:32px;
-	font-size:20px;
+	font-size:14px;
+	padding:0px;
+	margin-bottom:0px;
 	margin-bottom:8px;
 	margin-right:2px;
+	margin-left:2px;
 }
 
 #editor {
-	width:255px;
+	width:295px;
 	height:32px;
 	font-size:20px;
 
@@ -38,21 +56,23 @@ button {
 
 #CLR {
 	width:32px;
-	font-size:14px;
+	font-size:12px;
 	font-family: monospace;
-　font-weight: bold;
+ font-weight: bold;
 }
 
 #BS {
 	width:32px;
-	font-size:14px;
+	font-size:12px;
 	font-family: monospace;
-　font-weight: bold;
+ font-weight: bold;
 }
 
 #speak {
 	width:32px;
 	font-size:12px;
+	font-family: monospace;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -63,7 +83,7 @@ button {
 <button id="speak">🔊</button>
 <button id="CLR">AC</button>
 <br>
-<div id="KB">
+<div class="KB"><!-- 大文字 -->
 <button>A</button>
 <button>B</button>
 <button>C</button>
@@ -93,6 +113,39 @@ button {
 <button>X</button>
 <button>Y</button>
 <button>Z</button>
+<br>
+</div>
+<div class="NO"><!-- 小文字 -->
+<button>a</button>
+<button>b</button>
+<button>c</button>
+<button>d</button>
+<button>e</button>
+<button>f</button>
+<button>g</button>
+<br>
+<button>h</button>
+<button>i</button>
+<button>j</button>
+<button>k</button>
+<button>l</button>
+<button>m</button>
+<button>n</button>
+<br>
+<button>o</button>
+<button>p</button>
+<button>q</button>
+<button>r</button>
+<button>s</button>
+<button>t</button>
+<button>u</button>
+<br>
+<button>v</button>
+<button>w</button>
+<button>x</button>
+<button>y</button>
+<button>z</button>
+<br>
 </div>
 </div>
 <script src="voice.js" defer></script>
