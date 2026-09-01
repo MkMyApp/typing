@@ -22,14 +22,12 @@
   transform: scale(1);
 }
 
-.NO {
-  display: none;
-  padding:10px;
-  border:none;
-  vertical-align: top;
-	transform-origin: top left;
-  transform: scale(1);
-}
+/*
+	block inline-block none
+*/
+#big   {display: none;}
+#small {display: block;}
+
 
 button {
 	display: inline-flex;
@@ -83,7 +81,8 @@ button {
 <button id="speak">🔊</button>
 <button id="CLR">AC</button>
 <br>
-<div class="KB"><!-- 大文字 -->
+<!-- 大文字 -->
+<div class="KB" id="big">
 <button>A</button>
 <button>B</button>
 <button>C</button>
@@ -115,7 +114,8 @@ button {
 <button>Z</button>
 <br>
 </div>
-<div class="NO"><!-- 小文字 -->
+<!-- 小文字 -->
+<div class="KB" id="small">
 <button>a</button>
 <button>b</button>
 <button>c</button>

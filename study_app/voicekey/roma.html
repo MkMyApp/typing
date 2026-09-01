@@ -22,14 +22,31 @@
   transform: scale(1);
 }
 
-.NO {
-  display: none;
-  padding:10px;
-  border:none;
-  vertical-align: top;
-	transform-origin: top left;
-  transform: scale(1);
-}
+
+/*
+	block inline-block none
+*/
+#bks1 {display:none;}
+#bks2 {display:none;}
+#bkd  {display:none;}
+#bky1 {display:none;}
+#bky2 {display:none;}
+#bhs1 {display:none;}
+#bhs2 {display:none;}
+#bhd  {display:none;}
+#bhy1 {display:none;}
+#bhy2 {display:none;}
+
+#sks1 {display:none;}
+#sks2 {display:none;}
+#skd  {display:none;}
+#sky1 {display:none;}
+#sky2 {display:none;}
+#shs1 {display:inline-block;}
+#shs2 {display:inline-block;}
+#shd  {display:none;}
+#shy1 {display:none;}
+#shy2 {display:none;}
 
 button {
 	display: inline-flex;
@@ -78,13 +95,14 @@ button {
 </head>
 <body>
 <div class="contena">
-<input id="editor" type="text"></input>
+<input id="editor" type="text">
 <button id="BS">⬅️</button>
 <button id="speak">🔊</button>
 <button id="CLR">🔄</button>
 <br>
 <!-- 訓令式　-->
-<div class="NO"><!-- 清音１ -->
+<!-- 清音１ -->
+<div class="KB" id="bks1">
 <button class="Label">&nbsp;</button>
 <button class="Label">あ</button>
 <button class="Label">い</button>
@@ -127,7 +145,8 @@ button {
 <button value="ね">NE</button>
 <button value="の">NO</button>
 </div>
-<div class="NO"><!-- 清音２ -->
+<!-- 清音２ -->
+<div class="KB" id="bks2">
 <button class="Label">&nbsp;</button>
 <button class="Label">あ</button>
 <button class="Label">い</button>
@@ -170,7 +189,8 @@ button {
 <button>&nbsp;</button>
 <button value="を">WO</button>
 </div>
-<div class="NO"><!-- 濁音 -->
+<!-- 濁音 -->
+<div class="KB" id="bkd">
 <button class="Label">&nbsp;</button>
 <button class="Label">あ</button>
 <button class="Label">い</button>
@@ -213,7 +233,8 @@ button {
 <button value="ぺ">PE</button>
 <button value="ぽ">PO</button>
 </div>
-<div class="NO"><!-- 拗音 -->
+<!-- 拗音 -->
+<div class="KB" id="bky1">
 <button class="Label">&nbsp;</button>
 <button class="Label">や</button>
 <button class="Label">ゆ</button>
@@ -255,7 +276,7 @@ button {
 <button value="りょ">RYO</button>
 <br>
 </div>
-<div class="NO">
+<div class="KB" id="bky2">
 <button class="Label">&nbsp;</button>
 <button class="Label">や</button>
 <button class="Label">ゆ</button>
@@ -298,7 +319,8 @@ button {
 <br>
 </div>
 <!-- ヘボン式　-->
-<div class="KB"><!-- 清音１ -->
+<!-- 清音１ -->
+<div class="KB" id="bhs1">
 <button class="Label">&nbsp;</button>
 <button class="Label">あ</button>
 <button class="Label">い</button>
@@ -341,7 +363,9 @@ button {
 <button value="ね">NE</button>
 <button value="の">NO</button>
 </div>
-<div class="KB"><!-- 清音２ -->
+
+<!-- 清音２ -->
+<div class="KB" id="bhs2">
 <button class="Label">&nbsp;</button>
 <button class="Label">あ</button>
 <button class="Label">い</button>
@@ -384,13 +408,15 @@ button {
 <button>&nbsp;</button>
 <button value="を">WO</button>
 </div>
-<div class="NO"><!-- 濁音 -->
-<button>&nbsp;</button>
-<button>あ</button>
-<button>い</button>
-<button>う</button>
-<button>え</button>
-<button>お</button>
+
+<!-- 濁音 -->
+<div class="KB" id="bhd">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
 <br>
 <button class="Label">が</button>
 <button value="が">GA</button>
@@ -427,7 +453,8 @@ button {
 <button value="ぺ">PE</button>
 <button value="ぽ">PO</button>
 </div>
-<div class="NO"><!-- 拗音 -->
+<!-- 拗音 -->
+<div class="KB" id="bhy1">
 <button class="Label">&nbsp;</button>
 <button class="Label">や</button>
 <button class="Label">ゆ</button>
@@ -469,7 +496,7 @@ button {
 <button value="りょ">RYO</button>
 <br>
 </div>
-<div class="NO">
+<div class="KB" id="bhy2">
 <button class="Label">&nbsp;</button>
 <button class="Label">や</button>
 <button class="Label">ゆ</button>
@@ -510,6 +537,445 @@ button {
 <button>&nbsp;</button>
 <button>&nbsp;</button>
 <br>
+</div>
+<!-- 訓令式 -->
+<!-- 清音１ -->
+<div class="KB" id="sks1">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">あ</button>
+<button value="あ">a</button>
+<button value="い">i</button>
+<button value="う">u</button>
+<button value="え">e</button>
+<button value="お">o</button>
+<br>
+<button class="Label">か</button>
+<button value="か">ka</button>
+<button value="き">ki</button>
+<button value="く">ku</button>
+<button value="け">ke</button>
+<button value="こ">ko</button>
+<br>
+<button class="Label">さ</button>
+<button value="さ">sa</button>
+<button value="し">si</button>
+<button value="す">su</button>
+<button value="せ">se</button>
+<button value="そ">so</button>
+<br>
+<button class="Label">た</button>
+<button value="た">ta</button>
+<button value="ち">ti</button>
+<button value="つ">tu</button>
+<button value="て">te</button>
+<button value="と">to</button>
+<br>
+<button class="Label">な</button>
+<button value="な">na</button>
+<button value="に">ni</button>
+<button value="ぬ">nu</button>
+<button value="ね">ne</button>
+<button value="の">no</button>
+</div>
+<!-- 清音２ -->
+<div class="KB" id="sks2">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">は</button>
+<button value="は">ha</button>
+<button value="ひ">hi</button>
+<button value="ふ">hu</button>
+<button value="へ">he</button>
+<button value="ほ">ho</button>
+<br>
+<button class="Label">ま</button>
+<button value="ま">ma</button>
+<button value="み">mi</button>
+<button value="む">mu</button>
+<button value="め">me</button>
+<button value="も">mo</button>
+<br>
+<button class="Label">や</button>
+<button value="や">ya</button>
+<button>&nbsp;</button>
+<button value="ゆ">yu</button>
+<button>&nbsp;</button>
+<button value="よ">yo</button>
+<br>
+<button class="Label">ら</button>
+<button value="ら">ra</button>
+<button value="り">ri</button>
+<button value="る">ru</button>
+<button value="れ">re</button>
+<button value="ろ">ro</button>
+<br>
+<button class="Label">わ</button>
+<button value="わ">wa</button>
+<button>&nbsp;</button>
+<button value="ん">n</button>
+<button>&nbsp;</button>
+<button value="を">wo</button>
+</div>
+<!-- 濁音 -->
+<div class="KB" id="skd">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">が</button>
+<button value="が">ga</button>
+<button value="ぎ">gi</button>
+<button value="ぐ">gu</button>
+<button value="げ">ge</button>
+<button value="ご">go</button>
+<br>
+<button class="Label">ざ</button>
+<button value="ざ">za</button>
+<button value="じ">zi</button>
+<button value="ず">zu</button>
+<button value="ぜ">ze</button>
+<button value="ぞ">zo</button>
+<br>
+<button class="Label">だ</button>
+<button value="だ">da</button>
+<button value="ぢ">di</button>
+<button value="づ">du</button>
+<button value="で">de</button>
+<button value="ど">do</button>
+<br>
+<button class="Label">ば</button>
+<button value="ば">ba</button>
+<button value="び">bi</button>
+<button value="ぶ">bu</button>
+<button value="べ">be</button>
+<button value="ぼ">bo</button>
+<br>
+<button class="Label">ぱ</button>
+<button value="ぱ">pa</button>
+<button value="ぴ">pi</button>
+<button value="ぷ">pu</button>
+<button value="ぺ">pe</button>
+<button value="ぽ">po</button>
+</div>
+<!-- 拗音 -->
+<div class="KB" id="sky1">
+<button class="Label">&nbsp;</button>
+<button class="Label">や</button>
+<button class="Label">ゆ</button>
+<button class="Label">よ</button>
+<br>
+<button class="Label">き</button>
+<button value="きゃ">kya</button>
+<button value="きゅ">kyu</button>
+<button value="きょ">kyo</button>
+<br>
+<button class="Label">し</button>
+<button value="しゃ">sya</button>
+<button value="しゅ">syu</button>
+<button value="しょ">syo</button>
+<br>
+<button class="Label">ち</button>
+<button value="ちゃ">tya</button>
+<button value="ちゅ">tyu</button>
+<button value="ちょ">tyo</button>
+<br>
+<button class="Label">に</button>
+<button value="にゃ">nya</button>
+<button value="にゅ">nyu</button>
+<button value="にょ">nyo</button>
+<br>
+<button class="Label">ひ</button>
+<button value="ひゃ">hya</button>
+<button value="ひゅ">hyu</button>
+<button value="ひょ">hyo</button>
+<br>
+<button class="Label">み</button>
+<button value="みゃ">mya</button>
+<button value="みゅ">myu</button>
+<button value="みょ">myo</button>
+<br>
+<button class="Label">り</button>
+<button value="りゃ">rya</button>
+<button value="りゅ">ryu</button>
+<button value="りょ">ryo</button>
+<br>
+</div>
+<div class="KB" id="sky2">
+<button class="Label">&nbsp;</button>
+<button class="Label">や</button>
+<button class="Label">ゆ</button>
+<button class="Label">よ</button>
+<br>
+<button class="Label">ぎ</button>
+<button value="ぎゃ">gya</button>
+<button value="ぎゅ">gyu</button>
+<button value="ぎょ">gyo</button>
+<br>
+<button class="Label">じ</button>
+<button value="じゃ">zya</button>
+<button value="じゅ">zyu</button>
+<button value="じょ">zyo</button>
+<br>
+<button class="Label">ぢ</button>
+<button value="ぢゃ">zya</button>
+<button value="ぢゅ">zyu</button>
+<button value="ぢょ">zyo</button>
+<br>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<br>
+<button class="Label">び</button>
+<button value="びゃ">bya</button>
+<button value="びゅ">byu</button>
+<button value="びょ">byo</button>
+<br>
+<button class="Label">ぴ</button>
+<button value="ぴゃ">pya</button>
+<button value="ぴゅ">pyu</button>
+<button value="ぴょ">pyo</button>
+<br>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<br>
+</div>
+<!-- ヘボン式 -->
+<!-- 清音１ -->
+<div class="KB" id="shs1">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">あ</button>
+<button value="あ">a</button>
+<button value="い">i</button>
+<button value="う">u</button>
+<button value="え">e</button>
+<button value="お">o</button>
+<br>
+<button class="Label">か</button>
+<button value="か">ka</button>
+<button value="き">ki</button>
+<button value="く">ku</button>
+<button value="け">ke</button>
+<button value="こ">ko</button>
+<br>
+<button class="Label">さ</button>
+<button value="さ">sa</button>
+<button value="し">shi</button>
+<button value="す">su</button>
+<button value="せ">se</button>
+<button value="そ">so</button>
+<br>
+<button class="Label">た</button>
+<button value="た">ta</button>
+<button value="ち">chi</button>
+<button value="つ">tsu</button>
+<button value="て">te</button>
+<button value="と">to</button>
+<br>
+<button class="Label">な</button>
+<button value="な">na</button>
+<button value="に">ni</button>
+<button value="ぬ">nu</button>
+<button value="ね">ne</button>
+<button value="の">no</button>
+</div>
+
+<!-- 清音２ -->
+<div class="KB" id="shs2">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">は</button>
+<button value="は">ha</button>
+<button value="ひ">hi</button>
+<button value="ふ">fu</button>
+<button value="へ">he</button>
+<button value="ほ">ho</button>
+<br>
+<button class="Label">ま</button>
+<button value="ま">ma</button>
+<button value="み">mi</button>
+<button value="む">mu</button>
+<button value="め">me</button>
+<button value="も">mo</button>
+<br>
+<button class="Label">や</button>
+<button value="や">ya</button>
+<button>&nbsp;</button>
+<button value="ゆ">yu</button>
+<button>&nbsp;</button>
+<button value="よ">yo</button>
+<br>
+<button class="Label">ら</button>
+<button value="ら">ra</button>
+<button value="り">ri</button>
+<button value="る">ru</button>
+<button value="れ">re</button>
+<button value="ろ">ro</button>
+<br>
+<button class="Label">わ</button>
+<button value="わ">wa</button>
+<button>&nbsp;</button>
+<button value="ん">n</button>
+<button>&nbsp;</button>
+<button value="を">wo</button>
+</div>
+
+<!-- 濁音 -->
+<div class="KB" id="shd">
+<button class="Label">&nbsp;</button>
+<button class="Label">あ</button>
+<button class="Label">い</button>
+<button class="Label">う</button>
+<button class="Label">え</button>
+<button class="Label">お</button>
+<br>
+<button class="Label">が</button>
+<button value="が">ga</button>
+<button value="ぎ">gi</button>
+<button value="ぐ">gu</button>
+<button value="げ">ge</button>
+<button value="ご">go</button>
+<br>
+<button class="Label">ざ</button>
+<button value="ざ">za</button>
+<button value="じ">ji</button>
+<button value="ず">zu</button>
+<button value="ぜ">ze</button>
+<button value="ぞ">zo</button>
+<br>
+<button class="Label">だ</button>
+<button value="だ">da</button>
+<button value="ぢ">ji</button>
+<button value="づ">zu</button>
+<button value="で">de</button>
+<button value="ど">do</button>
+<br>
+<button class="Label">ば</button>
+<button value="ば">ba</button>
+<button value="び">bi</button>
+<button value="ぶ">bu</button>
+<button value="べ">be</button>
+<button value="ぼ">bo</button>
+<br>
+<button class="Label">ぱ</button>
+<button value="ぱ">pa</button>
+<button value="ぴ">pi</button>
+<button value="ぷ">pu</button>
+<button value="ぺ">pe</button>
+<button value="ぽ">po</button>
+</div>
+<!-- 拗音 -->
+<div class="KB" id="shy1">
+<button class="Label">&nbsp;</button>
+<button class="Label">や</button>
+<button class="Label">ゆ</button>
+<button class="Label">よ</button>
+<br>
+<button class="Label">き</button>
+<button value="きゃ">kya</button>
+<button value="きゅ">kyu</button>
+<button value="きょ">kyo</button>
+<br>
+<button class="Label">し</button>
+<button value="しゃ">sha</button>
+<button value="しゅ">shu</button>
+<button value="しょ">sho</button>
+<br>
+<button class="Label">ち</button>
+<button value="ちゃ">cha</button>
+<button value="ちゅ">chu</button>
+<button value="ちょ">cho</button>
+<br>
+<button class="Label">に</button>
+<button value="にゃ">nya</button>
+<button value="にゅ">nyu</button>
+<button value="にょ">nyo</button>
+<br>
+<button class="Label">ひ</button>
+<button value="ひゃ">hya</button>
+<button value="ひゅ">hyu</button>
+<button value="ひょ">hyo</button>
+<br>
+<button class="Label">み</button>
+<button value="みゃ">mya</button>
+<button value="みゅ">myu</button>
+<button value="みょ">myo</button>
+<br>
+<button class="Label">り</button>
+<button value="りゃ">rya</button>
+<button value="りゅ">ryu</button>
+<button value="りょ">ryo</button>
+<br>
+</div>
+<div class="KB" id="shy2">
+<button class="Label">&nbsp;</button>
+<button class="Label">や</button>
+<button class="Label">ゆ</button>
+<button class="Label">よ</button>
+<br>
+<button class="Label">ぎ</button>
+<button value="ぎゃ">gya</button>
+<button value="ぎゅ">gyu</button>
+<button value="ぎょ">gyo</button>
+<br>
+<button class="Label">じ</button>
+<button value="じゃ">ja</button>
+<button value="じゅ">ju</button>
+<button value="じょ">jo</button>
+<br>
+<button class="Label">ぢ</button>
+<button value="ぢゃ">ja</button>
+<button value="ぢゅ">ju</button>
+<button value="ぢょ">jo</button>
+<br>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<br>
+<button class="Label">び</button>
+<button value="びゃ">bya</button>
+<button value="びゅ">byu</button>
+<button value="びょ">byo</button>
+<br>
+<button class="Label">ぴ</button>
+<button value="ぴゃ">pya</button>
+<button value="ぴゅ">pyu</button>
+<button value="ぴょ">pyo</button>
+<br>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<button>&nbsp;</button>
+<br>
+</div>
 </div>
 <script>
 	document.querySelectorAll('.contena button').forEach(button => {
