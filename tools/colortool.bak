@@ -81,10 +81,9 @@
       gap: 10px;
     }
 
-    #rLabel, #gLabel, #bLabel, #hLabel, #sLabel, #yLabel {
+    #rLabel, #gLabel, #bLabel, #yLabel {
       font-size: 22px;
       font-weight: bold;
-      transition: color 0.1s ease;
     }
 
     #rLabel { color: #ff4d4f; }
@@ -105,11 +104,6 @@
       transition: background-color 0.1s ease, color 0.1s ease;
     }
 
-    .hex-input[readonly] {
-      cursor: default;
-      outline: none;
-    }
-
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
@@ -119,11 +113,6 @@
       background: #e8e8e8;
       outline: none;
       box-sizing: border-box;
-    }
-
-    input[type="range"]:disabled {
-      opacity: 0.9;
-      cursor: not-allowed;
     }
 
     input[type="range"]::-webkit-slider-thumb {
@@ -136,10 +125,6 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    input[type="range"]:disabled::-webkit-slider-thumb {
-      cursor: not-allowed;
-    }
-
     input[type="range"]::-moz-range-thumb {
       width: 24px;
       height: 24px;
@@ -147,10 +132,6 @@
       cursor: pointer;
       border: none;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    input[type="range"]:disabled::-moz-range-thumb {
-      cursor: not-allowed;
     }
 
     #rSlider::-webkit-slider-thumb { background: #ff4d4f; }
@@ -164,23 +145,6 @@
 
     #ySlider::-webkit-slider-thumb { background: #8c8c8c; }
     #ySlider::-moz-range-thumb { background: #8c8c8c; }
-
-    /* H と S のつまみ色（CSS変数で動的に制御） */
-    #hSlider::-webkit-slider-thumb,
-    #sSlider::-webkit-slider-thumb {
-      background: var(--thumb-color, #8c8c8c);
-    }
-    #hSlider::-moz-range-thumb,
-    #sSlider::-moz-range-thumb {
-      background: var(--thumb-color, #8c8c8c);
-    }
-
-    /* 色相バー専用グラデーション背景 */
-    #hSlider {
-      background: linear-gradient(to right, 
-        #ff0000 0%, #ffff00 17%, #00ff00 33%, 
-        #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%) !important;
-    }
   </style>
 </head>
 <body>
@@ -191,18 +155,6 @@
       <input type="text" id="rgbHex" value="#000000" maxlength="7">
     </div>
 
-    <!-- H (色相) -->
-    <div id="hGroupDiv" class="slider-group">
-      <div class="slider-header">
-        <div class="label-container">
-          <span id="hLabel">H</span>
-          <input type="text" id="hHex" class="hex-input" value="#00" maxlength="4" readonly tabindex="-1">
-        </div>
-      </div>
-      <input type="range" id="hSlider" min="0" max="360" value="0" disabled>
-    </div>
-
-    <!-- R -->
     <div id="rDiv" class="slider-group">
       <div class="slider-header">
         <div class="label-container">
@@ -213,7 +165,6 @@
       <input type="range" id="rSlider" min="0" max="255" value="0">
     </div>
 
-    <!-- G -->
     <div id="gDiv" class="slider-group">
       <div class="slider-header">
         <div class="label-container">
@@ -224,7 +175,6 @@
       <input type="range" id="gSlider" min="0" max="255" value="0">
     </div>
 
-    <!-- B -->
     <div id="bDiv" class="slider-group">
       <div class="slider-header">
         <div class="label-container">
@@ -235,7 +185,6 @@
       <input type="range" id="bSlider" min="0" max="255" value="0">
     </div>
 
-    <!-- Y (明度) -->
     <div id="yGroupDiv" class="slider-group">
       <div class="slider-header">
         <div class="label-container">
@@ -245,97 +194,25 @@
       </div>
       <input type="range" id="ySlider" min="0" max="255" value="0">
     </div>
-
-    <!-- S (彩度) -->
-    <div id="sGroupDiv" class="slider-group">
-      <div class="slider-header">
-        <div class="label-container">
-          <span id="sLabel">S</span>
-          <input type="text" id="sHex" class="hex-input" value="#00" maxlength="4" readonly tabindex="-1">
-        </div>
-      </div>
-      <input type="range" id="sSlider" min="0" max="100" value="0" disabled>
-    </div>
   </div>
 
   <script>
     var rSlider = document.getElementById('rSlider');
     var gSlider = document.getElementById('gSlider');
     var bSlider = document.getElementById('bSlider');
-    var hSlider = document.getElementById('hSlider');
     var ySlider = document.getElementById('ySlider');
-    var sSlider = document.getElementById('sSlider');
 
     var rHex = document.getElementById('rHex');
     var gHex = document.getElementById('gHex');
     var bHex = document.getElementById('bHex');
-    var hHex = document.getElementById('hHex');
     var yHex = document.getElementById('yHex');
-    var sHex = document.getElementById('sHex');
-
-    var hLabel = document.getElementById('hLabel');
-    var sLabel = document.getElementById('sLabel');
 
     var rgbDiv = document.getElementById('rgbDiv');
     var rgbHex = document.getElementById('rgbHex');
 
-    function rgbToHsv(r, g, b) {
-      r /= 255; g /= 255; b /= 255;
-      var max = Math.max(r, g, b), min = Math.min(r, g, b);
-      var h, s, v = max;
-      var d = max - min;
-      s = max === 0 ? 0 : d / max;
-
-      if (max === min) {
-        h = 0;
-      } else {
-        switch (max) {
-          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-          case g: h = (b - r) / d + 2; break;
-          case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-      }
-      return [Math.round(h * 360), Math.round(s * 100), Math.round(v * 255)];
-    }
-
-    function hsvToRgb(h, s, v) {
-      h = (h % 360 + 360) % 360;
-      s /= 100;
-      v /= 255;
-
-      var c = v * s;
-      var x = c * (1 - Math.abs((h / 60) % 2 - 1));
-      var m = v - c;
-
-      var r = 0, g = 0, b = 0;
-
-      if (0 <= h && h < 60) {
-        r = c; g = x; b = 0;
-      } else if (60 <= h && h < 120) {
-        r = x; g = c; b = 0;
-      } else if (120 <= h && h < 180) {
-        r = 0; g = c; b = x;
-      } else if (180 <= h && h < 240) {
-        r = 0; g = x; b = c;
-      } else if (240 <= h && h < 300) {
-        r = x; g = 0; b = c;
-      } else if (300 <= h && h < 360) {
-        r = c; g = 0; b = x;
-      }
-
-      return [
-        Math.round((r + m) * 255),
-        Math.round((g + m) * 255),
-        Math.round((b + m) * 255)
-      ];
-    }
-
-    function updateSliderTrack(sliderEl, r, g, b, maxVal) {
-      if (sliderEl === hSlider) return;
-      maxVal = maxVal || 255;
+    function updateSliderTrack(sliderEl, r, g, b) {
       var val = Number(sliderEl.value);
-      var percent = (val / maxVal) * 100;
+      var percent = (val / 255) * 100;
       var activeColor = '#' + 
         r.toString(16).padStart(2, '0') + 
         g.toString(16).padStart(2, '0') + 
@@ -367,34 +244,10 @@
 
       var brightness = Math.round((rVal * 299 + gVal * 587 + bVal * 114) / 1000);
       ySlider.value = brightness;
-      yHex.value = '#' + brightness.toString(16).toUpperCase().padStart(2, '0');
+      var yHexStr = brightness.toString(16).toUpperCase().padStart(2, '0');
+      yHex.value = '#' + yHexStr;
       updateInputStyles(yHex, brightness, brightness, brightness);
       updateSliderTrack(ySlider, brightness, brightness, brightness);
-
-      var hsv = rgbToHsv(rVal, gVal, bVal);
-      if (rVal !== gVal || gVal !== bVal) {
-        hSlider.value = hsv[0];
-      }
-      sSlider.value = hsv[1];
-
-      hHex.value = '#' + Number(hSlider.value).toString(16).toUpperCase().padStart(2, '0');
-      sHex.value = '#' + Number(sSlider.value).toString(16).toUpperCase().padStart(2, '0');
-
-      // H・Sの背景色更新
-      var hRgb = hsvToRgb(hSlider.value, 100, 255);
-      updateInputStyles(hHex, hRgb[0], hRgb[1], hRgb[2]);
-      updateInputStyles(sHex, rVal, gVal, bVal);
-      updateSliderTrack(sSlider, rVal, gVal, bVal, 100);
-
-      // H と S のラベル文字色同期
-      var hColorHex = '#' + hRgb[0].toString(16).padStart(2, '0') + hRgb[1].toString(16).padStart(2, '0') + hRgb[2].toString(16).padStart(2, '0');
-      var sColorHex = '#' + rHexStr + gHexStr + bHexStr;
-      hLabel.style.color = hColorHex;
-      sLabel.style.color = sColorHex;
-
-      // H と S の「つまみ（Thumb）」の色を動的に変更
-      hSlider.style.setProperty('--thumb-color', hColorHex);
-      sSlider.style.setProperty('--thumb-color', sColorHex);
 
       renderPreview(rVal, gVal, bVal, rHexStr, gHexStr, bHexStr, brightness);
     }
@@ -413,9 +266,13 @@
         bSlider.value = targetY;
       } else {
         var ratio = targetY / oldY;
-        rSlider.value = Math.min(255, Math.max(0, Math.round(oldR * ratio)));
-        gSlider.value = Math.min(255, Math.max(0, Math.round(oldG * ratio)));
-        bSlider.value = Math.min(255, Math.max(0, Math.round(oldB * ratio)));
+        var newR = Math.min(255, Math.max(0, Math.round(oldR * ratio)));
+        var newG = Math.min(255, Math.max(0, Math.round(oldG * ratio)));
+        var newB = Math.min(255, Math.max(0, Math.round(oldB * ratio)));
+
+        rSlider.value = newR;
+        gSlider.value = newG;
+        bSlider.value = newB;
       }
 
       updateFromSliders();
@@ -428,23 +285,43 @@
         b.toString(16).padStart(2, '0');
 
       inputEl.style.backgroundColor = bgHex;
+
       var brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      inputEl.style.color = brightness > 128 ? '#000000' : '#ffffff';
+      if (brightness > 128) {
+        inputEl.style.color = '#000000';
+      } else {
+        inputEl.style.color = '#ffffff';
+      }
     }
 
     function renderPreview(rVal, gVal, bVal, rHexStr, gHexStr, bHexStr, brightness) {
       var combinedHex = '#' + rHexStr + gHexStr + bHexStr;
       rgbHex.value = combinedHex;
+
       rgbDiv.style.backgroundColor = combinedHex;
-      rgbDiv.style.color = brightness > 128 ? '#000000' : '#ffffff';
+
+      if (brightness > 128) {
+        rgbDiv.style.color = '#000000';
+      } else {
+        rgbDiv.style.color = '#ffffff';
+      }
     }
 
     function commitHexInput(inputEl, sliderEl) {
       var rawVal = inputEl.value.trim();
-      var decVal = rawVal.startsWith('#') ? parseInt(rawVal.slice(1), 16) : parseInt(rawVal, 10);
+      var decVal;
+
+      if (rawVal.startsWith('#')) {
+        var cleanHex = rawVal.slice(1).trim();
+        decVal = parseInt(cleanHex, 16);
+      } else {
+        decVal = parseInt(rawVal, 10);
+      }
 
       if (!isNaN(decVal)) {
-        sliderEl.value = Math.min(255, Math.max(0, decVal));
+        if (decVal < 0) decVal = 0;
+        if (decVal > 255) decVal = 255;
+        sliderEl.value = decVal;
       }
 
       if (sliderEl === ySlider) {
@@ -456,7 +333,10 @@
 
     function commitFullRgbHexInput() {
       var rawVal = rgbHex.value.trim().replace('#', '');
-      if (rawVal.length === 3) rawVal = rawVal[0] + rawVal[0] + rawVal[1] + rawVal[1] + rawVal[2] + rawVal[2];
+      
+      if (rawVal.length === 3) {
+        rawVal = rawVal[0] + rawVal[0] + rawVal[1] + rawVal[1] + rawVal[2] + rawVal[2];
+      }
 
       if (rawVal.length === 6) {
         var rVal = parseInt(rawVal.substring(0, 2), 16);
@@ -469,6 +349,7 @@
           bSlider.value = bVal;
         }
       }
+
       updateFromSliders();
     }
 
