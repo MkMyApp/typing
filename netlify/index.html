@@ -1,32 +1,49 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+  <base target="_blank">
+	<title>Netlifyで公開</title>
+	<link href="destyle.css" rel="stylesheet" type="text/css" id="reset">
+	<link href="mystyle.css" rel="stylesheet" type="text/css" id="set">
 <style>
-body {
-	border: none;
-	font-size: 24px;
-	line-height: 2em;
-	width:640px;
-	padding: 10px;
-	margin: 20px auto 20px;
+#menu {
+width: 600px;
+max-width: 95%;
+height: auto;
+line-height: 2em;
+padding: 10px;
+display: block;
+gap: 2rem;
+justify-content: center;
+flex-wrap: wrap;
+margin: 0px auto;
+border: none;
+font-size: 24px;
 }
 
-a {
-	color:#000000;
-	text-decoration: none;
+#menu a {
+text-decoration: none;
+color: blue;
 }
 
-a:hover {
-	color: blue;
+#menu a:hover {
+ color: red;
 }
+
 </style>
-<title>Netlifyで公開</title>
-
 </head>
 <body>
-<a href="net01.html" target="_blank">タイピングフォルダの作成</a><br>
-<a href="net02.html" target="_blank">netlifyにアップロード</a><br>
-<a href="net03.html" target="_blank">URLの変更</a><br>
+<div style="text-align:center;font-size:200%;">
+Netlifyで公開する
+</div>
+<div id="menu">
+netlifyにSign upしてLog in<br>
+<a href="https://www.netlify.com/"><img src = "Netlify_logo.png"></a><br>
+フォルダをドロップ<br>
+<img src = "upload.png"><br>
+URLの変更<br>
+<a href="URL_tool.html"><img src = "URL_tool.png"></a><br>
+</div>
 </body>
 </html>
