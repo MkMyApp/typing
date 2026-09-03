@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+	border: none;
+	font-size: 24px;
+	line-height: 1.2em;
+	width:1200px;
+	padding: 10px;
+	margin: 20px auto 20px;
+	white-space: pre-wrap;
+}
+
+h1 {
+	display: inline-block;
+	font-size:140%;
+}
+
+</style>
+<title>表示追加</title>
+</head>
+<body>
+<h1>表示を追加</h1>
+タイピング練習に追加表示
+
+<!-- 追加エリア -->
+<style>
+	#exp {
+	  width: 800px;
+	  color: #000000;
+	  background-color: #ffffff;
+	  border: 2px solid #f0f0f0;
+	  white-space: pre-wrap;
+	  text-align: left;
+	  padding: 20px;
+	  margin: 50px auto;
+	  font-size: 1em;
+	  line-height: 1.5em;
+	  cursor: pointer;
+	}
+	
+	#exp img {
+	  max-width: 100%;
+	  height: auto;
+	  display: block;
+	}
+</style>
+
+<div id="exp">
+<img src="kb.png">
+①
+②
+③
+</div>
+
+<script>
+const expElem = document.getElementById('exp');
+if (expElem && expElem.firstChild && expElem.firstChild.nodeType === Node.TEXT_NODE) {
+  expElem.firstChild.nodeValue = expElem.firstChild.nodeValue.replace(/^\s+/, '');
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    if (expElem.style.display === "none") {
+      expElem.style.display = "block";
+    } else {
+      expElem.style.display = "none";
+    }
+  }
+});
+</script>
+
+</body>
+</html>
