@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード Canvas描画</title>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>キーボード Canvas描画</title>
+<style>
+  body {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  
+  #keyboardCanvas {
+		margin-bottom:48px;
+  }
+  .btn-container {
+    margin-bottom: 20px;
+  }
+
+.btn-container-left {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  button.save-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  button.save-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* --- input デザイン追加分 --- */
+  .btn-container input {
+    vertical-align: middle;
+    margin: 4px 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .btn-container input.hex {
+    width: 48px;
+    height: 48px;
+    margin-right:0px
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background: none;
+  }
+  .btn-container input.str {
+    width: 320px;
+    height: 48px;
+    font-size:32px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+	.btn-container label.func-label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 32px;
+    color: #333;
+    user-select: none;
+    margin-top: 8px;
+  }
+  .btn-container input.check {
+    width: 48px;
+    height: 48px;
+    margin: 0 6px 0 0;
+    cursor: pointer;
+    accent-color: #007bff; /* チェック時の色をボタンと統一 */
+  }
+</style>
+</head>
+<body>
+
+<!-- キーボード描画用 Canvas -->
+<canvas id="keyboardCanvas"></canvas>
+
+<div class="btn-container">
+<input type="color" class="hex" value="#f00"><input type="text" class="str" value="56RTFGVB"><br>
+<input type="color" class="hex" value="#00f"><input type="text" class="str" value="7YUHJNM"><br>
+<input type="color" class="hex" value="#3a5"><input type="text" class="str" value="89K,34EDC"><br>
+<input type="color" class="hex" value="#f60"><input type="text" class="str" value="0-OPL.2WSX"><br>
+<input type="color" class="hex" value="#f29"><input type="text" class="str" value="1QAZ^|@[];:/_"><br>
+<label class="func-label"><input type="checkbox" class="check">機能キー</label>
+</div>
+
+<div class="btn-container">
+  <button class="save-btn" onclick="downloadKeyboardImage()">保存 (.png)</button>
+</div>
+
+<script>
+// --- 設定値 ---
+const sVal = 2; // 拡大倍率
+
+// キー配列と個別の幅 (w) 設定
+const keyboardData = [
+  [
+    {c:"半/全",id:"IME"}, {c:"1"}, {c:"2"}, {c:"3"}, {c:"4"}, {c:"5"},
+    {c:"6"}, {c:"7"}, {c:"8"}, {c:"9"}, {c:"0"}, {c:"-"},
+    {c:"^"}, {c:"|"}, {c:"BS",id:"BS" }
+  ],
+  [
+    {c:"Tab",w:52,id:"Tab"}, {c:"Q"}, {c:"W"}, {c:"E"}, {c:"R"}, {c:"T"},
+    {c:"Y"}, {c:"U"}, {c:"I"}, {c:"O"}, {c:"P"}, {c:"@"},
+    {c:"["}, {c:"Enter",w:50,id:"Enter" }
+  ],
+  [
+    {c:"CapsLock",w:64,id:"Caps"}, {c:"A"}, {c:"S"}, {c:"D"}, {c:"F"}, {c:"G"},
+    {c:"H"}, {c:"J"}, {c:"K"}, {c:"L"}, {c:";"}, {c:":"},
+    {c:"]"}, {c:"⏎",w:38,id:"Ent" }
+  ],
+  [
+    {c:"Shift",w:88,id:"LShift"}, {c:"Z"}, {c:"X"}, {c:"C"}, {c:"V"}, {c:"B"},
+    {c:"N"}, {c:"M"}, {c:","}, {c:"."}, {c:"/"}, {c:"_"},
+    {c:"Shift",w:52,id:"RShift" }
+  ],
+  [
+    {c:"Ctrl",w:52,id:"LCtrl"}, {c:"Win",w:46,id:"LWin"}, {c:"Alt",w:46,id:"LAlt"},
+    {c:"無変換",w:32,id:"OFF"}, {c:" ",w:122,id:"Spc"}, {c:"変換",w:32,id:"ON"},
+    {c:"かな",w:32,id:"kana"}, {c:"Alt",w:38,id:"RAlt"}, {c:"Win",w:32,id:"RWin"},
+    {c:"Menu",w:32,id:"Menu"}, {c:"Ctrl",w:40,id:"RCtrl" }
+  ]
+];
+
+// 色管理オブジェクト
+const colorRules = [];
+let transparentIdKeys = false;
+
+// 色指定関数
+function applyColor(CHARS, BackColor, ForColor = BackColor) {
+  colorRules.push({ CHARS, BackColor, ForColor });
+}
+
+// 色の判定ロジック
+function getKeyColors(key) {
+  let bg = "#f0f0f0";
+  let fg = "#000000";
+
+  // ID付きキーの透過フラグ処理
+  if (key.id && transparentIdKeys) {
+    fg = "transparent";
+  }
+
+  // IDのないキーの色付けルール判定
+  if (!key.id) {
+    const charsInBtn = key.c.trim().split('');
+    for (const rule of colorRules) {
+      if (charsInBtn.some(char => rule.CHARS.includes(char))) {
+        bg = rule.BackColor;
+        fg = rule.ForColor;
+        break;
+      }
+    }
+  }
+
+  return { bg, fg };
+}
+
+// 単一ボタン描画関数
+function drawButton(ctx, x, y, width, height, key, scale) {
+  const { bg, fg } = getKeyColors(key);
+
+  // 1. ボタン背景描画
+  ctx.fillStyle = bg;
+  ctx.fillRect(x, y, width, height);
+
+  // 2. ボタン枠線描画
+  ctx.strokeStyle = "#888888";
+  ctx.lineWidth = 1 * scale;
+  ctx.strokeRect(x, y, width, height);
+
+  // 3. テキスト描画
+  if (fg !== "transparent") {
+    ctx.fillStyle = fg;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    const text = key.c.trim();
+
+    // 2段表示判定（IDがなく文字数が2文字以上）
+    if (!key.id && text.length >= 2) {
+      ctx.font = `${12 * scale}px monospace`;
+      ctx.fillText(text[0], x + width / 2, y + height * 0.32);
+      ctx.fillText(text[1], x + width / 2, y + height * 0.68);
+		} else if (text) {
+		  let fontSize;
+
+		  if (key.id) {
+		    // 1. デフォルト推奨サイズ（10px）から開始
+		    fontSize = 10 * scale;
+		    ctx.font = `${fontSize}px monospace`;
+
+		    // 2. 枠線の内側に収まる最大許容幅（パディング分 4px を差し引く）
+		    const maxTextWidth = width - (4 * scale);
+
+		    // 3. テキストの実際のピクセル幅を計測し、枠を超える場合は収まるまで自動縮小
+		    while (ctx.measureText(text).width > maxTextWidth && fontSize > 4 * scale) {
+		      fontSize -= 0.5 * scale;
+		      ctx.font = `${fontSize}px monospace`;
+		    }
+		  } else {
+		    // IDなしの通常キー
+		    fontSize = 18 * scale;
+		    ctx.font = `${fontSize}px monospace`;
+		  }
+
+		  ctx.fillText(text, x + width / 2, y + height / 2);
+		}
+  }
+}
+
+// 全体描画・メイン処理
+function renderKeyboardCanvas() {
+  const canvas = document.getElementById("keyboardCanvas");
+  const ctx = canvas.getContext("2d");
+
+  // スタイル定数
+  const padding = 10;
+  const btnHeight = 32;
+  const btnWidth = 32;
+  const marginX = 6;
+  const marginY = 8;
+  const scale = typeof sVal !== 'undefined' ? sVal : 1;
+
+  // 全体幅・高さを正確に計算[cite: 3, 4]
+  const rowWidths = keyboardData.map(row => {
+    return row.reduce((sum, k) => sum + (k.w || btnWidth) + marginX, 0) - marginX;
+  });
+  const maxContentWidth = Math.max(...rowWidths);
+
+  const baseWidth = maxContentWidth + padding * 2;
+  const baseHeight = (btnHeight * 5) + (marginY * 4) + padding * 2;
+
+  // Canvas要素の解像度サイズ設定[cite: 3]
+  canvas.width = baseWidth * scale;
+  canvas.height = baseHeight * scale;
+
+  // CSS上の見た目サイズも一致させる
+  canvas.style.width = `${baseWidth * scale}px`;
+  canvas.style.height = `${baseHeight * scale}px`;
+
+  // --- 描画処理 ---
+  // 全体背景
+  ctx.fillStyle = "#f8f8f8";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 外枠線
+  ctx.strokeStyle = "#888888";
+  ctx.lineWidth = 1 * scale;
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+  // 各ボタンのループ描画
+  let currentY = padding;
+
+  keyboardData.forEach(row => {
+    let currentX = padding;
+
+    row.forEach(key => {
+      const w = key.w || btnWidth;
+      const h = btnHeight;
+
+      // 倍率を考慮した座標・サイズ
+      const drawX = currentX * scale;
+      const drawY = currentY * scale;
+      const drawW = w * scale;
+      const drawH = h * scale;
+
+      drawButton(ctx, drawX, drawY, drawW, drawH, key, scale);
+
+      currentX += w + marginX;
+    });
+
+    currentY += btnHeight + marginY;
+  });
+}
+
+// --- 配色ルールを設定 ---
+transparentIdKeys = true; //機能キー文字透過
+
+applyColor("1QAZ", "#F29", "#FFF");
+applyColor("2WSX", "#F60", "#FFF");
+applyColor("34EDC", "#3A5", "#FFF");
+applyColor("56RFV", "#F00", "#FFF");
+applyColor("56TGB", "#F00", "#FFF");
+applyColor("YHN", "#00F", "#FFF");
+applyColor("7UJM", "#00F", "#FFF");
+applyColor("89IK,", "#3A5", "#FFF");
+applyColor("0-POL.", "#F60", "#FFF");
+applyColor(";/", "#F29", "#FFF");
+applyColor("@:|", "#F29", "#FFF");
+applyColor("^[]_", "#F29", "#FFF");
+
+// 実行
+renderKeyboardCanvas();
+
+// 画像保存関数
+function downloadKeyboardImage() {
+  const canvas = document.getElementById("keyboardCanvas");
+  const link = document.createElement("a");
+  link.download = "keyboard.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+</script>
+</body>
+</html>
