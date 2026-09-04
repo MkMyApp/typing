@@ -20,8 +20,9 @@
 	    <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="ふてとさらりるわほせ">
 			<br>
 	    <input type="color" class="hex" value="#ff2999"><input type="text" class="str" value="ぬたちつれめ゛けろへ゜むー">
-	    <label class="func-label"><input type="checkbox" class="check">機能キー</label>
-    </div>
+			<label class="func-label"><input type="checkbox" id="chkTextColor" class="check">文字色</label>
+			<label class="func-label"><input type="checkbox" id="chkFunc" class="check">機能キー</label>
+		</div>
   </div>
 </div>
 
@@ -64,7 +65,11 @@ const keyboardData = [
 </script>
 
 <div class="btn-container">
-  <button class="save-btn" onclick="downloadKeyboardImage()">保存 (.png)</button>
+  <button class="action-btn" onclick="document.getElementById('fileInput').click()">LOAD (.cfg)</button>
+  <button class="action-btn" onclick="saveTextConfig()">SAVE (.cfg)</button>
+  <button class="save-btn" onclick="downloadKeyboardImage()">SAVE (.png)</button>
+
+<input type="file" id="fileInput" accept=".txt,.cfg" style="display: none;" onchange="loadTextConfig(event)">
 </div>
 
 <script src="kb.js"></script>

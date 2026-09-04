@@ -26,25 +26,7 @@ body {
   text-align: left;
 }
 
-button.action-btn {
-  width:200px;
-	height:48px;
-  padding: 10px 20px;
-  font-size: 24px;
-  cursor: pointer;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  margin-left: 10px;
-}
-button.action-btn:hover {
-  background-color: #218838;
-}
-
 button.save-btn {
-  width:200px;
-	height:48px;
   padding: 10px 20px;
   font-size: 24px;
   cursor: pointer;
@@ -52,9 +34,7 @@ button.save-btn {
   color: #fff;
   border: none;
   border-radius: 4px;
-  margin-left: 10px;
 }
-
 button.save-btn:hover {
   background-color: #0056b3;
 }
@@ -96,7 +76,6 @@ align-items: center;
 justify-content: flex-start;
 cursor: pointer;
 font-size: 24px;
-width:200px;
 color: #333;
 user-select: none;
 vertical-align: middle;
