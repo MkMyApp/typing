@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>キーボード図キャプチャ（div指定版）</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    iframe { width: 100%; height: 600px; border: 1px solid #ccc; margin-top: 10px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    
+    /* キャプチャ対象のdivのスタイル例 */
+    #keyboard-container {
+      width: 1500px;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border: 2px solid #333;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="save-btn">キーボード図を画像保存</button>
+
+  <!-- キャプチャ対象のdiv -->
+  <div id="keyboard-container">
+		<iframe id="keyboard-iframe" src="E最適化.html"></iframe>
+  </div>
+
+  <script>
+    document.getElementById('save-btn').addEventListener('click', async function () {
+      try {
+        // 1. 同一ドキュメント内の対象divを取得
+        const targetElement = document.getElementById('keyboard-container');
+        if (!targetElement) {
+          alert('対象の div (id="keyboard-container") が見つかりませんでした。');
+          return;
+        }
+
+        // 2. 要素のサイズを取得
+        const rect = targetElement.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // 3. ページ内の全スタイル（<style>タグや<link>）を取得して結合
+        let styleString = '';
+        Array.from(document.styleSheets).forEach(sheet => {
+          try {
+            Array.from(sheet.cssRules).forEach(rule => {
+              styleString += rule.cssText;
+            });
+          } catch (e) {
+            // 外部ドメインのCSS読み込み拒否エラー等をスキップ
+          }
+        });
+
+        // 4. HTMLのシリアライズ
+        const serializer = new XMLSerializer();
+        const htmlString = serializer.serializeToString(targetElement);
+
+        // 5. スタイルを含めたSVGの組み立て
+        const svgString = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+            <foreignObject width="100%" height="100%">
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <style>${styleString}</style>
+                ${htmlString}
+              </div>
+            </foreignObject>
+          </svg>
+        `;
+
+        // 6. 画像化とダウンロード
+        const img = new Image();
+        const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          
+          // 背景を白で塗る（透過指定時の黒化を予防）
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, width, height);
+          
+          ctx.drawImage(img, 0, 0);
+
+          const link = document.createElement('a');
+          link.download = 'keyboard_map.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+
+          URL.revokeObjectURL(url);
+        };
+
+        img.onerror = function (e) {
+          console.error('SVG描画エラー:', e);
+          alert('画像の変換に失敗しました。外部画像や特殊なCSS指定が原因の可能性があります。');
+        };
+
+        img.src = url;
+
+      } catch (err) {
+        console.error('処理エラー:', err);
+        alert('エラーが発生しました: ' + err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>
