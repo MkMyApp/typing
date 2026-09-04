@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>At the dead end</title>
+</head>
+<body>
+<div id="title">At the dead end</div>
+<div id="result"></div>
+<script>
+  const box_x = 35;
+  const box_y = 6;
+  const font  = '24px';
+  const LF  = false;//改行マーク⏎表示
+  const lang  = 'e';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'v';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<textarea id="txtdata" class="box" spellcheck="false">
+Go straight go straight your own way.
+Turn right turn right at the dead end.
+Keep going keep going and don't stop.
+Then you'll reach your destination.
+Good luck to you!
+</textarea>
+
+<div id="box-container">
+	<div id="target" class="box"></div>
+	<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
