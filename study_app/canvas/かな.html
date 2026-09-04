@@ -3,333 +3,71 @@
 <head>
 <meta charset="utf-8">
 <title>キーボード Canvas描画</title>
-<style>
-  body {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 20px;
-    font-family: sans-serif;
-  }
-  
-  #keyboardCanvas {
-    margin-bottom: 24px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .btn-container {
-    margin-bottom: 20px;
-  }
-
-  /* --- コントロールパネルのスタイル --- */
-  .control-panel {
-    display: block;
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .btn-container-left {
-    display: inline-block;
-    text-align: left;
-  }
-
-  button.save-btn {
-    padding: 10px 20px;
-    font-size: 24px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-  }
-  button.save-btn:hover {
-    background-color: #0056b3;
-  }
-
-  /* --- input デザイン --- */
-  .btn-container-left input {
-    vertical-align: middle;
-    margin: 4px 6px 4px 0;
-    font-size: 14px;
-    box-sizing: border-box;
-  }
-  .btn-container-left input.hex {
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-    background: none;
-  }
-  .btn-container-left input.str {
-    width: 480px;
-    height: 48px;
-    font-family:monospace;
-    font-size: 24px;
-    padding: 4px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* --- 機能キー（チェックボックス） --- */
-  .btn-container-left label.func-label {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
-    font-size: 32px;
-    color: #333;
-    user-select: none;
-    margin-top: 8px;
-  }
-  .btn-container-left input.check {
-    width: 48px;
-    height: 48px;
-    margin: 0 12px 0 0;
-    cursor: pointer;
-    accent-color: #007bff;
-  }
-</style>
+<link rel="stylesheet" href="kb.css">
 </head>
 <body>
-
 <!-- キーボード描画用 Canvas -->
 <canvas id="keyboardCanvas"></canvas>
 
 <!-- インプットフォーム -->
 <div class="control-panel">
   <div class="btn-container-left">
-    <div class="color-row"><input type="color" class="hex" value="#ff0000"><input type="text" class="str" value="すはひえおかきこ"></div>
-    <div class="color-row"><input type="color" class="hex" value="#0000ff"><input type="text" class="str" value="んくみやなまも"></div>
-    <div class="color-row"><input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="あういしそゆよにのね"></div>
-    <div class="color-row"><input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="ふてとさらりるわほせ"></div>
-    <div class="color-row"><input type="color" class="hex" value="#ff2999"><input type="text" class="str" value="ぬたちつれめ゛けろへ゜むー"></div>
-    <label class="func-label"><input type="checkbox" class="check">機能キー</label>
+    <div class="color-row">
+	    <input type="color" class="hex" value="#ff0000"><input type="text" class="str" value="すはひえおかきこ">
+	    <input type="color" class="hex" value="#0000ff"><input type="text" class="str" value="んくみやなまも">
+			<br>
+	    <input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="あういしそゆよにのね">
+	    <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="ふてとさらりるわほせ">
+			<br>
+	    <input type="color" class="hex" value="#ff2999"><input type="text" class="str" value="ぬたちつれめ゛けろへ゜むー">
+	    <label class="func-label"><input type="checkbox" class="check">機能キー</label>
+    </div>
   </div>
-</div>
-
-<div class="btn-container">
-  <button class="save-btn" onclick="downloadKeyboardImage()">保存 (.png)</button>
 </div>
 
 <script>
 // --- 設定値 ---
 const sVal = 2; // 拡大倍率
-
 // キー配列と個別の幅 (w) 設定
-// JISかな配列のキーデータ
 const keyboardData = [
   [
-    {c:"ぬ",id:"IME"}, {c:"ぬ"}, {c:"ふ"}, {c:"あ"}, {c:"う"}, {c:"え"},
-    {c:"お"}, {c:"や"}, {c:"ゆ"}, {c:"よ"}, {c:"わ"}, {c:"ほ"},
-    {c:"へ"}, {c:"ー"}, {c:"BS",id:"BS" }
+    {c:"半/全",id:"IME"},
+    {c:"ぬ"},{c:"ふ"},{c:"あ"},{c:"う"},{c:"え"},{c:"お"},
+    {c:"や"},{c:"ゆ"},{c:"よ"},{c:"わ"},{c:"ほ"},{c:"へ"},{c:"ー"},
+    {c:"BS",id:"BS" }
   ],
   [
-    {c:"Tab",w:52,id:"Tab"}, {c:"た"}, {c:"て"}, {c:"い"}, {c:"す"}, {c:"か"},
-    {c:"ん"}, {c:"な"}, {c:"に"}, {c:"ら"}, {c:"せ"}, {c:"゜"},
-    {c:"゛"}, {c:"Enter",w:50,id:"Enter" }
+    {c:"Tab",w:52,id:"Tab"},
+    {c:"た"},{c:"て"},{c:"い"},{c:"す"},{c:"か"},{c:"ん"},
+    {c:"な"},{c:"に"},{c:"ら"},{c:"せ"},{c:"゜"},{c:"゛"},
+    {c:"Enter",w:50,id:"Enter" }
   ],
   [
-    {c:"CapsLock",w:64,id:"Caps"}, {c:"ち"}, {c:"と"}, {c:"し"}, {c:"は"}, {c:"き"},
-    {c:"く"}, {c:"ま"}, {c:"の"}, {c:"り"}, {c:"れ"}, {c:"け"},
-    {c:"む"}, {c:"⏎",w:38,id:"Ent" }
+    {c:"CapsLock",w:64,id:"Caps"},
+    {c:"ち"},{c:"と"},{c:"し"},{c:"は"},{c:"き"},
+    {c:"く"},{c:"ま"},{c:"の"},{c:"り"},{c:"れ"},{c:"け"},{c:"む"},
+    {c:"⏎",w:38,id:"Ent" }
   ],
   [
-    {c:"Shift",w:88,id:"LShift"}, {c:"つ"}, {c:"さ"}, {c:"そ"}, {c:"ひ"}, {c:"こ"},
-    {c:"み"}, {c:"も"}, {c:"ね"}, {c:"る"}, {c:"め"}, {c:"ろ"},
+    {c:"Shift",w:88,id:"LShift"},
+    {c:"つ"},{c:"さ"},{c:"そ"},{c:"ひ"},{c:"こ"},
+    {c:"み"},{c:"も"},{c:"ね"},{c:"る"},{c:"め"},{c:"ろ"},
     {c:"Shift",w:52,id:"RShift" }
   ],
   [
-    {c:"Ctrl",w:52,id:"LCtrl"}, {c:"Win",w:46,id:"LWin"}, {c:"Alt",w:46,id:"LAlt"},
-    {c:"無変換",w:32,id:"OFF"}, {c:" ",w:122,id:"Spc"}, {c:"変換",w:32,id:"ON"},
-    {c:"かな",w:32,id:"kana"}, {c:"Alt",w:38,id:"RAlt"}, {c:"Win",w:32,id:"RWin"},
-    {c:"Menu",w:32,id:"Menu"}, {c:"Ctrl",w:40,id:"RCtrl" }
+    {c:"Ctrl",w:52,id:"LCtrl"},{c:"Win",w:46,id:"LWin"},{c:"Alt",w:46,id:"LAlt"},
+    {c:"無変換",w:32,id:"OFF"},{c:" ",w:122,id:"Spc"},{c:"変換",w:32,id:"ON"},
+    {c:"かな",w:32,id:"kana"},{c:"Alt",w:38,id:"RAlt"},{c:"Win",w:32,id:"RWin"},
+    {c:"Menu",w:32,id:"Menu"},{c:"Ctrl",w:40,id:"RCtrl" }
   ]
 ];
-
-// 色管理変数
-let colorRules = [];
-let transparentIdKeys = false;
-
-// フォームからルールを読み取って更新する関数
-function updateRulesFromUI() {
-  colorRules = [];
-  
-  // 各行から色と文字列を取得
-  const rows = document.querySelectorAll('.btn-container-left .color-row');
-  rows.forEach(row => {
-    const hex = row.querySelector('.hex').value;
-    const str = row.querySelector('.str').value;
-    if (str.length > 0) {
-      colorRules.push({ CHARS: str, BackColor: hex, ForColor: "#FFF" });
-    }
-  });
-
-  // 機能キー透過チェックボックスの状態を取得（動作を反転）
-  const check = document.querySelector('.btn-container-left input.check');
-  transparentIdKeys = check ? !check.checked : true;
-
-  // 再描画を実行
-  renderKeyboardCanvas();
-}
-
-// 色の判定ロジック
-function getKeyColors(key) {
-  let bg = "#f0f0f0";
-  let fg = "#000000";
-
-  // ID付きキーの透過フラグ処理
-  if (key.id && transparentIdKeys) {
-    fg = "transparent";
-  }
-
-  // IDのないキーの色付けルール判定
-  if (!key.id) {
-    const charsInBtn = key.c.trim().split('');
-    for (const rule of colorRules) {
-      if (charsInBtn.some(char => rule.CHARS.includes(char))) {
-        bg = rule.BackColor;
-        fg = rule.ForColor;
-        break;
-      }
-    }
-  }
-
-  return { bg, fg };
-}
-
-// 単一ボタン描画関数
-function drawButton(ctx, x, y, width, height, key, scale) {
-  const { bg, fg } = getKeyColors(key);
-
-  // 1. ボタン背景描画
-  ctx.fillStyle = bg;
-  ctx.fillRect(x, y, width, height);
-
-  // 2. ボタン枠線描画
-  ctx.strokeStyle = "#888888";
-  ctx.lineWidth = 1 * scale;
-  ctx.strokeRect(x, y, width, height);
-
-  // 3. テキスト描画
-  if (fg !== "transparent") {
-    ctx.fillStyle = fg;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    const text = key.c.trim();
-
-    // 2段表示判定（IDがなく文字数が2文字以上）
-    if (!key.id && text.length >= 2) {
-      ctx.font = `${12 * scale}px monospace`;
-      ctx.fillText(text[0], x + width / 2, y + height * 0.32);
-      ctx.fillText(text[1], x + width / 2, y + height * 0.68);
-    } else if (text) {
-      let fontSize;
-
-      if (key.id) {
-        fontSize = 10 * scale;
-        ctx.font = `${fontSize}px monospace`;
-
-        const maxTextWidth = width - (4 * scale);
-
-        while (ctx.measureText(text).width > maxTextWidth && fontSize > 4 * scale) {
-          fontSize -= 0.5 * scale;
-          ctx.font = `${fontSize}px monospace`;
-        }
-      } else {
-        fontSize = 18 * scale;
-        ctx.font = `${fontSize}px monospace`;
-      }
-
-      ctx.fillText(text, x + width / 2, y + height / 2);
-    }
-  }
-}
-
-// 全体描画・メイン処理
-function renderKeyboardCanvas() {
-  const canvas = document.getElementById("keyboardCanvas");
-  const ctx = canvas.getContext("2d");
-
-  // スタイル定数
-  const padding = 10;
-  const btnHeight = 32;
-  const btnWidth = 32;
-  const marginX = 6;
-  const marginY = 8;
-  const scale = typeof sVal !== 'undefined' ? sVal : 1;
-
-  // 全体幅・高さを正確に計算
-  const rowWidths = keyboardData.map(row => {
-    return row.reduce((sum, k) => sum + (k.w || btnWidth) + marginX, 0) - marginX;
-  });
-  const maxContentWidth = Math.max(...rowWidths);
-
-  const baseWidth = maxContentWidth + padding * 2;
-  const baseHeight = (btnHeight * 5) + (marginY * 4) + padding * 2;
-
-  // Canvas要素の解像度サイズ設定
-  canvas.width = baseWidth * scale;
-  canvas.height = baseHeight * scale;
-
-  // CSS上の見た目サイズも一致させる
-  canvas.style.width = `${baseWidth * scale}px`;
-  canvas.style.height = `${baseHeight * scale}px`;
-
-  // --- 描画処理 ---
-  // 全体背景
-  ctx.fillStyle = "#f8f8f8";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // 外枠線
-  ctx.strokeStyle = "#888888";
-  ctx.lineWidth = 1 * scale;
-  ctx.strokeRect(0, 0, canvas.width, canvas.height);
-
-  // 各ボタンのループ描画
-  let currentY = padding;
-
-  keyboardData.forEach(row => {
-    let currentX = padding;
-
-    row.forEach(key => {
-      const w = key.w || btnWidth;
-      const h = btnHeight;
-
-      const drawX = currentX * scale;
-      const drawY = currentY * scale;
-      const drawW = w * scale;
-      const drawH = h * scale;
-
-      drawButton(ctx, drawX, drawY, drawW, drawH, key, scale);
-
-      currentX += w + marginX;
-    });
-
-    currentY += btnHeight + marginY;
-  });
-}
-
-// 画像保存関数
-function downloadKeyboardImage() {
-  const canvas = document.getElementById("keyboardCanvas");
-  const link = document.createElement("a");
-  link.download = "keyboard.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-}
-
-// --- イベントリスナーの登録（リアルタイム反映） ---
-// input要素全体に対して直接イベントリスナーを登録する
-document.querySelectorAll('.control-panel input').forEach(input => {
-  input.addEventListener('input', updateRulesFromUI);
-  input.addEventListener('change', updateRulesFromUI);
-});
-
-// 初期表示
-updateRulesFromUI();
-
 </script>
+
+<div class="btn-container">
+  <button class="save-btn" onclick="downloadKeyboardImage()">保存 (.png)</button>
+</div>
+
+<script src="kb.js"></script>
+
 </body>
 </html>

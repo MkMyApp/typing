@@ -1,0 +1,90 @@
+body {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+#keyboardCanvas {
+  margin-bottom: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-container {
+  margin-bottom: 20px;
+}
+
+/* --- コントロールパネルのスタイル --- */
+.control-panel {
+  display: block;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.btn-container-left {
+  display: inline-block;
+  text-align: left;
+}
+
+button.save-btn {
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+button.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.color-row {
+  margin-bottom: 8px;
+}
+
+/* --- input デザイン --- */
+.btn-container-left input {
+  vertical-align: middle;
+  margin: 4px 6px 4px 0;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.btn-container-left input.hex {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+.btn-container-left input.str {
+  width: 400px;
+  height: 48px;
+  font-family:monospace;
+  font-size: 24px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* --- 機能キー（チェックボックス） --- */
+.btn-container-left label.func-label {
+display: inline-flex;
+align-items: center;
+justify-content: flex-start;
+cursor: pointer;
+font-size: 24px;
+color: #333;
+user-select: none;
+vertical-align: middle;
+margin-left: 0px;
+}
+.btn-container-left input.check {
+  width: 48px;
+  height: 48px;
+  margin: 0 12px 0 0;
+  cursor: pointer;
+  accent-color: #007bff;
+}
