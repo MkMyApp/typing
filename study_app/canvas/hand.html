@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>指・指先 Canvas描画ツール</title>
+<link rel="stylesheet" href="hand.css">
+</head>
+<body>
+
+<!-- 手・指先描画用 Canvas -->
+<canvas id="handCanvas"></canvas>
+
+<!-- コントロールパネル -->
+<div class="control-panel">
+  <div class="btn-container-left">
+    <!-- 文字モード切替用ラジオボタン -->
+    <div class="mode-row">
+      <label class="radio-label"><input type="radio" name="charMode" value="0" class="radio" checked> 大文字</label>
+      <label class="radio-label"><input type="radio" name="charMode" value="1" class="radio"> 小文字</label>
+      <label class="radio-label"><input type="radio" name="charMode" value="2" class="radio"> かな</label>
+    </div>
+
+    <!-- 色と判定文字列の入力行 -->
+    <div class="color-row">
+      <input type="color" class="hex" value="#ff0000"><input type="text" class="str" value="Ffは">
+      <input type="color" class="hex" value="#2244ff"><input type="text" class="str" value="Jjま">
+      <br>
+      <input type="color" class="hex" value="#ff0099"><input type="text" class="str" value="Aa;ちれ">
+      <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="SsLlとり">
+      <input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="DdKkしの">
+    </div>
+  </div>
+</div>
+
+<div class="btn-container">
+  <button class="action-btn" onclick="document.getElementById('fileInput').click()">LOAD (.cfg)</button>
+  <button class="action-btn" onclick="saveTextConfig()">SAVE (.cfg)</button>
+  <button class="save-btn" onclick="downloadHandImage()">SAVE (.png)</button>
+  <input type="file" id="fileInput" accept=".txt,.cfg" style="display: none;" onchange="loadTextConfig(event)">
+</div>
+
+<script>
+const sVal = 2; // 拡大倍率
+
+// 左右の指データ (label: [0]大文字, [1]小文字, [2]かな)
+const handData = [
+  // 左手 (小指 -> 親指)
+  { label: "Aaち", h: 3.2, tipH: 1.0, type: "finger" },
+  { label: "Ssと", h: 4.0, tipH: 1.0, type: "finger" },
+  { label: "Ddし", h: 4.8, tipH: 1.0, type: "finger" },
+  { label: "Ffは", h: 4.0, tipH: 1.0, type: "finger" },
+  { label: "",     h: 2.2, tipH: 1.0, type: "thumb"  },
+
+  // 右手 (親指 -> 小指)
+  { label: "",     h: 2.2, tipH: 1.0, type: "thumb"  },
+  { label: "Jjま", h: 4.0, tipH: 1.0, type: "finger" },
+  { label: "Kkの", h: 4.8, tipH: 1.0, type: "finger" },
+  { label: "Llり", h: 4.0, tipH: 1.0, type: "finger" },
+  { label: ";;れ", h: 3.2, tipH: 1.0, type: "finger" }
+];
+</script>
+<script src="hand.js"></script>
+</body>
+</html>
