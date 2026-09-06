@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>ひらがな最適化</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const length = 6;// 問題文の長さ
+const lines = 50; //生成問題数
+//対象文字　`改行ありは`で囲む
+const strdata = `
+すはひえおかきこ
+んくみやなまも
+あういしそゆよにのね
+ふてとさらりるわほせ
+ぬたちつれめけろへむ
+`;
+
+const TITLE_MSG = "ひらがな最適化";//タイトル
+const START_MSG = "Enter⏎　スタート";
+const INPUT_MSG = "かな　確認";//英数　かな
+const IME = "OFF";// ON Shift+Enter
+const RANDOM = 10;// 出題数
+const WIDTH = "20ch";// 入力幅　全角は2倍
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script src="random.js"></script>
+<script src="typing.js"></script>
+<style>
+	img {
+		width:960px;
+		margin-top:40px;
+	}
+</style>
+<img src="ひらがな最適化.png">
+</body>
+</html>
