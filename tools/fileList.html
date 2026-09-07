@@ -57,7 +57,9 @@
       <input type="radio" id="filterMp3" name="filter" value="mp3">
       <label for="filterMp3">mp3</label>
     </div>
-  </div><div class="toolbar-section">
+  </div>
+
+  <div class="toolbar-section">
     <div class="section-title">出力形式</div>
     <div class="radio-group">
       <input type="radio" id="modeLink3" name="answer" value="link3" checked>
@@ -83,6 +85,10 @@
       <input type="radio" id="modeText" name="answer" value="text">
       <label for="modeText">Text</label>
     </div>
+    <div class="radio-group">
+      <input type="radio" id="modePwa" name="answer" value="pwa">
+      <label for="modePwa">'./pwa'</label>
+    </div>
   </div>
 
   <div class="toolbar-section">
@@ -103,16 +109,13 @@
 <textarea id="output" placeholder="ここへフォルダをドラッグ＆ドロップ"></textarea>
 
 <script>
-// フィルター判定用の関数
 function isMatchFilter(name, handle, filter) {
   if (filter === "all") return true;
 
-  // フォルダ判定
   if (filter === "folder") {
     return handle.kind === "directory";
   }
 
-  // フォルダを除外してファイルのみを対象にする
   if (handle.kind !== "file") return false;
 
   const lowerName = name.toLowerCase();
@@ -121,41 +124,85 @@ function isMatchFilter(name, handle, filter) {
   if (filter === "html") return isHtml;
   if (filter === "notHtml") return !isHtml;
 
-  // js, css, png, mp3 など、指定された拡張子と一致するか判定
   return lowerName.endsWith(`.${filter}`);
 }
 
-async function buildFileListFromDirectoryHandle(dirHandle) {
+async function traverseDirectory(dirHandle, currentPath = "") {
   const items = [];
   const filter = document.querySelector('input[name="filter"]:checked').value;
-  const format = document.querySelector('input[name="answer"]:checked').value;
-  const sortMode = document.querySelector('input[name="sort"]:checked').value;
 
   for await (const [name, handle] of dirHandle.entries()) {
-    // フィルター判定（名前とhandleの両方を渡す）
-    if (!isMatchFilter(name, handle, filter)) continue;
+    const relativePath = currentPath ? currentPath + "/" + name : name;
 
-    let modified = 0;
-    if (handle.kind === "file") {
-      const file = await handle.getFile();
-      modified = file.lastModified;
+    if (handle.kind === "directory") {
+      if (isMatchFilter(name, handle, filter)) {
+        items.push({
+          name: name,
+          path: "./" + relativePath + "/",
+          kind: "directory",
+          modified: 0
+        });
+      }
+      const subItems = await traverseDirectory(handle, relativePath);
+      items.push(...subItems);
+
+    } else if (handle.kind === "file") {
+      if (isMatchFilter(name, handle, filter)) {
+        const file = await handle.getFile();
+        items.push({
+          name: name,
+          path: "./" + relativePath,
+          kind: "file",
+          modified: file.lastModified
+        });
+      }
     }
-
-    items.push({ 
-      name: name, 
-      kind: handle.kind, 
-      modified: modified 
-    });
   }
 
-  // ソート処理
+  return items;
+}
+
+async function buildFileListFromDirectoryHandle(dirHandle) {
+  const sortMode = document.querySelector('input[name="sort"]:checked').value;
+  const format = document.querySelector('input[name="answer"]:checked').value;
+  const filter = document.querySelector('input[name="filter"]:checked').value;
+
+  let items = [];
+
+  if (format === "pwa") {
+    items = await traverseDirectory(dirHandle, "");
+    items.unshift({
+      name: "",
+      path: "./",
+      kind: "directory",
+      modified: 0
+    });
+  } else {
+    for await (const [name, handle] of dirHandle.entries()) {
+      if (!isMatchFilter(name, handle, filter)) continue;
+
+      let modified = 0;
+      if (handle.kind === "file") {
+        const file = await handle.getFile();
+        modified = file.lastModified;
+      }
+
+      items.push({ 
+        name: name, 
+        path: name,
+        kind: handle.kind, 
+        modified: modified 
+      });
+    }
+  }
+
   if (sortMode === "name") {
-    items.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'}));
+    const key = (format === "pwa") ? "path" : "name";
+    items.sort((a, b) => a[key].localeCompare(b[key], undefined, {numeric: true, sensitivity: 'base'}));
   } else {
     items.sort((a, b) => b.modified - a.modified);
   }
 
-// 出力文字列の生成
   let result = "";
   for (const item of items) {
     const path = item.kind === "directory" ? `${item.name}/` : item.name;
@@ -172,6 +219,8 @@ async function buildFileListFromDirectoryHandle(dirHandle) {
       result += `"${item.name}",\n`;
     } else if (format === "text") {
       result += `${item.name}\n`;
+    } else if (format === "pwa") {
+      result += `  '${item.path}',\n`;
     }
   }
   return result;
@@ -201,7 +250,6 @@ output.addEventListener("drop", async (e) => {
   }
 });
 output.addEventListener("dragover", (e) => e.preventDefault());
-
 </script>
 </body>
 </html>

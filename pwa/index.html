@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>pwaの作り方</title>
+<style>
+body {
+	border: none;
+	font-size: 24px;
+	line-height: 2em;
+	width:800px;
+	padding: 10px;
+	margin: 20px auto 20px;
+	white-space: pre-line;
+}
+
+#title {
+	display: block;
+  text-align:center;
+  font-size:200%;
+}
+
+a {
+	color:#000000;
+	text-decoration: none;
+	line-height:1.2em;
+	border-left: 16px solid blue;
+	border-bottom: 1px solid blue;
+	padding-left: 8px;
+	padding-bottom: 2px;
+	margin-right: 12px;
+	margin-bottom:8px;
+	display: inline-block;
+}
+
+a:hover {
+	color: blue;
+}
+
+h2 {
+		display:inline-block;
+		margin-bottom:0px;
+}
+/* 枠で囲む、フォントサイズ、背景色、文字色、その他の装飾 */
+pre {
+  border: 1px solid #ccc;       /* 枠線（太さ・線種・色） */
+  background-color: #f4f4f4;    /* 背景色（薄いグレー） */
+  color: #333333;               /* 文字色（ダークグレー） */
+  font-size: 18px;              /* フォントサイズ */
+  padding: 15px;                /* 内側の余白 */
+  border-radius: 5px;           /* 枠の角を丸くする（お好みで） */
+  overflow-x: auto;             /* 横幅を超えたときスクロールさせる */
+  line-height:1.2em;
+  margin-bottom:10px;
+}
+</style>
+</head>
+<body>
+<div id="title">pwaの作り方</div>
+PWA（[プログレッシブウェブアプリ]とは
+Webサイトをスマホアプリ（ネイティブアプリ）のように使えるようにする技術のことです。
+
+PWAの主な特徴
+インストールが簡単：アプリストアを通さず、ブラウザから直接スマホのホーム画面にアイコンを追加できます。
+オフラインでも動く：データを一時保存（キャッシュ）するため、電波がない場所でも閲覧できます。
+表示が速い：読み込みがスムーズで、サクサク動きます。
+
+<h2>Webアプリをフォルダに保存</h2>
+右クリックから名前をつけて保存
+<a href="type/index.html">index.html</a>
+<a href="type/style.css">style.css</a>
+<a href="type/typing.js">typing.js</a>
+<img src="pwa1.png">
+<h2>pwaに必要なファイルを保存</h2>
+右クリックから名前をつけて保存
+<a href="pwa/head.html">head.html</a>
+<a href="pwa/manifest.json">manifest.json</a>
+<a href="pwa/register-sw.js">register-sw.js</a>
+<a href="pwa/sw.js">sw.js</a>
+<img src="icon-192.png" style="width:64px;">
+<img src="icon-512.png" style="width:92px;">
+<h2>ファイルの編集</h2>
+index.htmlのheadにhead.htmlを挿入
+<pre>&lt;!doctype html&gt;
+&lt;html lang="ja"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+    &lt;title&gt;タイピング練習&lt;/title&gt;
+    &lt;link rel="manifest" href="manifest.json"&gt;
+    &lt;meta name="theme-color" content="#3b82f6"&gt;
+    &lt;script src="./register-sw.js" defer&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+<h2>manifest.jsonを編集</h2>
+<pre>
+{
+  "name": "タイピングアプリ",
+  "short_name": "タイピング",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+</pre>
+<h2>register-sw.jsはそのまま</h2>
+<pre>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then((reg) => {
+        console.log('Service Worker 登録成功:', reg.scope);
+      })
+      .catch((err) => {
+        console.log('Service Worker 登録失敗:', err);
+      });
+  });
+}
+</pre>
+<h2>sw.jsを編集</h2>
+<pre>
+const CACHE_NAME = 'typing-pwa-ver1';
+const urlsToCache = [
+  './',
+  './index.html',
+  './style.css',
+  './typing.js'
+];
+
+// インストール時にファイルをキャッシュ
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+// キャッシュからレスポンスを返す
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
+  );
+});
+</pre>
+<h2>urlsToCacheを作成</h2>
+◉すべて　◉'./pwa'　にマークして、フォルダをドロップ
+<a href="../tools/fileList.html" target="_blank"><img src="filelist.png" style="width:640px;"></a>
+キャッシュする必要のあるファイルのリスト
+<pre>
+const urlsToCache = [
+  './',
+  './index.html',
+  './style.css',
+  './typing.js',
+  './manifest.json',
+  './register-sw.js',
+  './sw.js',
+  './icon-192.png',
+  './icon-512.png',
+];
+</pre>
+<h2>フォルダごとサーバーにアップロード</a>
+<a href="https://type-xgfy.netlify.app/" target="_blank"><img src="type-xgfy.png"></a>
+ブラウザのURL右側にインストールボタン
+<img src="page.png">
+<img src="app1.png">
+インストールのダイアログ
+<img src="app2.png" style="border:1px solid #888;">
+ショートカットができる
+<img src="app3.png">
+アプリのような画面
+<img src="app4.png">
+設定は︙から行う
+<img src="app5.png">
+</body>
+</html>
