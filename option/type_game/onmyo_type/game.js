@@ -450,3 +450,12 @@ const checkInterval = setInterval(() => {
     onGameComplete(cpm, accuracy);
   }
 }, 100);
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const configEl = document.getElementById('config');
+    if (configEl) {
+      configEl.classList.toggle('show');
+    }
+  }
+});

@@ -19,10 +19,10 @@
 <textarea id="editor" class="line" spellcheck="false"></textarea>
 
 <script>
-const length = 8;// 問題文の長さ
-const lines = 100; //生成問題数
-//対象文字　`改行ありは`で囲む
-const strdata = `
+let length = 8;// 問題文の長さ
+let lines = 100; //生成問題数
+//対象文字 `改行ありは`で囲む
+let strdata = `
 すはひえおかきこ
 んくみやなまも
 あういしそゆよにのね
@@ -34,11 +34,37 @@ const TITLE_MSG = "陰陽師呪文";
 const START_MSG = "Enter⏎でスタート";
 const INPUT_MSG = "かな";
 const RANDOM = "10";
-const WIDTH = "20ch";
+const WIDTH = "32ch";
 const IME = "OFF";
+
+// セットボタン押下時の処理
+document.addEventListener('DOMContentLoaded', () => {
+  // 初期値をフォームに反映しておく場合
+  document.getElementById('len').value = length;
+  document.getElementById('strdata').value = strdata.trim();
+
+  document.getElementById('set').addEventListener('click', () => {
+    // 入力欄から値を取得して更新
+    length = parseInt(document.getElementById('len').value, 10) || 8;
+    strdata = document.getElementById('strdata').value;
+
+    // 問題文を再生成してゲームを初期化状態に戻す
+    if (typeof generateText === 'function') generateText();
+    if (typeof init === 'function') init();
+  });
+});
 </script>
 <textarea id="txtdata" hidden>
 </textarea>
+
+<div id="config" class="line">
+<input id="len" value="8">
+<textarea id="strdata">
+ちとしはまのりれ
+</textarea>
+<button id="set">霊符填装</button>
+</div>
+
 <script src="random.js"></script>
 <script src="typing.js"></script>
 <script src="game.js"></script>
