@@ -23,11 +23,10 @@ let length = 8;// 問題文の長さ
 let lines = 100; //生成問題数
 //対象文字 `改行ありは`で囲む
 let strdata = `
-すはひえおかきこ
-んくみやなまも
-あういしそゆよにのね
-ふてとさらりるわほせ
-ぬたちつれめけろへむ
+ちとしはまのりれきくけむ
+たていすかんなにらせ
+つさそひこみもねるめろ
+ぬふあうえおやゆよわほへ
 `;
 
 const TITLE_MSG = "陰陽師呪文";
@@ -54,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
 <textarea id="txtdata" hidden>
 </textarea>
 
 <div id="config" class="line">
-<input id="len" value="8">
+<input id="len">
 <textarea id="strdata">
-ちとしはまのりれ
 </textarea>
 <button id="set">霊符填装</button>
 </div>
