@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>問題作成</title>
-<link rel="stylesheet" href="customstyle.css">
 <link rel="stylesheet" href="custom.css">
 <style>
   /*モジュール非表示　display: none; */
@@ -24,8 +23,10 @@
 <!------カスタマイズボックス------------------------>  
 <div id="custom">
   <!------typing.jsデータ設定モジュール------------------------>
-  <div id="dataMod" class="contena">
-    <div id="set">
+		<label for="chkdataMod">DATA</label>
+		<input id="chkdataMod" type="checkbox">
+		<div id="dataMod" class="contena">
+      <div id="set">
       題　名：<input id="TITLE_MSG">
       <button class="sBtn" onclick="testPlay()">テスト</button><br>
 
@@ -61,9 +62,10 @@
     <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
    </div>
 </div>
-<script src="custom.js"></script>
 
 <!------textarea編集モジュール------------------------>
+	<label for="chkeditMod">EDIT</label>
+	<input id="chkeditMod" type="checkbox">
   <div id="editMod" class="contena">
     <div class="btnbox">
       <button class="btn" onclick="repText()">分割</button>
@@ -114,6 +116,8 @@
     </div>
   </div>
 <!------テスト　html保存モジュール------------------------>
+	<label for="chksaveMod">HTML</label>
+	<input id="chksaveMod" type="checkbox">
   <div id="saveMod" class="contena">
     <div class="btnbox">
       <button class="btn" onclick="clrText('txtComp')">クリア</button>
@@ -124,10 +128,14 @@
   </div>
 
 <!------ダウンロードモジュール------------------------>
+	<label for="chkdl1Mod">DL1</label>
+	<input id="chkdl1Mod" type="checkbox">
   <div id="dl1Mod" class="contena">
     <a href="typing.js" class="DL">typing.js</a>
     <a href="style.css" class="DL">style.css</a>
   </div>
+	<label for="chkdl2Mod">DL2</label>
+	<input id="chkdl2Mod" type="checkbox">
   <div id="dl2Mod" class="contena">
     <a href="custom.html" class="DL">custom.html</a>
     <a href="custom.css" class="DL">custom.css</a>
@@ -136,6 +144,6 @@
 </div>
 <!------カスタマイズボックス------------------------>  
 
-<script src="typecustom.js"></script>
+<script src="custom.js"></script>
 </body>
 </html>
