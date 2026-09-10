@@ -452,7 +452,7 @@ const checkInterval = setInterval(() => {
 }, 100);
 
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
+  if (e.key === 'F2') {
     const configEl = document.getElementById('config');
     if (configEl) {
       configEl.classList.toggle('show');

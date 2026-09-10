@@ -209,13 +209,16 @@ function judgeCurrentWord(){
   nextWord()
 }
 
-function loadWords(text){
-  words = text
+function loadWords(){
+  const textarea = document.getElementById('txtdata');
+  words = textarea.value
     .replace(/^\uFEFF/, '')
     .replace(/\r\n?/g, '\n')
     .split('\n')
     .map(s => s.trim())
-    .filter(Boolean)
+    .filter(Boolean);
+    
+  textarea.value = words.join('\n');
 }
 
 editorEl.addEventListener('compositionstart', () => {
@@ -278,7 +281,7 @@ function init(){
 
   document.documentElement.style.setProperty('--line-width', WIDTH)
 
-  loadWords(document.getElementById('txtdata').value)
+  loadWords();
 
   if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
     limit = RANDOM
@@ -291,4 +294,18 @@ function init(){
   setTimeout(() => editorEl.focus(), 0)
 }
 
-init()
+// 表示・非表示を制御する関数（引数で指定）
+function setTextarea(isVisible) {
+  const textarea = document.getElementById('txtdata');
+  if (!textarea) return;
+
+  if (isVisible) {
+    textarea.style.display = 'block';
+    textarea.focus();
+  } else {
+    textarea.style.display = 'none';
+    init();
+  }
+}
+
+setTextarea(false);

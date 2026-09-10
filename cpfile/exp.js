@@ -14,6 +14,6 @@ function expNone() {
 }
 
 window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') { expNone(); } // ← `expNome` を `expNone` に修正
+  if (event.key === 'Escape') { expNone(); } 
 });
 </script>
