@@ -283,7 +283,7 @@ function testPlay() {
 }
 
 window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
+  if (event.key === 'F2') {
     customDivDisplay("block")
   }
 });
