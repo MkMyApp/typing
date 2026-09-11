@@ -240,12 +240,12 @@ function drawScore() {
 // 称号（ランク）計算関数
 function getRankTitle(cpm, acc) {
   if (acc < 70) return "虫見習い";
-  if (cpm >= 350 && acc >= 98) return "伝説の虫博士";
-  if (cpm >= 300 && acc >= 95) return "昆虫マスター";
-  if (cpm >= 250 && acc >= 90) return "一人前の昆虫ハンター";
-  if (cpm >= 200 && acc >= 85) return "熟練の虫捕り名人";
-  if (cpm >= 150) return "駆け出し虫捕り";
-  if (cpm >= 100) return "虫観察員";
+  if (cpm >= 70 && acc >= 98) return "伝説の虫博士";
+  if (cpm >= 60 && acc >= 95) return "昆虫マスター";
+  if (cpm >= 50 && acc >= 90) return "一人前の昆虫ハンター";
+  if (cpm >= 40 && acc >= 85) return "熟練の虫捕り名人";
+  if (cpm >= 30) return "駆け出し虫捕り";
+  if (cpm >= 20) return "虫観察員";
   return "虫好きのひよこ";
 }
 

@@ -98,12 +98,12 @@ function drawScore() {
 // 称号計算関数
 function getRankTitle(cpm, acc) {
   if (acc < 70) return "百姓";
-  if (cpm >= 350 && acc >= 98) return "天下一統";
-  if (cpm >= 300 && acc >= 95) return "天下布武";
-  if (cpm >= 250 && acc >= 90) return "海道一の弓取り";
-  if (cpm >= 200 && acc >= 85) return "侍大将";
-  if (cpm >= 150) return "足軽大将";
-  if (cpm >= 100) return "足軽";
+  if (cpm >= 70 && acc >= 98) return "天下一統";
+  if (cpm >= 60 && acc >= 95) return "天下布武";
+  if (cpm >= 50 && acc >= 90) return "海道一の弓取り";
+  if (cpm >= 40 && acc >= 85) return "侍大将";
+  if (cpm >= 30) return "足軽大将";
+  if (cpm >= 20) return "足軽";
   return "草履取り";
 }
 

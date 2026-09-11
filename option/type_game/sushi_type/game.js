@@ -175,16 +175,16 @@ requestAnimationFrame(updateAndDraw);
 // ==================================================
 function getRank(cpm, accuracy) {
   if (accuracy < 50) return "F"; 
-  if (cpm >= 500 && accuracy >= 100) return "横綱";
-  if (cpm >= 360 && accuracy >= 99) return "大関";
-  if (cpm >= 280 && accuracy >= 98) return "関脇";
-  if (cpm >= 200 && accuracy >= 95) return "S+";
-  if (cpm >= 160 && accuracy >= 90) return "S";
-  if (cpm >= 120 && accuracy >= 85) return "A";
-  if (cpm >= 80 && accuracy >= 80)  return "B";
-  if (cpm >= 60 && accuracy >= 70)  return "C";
-  if (cpm >= 40 && accuracy >= 60)  return "D";
-  if (cpm >= 20 && accuracy >= 50)  return "E";
+  if (cpm >= 100 && accuracy >= 100) return "横綱";
+  if (cpm >= 90 && accuracy >= 99) return "大関";
+  if (cpm >= 80 && accuracy >= 98) return "関脇";
+  if (cpm >= 70 && accuracy >= 95) return "小結";
+  if (cpm >= 60 && accuracy >= 90) return "十両";
+  if (cpm >= 50 && accuracy >= 85) return "A";
+  if (cpm >= 40 && accuracy >= 80) return "B";
+  if (cpm >= 30 && accuracy >= 70) return "C";
+  if (cpm >= 20 && accuracy >= 60) return "D";
+  if (cpm >= 10 && accuracy >= 50) return "E";
   return "F";
 }
 

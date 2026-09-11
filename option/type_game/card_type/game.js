@@ -10,66 +10,10 @@ let lastEarnedScore = 0;
 // ==================================================
 //  演出・画像オブジェクト設定
 // ==================================================
-// フォールバック用のランダム画像配列（対応表にない単語が出た場合に使用）
+// ★ フォールバック用の画像配列（画像が存在しない場合に使用）
 const ENEMY_IMAGES = [
-  'megahorn_x.jpg',
+  'ドラゴンエッグ.jfif',
 ];
-
-// ★ 出題文字列（漢字＋全角スペース＋よみ）と画像ファイル名の対応表（修正版）
-const MUSHI_MAP = {
-　　'炎角　エンカク': 'megahorn_omega_01.jpg',
-　　'絶炎角　ゼツエンカク': 'megahorn_omega_02.jpg',
-　　'剛角　ゴウカク': 'megahorn_s_01.jpg',
-　　'斬角　ザンカク': 'megahorn_s_02.jpg',
-　　'飛角　ヒカク': 'megahorn_s_03.jpg',
-　　'砕角　サイカク': 'megahorn_s_04.jpg',
-　　'壁角　ヘキカク': 'megahorn_s_05.jpg',
-　　'絶剛角　ゼツゴウカク': 'megahorn_h_01.jpg',
-　　'鎖角　サカク': 'megahorn_a_01.jpg',
-　　'絶鎖角　ゼツサカク': 'megahorn_h_02.jpg',
-　　'電角　デンカク': 'megahorn_a_02.jpg',
-　　'毒角　ドクカク': 'megahorn_a_03.jpg',
-　　'猛角　モウカク': 'megahorn_a_04.jpg',
-　　'鎌角　レンカク': 'megahorn_a_05.jpg',
-　　'重角　ジュウカク': 'megahorn_a_06.jpg',
-　　'熱角　ネッカク': 'megahorn_a_07.jpg',
-　　'氷角　ヒョウカク': 'megahorn_a_08.jpg',
-　　'威角　イカク': 'megahorn_a_09.jpg',
-　　'粉角　フンカク': 'megahorn_a_10.jpg',
-　　'挟角　キョウカク': 'megahorn_a_11.jpg',
-　　'溶角　ヨウカク': 'megahorn_a_12.jpg',
-　　'縛角　バクカク': 'megahorn_a_13.jpg',
-　　'弾角　ダンカク': 'megahorn_a_14.jpg',
-　　'璃角　リカク': 'megahorn_a_15.jpg',
-　　'波角　ハカク': 'megahorn_a_16.jpg',
-　　'忍角　ニンカク': 'megahorn_a_17.jpg',
-　　'籠角　ロウカク': 'megahorn_a_18.jpg',
-　　'槍角　ソウカク': 'megahorn_a_19.jpg',
-　　'絶槍角　ゼツソウカク': 'megahorn_h_03.jpg',
-　　'臭角　シュウカク': 'megahorn_a_20.jpg',
-　　'突角　トッカク': 'megahorn_a_21.jpg',
-　　'潜角　センカク': 'megahorn_a_22.jpg',
-　　'明角　メイカク': 'megahorn_a_23.jpg',
-　　'盾角　ジュンカク': 'megahorn_a_24.jpg',
-　　'転角　テンカク': 'megahorn_a_25.jpg',
-　　'鎧角　ガイカク': 'megahorn_a_26.jpg',
-　　'林角　リンカク': 'megahorn_a_27.jpg',
-　　'呑角　ドンカク': 'megahorn_a_28.jpg',
-　　'群角　グンカク': 'megahorn_a_29.jpg',
-　　'闘角　トウカク': 'megahorn_a_30.jpg',
-　　'邪角　ジャカク': 'megahorn_a_31.jpg',
-　　'捕角　ホカク': 'megahorn_a_32.jpg',
-　　'拭角　ショクカク': 'megahorn_a_33.jpg',
-　　'美角　ビカク': 'megahorn_a_34.jpg',
-　　'電角変異種　デンカクヘンイシュ': 'megahorn_h_04.jpg',
-　　'毒角変異種　ドクカクヘンイシュ': 'megahorn_h_05.jpg',
-　　'鎌角変異種　レンカクヘンイシュ': 'megahorn_h_11_2.jpg',
-　　'氷角変異種　ヒョウカクヘンイシュ': 'megahorn_h_06.jpg',
-　　'忍角変異種　ニンカクヘンイシュ': 'megahorn_h_07.jpg',
-　　'突角変異種　トッカクヘンイシュ': 'megahorn_h_08.jpg',
-　　'邪角変異種　ジャカクヘンイシュ': 'megahorn_h_09.jpg',
-　　'捕角変異種　ホカクヘンイシュ': 'megahorn_h_10.jpg',
-};
 
 // 画面サイズ・背景設定
 const canvas = document.getElementById('gameCanvas');
@@ -78,41 +22,32 @@ const ctx = canvas ? canvas.getContext('2d') : null;
 const bgImg = new Image();
 bgImg.src = 'bg.jpg';
 
+// プレイヤー画像
+const myImg = new Image();
+myImg.src = 'you.png';
+
 // アニメーション関連変数
 let activeEnemies = [];
-let effects = []; // 「流れる」「打鍵成功」などの演出用配列
+let effects = []; // 演出用配列
 let animationFrameId = null;
-const ENEMY_HEIGHT = 256; // 画像描画時の標準縦幅
-const BASE_SPEED = 1;   // 左へ進む速度
+const YOU_HEIGHT = 300;
+const ENEMY_HEIGHT = 200; // 画像描画時の標準縦幅
+const BASE_SPEED = 1;      // 左へ進む速度
 
-// ==================================================
-//  単語リストの自動流し込み & タイピング初期化
-// ==================================================
-const txtdataEl = document.getElementById('txtdata');
-if (txtdataEl && typeof MUSHI_MAP !== 'undefined') {
-  txtdataEl.value = Object.keys(MUSHI_MAP).join('\n');
-  if (typeof init === 'function') {
-    init();
-  }
-}
-
-// 敵カード（角獣）オブジェクトを1個生成する関数
+// 敵オブジェクトを1個生成する関数
 function spawnEnemy() {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
 
-  // 問題文に対応する画像を取得（なければフォールバック画像）
-  let imageSrc = MUSHI_MAP[targetWord];
-
-  if (!imageSrc && ENEMY_IMAGES.length > 0) {
-    imageSrc = ENEMY_IMAGES[Math.floor(Math.random() * ENEMY_IMAGES.length)];
-  }
+  // ★ 画像ファイル名は「問題文.jfif」で確定
+  const imageSrc = targetWord ? `${targetWord}.jfif` : ENEMY_IMAGES[0];
 
   const img = new Image();
+  const OFFSET_LEFT = 300; 
 
   const enemy = {
     img: img,
-    x: canvas ? canvas.width - 64 : 1024,
-    y: ((canvas ? canvas.height - ENEMY_HEIGHT : 434 - ENEMY_HEIGHT) / 2) + 50,
+    x: (canvas ? canvas.width : 1024) - OFFSET_LEFT,
+		y: (((canvas ? canvas.height : 434) - ENEMY_HEIGHT) / 2) + 50,
     width: 180,
     height: ENEMY_HEIGHT,
     speed: BASE_SPEED,
@@ -128,16 +63,10 @@ function spawnEnemy() {
     enemy.loaded = true;
   };
 
-  // ★ 画像が存在しない・読み込めない場合のフォールバック処理
+  // ★ 画像が存在しない・読み込めない場合ドラゴンエッグ.jfif
   img.onerror = () => {
-    const fallbackSrc = ENEMY_IMAGES[0] || 'megahorn_x.jpg';
-    
-    // 無限ループ防止（すでにフォールバック画像読み込みエラーの場合はスキップ）
-    if (img.src.includes(fallbackSrc)) {
-      return;
-    }
-
-    // 代替画像（megahorn_x.jpg）に差し替えて再読み込み
+    const fallbackSrc = ENEMY_IMAGES[0] || 'ドラゴンエッグ.jfif';
+    if (img.src.includes(fallbackSrc)) return;
     img.src = fallbackSrc;
   };
 
@@ -145,42 +74,39 @@ function spawnEnemy() {
   activeEnemies = [enemy];
 }
 
-// スコア表示関数（右上に直前単語の獲得ポイントを表示）
+// スコア表示関数
 function drawScore() {
   if (!ctx || !canvas) return;
 
   ctx.save();
   ctx.font = 'bold 24px sans-serif';
-  ctx.fillStyle = '#333333';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'top';
 
   const text = `${lastEarnedScore} pt`; 
   
-  // 文字の背景にうっすら白座布団を敷いて見やすくする
   const margin = 15;
   const rectX = canvas.width - 200;
   const rectY = margin - 5;
   ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
   ctx.fillRect(rectX, rectY, 185, 35);
 
-  ctx.fillStyle = '#d32f2f'; // 鮮やかな赤系文字
+  ctx.fillStyle = '#d32f2f';
   ctx.fillText(text, canvas.width - margin, margin);
   ctx.restore();
 }
 
-// 称号（ランク）計算関数
+// 称号計算関数（竜狩りテーマ）
 function getRankTitle(cpm, acc) {
-  if (acc < 70) return "見習い角獣ハンター";
-  if (cpm >= 70 && acc >= 98) return "角醒の神討手・オメガホーン";
-  if (cpm >= 60 && acc >= 95) return "極角の討伐帝";
-  if (cpm >= 50 && acc >= 90) return "熟練のメガホーンハンター";
-  if (cpm >= 40 && acc >= 85) return "一人前の角獣狩人";
-  if (cpm >= 30) return "駆け出し角獣ハンター";
-  if (cpm >= 20) return "角獣調査員";
-  return "新米角獣トラッカー";
+  if (acc < 70) return "訓練生";
+  if (cpm >= 70 && acc >= 98) return "竜神殺し";
+  if (cpm >= 60 && acc >= 95) return "伝説の竜騎士";
+  if (cpm >= 50 && acc >= 90) return "竜牙士";
+  if (cpm >= 40 && acc >= 85) return "竜狩り";
+  if (cpm >= 30) return "討伐隊長";
+  if (cpm >= 20) return "見習い猟兵";
+  return "村の自警団";
 }
-
 // アニメーションメインループ
 function update() {
   if (!ctx || !canvas) return;
@@ -193,7 +119,19 @@ function update() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // 2. 敵（カード）の移動と描画
+  // 1.5 プレイヤー描画
+  if (myImg.complete && myImg.naturalWidth !== 0) {
+    const playerHeight = YOU_HEIGHT;
+    const aspect = myImg.naturalWidth / myImg.naturalHeight;
+    const playerWidth = playerHeight * aspect;
+    
+    const playerX = 0;
+    const playerY = ((canvas.height - playerHeight) / 2) + 50;
+
+    ctx.drawImage(myImg, playerX, playerY, playerWidth, playerHeight);
+  }
+
+  // 2. 敵の移動と描画
   activeEnemies.forEach(enemy => {
     enemy.x -= enemy.speed;
 
@@ -202,7 +140,7 @@ function update() {
     }
   });
 
-  // 3. エフェクト（敵の上に重ねて描画）
+  // 3. エフェクト描画
   effects.forEach(fx => {
     fx.x += fx.vx;
     fx.y += fx.vy;
@@ -219,11 +157,10 @@ function update() {
     }
   });
 
-  // 画面外の敵と透明になったエフェクトのクリア
   activeEnemies = activeEnemies.filter(enemy => enemy.x + enemy.width > 0);
   effects = effects.filter(fx => fx.alpha > 0);
 
-  // 4. 右上のスコア表示
+  // 4. スコア表示
   drawScore();
 
   animationFrameId = requestAnimationFrame(update);
@@ -254,13 +191,11 @@ function onNextQuestion(qIndex) {
 }
 
 function onLineComplete(timeSec, cpm, accuracy, isMissless) {
-  // ★ 正解率（accuracy %）を掛け合わせたスコア計算
   const lineScore = Math.round(cpm * (accuracy / 100));
   
-  lastEarnedScore = lineScore; // 今回獲得したスコア
-  totalScore += lineScore;     // 累計スコアに加算
+  lastEarnedScore = lineScore;
+  totalScore += lineScore;
 
-  // 1. まず先にエフェクト（消失演出）を発生させる
   if (activeEnemies.length > 0) {
     const enemy = activeEnemies[0];
 
@@ -272,7 +207,6 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
     const centerX = enemy.x + enemyWidth / 2;
     const centerY = enemy.y + enemyHeight / 2;
 
-    // パティクルエフェクト生成
     for (let i = 0; i < 20; i++) {
       effects.push({
         x: centerX,
@@ -287,12 +221,10 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
     }
   }
 
-  // 2. エフェクトが発生した「後」に敵カードを消去する
-  // (少しだけ余韻を残したい場合は setTimeout を使うこともできます)
   activeEnemies = [];
 }
 
-// typing.js の判定処理（judgeCurrentWord）をフックしてスコア計算や敵消去を行う
+// judgeCurrentWord のフック
 if (typeof judgeCurrentWord === 'function') {
   const originalJudgeCurrentWord = judgeCurrentWord;
   judgeCurrentWord = function() {
@@ -304,7 +236,6 @@ if (typeof judgeCurrentWord === 'function') {
     const len = userTyped.length;
     const cpm = timeSec > 0 ? Math.round((len / timeSec) * 60) : 0;
 
-    // ★ 正解率（accuracy）の計算処理
     let correctCharsCount = 0;
     const u = [...userTyped];
     const a = [...targetWord];
@@ -316,7 +247,6 @@ if (typeof judgeCurrentWord === 'function') {
     const isMissless = (userTyped === targetWord);
 
     try {
-      // accuracy（正解率）を渡して実行
       onLineComplete(timeSec, cpm, accuracy, isMissless);
     } catch (err) {
       console.error("onLineComplete Error:", err);
@@ -346,6 +276,13 @@ window.addEventListener('keydown', handleKeyDown, true);
 //  タイピング状態監視 (タイマー処理)
 // ==================================================
 const checkInterval = setInterval(() => {
+  if (typeof typeStarted !== 'undefined' && !typeStarted && !finished) {
+    const scoreEl = document.getElementById('score');
+    if (scoreEl && scoreEl.innerHTML !== '') {
+      scoreEl.innerHTML = '';
+    }
+  }
+
   if (typeof typeStarted !== 'undefined' && typeStarted && !isTracking) {
     isTracking = true;
     lastQIndex = qIndex;
@@ -364,7 +301,6 @@ const checkInterval = setInterval(() => {
     const finalCpm = finalSec > 0 ? Math.round((totalChars / finalSec) * 60) : 0;
     const finalAcc = targetLengthTotal > 0 ? Math.round((correctChars / targetLengthTotal) * 100) : 0;
 
-    // 称号判定とスコア結果のUI書き換え（★ここで totalScore を表示）
     const rankTitle = getRankTitle(finalCpm, finalAcc);
     const scoreEl = document.getElementById('score');
     if (scoreEl) {

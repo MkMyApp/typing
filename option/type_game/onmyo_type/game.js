@@ -226,17 +226,17 @@ requestAnimationFrame(updateAndDraw);
 //  ランク設定（テーマ：陰陽師）
 // ==================================================
 function getRank(cpm, accuracy) {
-  if (accuracy < 50) return "迷い人"; 
-  if (cpm >= 500 && accuracy >= 100) return "泰山府君";
-  if (cpm >= 360 && accuracy >= 99) return "大陰陽師";
-  if (cpm >= 280 && accuracy >= 98) return "天文博士";
-  if (cpm >= 200 && accuracy >= 95) return "陰陽頭";
-  if (cpm >= 160 && accuracy >= 90) return "陰陽師";
-  if (cpm >= 120 && accuracy >= 85) return "陰陽生";
-  if (cpm >= 80 && accuracy >= 80)  return "呪禁生";
-  if (cpm >= 60 && accuracy >= 70)  return "見習い";
-  if (cpm >= 40 && accuracy >= 60)  return "式神使いの卵";
-  if (cpm >= 20 && accuracy >= 50)  return "式神";
+  if (accuracy < 60) return "迷い人"; 
+  if (cpm >= 110 && accuracy >= 100) return "泰山府君";
+  if (cpm >= 100 && accuracy >= 99) return "大陰陽師";
+  if (cpm >= 90 && accuracy >= 98) return "天文博士";
+  if (cpm >= 80 && accuracy >= 95) return "陰陽頭";
+  if (cpm >= 70 && accuracy >= 90) return "陰陽師";
+  if (cpm >= 60 && accuracy >= 85) return "陰陽生";
+  if (cpm >= 50 && accuracy >= 75)  return "呪禁生";
+  if (cpm >= 40 && accuracy >= 70)  return "見習い";
+  if (cpm >= 30 && accuracy >= 65)  return "式神使いの卵";
+  if (cpm >= 20 && accuracy >= 60)  return "式神";
   return "迷い人";
 }
 

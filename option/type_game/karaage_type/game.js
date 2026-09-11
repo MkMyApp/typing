@@ -41,26 +41,16 @@ requestAnimationFrame(updateAndDraw);
 function getRank(cpm, accuracy) {
 　//正解率 50%以下
 　if (accuracy < 50) return "F"; 
-  // 1分間に約500文字以上＋高精度
-  if (cpm >= 500 && accuracy >= 100) return "からあげクン";
-  // 1分間に約360文字以上＋高精度
-  if (cpm >= 360 && accuracy >= 99) return "パートさん";
-  // 1分間に約280文字以上＋高精度
-  if (cpm >= 280 && accuracy >= 98) return "バイトくん";
-  // 1分間に約200文字以上＋高精度
-  if (cpm >= 200 && accuracy >= 95) return "研修中";
-  // 1分間に約160文字以上
-  if (cpm >= 160 && accuracy >= 90) return "S";
-  // 1分間に約120文字以上
-  if (cpm >= 120 && accuracy >= 85) return "A";
-  // 1分間に約80文字以上
-  if (cpm >= 80 && accuracy >= 80)  return "B";
-  // 1分間に約60文字以下
-  if (cpm >= 60 && accuracy >= 70)  return "C";
-  // 1分間に約40文字以下
-  if (cpm >= 40 && accuracy >= 60)  return "D";
-  // 1分間に約20文字以下
-  if (cpm >= 20 && accuracy >= 50)  return "E";
+  if (cpm >= 100 && accuracy >= 100) return "からあげクン";
+  if (cpm >= 90 && accuracy >= 99) return "パートさん";
+  if (cpm >= 80 && accuracy >= 98) return "バイトくん";
+  if (cpm >= 70 && accuracy >= 95) return "研修中";
+  if (cpm >= 60 && accuracy >= 90) return "S";
+  if (cpm >= 50 && accuracy >= 85) return "A";
+  if (cpm >= 40 && accuracy >= 80)  return "B";
+  if (cpm >= 30 && accuracy >= 70)  return "C";
+  if (cpm >= 20 && accuracy >= 60)  return "D";
+  if (cpm >= 10 && accuracy >= 50)  return "E";
   return "F";
 }
 
