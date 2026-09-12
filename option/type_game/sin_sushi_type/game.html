@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>シン寿司タイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "シン寿司タイピング";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "20";
+const WIDTH = "20ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+ローストビーフ
+炙り肉寿司
+肉寿司レア
+うなぎにぎり
+うなぎ
+シャリ
+ガリ
+いなり
+ふなずし
+とろたく巻
+たくあん巻
+いくら
+納豆巻
+ツナマヨ
+雲丹軍艦
+金目鯛
+芽ねぎ
+ホッキ貝
+のどぐろ
+たまご
+甘えび
+炙りとろ
+赤貝
+シャコ
+はまち
+炙りえんがわ
+いわし
+かつお
+炙りほたて
+しらす
+穴子
+たこ
+炙りサーモン
+こはだ
+えび
+大とろ
+いか
+えんがわ
+白子
+たい
+雲丹にぎり
+ぶり
+かずのこ
+中とろ
+バッテラ
+ほたて
+焼きはらす
+まぐろ
+ハンバーグソース
+ハンバーグマヨネーズ
+
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
