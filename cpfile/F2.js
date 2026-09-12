@@ -1,3 +1,17 @@
+// 表示・非表示を制御する関数（引数で指定）
+function setTextarea(isVisible) {
+  const textarea = document.getElementById('txtdata');
+  if (!textarea) return;
+
+  if (isVisible) {
+    textarea.style.display = 'block';
+    textarea.focus();
+  } else {
+    textarea.style.display = 'none';
+    init();
+  }
+}
+
 // ドキュメント全体のイベントリスナー
 document.addEventListener('keydown', function(event) {
 　//Escape Fn

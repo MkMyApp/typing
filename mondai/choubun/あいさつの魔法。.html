@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>あいさつの魔法。</title>
+</head>
+<body>
+<div id="title">あいさつの魔法。</div>
+<div id="result"></div>
+<script>
+  const box_x = 32;
+  const box_y = 22;
+  const font  = '20px';
+  const LF  = false;//改行マーク⏎表示
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<textarea id="txtdata" class="box" spellcheck="false">
+こんにちは　こんにちワン
+ありがとう　ありがとウサギ
+こんばんは　こんばんワニ
+さようなら　さよなライオン
+まほうのことばで
+たのしいなかまが
+ポポポポーン
+おはよう　おはよウナギ
+いただきます　いただきマウス
+いってきます　いってきまスカンク
+ただいま　ただいマンボウ
+ごちそうさま　ごちそうさマウス
+おやすみなさい　おやすみなサイ
+すてきなことばで
+ゆかいななかまが
+ポポポポーン
+こんにちは　こんにちワン
+ありがとう　ありがとウサギ
+あいさつするたび
+ともだちふえるね
+</textarea>
+
+<div id="box-container">
+	<div id="target" class="box"></div>
+	<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>

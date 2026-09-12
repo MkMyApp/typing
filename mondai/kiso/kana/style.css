@@ -95,7 +95,6 @@ body {
 
 /* 共通（#editor と #txtdata） */
 #editor, #txtdata {
-  display: block;
   width: var(--line-width);
   margin: 10px auto;
   box-sizing: border-box;

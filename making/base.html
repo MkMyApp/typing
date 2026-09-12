@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<title>タイピング</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const TITLE_MSG = "タイピング";//タイトル
+const START_MSG = "Enter⏎スタート";
+const INPUT_MSG = "英数　かな　確認";//英数　かな
+const IME = "ON";// ON Shift+Enter
+const RANDOM = 0;// 出題数
+const WIDTH = "20ch";// 入力幅　全角は2倍
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<script src="typing.js"></script>
+
+<div id="exp">
+説明文の表示　F1キーで表示・非表示
+</div>
+<script>
+const exp = document.getElementById('exp');
+if (exp) { exp.textContent = exp.textContent.replace(/^\n/, ''); }
+//expNone();//初期状態を非表示にする
+
+function expNone() {
+  if (exp) {
+    if (exp.style.display === "none") {
+      exp.style.display = "block";
+    } else {
+      exp.style.display = "none";
+    }
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F1') { 
+  	event.preventDefault();
+  	expNone();
+   } 
+});
+</script>
+
+</body>
+</html>
