@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>フルーツタイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "フルーツタイピング";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "10";
+const WIDTH = "27ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+チェリー
+グレープ
+果樹園
+ドリアン
+レモン
+マンゴー
+マスカット
+みかん
+いちじく
+柿
+梨
+洋梨
+ビワ
+パッションフルーツ
+アサイー
+アボカド
+ザクロ
+ゆず
+アセロラ
+ブルーベリー
+さくらんぼ
+あけび
+ライチ
+プルーン
+日向夏
+フルーツポンチ
+青梅
+杏子
+青りんご
+リンゴ
+青みかん
+桃
+ドラゴンフルーツ
+干し柿
+バナナ
+カカオ
+中国梨
+アロエ
+カボス
+オリーブ
+スネークフルーツ
+フルーツパフェ
+レーズン
+ブラックベリー
+晩白柚
+アップルバナナ
+パイナップル
+スライスバナナ
+スライス苺
+スライス桃
+スライスキウイ
+スライスレモン
+オレンジ
+マクワウリ
+パパイヤ
+グァバ
+ラズベリー
+サンゴールドキウイ
+マンゴスチン
+すもも
+ソルダム
+インドナツメ
+ポーポー
+赤いぶどう
+サワーソップ
+ランソーネス
+ハスカップ
+切ったりんご
+切った梨
+タマリンド
+カットメロン
+クランベリー
+キワノ
+チェリモヤ
+パラミツ
+焼きリンゴ
+カシス
+ライム
+焼き栗
+グミの実
+クプアス
+青パパイヤ
+プリンスメロン
+ローズヒップ
+桑の実
+シークワーサー
+スターフルーツ
+ランブータン
+グレープフルーツ
+ピンクグレープフルーツ
+コケモモ
+あんぽ柿
+ナツメ
+乾燥ナツメ
+ココナッツ
+金柑
+金柑の甘露煮
+カットスイカ
+スイカ
+ノブドウ
+黄色いりんご
+ベルガモット
+釈迦頭
+
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
