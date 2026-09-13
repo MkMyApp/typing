@@ -15,7 +15,7 @@ const ENEMY_IMAGES = [
 ];
 
 const ENEMY_HEIGHT = 180; // 表示する高さ(px)
-const BASE_SPEED = 3;     // 基準の移動速度(px)
+const BASE_SPEED = 1.5;   // 基準の移動速度(px)
 
 let activeEnemies = [];
 
@@ -114,18 +114,18 @@ requestAnimationFrame(updateAndDraw);
 //  ランク設定
 // ==================================================
 function getRank(cpm, accuracy) {
-  if (accuracy < 50) return "F"; 
+  if (accuracy < 50) return "新弟子"; 
   if (cpm >= 100 && accuracy >= 100) return "横綱";
   if (cpm >= 90 && accuracy >= 99) return "大関";
   if (cpm >= 80 && accuracy >= 98) return "関脇";
   if (cpm >= 70 && accuracy >= 95) return "小結";
-  if (cpm >= 60 && accuracy >= 90) return "十両";
-  if (cpm >= 50 && accuracy >= 85) return "A";
-  if (cpm >= 40 && accuracy >= 80) return "B";
-  if (cpm >= 30 && accuracy >= 70) return "C";
-  if (cpm >= 20 && accuracy >= 60) return "D";
-  if (cpm >= 10 && accuracy >= 50) return "E";
-  return "F";
+  if (cpm >= 60 && accuracy >= 90) return "前頭";
+  if (cpm >= 50 && accuracy >= 85) return "十両";
+  if (cpm >= 40 && accuracy >= 80) return "幕下";
+  if (cpm >= 30 && accuracy >= 70) return "三段目";
+  if (cpm >= 20 && accuracy >= 60) return "序二段";
+  if (cpm >= 10 && accuracy >= 50) return "序の口";
+  return "番付外";
 }
 
 // ==================================================
