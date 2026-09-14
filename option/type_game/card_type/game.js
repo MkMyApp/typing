@@ -10,6 +10,9 @@ let lastEarnedScore = 0;
 // ==================================================
 //  演出・画像オブジェクト設定
 // ==================================================
+// ★ タイピング完了時に中央に表示する画像のサイズ設定（高さを基準に縦横比を維持）
+const CENTER_IMAGE_HEIGHT = 300;  // 中央表示する画像の縦幅基準 (px)
+
 // ★ フォールバック用の画像配列（画像が存在しない場合に使用）
 const ENEMY_IMAGES = [
   'ドラゴンエッグ.jfif',
@@ -31,10 +34,15 @@ let activeEnemies = [];
 let effects = []; // 演出用配列
 let animationFrameId = null;
 const YOU_HEIGHT = 300;
-const ENEMY_HEIGHT = 200; // 画像描画時の標準縦幅
+const ENEMY_HEIGHT = 100; // 画像描画時の標準縦幅
+const OFFSET_LEFT = 300; //出現位置右端からのオフセット
 const BASE_SPEED = 1;      // 左へ進む速度
 
-// 敵オブジェクトを1個生成する関数
+// ★ 中央に固定表示する画像専用の変数
+let centerDisplayImage = null;
+let centerImageLoaded = false;
+
+// 敵オブジェクトを1個生成する関数（流れてくる敵）
 function spawnEnemy() {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
 
@@ -42,7 +50,6 @@ function spawnEnemy() {
   const imageSrc = targetWord ? `${targetWord}.jfif` : ENEMY_IMAGES[0];
 
   const img = new Image();
-  const OFFSET_LEFT = 300; 
 
   const enemy = {
     img: img,
@@ -107,6 +114,7 @@ function getRankTitle(cpm, acc) {
   if (cpm >= 20) return "見習い猟兵";
   return "村の自警団";
 }
+
 // アニメーションメインループ
 function update() {
   if (!ctx || !canvas) return;
@@ -119,7 +127,21 @@ function update() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // 1.5 プレイヤー描画
+  // 2. 中央に固定表示する画像の描画
+  if (centerDisplayImage && centerImageLoaded) {
+    const aspect = centerDisplayImage.naturalWidth / centerDisplayImage.naturalHeight;
+    const centerDrawHeight = CENTER_IMAGE_HEIGHT;
+    const centerDrawWidth = centerDrawHeight * aspect;
+
+    const cx = (canvas.width - centerDrawWidth) / 2;
+    const cy = (canvas.height - centerDrawHeight) / 2;
+
+    ctx.save();
+    ctx.drawImage(centerDisplayImage, cx, cy, centerDrawWidth, centerDrawHeight);
+    ctx.restore();
+  }
+
+  // 3. プレイヤー画像 (you.png) の描画
   if (myImg.complete && myImg.naturalWidth !== 0) {
     const playerHeight = YOU_HEIGHT;
     const aspect = myImg.naturalWidth / myImg.naturalHeight;
@@ -131,7 +153,7 @@ function update() {
     ctx.drawImage(myImg, playerX, playerY, playerWidth, playerHeight);
   }
 
-  // 2. 敵の移動と描画
+  // ★ 4. 流れてくる敵の移動と描画（最後＝最前面に描画）
   activeEnemies.forEach(enemy => {
     enemy.x -= enemy.speed;
 
@@ -140,7 +162,7 @@ function update() {
     }
   });
 
-  // 3. エフェクト描画
+  // 5. エフェクト描画
   effects.forEach(fx => {
     fx.x += fx.vx;
     fx.y += fx.vy;
@@ -160,7 +182,7 @@ function update() {
   activeEnemies = activeEnemies.filter(enemy => enemy.x + enemy.width > 0);
   effects = effects.filter(fx => fx.alpha > 0);
 
-  // 4. スコア表示
+  // 6. スコア表示
   drawScore();
 
   animationFrameId = requestAnimationFrame(update);
@@ -180,6 +202,8 @@ function onGameStart() {
   lastEarnedScore = 0;
   effects = [];
   activeEnemies = [];
+  centerDisplayImage = null; // ゲーム開始時は中央画像をクリア
+  centerImageLoaded = false;
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
 }
@@ -198,6 +222,10 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
 
   if (activeEnemies.length > 0) {
     const enemy = activeEnemies[0];
+
+    // ★ タイピング完了時に新しい中央表示用画像としてセット
+    centerDisplayImage = enemy.img;
+    centerImageLoaded = enemy.loaded;
 
     const enemyWidth = (enemy.img && enemy.img.naturalHeight > 0) 
       ? ENEMY_HEIGHT * (enemy.img.naturalWidth / enemy.img.naturalHeight) 
@@ -283,7 +311,7 @@ const checkInterval = setInterval(() => {
     }
   }
 
-  if (typeof typeStarted !== 'undefined' && typeStarted && !isTracking) {
+if (typeof typeStarted !== 'undefined' && typeStarted && !isTracking) {
     isTracking = true;
     lastQIndex = qIndex;
     onGameStart();
@@ -297,6 +325,9 @@ const checkInterval = setInterval(() => {
 
   if (typeof finished !== 'undefined' && finished && isTracking) {
     isTracking = false;
+    activeEnemies = [];
+     // centerDisplayImage = null; // ゲーム終了時は中央の画像もクリア
+
     const finalSec = (endTime - startTime) / 1000;
     const finalCpm = finalSec > 0 ? Math.round((totalChars / finalSec) * 60) : 0;
     const finalAcc = targetLengthTotal > 0 ? Math.round((correctChars / targetLengthTotal) * 100) : 0;
