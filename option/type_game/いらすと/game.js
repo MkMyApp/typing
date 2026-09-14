@@ -1,11 +1,16 @@
 const BGIMG ="bg.jpg";
-const MYIMG= 'you.png';
+const YOU_IMG= 'you.png';
+const YOU_HEIGHT = 300;
+const YOU_LEFT = 30; //左からのオフセット
+const YOU_TOP = 50; //中央からのオフセット
+
 const FALLBACK = "fallback.png";
 const IMAGE_EXTENSION = '.png';
 
-const YOU_HEIGHT = 300;
-const ENEMY_HEIGHT = 200; // 画像描画時の標準縦幅
+const ENEMY_HEIGHT = 300; // 画像描画時の標準縦幅
 const OFFSET_LEFT = 300; //出現位置右端からのオフセット
+const OFFSET_TOP = 50; //出現位置中央からのオフセット
+
 const BASE_SPEED = 1;      // 左へ進む速度
 
 // ★ タイピング完了時に中央に表示する画像のサイズ設定（高さを基準に縦横比を維持）
@@ -47,7 +52,7 @@ bgImg.src = BGIMG;
 
 // プレイヤー画像
 const myImg = new Image();
-myImg.src = MYIMG;
+myImg.src = YOU_IMG;
 
 // アニメーション関連変数
 let activeEnemies = [];
@@ -66,7 +71,7 @@ function spawnEnemy() {
   const enemy = {
     img: img,
     x: GAME_WIDTH - OFFSET_LEFT,
-    y: ((GAME_HEIGHT - ENEMY_HEIGHT) / 2) + 50,
+    y: ((GAME_HEIGHT - ENEMY_HEIGHT) / 2) + OFFSET_TOP,
     width: 180,
     height: ENEMY_HEIGHT,
     speed: BASE_SPEED,
@@ -159,8 +164,8 @@ function update() {
     const aspect = myImg.naturalWidth / myImg.naturalHeight;
     const playerWidth = playerHeight * aspect;
     
-    const playerX = 0;
-    const playerY = ((canvas.height - playerHeight) / 2) + 50;
+    const playerX = YOU_LEFT;
+    const playerY = ((canvas.height - playerHeight) / 2) + YOU_TOP;
 
     ctx.drawImage(myImg, playerX, playerY, playerWidth, playerHeight);
   }
