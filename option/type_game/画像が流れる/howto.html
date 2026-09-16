@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>タイピングゲームの作り方・設定マニュアル</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #f9f9f9;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    h1 {
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+    }
+    h2 {
+      margin-top: 30px;
+      border-left: 5px solid #3498db;
+      padding-left: 10px;
+    }
+    p, li {
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    pre {
+      background-color: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: monospace;
+    }
+    code {
+      font-family: monospace;
+      background-color: #e2e8f0;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: #d63384;
+    }
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    ul, ol {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>タイピングゲームの作り方・設定マニュアル</h1>
+
+  <h2>1. 全体の仕組み・作り方の概要</h2>
+  <p>このタイピングゲームは、HTML5のCanvas（背景やキャラクター・流れてくる敵・スコアの描画）と、HTMLのテキストエリア（タイピング入力・判定）を組み合わせた構成になっています。</p>
+  <ul>
+    <li><strong><code>game.html</code></strong> でゲーム全体のタイトルや出題データ、設定値を変更します。</li>
+    <li><strong><code>game.css</code></strong> で画面全体のサイズやフォント、色などの見た目を調整します。</li>
+    <li><strong><code>game.js</code></strong> でキャラクターや敵画像のファイル名、移動スピード、演出サイズなどを調整します。</li>
+    <li><strong><code>typing.js</code></strong> はタイピングの判定や進行管理を行う本体です（通常は直接触らなくて大丈夫です）。</li>
+  </ul>
+
+  <h2>2. <code>game.html</code> での設定の調整</h2>
+  <p>問題文の設定やゲームの基本動作は、<code>game.html</code> 内の <code>&lt;script&gt;</code> タグおよび <code>&lt;textarea id="txtdata"&gt;</code> で行います。</p>
+
+  <h3>① ゲームの各種パラメータ設定</h3>
+  <p><code>game.html</code> 内の <code>&lt;script&gt;</code> 部分を変更します。</p>
+<pre><code>&lt;script&gt;
+const TITLE_MSG = "ここにゲームのタイトル";  // 画面上部に表示するタイトル
+const START_MSG = "Enter⏎スタート";         // スタート前のメッセージ
+const INPUT_MSG = "かな 確認";              // 入力欄のプレースホルダー
+const RANDOM = "10";                        // 出題数（"0"または未指定にすると全問）
+const WIDTH = "20ch";                       // 入力欄の幅
+const IME = "ON";                           // IMEの設定 ("ON" または "OFF")
+&lt;/script&gt;</code></pre>
+
+  <h3>② 問題文の登録</h3>
+  <p><code>game.html</code> 内の <code>&lt;textarea id="txtdata"&gt;</code> 部分に、<strong>1行につき1つ</strong>、タイピングの問題となる単語やローマ字（または日本語）を入力します。</p>
+<pre><code>&lt;textarea id="txtdata" hidden&gt;
+apple
+banana
+orange
+&lt;/textarea&gt;</code></pre>
+  <p>※ここに記述した文字がそのまま問題になり、後述の「対応する画像」のファイル名としても使われます。</p>
+
+  <h2>3. 対応する画像の用意</h2>
+  <p><code>game.js</code> の設定により、<strong>問題文として登録した文字列と一致する画像ファイル</strong>が自動で読み込まれ、ゲーム中に敵として流れてきます。</p>
+  <ul>
+    <li><strong>例:</strong> <code>txtdata</code> に <code>apple</code> という問題がある場合、同じフォルダ（または指定の場所）に <code>apple.png</code> という画像を置く必要があります。</li>
+    <li>画像が見つからない場合や読み込みに失敗した場合は、フォールバック画像（<code>img.png</code> や <code>bg.png</code> など）が表示される仕組みになっています。</li>
+    <li>そのほか、以下の基本画像も必要に応じて用意します。
+      <ul>
+        <li><code>bg.png</code> （背景画像）</li>
+        <li><code>you.png</code> （プレイヤー・キャラクター画像）</li>
+        <li><code>img.png</code> （画像が見つからないときの代わり用画像）</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>4. CSS (<code>game.css</code>) と JS (<code>game.js</code>) の調整部分</h2>
+  <p>見た目や挙動を微調整したい場合、主に以下のファイル・プロパティを変更します。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>調整したい内容</th>
+        <th>変更するファイル</th>
+        <th>主なプロパティ・場所</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>画面サイズや全体のデザイン</td>
+        <td><code>game.css</code></td>
+        <td><code>:root</code> 内の <code>--game-width</code>, <code>--game-height</code>, <code>--line-font-size</code> など</td>
+      </tr>
+      <tr>
+        <td>キャラクター・敵の大きさ、速度</td>
+        <td><code>game.js</code></td>
+        <td>ファイル上部の定数（<code>YOU_HEIGHT</code>, <code>ENEMY_HEIGHT</code>, <code>BASE_SPEED</code> 等）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>A. 画面サイズや全体のデザインを変えたい場合 (<code>game.css</code>)</h3>
+<pre><code>:root {
+  /* ゲーム画面全体の幅・高さ */
+  --game-width: 1024px;
+  --game-height: 576px;
+
+  /* フォントサイズや色の調整 */
+  --line-font-size: 64px; /* タイピング文字の大きさ */
+  --body-background-color: #ffffff; /* 背景色 */
+}</code></pre>
+
+  <h3>B. キャラクターや敵の大きさ・スピード・配置を変えたい場合 (<code>game.js</code>)</h3>
+<pre><code>const BGIMG ="bg.png"; // 背景画像ファイル名
+
+const YOU_IMG= 'you.png'; // プレイヤー画像ファイル名
+const YOU_HEIGHT = 300;   // プレイヤーの高さ (px)
+const YOU_LEFT = 30;      // プレイヤーの左からの位置調整
+const YOU_TOP = 50;       // プレイヤーの上下の位置調整
+
+const ENEMY_HEIGHT = 300; // 敵（問題の画像）の標準の高さ
+const BASE_SPEED = 1;     // 敵が左へ流れるスピード（大きくすると速くなる）
+
+const CENTER_IMAGE_HEIGHT = 500; // タイピング正解時に中央にドンッと出る画像の大きさ</code></pre>
+
+</body>
+</html>

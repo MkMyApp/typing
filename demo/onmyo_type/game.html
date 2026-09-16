@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>タイピングゲーム</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+		<textarea id="log"></textarea>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+let length = 8;// 問題文の長さ
+let lines = 100; //生成問題数
+//対象文字 `改行ありは`で囲む
+let strdata = `
+ちとしはまのりれきくけむ
+たていすかんなにらせ
+つさそひこみもねるめろ
+ぬふあうえおやゆよわほへ
+`;
+
+const TITLE_MSG = "陰陽師呪文";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "かな";
+const RANDOM = "10";
+const WIDTH = "32ch";
+const IME = "OFF";
+
+// セットボタン押下時の処理
+document.addEventListener('DOMContentLoaded', () => {
+  // 初期値をフォームに反映しておく場合
+  document.getElementById('len').value = length;
+  document.getElementById('strdata').value = strdata.trim();
+
+  document.getElementById('set').addEventListener('click', () => {
+    // 入力欄から値を取得して更新
+    length = parseInt(document.getElementById('len').value, 10) || 8;
+    strdata = document.getElementById('strdata').value;
+
+    // 問題文を再生成してゲームを初期化状態に戻す
+    if (typeof generateText === 'function') generateText();
+    if (typeof init === 'function') init();
+  });
+});
+</script>
+
+<textarea id="txtdata" hidden>
+</textarea>
+
+<div id="config" class="line">
+<input id="len">
+<textarea id="strdata">
+</textarea>
+<button id="set">霊符填装</button>
+</div>
+
+<script src="random.js"></script>
+<script src="typing.js"></script>
+<script src="game.js"></script>
+<script>
+const AUTO_START_DELAY = 500; // 手動スタート検知後のウェイト（ミリ秒）
+const AUTO_NEXT_DELAY = 150;  // 問題間の基本ウェイト（ミリ秒）
+const AUTO_NEXT_JITTER = 50; // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
+const AUTO_TYPING_SPEED = 150;// 1文字あたりの基本入力間隔（ミリ秒）
+const AUTO_TYPING_JITTER = 50;// 入力間隔のランダムな揺れ幅（±ミリ秒）
+</script>
+　　<script src="autotype.js"></script>
+</body>
+</html>

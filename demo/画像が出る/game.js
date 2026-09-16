@@ -5,14 +5,14 @@ const GAME_HEIGHT = parseInt(computedStyle.getPropertyValue('--game-height')) ||
 
 const BGIMG ="bg.png";//背景画像
 
-const FALLBACK = "どんぶり.png";//画像の代替
+const FALLBACK = "noimg.png";//画像の代替
 
 const IMAGE_EXTENSION = '.png';
-const ENEMY_HEIGHT = 250; // 画像描画時の標準縦幅
+const ENEMY_HEIGHT = 400; // 画像描画時の標準縦幅
 
 // ★ 初期表示位置の設定（ここで位置を指定します）
-const ENEMY_INITIAL_X = GAME_WIDTH / 2 - 120;
-const ENEMY_INITIAL_Y = GAME_HEIGHT - 300;
+const ENEMY_INITIAL_X = GAME_WIDTH / 2 - 180;
+const ENEMY_INITIAL_Y = GAME_HEIGHT - 480;
 
 // スコア表示に関する固定の位置・サイズ（順番を修正）
 const SCORE_FONT = 'bold 24px sans-serif';
@@ -117,18 +117,17 @@ function drawScore() {
   ctx.restore();
 }
 
-// 称号計算関数（ラーメン屋風）
+// 称号計算関数（おきにいり風）
 function getRankTitle(cpm, acc) {
-  if (acc < 70) return "フードコートの新人";
-  if (cpm >= 600 && acc >= 98) return "麺の神";
-  if (cpm >= 400 && acc >= 95) return "超絶怒濤の麺さばき";
-  if (cpm >= 200 && acc >= 90) return "行列のできる店主";
-  if (cpm >= 100 && acc >= 85) return "一人前の見習い";
-  if (cpm >= 80) return "湯切り職人";
-  if (cpm >= 60) return "出前持ち";
-  return "ラーメン好きの一般客";
+  if (acc < 70) return "うっかり初心者";
+  if (cpm >= 250 && acc >= 98) return "伝説のコレクター";
+  if (cpm >= 190 && acc >= 95) return "すばやい子馬";
+  if (cpm >= 140 && acc >= 90) return "きらめくリボン";
+  if (cpm >= 100 && acc >= 85) return "甘いロリポップ";
+  if (cpm >= 70) return "シャキシャキりんご";
+  if (cpm >= 50) return "お散歩子犬";
+  return "ひだまりの子猫";
 }
-
 // アニメーションメインループ
 function update() {
   if (!ctx || !canvas) return;

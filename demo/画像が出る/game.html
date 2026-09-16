@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>タイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+const TITLE_MSG = "わたしのおきにいり";
+const START_MSG = "Enter⏎スタート";
+const INPUT_MSG = "かな 確認";
+const RANDOM = "10";
+const WIDTH = "20ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+リボン
+りんご
+ロリポップ
+仔馬
+子犬
+子猫
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+    <script>
+		const AUTO_START_DELAY = 500; // 手動スタート検知後のウェイト（ミリ秒）
+		const AUTO_NEXT_DELAY = 200;  // 問題間の基本ウェイト（ミリ秒）
+		const AUTO_NEXT_JITTER = 50; // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
+		const AUTO_TYPING_SPEED = 150;// 1文字あたりの基本入力間隔（ミリ秒）
+		const AUTO_TYPING_JITTER = 20;// 入力間隔のランダムな揺れ幅（±ミリ秒）
+    </script>
+　　<script src="autotype.js"></script>
+</body>
+</html>

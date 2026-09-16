@@ -5,26 +5,31 @@ const GAME_HEIGHT = parseInt(computedStyle.getPropertyValue('--game-height')) ||
 
 const BGIMG ="bg.png";//背景画像
 
-const FALLBACK = "どんぶり.png";//画像の代替
+const YOU_IMG= 'you.png';//キャラクター画像
+const YOU_HEIGHT = 300;
+const YOU_LEFT = 30; //左からのオフセット
+const YOU_TOP = 50; //中央からのオフセット
+
+const FALLBACK = "img.png";//画像の代替
 
 const IMAGE_EXTENSION = '.png';
-const ENEMY_HEIGHT = 250; // 画像描画時の標準縦幅
+const ENEMY_HEIGHT = 300; // 画像描画時の標準縦幅
+const OFFSET_LEFT = 300; //出現位置右端からのオフセット
+const OFFSET_TOP = 50; //出現位置中央からのオフセット
+const BASE_SPEED = 1;      // 左へ進む速度
 
-// ★ 初期表示位置の設定（ここで位置を指定します）
-const ENEMY_INITIAL_X = GAME_WIDTH / 2 - 120;
-const ENEMY_INITIAL_Y = GAME_HEIGHT - 300;
+// ★ タイピング完了時に中央に表示する画像のサイズ設定（高さを基準に縦横比を維持）
+const CENTER_IMAGE_HEIGHT = 500;  // 中央表示する画像の縦幅基準 (px)
 
 // スコア表示に関する固定の位置・サイズ（順番を修正）
 const SCORE_FONT = 'bold 24px sans-serif';
-const SCORE_MARGIN_TOP = 50;
-const SCORE_MARGIN_RIGHT = 80;
-const SCORE_TEXTMARGIN_RIGHT = 90;
+const SCORE_MARGIN = 15;
 const SCORE_RECT_WIDTH = 100; 
 const SCORE_RECT_HEIGHT = 35;
-const SCORE_RECT_X = GAME_WIDTH - SCORE_RECT_WIDTH - SCORE_MARGIN_RIGHT; 
-const SCORE_RECT_Y = SCORE_MARGIN_TOP - 5;
-const SCORE_TEXT_X = GAME_WIDTH - SCORE_TEXTMARGIN_RIGHT;
-const SCORE_TEXT_Y = SCORE_MARGIN_TOP;
+const SCORE_RECT_X = GAME_WIDTH - SCORE_RECT_WIDTH - SCORE_MARGIN; 
+const SCORE_RECT_Y = SCORE_MARGIN - 5;
+const SCORE_TEXT_X = GAME_WIDTH - SCORE_MARGIN;
+const SCORE_TEXT_Y = SCORE_MARGIN;
 
 let isTracking = false;
 let lastQIndex = 0;     // 前回出題された問題のインデックスを保持
@@ -55,22 +60,31 @@ if (canvas) {
 const bgImg = new Image();
 bgImg.src = BGIMG;
 
+// プレイヤー画像
+const myImg = new Image();
+myImg.src = YOU_IMG;
+
 // アニメーション関連変数
 let activeEnemies = [];
 let effects = []; // 演出用配列
 let animationFrameId = null;
 
-// 敵オブジェクトを1個生成する関数（指定位置に固定表示）
+// ★ 中央に固定表示する画像専用の変数
+let centerDisplayImage = null;
+let centerImageLoaded = false;
+
+// 敵オブジェクトを1個生成する関数（流れてくる敵）
 function spawnEnemy() {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
 	const imageSrc = targetWord ? `${targetWord}${IMAGE_EXTENSION}` : ENEMY_IMAGES[0];
   const img = new Image();
   const enemy = {
     img: img,
-    x: ENEMY_INITIAL_X, 
-    y: ENEMY_INITIAL_Y,
+    x: GAME_WIDTH - OFFSET_LEFT,
+    y: ((GAME_HEIGHT - ENEMY_HEIGHT) / 2) + OFFSET_TOP,
     width: 180,
     height: ENEMY_HEIGHT,
+    speed: BASE_SPEED,
     loaded: false
   };
 
@@ -117,16 +131,16 @@ function drawScore() {
   ctx.restore();
 }
 
-// 称号計算関数（ラーメン屋風）
+// 称号計算関数（ふつうのバトルゲーム版）
 function getRankTitle(cpm, acc) {
-  if (acc < 70) return "フードコートの新人";
-  if (cpm >= 600 && acc >= 98) return "麺の神";
-  if (cpm >= 400 && acc >= 95) return "超絶怒濤の麺さばき";
-  if (cpm >= 200 && acc >= 90) return "行列のできる店主";
-  if (cpm >= 100 && acc >= 85) return "一人前の見習い";
-  if (cpm >= 80) return "湯切り職人";
-  if (cpm >= 60) return "出前持ち";
-  return "ラーメン好きの一般客";
+  if (acc < 70) return "訓練生";
+  if (cpm >= 250 && acc >= 98) return "伝説の英雄";
+  if (cpm >= 190 && acc >= 95) return "剣聖";
+  if (cpm >= 140 && acc >= 90) return "上級戦士";
+  if (cpm >= 100 && acc >= 85) return "中級戦士";
+  if (cpm >= 70) return "熟練冒険者";
+  if (cpm >= 50) return "見習い冒険者";
+  return "駆け出しの冒険者";
 }
 
 // アニメーションメインループ
@@ -141,14 +155,42 @@ function update() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // 2. 敵の描画（移動処理を廃止し、その場で描画）
+  // 2. 中央に固定表示する画像の描画
+  if (centerDisplayImage && centerImageLoaded) {
+    const aspect = centerDisplayImage.naturalWidth / centerDisplayImage.naturalHeight;
+    const centerDrawHeight = CENTER_IMAGE_HEIGHT;
+    const centerDrawWidth = centerDrawHeight * aspect;
+
+    const cx = (canvas.width - centerDrawWidth) / 2;
+    const cy = (canvas.height - centerDrawHeight) / 2;
+
+    ctx.save();
+    ctx.drawImage(centerDisplayImage, cx, cy, centerDrawWidth, centerDrawHeight);
+    ctx.restore();
+  }
+
+  // 3. プレイヤー画像 (you.png) の描画
+  if (myImg.complete && myImg.naturalWidth !== 0) {
+    const playerHeight = YOU_HEIGHT;
+    const aspect = myImg.naturalWidth / myImg.naturalHeight;
+    const playerWidth = playerHeight * aspect;
+    
+    const playerX = YOU_LEFT;
+    const playerY = ((canvas.height - playerHeight) / 2) + YOU_TOP;
+
+    ctx.drawImage(myImg, playerX, playerY, playerWidth, playerHeight);
+  }
+
+  // ★ 4. 流れてくる敵の移動と描画（最後＝最前面に描画）
   activeEnemies.forEach(enemy => {
+    enemy.x -= enemy.speed;
+
     if (enemy.loaded) {
       ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
     }
   });
 
-  // 3. エフェクト描画
+  // 5. エフェクト描画
   effects.forEach(fx => {
     fx.x += fx.vx;
     fx.y += fx.vy;
@@ -165,9 +207,10 @@ function update() {
     }
   });
 
+  activeEnemies = activeEnemies.filter(enemy => enemy.x + enemy.width > 0);
   effects = effects.filter(fx => fx.alpha > 0);
 
-  // 4. スコア表示
+  // 6. スコア表示
   drawScore();
 
   animationFrameId = requestAnimationFrame(update);
@@ -187,6 +230,8 @@ function onGameStart() {
   lastEarnedScore = 0;
   effects = [];
   activeEnemies = [];
+  centerDisplayImage = null; // ゲーム開始時は中央画像をクリア
+  centerImageLoaded = false;
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
 }
@@ -205,6 +250,10 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
 
   if (activeEnemies.length > 0) {
     const enemy = activeEnemies[0];
+
+    // ★ タイピング完了時に新しい中央表示用画像としてセット
+    centerDisplayImage = enemy.img;
+    centerImageLoaded = enemy.loaded;
 
     const enemyWidth = (enemy.img && enemy.img.naturalHeight > 0) 
       ? ENEMY_HEIGHT * (enemy.img.naturalWidth / enemy.img.naturalHeight) 
