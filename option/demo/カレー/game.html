@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>カレータイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas" width="1024" height="434"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<textarea id="log"></textarea>
+<script>
+const TITLE_MSG = "カレータイピング";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "10";
+const WIDTH = "25ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+イエローカレー
+カレーうどん
+カレーの缶詰
+カレーパン
+カレーまん
+カレーライス
+キーマカレー
+グリーンカレー
+クンパッポンカリー
+サグカレー
+サフランライス
+ソースポット
+ダムカレー
+ドライカレー
+ナン
+プーパッポンカリー
+マッサマンカレー
+マンゴーラッシー
+ミールス
+らっきょう
+ラッシー
+レッドカレー
+レトルトカレー
+黄色いカレーライス
+金沢カレー
+焼きカレー
+青いカレーライス
+福神漬け
+野菜カレー
+緑色のカレー
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
