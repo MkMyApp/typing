@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="keylog.css">
+  <title>キーログ</title>
+
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+
+<textarea id="log"></textarea>
+
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+const TITLE_MSG = "キーログ";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな";
+const RANDOM = "0";
+const WIDTH = "25ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+いろはにほへと
+ちりぬるを
+わかよたれそ
+つねならむ
+
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="keylog.js"></script>
+</body>
+</html>

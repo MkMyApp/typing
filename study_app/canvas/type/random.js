@@ -1,7 +1,7 @@
 function generateText() {
 
   const txtData = document.getElementById('txtdata');
-
+  const strdata = txtData.value;
   const chars = strdata.replace(/[\n\r\s]/g, "");
   let result = "";
   for (let i = 0; i < lines; i++) {

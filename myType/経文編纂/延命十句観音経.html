@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+  const TITLE_MSG = "延命十句観音経";
+  const START_MSG = "Enter⏎";
+  const INPUT_MSG = "かな 確認";
+  const RANDOM = 0; // 出題数 0:順番
+  const WIDTH = "15ch";
+  const IME = "ON"; // OFF
+</script>
+
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+観世音
+南無仏
+与仏有因
+与仏有縁
+仏法僧縁
+常楽我浄
+朝念観世音
+暮念観世音
+念念従心起
+念念不離心
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<script src="typing.js"></script>
+
+<!--
+<div id="exp">
+【読み方】
+観世音（かんぜーおん）
+南無佛（なーむーぶつ）
+与佛有因（よーぶつうーいん）
+与佛有縁（よーぶつうーえん）
+佛法僧縁（ぶっぽうそうえん）
+常楽我浄（じょうらくがーじょう）
+朝念観世音（ちょうねんかんぜーおん）
+暮念観世音（ぼーねんかんぜーおん）
+念念従心起（ねんねんじゅうしんきー）
+念念不離心（ねんねんふーりーしん）
+
+【口語訳】
+観音様。私は観音様に帰依いたします。
+私は仏様とともにある因やご縁で生かされています。
+仏法僧の三宝ともご縁で結ばれています。
+常に楽しく浄らかなる悟りの境地を与えてくださいます。
+私は朝な夕なに観世音菩薩を念じます。
+その一念一念は、私の心の中から現れ、
+私の心が観世音菩薩から離れることはありません。
+
+</div>
+-->
+</body>
+</html>
