@@ -1,11 +1,50 @@
-// ==========================================
-//  設定（HTML側で未定義の場合のみ）
-// ==========================================
-//const AUTO_START_DELAY = 300; // 手動スタート検知後のウェイト（ミリ秒）
-//const AUTO_NEXT_DELAY = 100;  // 問題間の基本ウェイト（ミリ秒）
-//const AUTO_NEXT_JITTER = 50; // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
-//const AUTO_TYPING_SPEED = 200;// 1文字あたりの基本入力間隔（ミリ秒）
-//const AUTO_TYPING_JITTER = 100;// 入力間隔のランダムな揺れ幅（±ミリ秒）
+const isLandscape = window.innerWidth >= window.innerHeight;
+
+// 判定に応じてパラメータを動的に切り替え 長尺:ショート
+const TITLE_MARGIN_TOP = isLandscape ? "0px" : "400px"; // タイトルの上の余白
+const AUTO_INPUT_MSG = "自動入力します"; 
+
+const AUTO_START_DELAY = isLandscape ? 300 : 300;  // 手動スタート検知後のウェイト（ミリ秒）
+const AUTO_NEXT_DELAY = isLandscape ? 100 : 120;   // 問題間の基本ウェイト（ミリ秒）
+const AUTO_NEXT_JITTER = isLandscape ? 50 : 40;    // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
+const AUTO_TYPING_SPEED = isLandscape ? 200 : 100; // 1文字あたりの基本入力間隔（ミリ秒）
+const AUTO_TYPING_JITTER = isLandscape ? 100 : 20; // 入力間隔のランダムな揺れ幅（±ミリ秒）
+
+const styleEl = document.createElement('style');
+
+// .game-container が存在するかチェック
+const hasGameContainer = document.querySelector('.game-container') !== null;
+
+if (hasGameContainer) {
+    // .game-container がある場合（ゲーム画面ごと下げる）
+    styleEl.innerHTML = `
+        .game-container {
+            margin-top: ${TITLE_MARGIN_TOP};
+        }
+    `;
+} else {
+    // .game-container がない場合（従来通りタイトルのみ下げる）
+    styleEl.innerHTML = `
+        #title {
+            margin-top: ${TITLE_MARGIN_TOP};
+        }
+    `;
+}
+
+document.head.appendChild(styleEl);
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof editorEl !== 'undefined') {
+    editorEl.placeholder = AUTO_INPUT_MSG;
+
+    const observer = new MutationObserver(() => {
+      if (editorEl.placeholder && editorEl.placeholder !== AUTO_INPUT_MSG) {
+        editorEl.placeholder = AUTO_INPUT_MSG;
+      }
+    });
+    observer.observe(editorEl, { attributes: true, attributeFilter: ['placeholder'] });
+  }
+});
 
 let isAutoPlaying = false;
 

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>タイピング練習</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="target" class="line"></div>
+    <textarea id="editor"
+      class="line" spellcheck="false">
+    </textarea>
+
+    <script>
+      const TITLE_MSG = "オートタイプテスト";
+      const START_MSG = "Enter⏎";
+      const INPUT_MSG = "文字種確認";
+      const RANDOM = 0; // 出題数 0:順番
+      const WIDTH = "30ch";
+      const IME = "ON"; // OFF
+    </script>
+
+    <!---5----10---15---20---25---30---35---40--->
+    <textarea id="txtdata" hidden>
+		あいうえお
+		かきくけこ
+    </textarea>
+    <!---5----10---15---20---25---30---35---40--->
+    <script src="typing.js"></script>
+
+<script src="autotype.js"></script>
+
+  </body>
+</html>
