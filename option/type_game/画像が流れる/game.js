@@ -234,6 +234,11 @@ function onGameStart() {
   centerImageLoaded = false;
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
+  
+    const scoreEl = document.getElementById('score');
+  if (scoreEl) {
+    scoreEl.innerHTML = '';
+  }
 }
 
 function onNextQuestion(qIndex) {

@@ -4,8 +4,8 @@ const isLandscape = window.innerWidth >= window.innerHeight;
 const TITLE_MARGIN_TOP = isLandscape ? "0px" : "400px"; // タイトルの上の余白
 const AUTO_INPUT_MSG = "自動入力します"; 
 
-const AUTO_START_DELAY = isLandscape ? 3000 : 3000;  // 手動スタート検知後のウェイト（ミリ秒）
-const AUTO_NEXT_DELAY = isLandscape ? 1500 : 1500;   // 問題間の基本ウェイト（ミリ秒）
+const AUTO_START_DELAY = isLandscape ? 100 : 100;  // 手動スタート検知後のウェイト（ミリ秒）
+const AUTO_NEXT_DELAY = isLandscape ? 100 : 100;   // 問題間の基本ウェイト（ミリ秒）
 const AUTO_NEXT_JITTER = isLandscape ? 300 : 300;    // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
 const AUTO_TYPING_SPEED = isLandscape ? 300 : 200; // 1文字あたりの基本入力間隔（ミリ秒）
 const AUTO_TYPING_JITTER = isLandscape ? 100 : 50; // 入力間隔のランダムな揺れ幅（±ミリ秒）
@@ -142,3 +142,23 @@ editorEl.addEventListener('keydown', (e) => {
     }
   }
 }, true);
+
+// 入力欄をクリックしたときにゲームをスタートする機能
+editorEl.addEventListener('click', () => {
+  if (!typeStarted) {
+    if (finished) {
+      finished = false;
+      showStart(); // 終了状態からのリセット＆表示
+    } else {
+      startType(); // ゲームスタート
+      editorEl.value = '';
+      
+      // 自動プレイ（autotype）が有効な場合の処理
+      setTimeout(() => {
+        if (!isAutoPlaying) {
+          runAutoPlay();
+        }
+      }, AUTO_START_DELAY);
+    }
+  }
+});
