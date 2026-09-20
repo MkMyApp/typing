@@ -114,17 +114,17 @@ requestAnimationFrame(updateAndDraw);
 //  ランク設定（カレースパイス・タイピング版）
 // ==================================================
 function getRank(cpm, accuracy) {
-  if (accuracy < 50) return "ルーの味見係"; 
-  if (cpm >= 100 && accuracy >= 100) return "カレー大聖人";
-  if (cpm >= 90 && accuracy >= 99) return "伝説のマスターシェフ";
-  if (cpm >= 80 && accuracy >= 98) return "三つ星クッカー";
-  if (cpm >= 70 && accuracy >= 95) return "スパイスマイスター";
-  if (cpm >= 60 && accuracy >= 90) return "熟練コック";
-  if (cpm >= 50 && accuracy >= 85) return "見習い料理人";
-  if (cpm >= 40 && accuracy >= 80) return "ジャワカレー研究家";
-  if (cpm >= 30 && accuracy >= 70) return "隠し味ハンター";
-  if (cpm >= 20 && accuracy >= 60) return "給食当番";
-  if (cpm >= 10 && accuracy >= 50) return "お米研ぎ係";
+  if (accuracy < 82) return "ルーの味見係"; 
+  if (cpm >= 200 && accuracy >= 100) return "カレー大聖人";
+  if (cpm >= 180 && accuracy >= 99) return "伝説のマスターシェフ";
+  if (cpm >= 160 && accuracy >= 98) return "三つ星クッカー";
+  if (cpm >= 140 && accuracy >= 96) return "スパイスマイスター";
+  if (cpm >= 120 && accuracy >= 94) return "熟練コック";
+  if (cpm >= 100 && accuracy >= 92) return "見習い料理人";
+  if (cpm >= 90 && accuracy >= 90) return "ジャワカレー研究家";
+  if (cpm >= 80 && accuracy >= 88) return "隠し味ハンター";
+  if (cpm >= 70 && accuracy >= 86) return "給食当番";
+  if (cpm >= 60 && accuracy >= 84) return "お米研ぎ係";
   return "皿洗い初心者";
 }
 
