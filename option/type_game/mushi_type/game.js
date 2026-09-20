@@ -163,7 +163,8 @@ bgImg.src = 'bg.png';
 let activeEnemies = [];
 let effects = []; // 「流れる」「打鍵成功」などの演出用配列
 let animationFrameId = null;
-const ENEMY_HEIGHT = 100; // 画像描画時の標準縦幅
+const ENEMY_HEIGHT = 200; // 画像描画時の標準縦幅
+const dishSize = 300; // お皿のサイズ
 const BASE_SPEED = 1;   // 左へ進む速度
 
 // ==================================================
@@ -266,7 +267,6 @@ function update() {
     enemy.x -= enemy.speed;
 
     // --- ① お皿（dish.png）を描画 ---
-    const dishSize = 130; // お皿のサイズ
     const dishX = enemy.x + (enemy.width - dishSize) / 2; // 虫の中央に配置
     const dishY = enemy.y + (enemy.height - dishSize) / 2;
 
@@ -325,6 +325,11 @@ function onGameStart() {
   activeEnemies = [];
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
+
+	const scoreEl = document.getElementById('score');
+  if (scoreEl) {
+    scoreEl.textContent = '';
+  }
 }
 
 function onNextQuestion(qIndex) {
@@ -397,6 +402,11 @@ function handleKeyDown(e) {
   if (e.key === 'Enter') {
     if (typeof finished !== 'undefined' && finished) {
       if (typeof restartGame === 'function') restartGame();
+
+			const scoreEl = document.getElementById('score');
+      if (scoreEl) {
+        scoreEl.textContent = '';
+      }
     }
   }
 

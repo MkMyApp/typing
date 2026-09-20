@@ -4,11 +4,11 @@ const isLandscape = window.innerWidth >= window.innerHeight;
 const TITLE_MARGIN_TOP = isLandscape ? "0px" : "400px"; // タイトルの上の余白
 const AUTO_INPUT_MSG = "自動入力します"; 
 
-const AUTO_START_DELAY = isLandscape ? 300 : 300;  // 手動スタート検知後のウェイト（ミリ秒）
-const AUTO_NEXT_DELAY = isLandscape ? 100 : 120;   // 問題間の基本ウェイト（ミリ秒）
-const AUTO_NEXT_JITTER = isLandscape ? 50 : 40;    // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
-const AUTO_TYPING_SPEED = isLandscape ? 200 : 100; // 1文字あたりの基本入力間隔（ミリ秒）
-const AUTO_TYPING_JITTER = isLandscape ? 100 : 20; // 入力間隔のランダムな揺れ幅（±ミリ秒）
+const AUTO_START_DELAY = isLandscape ? 3000 : 3000;  // 手動スタート検知後のウェイト（ミリ秒）
+const AUTO_NEXT_DELAY = isLandscape ? 1500 : 1500;   // 問題間の基本ウェイト（ミリ秒）
+const AUTO_NEXT_JITTER = isLandscape ? 300 : 300;    // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
+const AUTO_TYPING_SPEED = isLandscape ? 300 : 200; // 1文字あたりの基本入力間隔（ミリ秒）
+const AUTO_TYPING_JITTER = isLandscape ? 100 : 50; // 入力間隔のランダムな揺れ幅（±ミリ秒）
 
 const styleEl = document.createElement('style');
 
