@@ -20,17 +20,6 @@ const BASE_SPEED = 1.5;   // 基準の移動速度(px)
 let activeEnemies = [];
 
 // ==================================================
-//  テキストエリア状態モニタ
-// ==================================================
-function strOutput(str) {
-  const logEl = document.getElementById('log');
-  if (logEl) {
-    logEl.value += str + '\n';
-    logEl.scrollTop = logEl.scrollHeight;
-  }
-}
-
-// ==================================================
 //  Canvas 描画・アニメーションエンジン (1024x434)
 // ==================================================
 const canvas = document.getElementById('gameCanvas');
@@ -42,12 +31,12 @@ if (canvas) {
 }
 
 /**
- * 寿司画像を1個生成する関数（出題時にのみ呼ばれます）
+ * 虫画像を1個生成する関数（出題時にのみ呼ばれます）
  */
 function spawnEnemy() {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
   
-  // 出題文字列をそのまま「寿司名.png」形式に変換する
+  // 出題文字列をそのまま「虫名.png」形式に変換する
   let imageSrc = targetWord ? `${targetWord}.png` : '';
 
   // 万が一文字が空の場合などのフォールバック
@@ -61,7 +50,7 @@ function spawnEnemy() {
 
   const enemy = {
     img: img,
-    x: canvas ? canvas.width : 1024,
+    x: canvas ? canvas.width - 128 : 1024,
     y: (canvas ? canvas.height - ENEMY_HEIGHT : 434 - ENEMY_HEIGHT) / 2, // レーンの中央に綺麗に配置
     width: 180,
     height: ENEMY_HEIGHT,
@@ -79,7 +68,7 @@ function spawnEnemy() {
 
   img.src = imageSrc;
 
-  // ★ 画面上の配列をクリアして、新しい問題の寿司1個だけをセット
+  // ★ 画面上の配列をクリアして、新しい問題の虫1個だけをセット
   activeEnemies = [enemy];
 }
 
@@ -90,7 +79,7 @@ function updateAndDraw() {
   if (ctx && canvas) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 画面上の寿司の移動と描画
+    // 画面上の虫の移動と描画
     for (let i = activeEnemies.length - 1; i >= 0; i--) {
       const enemy = activeEnemies[i];
       enemy.x -= enemy.speed;
@@ -130,14 +119,6 @@ function getRankTitle(cpm, acc) {
 
 function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
   if (!isTracking) return;
-
-  strOutput(``);
-  strOutput(`[キー入力]`);
-  strOutput(`キー : '${key}'`);
-  strOutput(`コード: ${code}`);
-  strOutput(`間 隔: ${pressSec.toFixed(3)}s`);
-  strOutput(`文字数: ${charCount}ch`);
-  strOutput(`速 度: ${instantCpm}cpm`);
 }
 
 /**
@@ -154,18 +135,7 @@ function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
 
   const rank = getRank(cpm, accuracy);
 
-  strOutput(``);
-  strOutput(`[1行入力完了]`);
-  strOutput(`単 語: ${targetWord}`);
-  strOutput(`文字数: ${lineChars}ch`);
-  strOutput(`速 度: ${cpm}cpm`);
-  strOutput(`正解率: ${accuracy}%`);
-  strOutput(`加算pt: ${activeEnemies.length > 0 ? lineScore : 0}pt`);
-  strOutput(`現在計: ${totalScore}pt`);
-  strOutput(`ランク: ${rank}`);
-  strOutput(``);
-
-  // 1行入力完了したら画面の寿司を消去（食べた表現）
+  // 1行入力完了したら画面の虫を消去
   activeEnemies = [];
 }
 
@@ -173,7 +143,6 @@ function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
  * 3. ゲーム開始時のイベントハンドラ
  */
 function onGameStart() {
-  strOutput('[タイピング開始]');
   activeEnemies = [];
   totalScore = 0;
 
@@ -185,7 +154,7 @@ function onGameStart() {
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
 
-  // ★ ゲーム開始時（第1問）の寿司を1個生成
+  // ★ ゲーム開始時（第1問）の虫を1個生成
   spawnEnemy();
 }
 
@@ -195,9 +164,8 @@ function onGameStart() {
 function onNextQuestion(questionIndex) {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
   lineStartTime = performance.now();
-  strOutput(`[問題出題] 第${questionIndex}問: ${targetWord}`);
-  
-  // ★ 新しい問題が出題されたタイミングでのみ寿司を1個生成
+
+  // ★ 新しい問題が出題されたタイミングでのみ虫を1個生成
   spawnEnemy();
 }
 
@@ -214,17 +182,6 @@ function onGameComplete(totalCpm, totalAccuracy) {
   } catch (e) {}
 
   const rank = getRank(totalCpm, totalAccuracy);
-
-  strOutput(``);
-  strOutput(`========================`);
-  strOutput(`[全問完了 リザルト]`);
-  strOutput(`総文字数: ${tChars}ch`);
-  strOutput(`総 時間: ${tSec.toFixed(2)}sec`);
-  strOutput(`平均速度: ${totalCpm}cpm`);
-  strOutput(`平均精度: ${totalAccuracy}%`);
-  strOutput(`獲得スコア: ${totalScore * 10}pt`);
-  strOutput(`総合称号: ${rank}`);
-  strOutput(`========================`);
 
   const scoreEl = document.getElementById('score');
   if (scoreEl) {
@@ -339,6 +296,5 @@ const checkInterval = setInterval(() => {
 
   if (typeof typeStarted !== 'undefined' && !typeStarted && isTracking) {
     isTracking = false;
-    strOutput('[タイピング中断]');
   }
 }, 100);

@@ -277,6 +277,14 @@ window.addEventListener('keydown', handleKeyDown, true);
 //  タイピング状態監視 (タイマー処理)
 // ==================================================
 const checkInterval = setInterval(() => {
+
+  if (typeof typeStarted !== 'undefined' && !typeStarted && !finished) {
+    const scoreEl = document.getElementById('score');
+    if (scoreEl && scoreEl.innerHTML !== '') {
+      scoreEl.innerHTML = '';
+    }
+  }
+  
   if (typeof typeStarted !== 'undefined' && typeStarted && !isTracking) {
     isTracking = true;
     lastQIndex = qIndex;
@@ -291,6 +299,7 @@ const checkInterval = setInterval(() => {
 
   if (typeof finished !== 'undefined' && finished && isTracking) {
     isTracking = false;
+    
     const finalSec = (endTime - startTime) / 1000;
     const finalCpm = finalSec > 0 ? Math.round((totalChars / finalSec) * 60) : 0;
     const finalAcc = targetLengthTotal > 0 ? Math.round((correctChars / targetLengthTotal) * 100) : 0;

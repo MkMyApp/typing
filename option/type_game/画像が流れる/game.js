@@ -230,12 +230,14 @@ function onGameStart() {
   lastEarnedScore = 0;
   effects = [];
   activeEnemies = [];
+  
   centerDisplayImage = null; // ゲーム開始時は中央画像をクリア
   centerImageLoaded = false;
+
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
   
-    const scoreEl = document.getElementById('score');
+  const scoreEl = document.getElementById('score');
   if (scoreEl) {
     scoreEl.innerHTML = '';
   }

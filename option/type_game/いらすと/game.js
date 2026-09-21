@@ -321,6 +321,7 @@ window.addEventListener('keydown', handleKeyDown, true);
 //  タイピング状態監視 (タイマー処理)
 // ==================================================
 const checkInterval = setInterval(() => {
+
   if (typeof typeStarted !== 'undefined' && !typeStarted && !finished) {
     const scoreEl = document.getElementById('score');
     if (scoreEl && scoreEl.innerHTML !== '') {

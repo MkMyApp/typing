@@ -10,97 +10,10 @@ let lastEarnedScore = 0;
 // ==================================================
 //  演出・画像オブジェクト設定
 // ==================================================
-// フォールバック用のランダム画像配列（対応表にない単語が出た場合に使用）
+// フォールバック用のランダム画像配列（画像読み込み失敗時など）
 const ENEMY_IMAGES = [
   'go.png',
 ];
-
-// ★ 出題文字列 と画像ファイル名の対応表
-const MUSHI_MAP = {
-  // 侍
-  '侍': '01-samurai-attack.png',
-  '燕返し': '01-samurai-attack.png',
-  '居合斬り': '01-samurai-attack.png',
-  '桜花乱舞': '01-samurai-attack.png',
-  '絶一文字': '01-samurai-attack.png',
-
-  // 忍者
-  '忍者': '02-ninja-attack.png',
-  '苦無投げ': '02-ninja-attack.png',
-  '影分身': '02-ninja-attack.png',
-  '秘伝飯綱落とし': '02-ninja-attack.png',
-  '風魔手裏剣': '02-ninja-attack.png',
-
-  // 武僧
-  '武僧': '03-busou-attack.png',
-  '金剛波': '03-busou-attack.png',
-  '鉄山靠': '03-busou-attack.png',
-  '阿修羅連撃': '03-busou-attack.png',
-  '羅漢百裂拳': '03-busou-attack.png',
-
-  // 山伏
-  '山伏': '04-yamabushi-attack.png',
-  '錫杖打ち': '04-yamabushi-attack.png',
-  '霊符投げ': '04-yamabushi-attack.png',
-  '破邪の祈祷': '04-yamabushi-attack.png',
-  '修験不動明王陣': '04-yamabushi-attack.png',
-
-  // 巫女
-  '巫女': '05-miko-attack.png',
-  '破魔矢': '05-miko-attack.png',
-  '神楽鈴': '05-miko-attack.png',
-  '天照の光': '05-miko-attack.png',
-  '神降ろし八咫烏': '05-miko-attack.png',
-
-  // 陰陽師
-  '陰陽師': '06-onmyoji-attack.png',
-  '呪符': '06-onmyoji-attack.png',
-  '式神召喚': '06-onmyoji-attack.png',
-  '急々如律令': '06-onmyoji-attack.png',
-  '泰山府君祭': '06-onmyoji-attack.png',
-
-  // 鬼
-  '鬼': '07-oni-attack.png',
-  '金棒振り下ろし': '07-oni-attack.png',
-  '怪力乱神': '07-oni-attack.png',
-  '百鬼夜行': '07-oni-attack.png',
-  '大江山酒呑烈波': '07-oni-attack.png',
-
-  // 天狗
-  '天狗': '08-tengu-attack.png',
-  '飛翔斬り': '08-tengu-attack.png',
-  '羽団扇': '08-tengu-attack.png',
-  '鞍馬の神風': '08-tengu-attack.png',
-  '大天狗竜巻起こし': '08-tengu-attack.png',
-
-  // 雷神
-  '雷神': '09-raijin-attack.png',
-  '紫電': '09-raijin-attack.png',
-  '雷鼓打ち': '09-raijin-attack.png',
-  '轟雷連打': '09-raijin-attack.png',
-  '天罰雷霆万鈞': '09-raijin-attack.png',
-
-  // 風神
-  '風神': '10-fujin-attack.png',
-  '旋風': '10-fujin-attack.png',
-  '鎌鼬': '10-fujin-attack.png',
-  '暴風域': '10-fujin-attack.png',
-  '神風烈波': '10-fujin-attack.png',
-
-  // 将軍
-  '将軍': '11-shogun-attack.png',
-  '大太刀斬り': '11-shogun-attack.png',
-  '大号令': '11-shogun-attack.png',
-  '天下布武': '11-shogun-attack.png',
-  '三千世界の一撃': '11-shogun-attack.png',
-
-  // 九尾
-  '九尾': '12-kyuubi-attack.png',
-  '狐火': '12-kyuubi-attack.png',
-  '幻惑': '12-kyuubi-attack.png',
-  '白面金毛幻炎': '12-kyuubi-attack.png',
-  '妖狐殺生石': '12-kyuubi-attack.png',
-};
 
 // 画面サイズ・背景設定
 const canvas = document.getElementById('gameCanvas');
@@ -109,7 +22,7 @@ const ctx = canvas ? canvas.getContext('2d') : null;
 const bgImg = new Image();
 bgImg.src = 'bg.jpg';
 
-// ★ プレイヤー画像の読み込みを追加
+// ★ プレイヤー画像の読み込み
 const myImg = new Image();
 myImg.src = 'my.png';
 
@@ -121,26 +34,13 @@ const ENEMY_HEIGHT = 256; // 画像描画時の標準縦幅
 const BASE_SPEED = 1;   // 左へ進む速度
 
 // ==================================================
-//  単語リストの自動流し込み & タイピング初期化
+//  敵オブジェクト生成処理（出題文字列.png を直接参照）
 // ==================================================
-const txtdataEl = document.getElementById('txtdata');
-if (txtdataEl && typeof MUSHI_MAP !== 'undefined') {
-  txtdataEl.value = Object.keys(MUSHI_MAP).join('\n');
-  if (typeof init === 'function') {
-    init();
-  }
-}
-
-// 敵オブジェクトを1個生成する関数
 function spawnEnemy() {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
 
-  // 問題文に対応する画像を取得（なければフォールバック画像）
-  let imageSrc = MUSHI_MAP[targetWord];
-
-  if (!imageSrc && ENEMY_IMAGES.length > 0) {
-    imageSrc = ENEMY_IMAGES[Math.floor(Math.random() * ENEMY_IMAGES.length)];
-  }
+  // ★ 出題文字列.png を画像ソースに指定
+  let imageSrc = targetWord ? `${targetWord}.png` : ENEMY_IMAGES[0];
 
   const img = new Image();
 
@@ -169,7 +69,7 @@ function spawnEnemy() {
 
   // ★ 画像が存在しない・読み込めない場合のフォールバック処理
   img.onerror = () => {
-    const fallbackSrc = ENEMY_IMAGES[0] || 'megahorn_x.jpg';
+    const fallbackSrc = ENEMY_IMAGES[0] || 'go.png';
     
     if (img.src.includes(fallbackSrc)) {
       return;
@@ -208,7 +108,7 @@ function drawScore() {
 
 // 称号（ランク）計算関数
 function getRankTitle(cpm, acc) {
-  if (acc < 70) return "手習い中の門下生";
+  if (acc < 70) return "戦闘狂";
   if (cpm >= 350 && acc >= 98) return "神速無双・剣聖";
   if (cpm >= 300 && acc >= 95) return "天下無双の大将軍";
   if (cpm >= 250 && acc >= 90) return "免許皆伝の師範代";
@@ -230,14 +130,14 @@ function update() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // ★ 1.5 プレイヤー（my.png）の描画（画面左側）
+  // 1.5 プレイヤー（my.png）の描画（画面左側）
   if (myImg.complete && myImg.naturalWidth !== 0) {
-    const playerHeight = ENEMY_HEIGHT; // 敵と同じ縦幅（256px）に合わせる場合
+    const playerHeight = ENEMY_HEIGHT; 
     const aspect = myImg.naturalWidth / myImg.naturalHeight;
     const playerWidth = playerHeight * aspect;
     
-    const playerX = -50; // 画面左端からの距離（px）
-    const playerY = ((canvas.height - playerHeight) / 2) + 50; // 敵と同じY座標高さに調整
+    const playerX = -50; 
+    const playerY = ((canvas.height - playerHeight) / 2) + 50; 
 
     ctx.drawImage(myImg, playerX, playerY, playerWidth, playerHeight);
   }
@@ -248,7 +148,7 @@ function update() {
 
     if (enemy.loaded) {
       ctx.save();
-      // ★ 左右反転処理
+      // 左右反転処理
       ctx.translate(enemy.x + enemy.width / 2, enemy.y + enemy.height / 2);
       ctx.scale(-1, 1);
       ctx.drawImage(enemy.img, -enemy.width / 2, -enemy.height / 2, enemy.width, enemy.height);
@@ -256,7 +156,7 @@ function update() {
     }
   });
 
-  // 3. エフェクト（敵の上に重ねて描画）
+  // 3. エフェクトの描画
   effects.forEach(fx => {
     fx.x += fx.vx;
     fx.y += fx.vy;
@@ -299,7 +199,6 @@ function onGameStart() {
   activeEnemies = [];
   lineStartTime = performance.now();
   lastTypeTime = performance.now();
-
 }
 
 function onNextQuestion(qIndex) {
@@ -309,13 +208,11 @@ function onNextQuestion(qIndex) {
 }
 
 function onLineComplete(timeSec, cpm, accuracy, isMissless) {
-  // ★ 正解率（accuracy %）を掛け合わせたスコア計算
   const lineScore = Math.round(cpm * (accuracy / 100));
   
-  lastEarnedScore = lineScore; // 今回獲得したスコア
-  totalScore += lineScore;     // 累計スコアに加算
+  lastEarnedScore = lineScore; 
+  totalScore += lineScore;     
 
-  // 1. まず先にエフェクト（消失演出）を発生させる
   if (activeEnemies.length > 0) {
     const enemy = activeEnemies[0];
 
@@ -327,7 +224,6 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
     const centerX = enemy.x + enemyWidth / 2;
     const centerY = enemy.y + enemyHeight / 2;
 
-    // パーティクルエフェクト生成
     for (let i = 0; i < 20; i++) {
       effects.push({
         x: centerX,
@@ -342,11 +238,10 @@ function onLineComplete(timeSec, cpm, accuracy, isMissless) {
     }
   }
 
-  // 2. エフェクトが発生した「後」に敵カードを消去する
   activeEnemies = [];
 }
 
-// typing.js の判定処理（judgeCurrentWord）をフックしてスコア計算や敵消去を行う
+// typing.js の判定処理（judgeCurrentWord）をフック
 if (typeof judgeCurrentWord === 'function') {
   const originalJudgeCurrentWord = judgeCurrentWord;
   judgeCurrentWord = function() {
@@ -358,7 +253,6 @@ if (typeof judgeCurrentWord === 'function') {
     const len = userTyped.length;
     const cpm = timeSec > 0 ? Math.round((len / timeSec) * 60) : 0;
 
-    // ★ 正解率（accuracy）の計算処理
     let correctCharsCount = 0;
     const u = [...userTyped];
     const a = [...targetWord];
@@ -370,7 +264,6 @@ if (typeof judgeCurrentWord === 'function') {
     const isMissless = (userTyped === targetWord);
 
     try {
-      // accuracy（正解率）を渡して実行
       onLineComplete(timeSec, cpm, accuracy, isMissless);
     } catch (err) {
       console.error("onLineComplete Error:", err);
@@ -400,7 +293,6 @@ window.addEventListener('keydown', handleKeyDown, true);
 //  タイピング状態監視 (タイマー処理)
 // ==================================================
 const checkInterval = setInterval(() => {
-  // ★ スタート待機中（まだ開始していない／スタート画面に戻った）場合、称号を消去
   if (typeof typeStarted !== 'undefined' && !typeStarted && !finished) {
     const scoreEl = document.getElementById('score');
     if (scoreEl && scoreEl.innerHTML !== '') {
@@ -426,7 +318,6 @@ const checkInterval = setInterval(() => {
     const finalCpm = finalSec > 0 ? Math.round((totalChars / finalSec) * 60) : 0;
     const finalAcc = targetLengthTotal > 0 ? Math.round((correctChars / targetLengthTotal) * 100) : 0;
 
-    // 称号判定とスコア結果のUI書き換え
     const rankTitle = getRankTitle(finalCpm, finalAcc);
     const scoreEl = document.getElementById('score');
     if (scoreEl) {
