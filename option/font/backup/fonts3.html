@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>フォント名</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="target" class="line"></div>
+    <textarea id="editor"
+      class="line" spellcheck="false">
+    </textarea>
+
+    <script>
+      const TITLE_MSG = "フォント名";
+      const START_MSG = "Enter⏎";
+      const INPUT_MSG = "英数 確認";
+      const RANDOM = 0; // 出題数 0:順番
+      const WIDTH = "25ch";
+      const IME = "OFF"; // OFF
+    </script>
+
+    <!---5----10---15---20---25---30---35---40--->
+    <textarea id="txtdata" hidden>
+Roboto
+Open Sans
+Montserrat
+Noto Sans
+Lato
+Poppins
+Inter
+Playfair Display
+Press Start 2P
+Pacifico
+Creepster
+Bungee Shade
+Permanent Marker
+    </textarea>
+    <!---5----10---15---20---25---30---35---40--->
+
+    <!-- 1. Google Fontsの読み込みと動的CSS・フックをまとめたスクリプト -->
+    <script>
+      const txtdataEl = document.getElementById('txtdata');
+      if (txtdataEl) {
+        // テキストエリアからフォント名のリストを抽出
+        const rawFonts = txtdataEl.value
+          .replace(/^\uFEFF/, '')
+          .replace(/\r\n?/g, '\n')
+          .split('\n')
+          .map(s => s.trim())
+          .filter(Boolean);
+
+        // preconnectの追加
+        const preconnect1 = document.createElement('link');
+        preconnect1.rel = 'preconnect';
+        preconnect1.href = 'https://fonts.googleapis.com';
+        document.head.appendChild(preconnect1);
+
+        const preconnect2 = document.createElement('link');
+        preconnect2.rel = 'preconnect';
+        preconnect2.href = 'https://fonts.gstatic.com';
+        preconnect2.crossOrigin = 'anonymous';
+        document.head.appendChild(preconnect2);
+
+        // 重複読み込みを防ぐためのSet
+        const loadedFonts = new Set();
+
+        // フォントごとに1行ずつ（個別のlinkタグ）を動的生成して読み込む
+        rawFonts.forEach(fontName => {
+          if (!loadedFonts.has(fontName)) {
+            loadedFonts.add(fontName);
+            const fontLink = document.createElement('link');
+            fontLink.rel = 'stylesheet';
+            fontLink.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(/\s+/g, '+')}&display=swap`;
+            document.head.appendChild(fontLink);
+          }
+        });
+      }
+
+      // 動的CSSの生成（#target と #editor の両方に `--active-font` を適用する）
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        #target.dynamic-font, 
+        #target.dynamic-font span,
+        textarea#editor.dynamic-font {
+          font-family: var(--active-font), sans-serif, monospace !important;
+        }
+      `;
+      document.head.appendChild(styleEl);
+    </script>
+
+    <script src="typing.js"></script>
+
+    <!-- 2. 出題に合わせてフォントを切り替えるフックスクリプト -->
+    <script>
+      function applyFontToTarget() {
+        const targetEl = document.getElementById('target');
+        const editorEl = document.getElementById('editor');
+        if (!targetEl) return;
+
+        const text = targetEl.textContent.trim();
+
+        if (text && text !== START_MSG && !text.includes('%') && !text.includes('/')) {
+          const fontVal = `"${text}", sans-serif, monospace`;
+          
+          // CSS変数にセットし、両方の要素にクラスを付与する
+          document.documentElement.style.setProperty('--active-font', fontVal);
+          targetEl.classList.add('dynamic-font');
+          if (editorEl) {
+            editorEl.classList.add('dynamic-font');
+          }
+        } else {
+          // スタート画面やリセット時はスタイルを解除
+          document.documentElement.style.removeProperty('--active-font');
+          targetEl.classList.remove('dynamic-font');
+          if (editorEl) {
+            editorEl.classList.remove('dynamic-font');
+          }
+        }
+      }
+
+      // MutationObserver によるタイピング監視の開始
+      window.addEventListener('DOMContentLoaded', () => {
+        const targetEl = document.getElementById('target');
+        if (targetEl) {
+          const observer = new MutationObserver(() => {
+            applyFontToTarget();
+          });
+          observer.observe(targetEl, { childList: true, subtree: true, characterData: true });
+          
+          // 初回ロード時・スタート時にも即座に適用
+          applyFontToTarget();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -7,8 +7,8 @@ const AUTO_INPUT_MSG = "自動入力します";
 const AUTO_START_DELAY = isLandscape ? 500 : 200;  // 手動スタート検知後のウェイト（ミリ秒）
 const AUTO_NEXT_DELAY = isLandscape ? 500 : 200;   // 問題間の基本ウェイト（ミリ秒）
 const AUTO_NEXT_JITTER = isLandscape ? 50 : 20;    // 問題間ウェイトのランダムな揺れ幅（±ミリ秒）
-const AUTO_TYPING_SPEED = isLandscape ? 200 : 100; // 1文字あたりの基本入力間隔（ミリ秒）
-const AUTO_TYPING_JITTER = isLandscape ? 50 : 10; // 入力間隔のランダムな揺れ幅（±ミリ秒）
+const AUTO_TYPING_SPEED = isLandscape ? 50 : 50; // 1文字あたりの基本入力間隔（ミリ秒）
+const AUTO_TYPING_JITTER = isLandscape ? 10 : 10; // 入力間隔のランダムな揺れ幅（±ミリ秒）
 
 //100 CPM（600ms間隔）：一般的なタイピングの入門・実用レベル
 //200 CPM（300ms間隔）：十分に速いとされるスムーズなタイピング速度

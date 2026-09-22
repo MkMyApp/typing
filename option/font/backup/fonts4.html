@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title>フォント名</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="target" class="line"></div>
+    <textarea id="editor"
+      class="line" spellcheck="false">
+    </textarea>
+
+    <script>
+      const TITLE_MSG = "フォント名";
+      const START_MSG = "Enter⏎";
+      const INPUT_MSG = "英数 確認";
+      const RANDOM = 0; // 出題数 0:順番
+      const WIDTH = "25ch";
+      const IME = "OFF"; // OFF
+    </script>
+
+    <!---5----10---15---20---25---30---35---40--->
+    <textarea id="txtdata" hidden>
+			Roboto
+			Open Sans
+			Montserrat
+			Noto Sans
+			Lato
+			Poppins
+			Inter
+			Playfair Display
+			Press Start 2P
+			Pacifico
+			Creepster
+			Bungee Shade
+			Permanent Marker
+    </textarea>
+    <!---5----10---15---20---25---30---35---40--->
+    <script src="fonts.js"></script>
+    <script src="typing.js"></script>
+  </body>
+</html>

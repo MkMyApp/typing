@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoogleFontsTest</title>
+	<style>
+		body { margin-top: 40px;margin-left: 40px;	}
+		a { text-decoration: none;color: inherit;line-height: 2;}
+		a:hover { color: blue; }
+		a:active { color: red; }
+		.Normal { font-size: 200%; }
+	</style>
+
+  <!-- サーバーとの接続をあらかじめ準備する高速化設定 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- フォントの読み込み（1つずつ分けた書き方） スペースは + に置換 -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+
+<style>
+.RubikSprayPaint {
+    font-family: 'Rubik Spray Paint', cursive;
+    font-size: 200%;
+}
+
+.ZenMaruGothic {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 200%;
+}
+</style>
+
+</head>
+
+<body>
+	<h1>GoogleFontsTest</h1>
+	<a href="https://fonts.google.com/" target="_blank" class="Normal">GoogleFonts</a>
+	<br>
+
+	<a href="https://fonts.google.com/specimen/Rubik Spray Paint" target="_blank" class="RubikSprayPaint">Rubik Spray Paint</a><br>
+	<a href="https://fonts.google.com/specimen/Zen Maru Gothic" target="_blank" class="ZenMaruGothic">Zen Maru Gothic</a><br>
+
+</body>
+</html>

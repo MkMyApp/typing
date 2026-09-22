@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonts Page Generator</title>
+    
+    <!-- サーバーとの接続をあらかじめ準備する高速化設定 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- フォントの読み込み -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-bottom: 60px;
+}
+
+.Normal {
+	font-size:200%;
+}
+
+/* リンクのスタイル設定 */
+a {
+    text-decoration: none;  /* 下線をなしにする */
+    color: inherit;         /* 文字色を親要素（デフォルト）の継承にする */
+    line-height: 2;
+}
+
+/* マウスを乗せたとき（ホバー） */
+a:hover {
+    color: blue;            /* 青にする */
+}
+
+/* クリックしている瞬間（アクティブ） */
+a:active {
+    color: red;             /* 赤にする */
+}
+
+/* テキストエリアのスタイル設定 */
+textarea {
+    width: 600px;
+    height: 120px;
+    margin-top: 5px;
+    font-size: 14px;
+    padding: 8px;
+    font-family: monospace;
+}
+
+label {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+button {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.main-btn {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+}
+</style>
+
+</head>
+<body>
+<h1>Google Fonts テストページ作成ツール</h1>
+<a href="https://fonts.google.com/" target="_blank" class="Normal">GoogleFonts</a>
+<br><br>
+
+<label for="fontnames">【入力】フォント名（1行に1つずつ入力してください）</label><br>
+<textarea id="fontnames">Rubik Spray Paint
+Zen Maru Gothic</textarea>
+<br><br>
+
+<button id="createCodeBtn" class="main-btn">コード作成</button>
+<br>
+
+<!-- 【1】linkタグ -->
+<label for="links">【1】linkタグ一覧</label><br>
+<textarea id="links"></textarea><br>
+<button class="copyBtn" data-target="links">【1】をコピー</button>
+<br>
+
+<!-- 【2】クラス名 -->
+<label for="className">【2】クラス名（CSSセレクタ）一覧</label><br>
+<textarea id="className"></textarea><br>
+<button class="copyBtn" data-target="className">【2】をコピー</button>
+<br>
+
+<!-- 【3】aタグ -->
+<label for="href">【3】aタグ（HTMLパーツ）一覧</label><br>
+<textarea id="href"></textarea><br>
+<button class="copyBtn" data-target="href">【3】をコピー</button>
+
+<script>
+// ボタン要素と各テキストエリア要素を取得
+const createCodeBtn = document.getElementById('createCodeBtn');
+const fontnamesArea = document.getElementById('fontnames');
+const linksArea = document.getElementById('links');
+const classNameArea = document.getElementById('className');
+const hrefArea = document.getElementById('href');
+
+// コード作成ボタンの処理
+createCodeBtn.addEventListener('click', function() {
+    const lines = fontnamesArea.value.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+    let links = [];
+    let classNames = [];
+    let hrefs = [];
+
+    lines.forEach(fontName => {
+        const familyParam = fontName.replace(/\s+/g, '+');
+        const className = fontName.replace(/\s+/g, '');
+
+        links.push(`<link href="https://fonts.googleapis.com/css2?family=${familyParam}&display=swap" rel="stylesheet">`);
+        
+        classNames.push(
+`.${className} {
+    font-family: '${fontName}', sans-serif;
+    font-size: 200%;
+}`);
+
+        hrefs.push(`<a href="https://fonts.google.com/specimen/${familyParam}" target="_blank" class="${className}">${fontName}</a><br>`);
+    });
+
+    linksArea.value = links.join("\n");
+    classNameArea.value = classNames.join("\n\n");
+    hrefArea.value = hrefs.join("\n");
+});
+
+// コピーボタン（3つすべて共通の処理）
+const copyButtons = document.querySelectorAll('.copyBtn');
+
+copyButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        // data-target 属性から紐づくテキストエリアのIDを取得
+        const targetId = this.getAttribute('data-target');
+        const targetTextarea = document.getElementById(targetId);
+
+        // テキストエリアの中身をクリップボードにコピー
+        navigator.clipboard.writeText(targetTextarea.value).then(() => {
+            // コピー成功時のフィードバック
+            const originalText = this.textContent;
+            this.textContent = 'コピーしました！';
+            this.style.backgroundColor = '#d4edda';
+
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.backgroundColor = '';
+            }, 1500);
+        }).catch(err => {
+            alert('コピーに失敗しました');
+            console.error(err);
+        });
+    });
+});
+</script>
+</body>
+</html>

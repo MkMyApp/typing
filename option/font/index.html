@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: sans-serif;
+			padding: 20px;
+			background-color: #f4f4f9;
+			color: #333;
+		}
+
+		/* h1・h2の見出しデザイン */
+		h1 {
+			font-size: 32px;
+			margin: 0 0 24px 0;
+			padding-bottom: 8px;
+			border-bottom: 3px solid #333;
+		}
+		h2 {
+			font-size: 24px;
+			margin: 30px 0 16px 0;
+			padding-left: 10px;
+			border-left: 5px solid #4a90e2;
+		}
+
+		/* 通常のリンクボタン（カード型） */
+		a {
+			box-sizing: border-box;
+			display: inline-block;
+			width: auto;
+			min-width: 240px;
+			height: auto;
+			line-height: 28px;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 15px 20px;
+			background-color: #ffffff;
+			color: #303030;
+			text-decoration: none;
+			text-align: center;
+			border-radius: 8px;
+			border: 1px solid #ccc;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin: 0 10px 15px 0;
+			transition: background-color 0.2s, transform 0.1s;
+		}
+		a:hover {
+			background-color: #f0f4f9;
+		}
+		a:active {
+			color: #f03030;
+			background-color: #e2e8f0;
+			transform: translateY(1px);
+		}
+
+		/* h2 内のサブメニュー用リンク（シンプル化） */
+		h2 a {
+			color: inherit;
+			text-decoration: underline;
+			border: none;
+			background: none;
+			box-shadow: none;
+			padding: 0;
+			margin: 0;
+			min-width: auto;
+		}
+		h2 a:hover {
+			color: #4a90e2;
+			background: none;
+		}
+		
+		.code-window {
+				width:1024px;
+		    background-color: #1e1e1e; /* ダークモード風の背景色 */
+		    color: #d4d4d4;            /* 文字色 */
+		    border-radius: 6px;        /* 角を丸くする */
+		    overflow: hidden;          /* はみ出しを隠す */
+		    margin: 20px 0;
+		}
+
+		.code-header {
+		    background-color: #2d2d2d; /* タイトルバーの背景色 */
+		    padding: 8px 16px;
+		    font-size: 12px;
+		    color: #858585;
+		    font-family: sans-serif;
+		}
+
+		.code-window pre {
+		    padding: 16px;
+		    margin: 0;
+		    overflow-x: auto;          /* 横幅が大きい場合にスクロールさせる */
+		}
+
+		.code-window code {
+		    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+		}
+	</style>
+<title>GoogleFonts</title>
+</head>
+<body>
+<h1>GoogleFontsの使い方</h1>
+<iframe width="480" height="270" src="https://www.youtube.com/embed/_M1tI2F9ucM" title="フォント名タイピング オートタイプデモ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br>
+<a href="fontname.html" target="_blank">フォント名タイピング</a>
+<br>
+<h2>Google Fontsの導入とカスタマイズ実践ガイド</h2>
+Webサイトの印象を大きく左右するフォントの選択。<br>
+標準のフォントではなく、Google Fontsを活用することで、<br>
+誰でも簡単におしゃれで読みやすいWebフォントを導入することができます。<br>
+実際に作成したテストページのソースコードをベースに、<br>
+Google Fontsの読み込みからスタイリングまでの実装方法を解説します。<br>
+<br>
+<a href="https://fonts.google.com/" target="_blank">GoogleFonts</a>
+<a href="FontsTest.html" target="_blank">フォントテスト</a>
+<a href="FontsPage.html" target="_blank">作成ツール</a>
+<br>
+<div class="code-window"><pre><code>
+&lt;!-- サーバーとの接続をあらかじめ準備する高速化設定 --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+
+&lt;!-- フォントの読み込み（1つずつ分けた書き方） スペースは + に置換 --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&amp;display=swap" rel="stylesheet"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;style&gt;
+.RubikSprayPaint {
+    font-family: 'Rubik Spray Paint', cursive;
+    font-size: 200%;
+}
+
+.ZenMaruGothic {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 200%;
+}
+&lt;/style&gt;
+</code></pre></div>
+</body>
+</html>
