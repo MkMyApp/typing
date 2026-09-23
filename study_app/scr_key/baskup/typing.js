@@ -5,24 +5,29 @@ const targetEl = document.getElementById('target')
 const editorEl = document.getElementById('editor')
 const resultEl = document.getElementById('result')
 
-let words = []
-let schedule = []
-let qIndex = 0
+let words = [];
+let schedule = [];
+let qIndex = 0;
 
-let currentWord = ''
-let correct = 0
-let correctChars = 0
-let targetLengthTotal = 0
-let total = 0
-let limit = 0
+let currentWord = '';
+let correct = 0;
+let correctChars = 0;
+let targetLengthTotal = 0;
+let total = 0;
+let limit = 0;
 
-let startTime = 0
-let endTime = 0
-let totalChars = 0
+let startTime = 0;
+let endTime = 0;
+let totalChars = 0;
 
-let typeStarted = false
-let composing = false
-let finished = false
+let typeStarted = false;
+let composing = false;
+let finished = false;
+
+const textarea = document.getElementById('txtdata');
+textarea.style.display = "none";
+
+init();
 
 function esc(s){
   return String(s)
@@ -49,24 +54,24 @@ function shuffle(array){
 }
 
 function colorize(answer, user){
-  const a = [...answer]
-  const u = [...user]
+  const a = [...answer];
+  const u = [...user];
 
-  let html = ''
+  let html = '';
 
   for(let i = 0; i < a.length; i++){
-    const ca = a[i]
-    const cu = u[i]
+    const ca = a[i];
+    const cu = u[i];
 
-    let cls = 'char-default'
+    let cls = 'char-default';
     if(cu !== undefined){
-      cls = (cu === ca) ? 'char-correct' : 'char-wrong'
+      cls = (cu === ca) ? 'char-correct' : 'char-wrong';
     }
 
     html += `<span class="${cls}">${esc(ca)}</span>`
   }
 
-  targetEl.innerHTML = html
+  targetEl.innerHTML = html;
 }
 
 function setAlignMode(mode){
@@ -84,18 +89,18 @@ function setAlignMode(mode){
 }
 
 function showStart(){
-  targetEl.textContent = START_MSG
-  setAlignMode('center')
+  targetEl.textContent = START_MSG;
+  setAlignMode('center');
 
   editorEl.value = ''
-  editorEl.placeholder = INPUT_MSG
+  editorEl.placeholder = INPUT_MSG;
   
-  correct = 0
-  total = 0
-  qIndex = 0
-  updateScore()
+  correct = 0;
+  total = 0;
+  qIndex = 0;
+  updateScore();
 
-  editorEl.focus()
+  editorEl.focus();
 }
 
 function buildSchedule(){
@@ -103,10 +108,10 @@ function buildSchedule(){
 
   // RANDOMが未設定（0以下）の場合はそのまま全件リストを返す
   if (typeof RANDOM === 'undefined' || RANDOM <= 0) {
-    return words.map((_, i) => i)
+    return words.map((_, i) => i);
   }
 
-  const list = []
+  const list = [];
 
   // RANDOMの指定数に達するまでループして追加
   while (list.length < RANDOM) {
@@ -114,99 +119,99 @@ function buildSchedule(){
     const round = shuffle(words.map((_, i) => i))
     
     // RANDOMを超えないように必要な分だけ切り取って結合
-    const needed = RANDOM - list.length
-    list.push(...round.slice(0, needed))
+    const needed = RANDOM - list.length;
+    list.push(...round.slice(0, needed));
   }
 
   return list
 }
 function showFinalResult(){
-  const sec = (endTime - startTime) / 1000
-  const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
+  const sec = (endTime - startTime) / 1000;
+  const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0;
 
   // 最終スコアを表示
-  resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`
-  resultEl.dataset.status = ''
+  resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`;
+  resultEl.dataset.status = '';
 
-  setAlignMode('center')
+  setAlignMode('center');
   
   const accuracy = targetLengthTotal > 0 
     ? Math.round(correctChars / targetLengthTotal * 100) : 0
   targetEl.textContent = `${accuracy}%`
 
-  editorEl.value = START_MSG
+  editorEl.value = START_MSG;
 }
 
 function nextWord(){
   if(qIndex >= schedule.length){
-    typeStarted = false
-    finished = true
-    endTime = performance.now()
+    typeStarted = false;
+    finished = true;
+    endTime = performance.now();
 
-    showFinalResult()
+    showFinalResult();
 
-    editorEl.placeholder = ''
-    editorEl.focus()
-    return
+    editorEl.placeholder = '';
+    editorEl.focus();
+    return;
   }
 
-  currentWord = words[schedule[qIndex]]
-  qIndex++
+  currentWord = words[schedule[qIndex]];
+  qIndex++;
 
-  editorEl.value = ''
-  colorize(currentWord, '')
+  editorEl.value = '';
+  colorize(currentWord, '');
 
-  setAlignMode('left')
-  editorEl.focus()
+  setAlignMode('left');
+  editorEl.focus();
 }
 
 function startType(){
-  finished = false
-  editorEl.placeholder = ''
-  schedule = buildSchedule()
-  limit = schedule.length
-  qIndex = 0
-  correct = 0
-  correctChars = 0
-  targetLengthTotal = 0
-  total = 0
-  totalChars = 0
-  startTime = performance.now()
+  finished = false;
+  editorEl.placeholder = '';
+  schedule = buildSchedule();
+  limit = schedule.length;
+  qIndex = 0;
+  correct = 0;
+  correctChars = 0;
+  targetLengthTotal = 0;
+  total = 0;
+  totalChars = 0;
+  startTime = performance.now();
 
-  updateScore()
+  updateScore();
 
-  typeStarted = true
-  nextWord()
+  typeStarted = true;
+  nextWord();
 }
 
 function judgeCurrentWord(){
-  const userTyped = typed()
-  const targetWord = currentWord
-  const u = [...userTyped]
-  const a = [...targetWord]
+  const userTyped = typed();
+  const targetWord = currentWord;
+  const u = [...userTyped];
+  const a = [...targetWord];
 
-  let currentCorrectChars = 0
+  let currentCorrectChars = 0;
 
   for(let i = 0; i < u.length; i++){
     if(u[i] === a[i]){
-      currentCorrectChars++
+      currentCorrectChars++;
     }
   }
 
-  total++
-  totalChars += u.length
+  total++;
+  totalChars += u.length;
   
-  targetLengthTotal += Math.max(u.length, a.length)
-  correctChars += currentCorrectChars
+  targetLengthTotal += Math.max(u.length, a.length);
+  correctChars += currentCorrectChars;
 
   if(userTyped === targetWord){
-    correct++
-    updateScore('correct')
+    correct++;
+    updateScore('correct');
   }else{
-    updateScore('wrong')
+    updateScore('wrong');
   }
 
-  nextWord()
+  nextWord();
 }
 
 function loadWords(){
@@ -222,16 +227,16 @@ function loadWords(){
 }
 
 editorEl.addEventListener('compositionstart', () => {
-  composing = true
+  composing = true;
 })
 
 editorEl.addEventListener('compositionend', () => {
-  composing = false
+  composing = false;
 })
 
 editorEl.addEventListener('input', () => {
-  if(!typeStarted) return
-  colorize(currentWord, typed())
+  if(!typeStarted) return;
+  colorize(currentWord, typed());
 })
 
 editorEl.addEventListener('keydown', e => {
@@ -268,6 +273,21 @@ editorEl.addEventListener('keydown', e => {
 });
 
 function init(){
+	words = [];
+  schedule = [];
+  qIndex = 0;
+  currentWord = '';
+  correct = 0;
+  correctChars = 0;
+  targetLengthTotal = 0;
+  total = 0;
+  limit = 0;
+  startTime = 0;
+  endTime = 0;
+  totalChars = 0;
+  typeStarted = false;
+  composing = false;
+  finished = false;
 
   let TITLE;
   if (typeof TITLE_MSG !== 'undefined') {
@@ -277,21 +297,20 @@ function init(){
     TITLE = document.title;
   }
 
-  titleEl.textContent = TITLE
+  titleEl.textContent = TITLE;
 
-  document.documentElement.style.setProperty('--line-width', WIDTH)
+  document.documentElement.style.setProperty('--line-width', WIDTH);
 
   loadWords();
 
   if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
-    limit = RANDOM
+    limit = RANDOM;
   } else {
-    limit = words.length
+    limit = words.length;
   }
 
-  showStart()
+  showStart();
 
-  setTimeout(() => editorEl.focus(), 0)
+  setTimeout(() => editorEl.focus(), 0);
 }
 
-init();

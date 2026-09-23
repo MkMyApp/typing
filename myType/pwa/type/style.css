@@ -80,8 +80,8 @@ body {
   line-height: var(--line-height);
 }
 
-/* 共通のスタイル */
-#target, #editor, #txtdata {
+/* 共通のスタイル（#target とすべての textarea） */
+#target, textarea {
   font-family: monospace;
   font-size: var(--line-font-size);
   line-height: var(--line-height);
@@ -93,13 +93,21 @@ body {
   box-shadow: var(--line-shadow);
 }
 
-/* 共通（#editor と #txtdata） */
-#editor, #txtdata {
+/* すべての textarea に共通して適用するスタイル */
+textarea {
+	display:block;
   width: var(--line-width);
+  height: calc(1em * var(--line-height) + 20px);
+  background-color: var(--body-background-color);
   margin: 10px auto;
   box-sizing: border-box;
   outline: none;
-  height: calc(1em * var(--line-height) + 20px);
+  overflow: auto;
+  resize: both;
+}
+
+textarea[hidden] {
+  display: none !important;
 }
 
 /* 個別のスタイル */
@@ -112,12 +120,6 @@ body {
   background: var(--editor-back-color);
   overflow: hidden;
   resize: none;
-}
-
-#txtdata {
-  background-color: var(--body-background-color);
-  overflow: auto;
-  resize: both;
 }
 
 #exp, #dl {

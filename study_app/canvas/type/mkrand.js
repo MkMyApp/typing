@@ -42,15 +42,12 @@ function generateText() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const txtDataElem = document.getElementById('txtdata');
+  const strDataElem = document.getElementById('strdata');
 
-  // JavaScriptで <textarea id="strdata" hidden> を動的に生成して追加する
-  const strDataElem = document.createElement('textarea');
-  strDataElem.id = 'strdata';
-  strDataElem.hidden = true; // 最初は非表示
-  if (txtDataElem) {
-    strDataElem.value = txtDataElem.value; // txtdataの内容を初期セット
+  // 初期値のセット
+  if (strDataElem && txtDataElem) {
+    strDataElem.value = txtDataElem.value;
   }
-  document.body.appendChild(strDataElem);
 
   // 初回生成と初期化
   generateText();
@@ -67,11 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
             strDataElem.value = txtDataElem.value;
           }
           strDataElem.removeAttribute('hidden');
+          strDataElem.style.width = "640px";
+          strDataElem.style.height = "120px";
+          strDataElem.style.fontSize = "20px";
           strDataElem.focus(); // 表示されたらフォーカスを当てる
         } else {
-          // 表示から非表示にする時
+          // 表示から非表示にする時（編集画面を閉じてゲーム画面に戻る時）
           strDataElem.setAttribute('hidden', true);
-          generateText();
+          generateText(); // 新しく編集された問題テキストを再生成・反映する
+          
+          // ▼ここでゲーム全体を綺麗に初期化・リセットする
           if (typeof init === 'function') {
             init();
           }

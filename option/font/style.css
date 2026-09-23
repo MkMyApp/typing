@@ -95,11 +95,19 @@ body {
 
 /* すべての textarea に共通して適用するスタイル */
 textarea {
+	display:block;
   width: var(--line-width);
+  height: calc(1em * var(--line-height) + 20px);
+  background-color: var(--body-background-color);
   margin: 10px auto;
   box-sizing: border-box;
   outline: none;
-  height: calc(1em * var(--line-height) + 20px);
+  overflow: auto;
+  resize: both;
+}
+
+textarea[hidden] {
+  display: none !important;
 }
 
 /* 個別のスタイル */
@@ -108,19 +116,11 @@ textarea {
   white-space: pre;
 }
 
-textarea  {
-  background-color: var(--body-background-color);
-  overflow: auto;
-  resize: both;
-}
-
 #editor {
   background: var(--editor-back-color);
   overflow: hidden;
   resize: none;
 }
-
-
 
 #exp, #dl {
   white-space: pre-wrap;
