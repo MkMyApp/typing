@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>ランダム文字列生成</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+const TITLE_MSG = "ランダム文字列生成";//タイトル
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな 確認";//英数 かな
+const IME = "OFF";// ON Shift+Enter
+const RANDOM = 10;// 出題数
+const WIDTH = "20ch";// 入力幅 全角は2倍
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" hidden>
+ぬふあうえおやゆよわほへ
+たていすかんなにらせ
+ちとしはきくまのりれけむ
+つさそひこみもねるめろ
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<textarea id="strdata" hidden></textarea>
+<script src="mkrand.js?F2=on"></script>
+<img src="ひらがな最適化.png" style="width:640px;">
+
+<script src="typing.js"></script>
+</body>
+</html>

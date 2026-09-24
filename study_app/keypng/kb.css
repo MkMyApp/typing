@@ -1,0 +1,170 @@
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.app-wrapper {
+  /* キーボードの実際の描画サイズ（約960px〜）に合わせて幅を拡張、または制限を解除 */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* 選択部分（設定パネル）のCSS */
+.settings-panel {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  background: #f8f9fa;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.setting-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.setting-group select {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 背景テーマごとのスタイル */
+.app-wrapper.theme-none {
+  background: #ffffff;
+}
+
+.app-wrapper.theme-western {
+  background: #fdfbf7;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.app-wrapper.theme-japanese {
+  background: #f4f1ea;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#keyboardCanvas {
+  margin-bottom: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* --- コントロールパネルのスタイル --- */
+.control-panel {
+  display: block;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.btn-container-left {
+  display: inline-block;
+  text-align: left;
+}
+
+button.action-btn {
+  width: 200px;
+  height: 48px;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+button.action-btn:hover {
+  background-color: #218838;
+}
+
+button.save-btn {
+  width: 200px;
+  height: 48px;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+button.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.color-row {
+  margin-bottom: 8px;
+  /* 横幅が足りずに要素が下に落ちないよう、必要に応じて調整・ラップ制御 */
+  white-space: nowrap; 
+}
+
+/* --- input デザイン --- */
+.btn-container-left input {
+  vertical-align: middle;
+  margin: 4px 6px 4px 0;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.btn-container-left input.hex {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+.btn-container-left input.str {
+  width: 180px;
+  height: 48px;
+  font-family: monospace;
+  font-size: 24px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* --- 機能キー（チェックボックス） --- */
+.btn-container-left label.func-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  font-size: 20px;
+  width: 170px;
+  color: #333;
+  user-select: none;
+  vertical-align: middle;
+  margin-left: 0px;
+}
+
+.btn-container-left input.check {
+  width: 36px;
+  height: 36px;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+  accent-color: #007bff;
+}
