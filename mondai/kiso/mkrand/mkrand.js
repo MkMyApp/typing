@@ -16,10 +16,19 @@ function getParam(key) {
 }
 
 // 3. パラメータから値を取得（デフォルト値の設定）
-const length = getParam('len') ? parseInt(getParam('len'), 10) : 6; // 問題文の長さ[cite: 1]
-const lines = getParam('lines') ? parseInt(getParam('lines'), 10) : 100; // 生成問題数[cite: 1]
-const F2flag = getParam('F2') ? getParam('F2') : 'off'; // F2編集 on/off[cite: 1]
-const paramStr = getParam('str') ? getParam('str') : ''; // 対象文字を設定[cite: 1]
+const length = getParam('len') ? parseInt(getParam('len'), 10) : 6; // 問題文の長さ
+const lines = getParam('lines') ? parseInt(getParam('lines'), 10) : 100; // 生成問題数
+const F2flag = getParam('F2') ? getParam('F2') : 'off'; // F2編集 on/off
+const paramStr = getParam('str') ? getParam('str') : ''; // 対象文字を設定
+const imgSrc = getParam('img') ? getParam('img') : ''; // 対象文字を設定
+
+// DOMが完全に読み込まれてから画像のsrcを変更する
+window.addEventListener('DOMContentLoaded', () => {
+  const imgElem = document.getElementById('img');
+  if (imgElem && (imgSrc !== "")) {
+    imgElem.src = imgSrc;
+  }
+});
 
 if (paramStr !== '') {
   const strDataElem = document.getElementById('strdata');
