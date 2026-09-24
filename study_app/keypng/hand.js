@@ -1,3 +1,46 @@
+// --- テーマごとの設定パラメータ定義（サイズ・位置の調整はこちらで行えます） ---
+const themeConfigs = {
+  none: {
+    bgname: "",
+    handScale: 1.0,  // 手のイラストの全体倍率
+    offsetX: 0,      // 横方向の位置オフセット
+    offsetY: 0       // 縦方向の位置オフセット
+  },
+  western: {
+    bgname: "洋巻物.png",
+    handScale: 0.8,  // 洋風背景での手の倍率
+    offsetX: 50,      // 横方向の位置調整
+    offsetY: 20       // 縦方向の位置調整
+  },
+  japanese: {
+    bgname: "和巻物.png",
+    handScale: 0.8,  // 和風背景での手の倍率
+    offsetX: 50,      // 横方向の位置調整
+    offsetY: 20       // 縦方向の位置調整
+  }
+};
+
+let currentThemeConfig = themeConfigs.none;
+const bgImage = new Image();
+
+// 選択された背景テーマに基づいて設定を更新し画像を読み込む
+function applyTheme(themeKey) {
+  currentThemeConfig = themeConfigs[themeKey] || themeConfigs.none;
+
+  if (currentThemeConfig.bgname) {
+    bgImage.src = currentThemeConfig.bgname;
+    bgImage.onload = function() {
+      updateRulesFromUI();
+    };
+    bgImage.onerror = function() {
+      console.warn("背景画像の読み込みに失敗しました。デフォルト背景で描画します。");
+      updateRulesFromUI();
+    };
+  } else {
+    updateRulesFromUI();
+  }
+}
+
 // 固定色定義
 const FINGER_BG_COLOR = "#FFF8DC"; // 指本体（クリーム色）
 const THUMB_BG_COLOR = "#FFF8F0";  // 親指（クリーム色）
@@ -13,7 +56,7 @@ function getCharByMode(labelStr) {
   if (chars.length > charMode) {
     return chars[charMode];
   }
-  return chars[0] || ""; // 該当位置に文字がない場合は先頭をフォールバック
+  return chars[0] || "";
 }
 
 // 指先の色・文字判定
@@ -23,17 +66,15 @@ function getTipColorAndText(finger) {
   }
 
   let bg = DEFAULT_TIP_BG;
-  let fg = "#000000"; // デフォルトで黒文字
+  let fg = "#000000";
   
-  // ラジオボタンの選択に従い、labelから該当する1文字を取得
   const displayChar = getCharByMode(finger.label);
 
-  // 色ルールの適用判定（finger.labelに含まれる文字、または抽出文字と照合）
   for (const rule of colorRules) {
     const rawChars = Array.from(finger.label);
     if (rawChars.some(c => rule.CHARS.includes(c)) || rule.CHARS.includes(displayChar)) {
       bg = rule.BackColor;
-      fg = rule.ForColor; // 色指定がある場合は白文字 (#FFFFFF)
+      fg = rule.ForColor;
       break;
     }
   }
@@ -68,7 +109,7 @@ function drawFinger(ctx, startX, bottomY, fingerWidth, unitHeight, finger, scale
   ctx.lineWidth = 1 * scale;
   ctx.strokeRect(x, yTop, w, tipHeight * scale);
 
-  // 3. テキスト描画（必ず描画）
+  // 3. テキスト描画
   if (text) {
     ctx.fillStyle = fg;
     ctx.textAlign = "center";
@@ -81,34 +122,51 @@ function drawFinger(ctx, startX, bottomY, fingerWidth, unitHeight, finger, scale
 // 全体描画メイン処理
 function renderHandCanvas() {
   const canvas = document.getElementById("handCanvas");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
 
-  const scale = typeof sVal !== 'undefined' ? sVal : 1;
+  const baseScale = typeof sVal !== 'undefined' ? sVal : 1;
+  const handScale = currentThemeConfig.handScale;
+  const scale = baseScale * handScale;
+
   const fingerWidth = 36;
   const unitHeight = 24;
   const gap = 2;
-  const handGap = 30; // 左右の手の間隔
+  const handGap = 30;
   const padding = 16;
 
   const maxFingerH = Math.max(...handData.map(f => f.h));
   const canvasWidth = (fingerWidth * 10) + (gap * 8) + handGap + (padding * 2);
   const canvasHeight = (maxFingerH * unitHeight) + (padding * 2);
 
-  canvas.width = canvasWidth * scale;
-  canvas.height = canvasHeight * scale;
-  canvas.style.width = `${canvasWidth * scale}px`;
-  canvas.style.height = `${canvasHeight * scale}px`;
+  canvas.width = canvasWidth * baseScale;
+  canvas.height = canvasHeight * baseScale;
+  canvas.style.width = `${canvasWidth * baseScale}px`;
+  canvas.style.height = `${canvasHeight * baseScale}px`;
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // 背景画像の描画（設定されている場合）
+  if (currentThemeConfig.bgname && bgImage.complete && bgImage.naturalWidth !== 0) {
+    ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+  } else {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
-  let currentX = padding;
-  const bottomY = canvasHeight - padding;
+  ctx.strokeStyle = "#888888";
+  ctx.lineWidth = 1 * baseScale;
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+  // オフセットとスケールを反映した描画位置の起点を計算
+  const offsetX = currentThemeConfig.offsetX;
+  const offsetY = currentThemeConfig.offsetY;
+
+  let currentX = padding + offsetX;
+  const bottomY = canvasHeight - padding + offsetY;
 
   handData.forEach((finger, index) => {
     drawFinger(ctx, currentX, bottomY, fingerWidth, unitHeight, finger, scale);
     currentX += fingerWidth + gap;
-    if (index === 4) { // 左手と右手の間隔
+    if (index === 4) {
       currentX += handGap - gap;
     }
   });
@@ -117,6 +175,8 @@ function renderHandCanvas() {
 // 画像保存関数
 async function downloadHandImage() {
   const canvas = document.getElementById("handCanvas");
+  renderHandCanvas();
+
   if ('showSaveFilePicker' in window) {
     try {
       const handle = await window.showSaveFilePicker({
@@ -150,18 +210,26 @@ function updateRulesFromUI() {
     }
   });
 
-  // ラジオボタンから選択中モードを取得 (0:大文字, 1:小文字, 2:かな)
   const selectedRadio = document.querySelector('input[name="charMode"]:checked');
   charMode = selectedRadio ? parseInt(selectedRadio.value, 10) : 0;
 
   renderHandCanvas();
 }
 
-// イベントリスナー設定
-document.querySelectorAll('.control-panel input').forEach(input => {
-  input.addEventListener('input', updateRulesFromUI);
-  input.addEventListener('change', updateRulesFromUI);
-});
+// 起動時の初期化
+window.addEventListener('DOMContentLoaded', () => {
+  const bgThemeSelect = document.getElementById('bg-theme');
+  const initialTheme = bgThemeSelect ? bgThemeSelect.value : 'none';
+  applyTheme(initialTheme);
 
-// 初期描画
-updateRulesFromUI();
+  document.querySelectorAll('.control-panel input').forEach(input => {
+    input.addEventListener('input', updateRulesFromUI);
+    input.addEventListener('change', updateRulesFromUI);
+  });
+
+  if (bgThemeSelect) {
+    bgThemeSelect.addEventListener('change', (e) => {
+      applyTheme(e.target.value);
+    });
+  }
+});

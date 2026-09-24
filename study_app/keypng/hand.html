@@ -7,33 +7,51 @@
 </head>
 <body>
 
-<!-- 手・指先描画用 Canvas -->
-<canvas id="handCanvas"></canvas>
-
-<!-- コントロールパネル -->
-<div class="control-panel">
-  <div class="btn-container-left">
-    <!-- 文字モード切替用ラジオボタン -->
-    <div class="mode-row">
-      <label class="radio-label"><input type="radio" name="charMode" value="0" class="radio" checked> 大文字</label>
-      <label class="radio-label"><input type="radio" name="charMode" value="1" class="radio"> 小文字</label>
-      <label class="radio-label"><input type="radio" name="charMode" value="2" class="radio"> かな</label>
-    </div>
-
-    <!-- 色と判定文字列の入力行 -->
-    <div class="color-row">
-      <input type="color" class="hex" value="#ff0000"><input type="text" class="str" value="Ffは">
-      <input type="color" class="hex" value="#2244ff"><input type="text" class="str" value="Jjま">
-      <br>
-      <input type="color" class="hex" value="#ff0099"><input type="text" class="str" value="Aa;ちれ">
-      <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="SsLlとり">
-      <input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="DdKkしの">
+<div class="app-wrapper">
+  <!-- 設定パネル（背景テーマの選択） -->
+  <div class="settings-panel">
+    <div class="setting-group">
+      <label for="bg-theme">背景テーマ:</label>
+      <select id="bg-theme">
+        <option value="none">なし（標準）</option>
+        <option value="western">洋風</option>
+        <option value="japanese">和風</option>
+      </select>
     </div>
   </div>
-</div>
 
-<div class="btn-container">
-  <button class="save-btn" onclick="downloadHandImage()">SAVE (.png)</button>
+  <!-- 手・指先描画用 Canvas -->
+  <canvas id="handCanvas"></canvas>
+
+  <!-- コントロールパネル -->
+  <div class="control-panel">
+    <div class="btn-container-left">
+			<!-- 文字モード切替用ラジオボタン -->
+			<div class="mode-row">
+			  <label class="radio-label"><input type="radio" name="charMode" value="-1" class="radio"> なし</label>
+			  <label class="radio-label"><input type="radio" name="charMode" value="0" class="radio" checked> 大文字</label>
+			  <label class="radio-label"><input type="radio" name="charMode" value="1" class="radio"> 小文字</label>
+			  <label class="radio-label"><input type="radio" name="charMode" value="2" class="radio"> かな</label>
+			</div>
+
+      <!-- 色と判定文字列の入力行 -->
+      <div class="color-row">
+        <input type="color" class="hex" value="#ff0099"><input type="text" class="str" value="Aaち">
+        <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="Ssと">
+        <input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="Ddし">
+        <input type="color" class="hex" value="#ff0000"><input type="text" class="str" value="Ffは">
+				<br>
+        <input type="color" class="hex" value="#2244ff"><input type="text" class="str" value="Jjま">
+        <input type="color" class="hex" value="#33aa55"><input type="text" class="str" value="Kkの">
+        <input type="color" class="hex" value="#ff6600"><input type="text" class="str" value="Llり">
+        <input type="color" class="hex" value="#ff0099"><input type="text" class="str" value=";;れ">
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-container">
+    <button class="save-btn" onclick="downloadHandImage()">SAVE (.png)</button>
+  </div>
 </div>
 
 <script>
