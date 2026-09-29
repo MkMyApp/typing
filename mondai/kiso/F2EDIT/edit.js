@@ -22,66 +22,37 @@ function getParam(key, defaultValue) {
 }
 
 // 3. パラメータから値を取得
-const length = parseInt(getParam('len', '6'), 10); // 問題文の長さ
-const lines = parseInt(getParam('lines', '100'), 10); // 生成問題数
 const F2flag = getParam('F2', 'off'); // F2編集 on/off
 const paramStr = getParam('str', ''); // 対象文字を設定
 const imgSrc = getParam('img', ''); // 画像ソースを設定
 
-// 問題文字列生成（乱数によるランダム生成）
-function generateText() {
-  const strDataElem = document.getElementById('strdata');
-  const txtDataElem = document.getElementById('txtdata');
-  if (!strDataElem || !txtDataElem) {
-    return;
-  }
-  
-  let sourceText = strDataElem.value.trim();
-  if (sourceText === "") {
-    return;
-  }
-
-  const chars = sourceText.replace(/[\n\r\s]/g, "");
-  let result = "";
-  
-  if (chars.length > 0) {
-    for (let i = 0; i < lines; i++) {
-      let line = "";
-      for (let j = 0; j < length; j++) {
-        line += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      result += line + (i < lines - 1 ? "\n" : "");
-    }
-  }
-  
-  txtDataElem.value = result;
-}
-
 // 画面表示制御
+// 編集画面（テキストエリア）を表示状態にし、スタイルを適用してフォーカスする共通関数
 function showEditor(elem) {
   if (!elem) return;
-  elem.removeAttribute('hidden');
+  elem.style.display = "block"; // 表示に切り替え
   elem.style.width = "640px";
   elem.style.height = "120px";
   elem.style.fontSize = "20px";
   elem.focus();
 }
 
-// F2キーによる表示・非表示の切り替え
+// F2キーによる表示・非表示の切り替え（編集画面のトグル）を設定する関数
 function setupF2KeyListener() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'F2') {
-      e.preventDefault();
+      e.preventDefault(); // ブラウザ標準のF2動作を抑制
 
-      const strDataElem = document.getElementById('strdata');
+      const txtDataElem = document.getElementById('txtdata');
 
-      if (strDataElem) {
-        if (strDataElem.hasAttribute('hidden')) {
-          showEditor(strDataElem);
+      if (txtDataElem) {
+        if (txtDataElem.style.display === "none" || txtDataElem.hidden) {
+          // 編集画面を開くとき
+          showEditor(txtDataElem);
         } else {
-          localStorage.setItem('mkrandCustomData', strDataElem.value);
-          strDataElem.setAttribute('hidden', true);
-          generateText(); // 再生成・反映
+          // 編集画面を閉じてゲーム画面に戻る時
+          localStorage.setItem('CustomData', txtDataElem.value);
+          txtDataElem.style.display = "none";
           
           if (typeof init === 'function') {
             init();
@@ -99,36 +70,36 @@ window.addEventListener('DOMContentLoaded', () => {
     imgElem.src = imgSrc;
   }
 
-  const strDataElem = document.getElementById('strdata');
   const txtDataElem = document.getElementById('txtdata');
 
-  if (strDataElem) {
+  if (txtDataElem) {
+    // 優先順位に従って txtdata.value を決定する
     if (paramStr !== '') {
-      strDataElem.value = paramStr;
-    } else if (strDataElem.value.trim() !== '') {
+      // 1. 【最優先】URLパラメータ ( ?str=... ) で指定されている場合
+      txtDataElem.value = paramStr;
+    } else if (txtDataElem.value.trim() !== '') {
+      // 2. 【第2優先】HTMLの #txtdata に文字列が設定されている場合
       // (そのまま維持)
-    } else if (txtDataElem && txtDataElem.value.trim() !== '') {
-      strDataElem.value = txtDataElem.value;
     } else {
-      const savedData = localStorage.getItem('mkrandCustomData');
+      // 3. 【第3優先】localStorage から保存データを読み込む
+      const savedData = localStorage.getItem('CustomData');
       if (savedData !== null && savedData !== "") {
-        strDataElem.value = savedData;
+        txtDataElem.value = savedData;
       }
     }
   }
 
-  // 初回生成と初期化
-  generateText();
   if (typeof init === 'function') {
     init();
   }
   
-  const isEmptyData = strDataElem && strDataElem.value.trim() === "";
+  // データが空かどうかを判定する変数
+  const isEmptyData = txtDataElem && txtDataElem.value.trim() === "";
 
   if (F2flag === 'on' || isEmptyData) {
     setupF2KeyListener();
     if (isEmptyData) {
-      showEditor(strDataElem);
+      showEditor(txtDataElem);
     }
   }
 });
