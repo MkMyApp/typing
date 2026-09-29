@@ -8,7 +8,7 @@ const currentScript = document.currentScript || (function() {
 })();
 const jsParams = new URLSearchParams(currentScript.src.split('?')[1]);
 
-// ★両方をチェックし、HTML側を優先、なければJS側、どちらもなければデフォルト値を使う関数
+// 両方をチェックし、HTML側を優先、なければJS側、どちらもなければデフォルト値を使う関数
 function getParam(key) {
   if (htmlParams.has(key)) return htmlParams.get(key);
   if (jsParams.has(key)) return jsParams.get(key);
@@ -18,35 +18,23 @@ function getParam(key) {
 // 3. パラメータから値を取得（デフォルト値の設定）
 const length = getParam('len') ? parseInt(getParam('len'), 10) : 6; // 問題文の長さ
 const lines = getParam('lines') ? parseInt(getParam('lines'), 10) : 100; // 生成問題数
-const F2flag = getParam('F2') ? getParam('F2') : 'off'; // F2編集 on/off
+const F2flag = getParam('F2') ? getParam('F2') : (getParam('F2') ? getParam('F2') : 'off'); // F2編集 on/off
 const paramStr = getParam('str') ? getParam('str') : ''; // 対象文字を設定
-const imgSrc = getParam('img') ? getParam('img') : ''; // 対象文字を設定
+const imgSrc = getParam('img') ? getParam('img') : ''; // 画像ソースを設定
 
-// DOMが完全に読み込まれてから画像のsrcを変更する
-window.addEventListener('DOMContentLoaded', () => {
-  const imgElem = document.getElementById('img');
-  if (imgElem && (imgSrc !== "")) {
-    imgElem.src = imgSrc;
-  }
-});
-
-if (paramStr !== '') {
-  const strDataElem = document.getElementById('strdata');
-  if (strDataElem) {
-    strDataElem.value = paramStr;
-  }
-}
-
+// 問題文字列生成
 function generateText() {
+	const strDataElem = document.getElementById('strdata');
   const txtDataElem = document.getElementById('txtdata');
-  const strDataElem = document.getElementById('strdata');
-  // strdataに値が入っていればそちらを優先、なければtxtdataを使う
-  if (strDataElem.value.trim() === "") {
-    strDataElem.value = txtDataElem.value;
+  if (!strDataElem || !txtDataElem) {
+  	return;
+  }
+  
+  let sourceText = strDataElem.value.trim();
+  if (sourceText === "") {
+    return;
   }
 
-  let  sourceText = strDataElem.value.trim();
- 
   const chars = sourceText.replace(/[\n\r\s]/g, "");
   let result = "";
   
@@ -60,49 +48,40 @@ function generateText() {
     }
   }
   
-  if (txtDataElem) {
-    txtDataElem.value = result;
-  }
+  txtDataElem.value = result;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  // 初回生成と初期化
-  generateText();
-  init();
-  
-  // F2キーのリスナー設定関数を呼び出す
-  if (F2flag === 'on') {
-  	setupF2KeyListener();
-  }
-});
+// 画面表示制御
+// 編集画面（テキストエリア）を表示状態にし、スタイルを適用してフォーカスする共通関数
+function showEditor(elem) {
+  if (!elem) return;
+  elem.removeAttribute('hidden');
+  elem.style.width = "640px";
+  elem.style.height = "120px";
+  elem.style.fontSize = "20px";
+  elem.focus();
+}
 
-/**
- * F2キーによる表示・非表示の切り替え（編集画面のトグル）を設定する関数
- */
+// F2キーによる表示・非表示の切り替え（編集画面のトグル）を設定する関数
 function setupF2KeyListener() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'F2') {
       e.preventDefault(); // ブラウザ標準のF2動作を抑制
 
-      const txtDataElem = document.getElementById('txtdata');
       const strDataElem = document.getElementById('strdata');
 
       if (strDataElem) {
         if (strDataElem.hasAttribute('hidden')) {
-          strDataElem.removeAttribute('hidden');
-          strDataElem.style.width = "640px";
-          strDataElem.style.height = "120px";
-          strDataElem.style.fontSize = "20px";
-          strDataElem.focus(); // 表示されたらフォーカスを当てる
+          // 編集画面を開くとき（共通関数を使用）
+          showEditor(strDataElem);
         } else {
-          // 表示から非表示にする時（編集画面を閉じてゲーム画面に戻る時）
-          if (strDataElem.value.trim() === "" ) {
-						alert("対象文字列が空です。")
-          }
+          // 編集画面を閉じてゲーム画面に戻る時
+
+          localStorage.setItem('mkrandCustomData', strDataElem.value);
+
           strDataElem.setAttribute('hidden', true);
-          generateText(); // 新しく編集された問題テキストを再生成・反映する
+          generateText(); // 再生成・反映
           
-          // ▼ここでゲーム全体を綺麗に初期化・リセットする
           if (typeof init === 'function') {
             init();
           }
@@ -111,3 +90,54 @@ function setupF2KeyListener() {
     }
   });
 }
+
+// DOMが完全に読み込まれてから各種要素や初期化を処理する
+	window.addEventListener('DOMContentLoaded', () => {
+  const imgElem = document.getElementById('img');
+  if (imgElem && (imgSrc !== "")) {
+    imgElem.src = imgSrc;
+  }
+
+	const strDataElem = document.getElementById('strdata');
+  const txtDataElem = document.getElementById('txtdata');
+
+  let isLoadedFromStorage = false; // localStorageから読み込んだかどうかのフラグ
+
+  if (strDataElem) {
+    // 優先順位に従って strdata.value を決定する
+    if (paramStr !== '') {
+      // 1. 【最優先】URLパラメータ ( ?str=... ) で指定されている場合
+      strDataElem.value = paramStr;
+    } else if (strDataElem.value.trim() !== '') {
+      // 2. 【第2優先】HTMLの #strdata に文字列が設定されている場合
+      // (そのまま維持)
+    } else if (txtDataElem && txtDataElem.value.trim() !== '') {
+      // 3. 【第3優先】HTMLの #txtdata に文字列が設定されている場合
+      strDataElem.value = txtDataElem.value;
+    } else {
+      // 4. 【第4優先】localStorage から保存データを読み込む
+      const savedData = localStorage.getItem('mkrandCustomData');
+      if (savedData !== null && savedData !== "") {
+        strDataElem.value = savedData;
+        isLoadedFromStorage = true; // 読み込み成功フラグを立てる
+      }
+    }
+  }
+
+  // 初回生成と初期化
+  generateText();
+  if (typeof init === 'function') {
+    init();
+  }
+  
+  // データが空かどうかを判定する変数
+  const isEmptyData = strDataElem && strDataElem.value.trim() === "";
+	// ★ F2キーのリスナー設定（F2flagが 'on'、localStorageから読み込み、またはデータが空の場合）
+  if (F2flag === 'on' || isLoadedFromStorage || isEmptyData) {
+    setupF2KeyListener();
+    if (isEmptyData) {
+			showEditor(strDataElem);
+  　}
+  }
+
+});

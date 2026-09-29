@@ -3,19 +3,7 @@ let lastQIndex = 0;     // 前回出題された問題のインデックスを�
 let lineStartTime = 0; // 1行ごとの開始時間を保持
 
 // ==================================================
-//  テキストエリア状態モニタ
-// ==================================================
-function strOutput(str) {
-  const logEl = document.getElementById('log');
-  if (logEl) {
-    logEl.value += str + '\n';
-    // 常に最下部へスクロール
-    logEl.scrollTop = logEl.scrollHeight;
-  }
-}
-
-// ==================================================
-//  Canvas 描画・アニメーションエンジン (800x600 固定)
+//  Canvas 描画・アニメーションエンジン 
 // ==================================================
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas ? canvas.getContext('2d') : null;
@@ -58,26 +46,8 @@ function getRank(cpm, accuracy) {
 //  各種イベントフック
 // ==================================================
 
-/**
- * 1. 1打鍵・入力ごとのイベントハンドラ
- * @param {Object} keyData - 1打鍵ごとの詳細データ
- * @param {string} keyData.key - 入力されたキー ('a', 'Enter' など)
- * @param {string} keyData.code - キーコード ('KeyA', 'Enter' など)
- * @param {number} keyData.pressSec - 前の打鍵からの経過時間 (秒)
- * @param {number} keyData.charCount - 現時点での入力文字数
- * @param {number} keyData.instantCpm - その打鍵時点での速度 (CPM)
- */
 function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
   if (!isTracking) return;
-
-  // 各種計算結果を出力
-  strOutput(``);
-  strOutput(`[キー入力]`);
-  strOutput(`キー　: '${key}'`);
-  strOutput(`コード: ${code}`);
-  strOutput(`間　隔: ${pressSec.toFixed(3)}s`);
-  strOutput(`文字数: ${charCount}ch`);
-  strOutput(`速　度: ${instantCpm}cpm`);
 }
 
 /**
@@ -85,14 +55,6 @@ function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
  */
 function onKeyPress({ key, code, pressSec, charCount, instantCpm }) {
   if (!isTracking) return;
-
-  strOutput(``);
-  strOutput(`[キー入力]`);
-  strOutput(`キー : '${key}'`);
-  strOutput(`コード: ${code}`);
-  strOutput(`間 隔: ${pressSec.toFixed(3)}s`);
-  strOutput(`文字数: ${charCount}ch`);
-  strOutput(`速 度: ${instantCpm}cpm`);
 }
 
 /**
@@ -103,35 +65,18 @@ function onLineComplete({ cpm, accuracy, lineSec, lineChars }) {
   
   // 1行のスコア計算（速度 × 正解率）
   const lineScore = Math.round(cpm * (accuracy / 100));
-  
   totalScore += lineScore;
-
   const rank = getRank(cpm, accuracy);
-
-  strOutput(``);
-  strOutput(`[1行入力完了]`);
-  strOutput(`単 語: ${targetWord}`);
-  strOutput(`文字数: ${lineChars}ch`);
-  strOutput(`時 間: ${lineSec.toFixed(2)}sec`);
-  strOutput(`速 度: ${cpm}cpm`);
-  strOutput(`正解率: ${accuracy}%`);
-  strOutput(`加算pt: ${lineScore}pt`);
-  strOutput(`現在計: ${totalScore}pt`);
-  strOutput(`ランク: ${rank}`);
-  strOutput(``);
-  
     const scoreEl = document.getElementById('score');
 	  if (scoreEl) {
 	    scoreEl.innerHTML = `時給 ${lineScore *10}円`;
 	  }
-
-
 }
+
 /**
  * 3. ゲーム開始時のイベントハンドラ
  */
 function onGameStart() {
-  strOutput('[タイピング開始]');
   activeEnemies = [];
   
   // 開始時にスコアを0にリセット
@@ -153,7 +98,6 @@ function onGameStart() {
  */
 function onNextQuestion(questionIndex) {
   const targetWord = typeof currentWord !== 'undefined' ? currentWord : '';
-  strOutput(`[問題出題] 第${questionIndex}問: ${targetWord}`);
 }
 
 /**
@@ -169,17 +113,6 @@ function onGameComplete(totalCpm, totalAccuracy) {
   } catch (e) {}
 
   const rank = getRank(totalCpm, totalAccuracy);
-
-  strOutput(``);
-  strOutput(`========================`);
-  strOutput(`[全問完了 リザルト]`);
-  strOutput(`総文字数: ${tChars}ch`);
-  strOutput(`総 時間: ${tSec.toFixed(2)}sec`);
-  strOutput(`平均速度: ${totalCpm}cpm`);
-  strOutput(`平均精度: ${totalAccuracy}%`);
-  strOutput(`獲得スコア: ${totalScore}pt`);
-  strOutput(`総合ランク: ${rank}`);
-  strOutput(`========================`);
 
   // <div id="score"></div> にランクとスコアを代入
   const scoreEl = document.getElementById('score');
@@ -221,7 +154,7 @@ if (editorElForGame) {
     // オブジェクトとしてまとめて渡す
     onKeyPress({
       key: e.data || e.inputType, // 入力文字
-      code: lastKeyCode || 'Input', // ★ 修正: 保存しておいた lastKeyCode を渡す
+      code: lastKeyCode || 'Input',
       pressSec: pressSec,
       charCount: charCount,
       instantCpm: instantCpm
@@ -233,7 +166,6 @@ if (editorElForGame) {
 function handleKeyDown(e) {
   if (!isTracking) return;
 
-  // ★ 追加: 押されたキーの code (KeyA や Enter など) を保存
   lastKeyCode = e.code;
 
   const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
