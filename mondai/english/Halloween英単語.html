@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>Halloween英単語</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "Halloween英単語";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "英数";
+const IME = "OFF";
+const RANDOM = "5";
+const WIDTH = "20ch";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+Halloween
+trick
+treat
+sweets
+lollipop
+basket
+costume
+mask
+cape
+pirate
+superhero
+vampire
+mummy
+skeleton
+zombie
+bone
+knock
+surprise
+broom
+lantern
+jack-o'-lantern
+pumpkin
+witch
+ghost
+bat
+candy
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+<div id="exp">
+Halloween（ハロウィン）
+trick（いたずら）
+treat（おかし・ごちそう）
+sweets（あまいおかし）
+candy（あめ）
+lollipop（ぺろぺろキャンディー）
+basket（かご）
+knock（ノックする）
+surprise（びっくり）
+broom（ほうき）
+costume（かそう）
+mask（おめん）
+cape（マント）
+pirate（かいぞく）
+superhero（スーパーヒーロー）
+vampire（きゅうけつき）
+mummy（ミイラ）
+skeleton（がいこつ）
+zombie（ゾンビ）
+bone（ほね）
+witch（まじょ）
+ghost（おばけ）
+bat（コウモリ）
+pumpkin（かぼちゃ）
+lantern（ランタン）
+jack-o'-lantern(ジャック・オー・ランタン)
+</div>
+<script>
+const exp = document.getElementById('exp');
+if (exp) { exp.textContent = exp.textContent.replace(/^\n/, ''); }
+//expNone();
+
+function expNone() {
+  if (exp) {
+    if (exp.style.display === "none") {
+      exp.style.display = "block";
+    } else {
+      exp.style.display = "none";
+    }
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F1') { 
+	  event.preventDefault();
+	  expNone();
+  } 
+  
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>Happy Halloween!</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "Happy Halloween!";
+const START_MSG = "Enter⏎でスタート";
+const INPUT_MSG = "英数 確認";
+const IME = "OFF";
+const RANDOM = "5";
+const WIDTH = "35ch";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+Happy Halloween!
+Trick or treat!
+I'm a vampire!
+Nice costume!
+Give me a treat, please.
+I love sweets.
+I got a big lollipop.
+Put the candy in the basket.
+I wear a cat costume.
+I have a scary mask.
+The vampire has a black cape.
+My brother is a pirate today.
+I am a superhero!
+The vampire has long teeth.
+The mummy walks slowly.
+The skeleton can dance!
+The zombie is very slow.
+The dog has a big bone.
+Knock on the door.
+Surprise! It's me!
+The witch rides a broom.
+The pumpkin lantern is bright.
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+<div id="exp" style="width:600px;">
+Happy Halloween!（ハロウィンおめでとう！）
+Trick or treat!（おかしをくれないと、いたずらするぞ！）
+I'm a vampire!（わたしは、きゅうけつきだよ！）
+Nice costume!（すてきなかそうだね！）
+Give me a treat, please.（おかしをください。）
+I love sweets.（あまいおかしが大好きです。）
+I got a big lollipop.（大きなぺろぺろキャンディーをもらいました。）
+Put the candy in the basket.（キャンディーをかごに入れてね。）
+I wear a cat costume.（ねこのかそうをします。）
+I have a scary mask.（こわいおめんを持っています。）
+The vampire has a black cape.（きゅうけつきは黒いマントを着ています。）
+My brother is a pirate today.（きょう、兄はかいぞくです。）
+I am a superhero!（ぼくはスーパーヒーローだ！）
+The vampire has long teeth.（きゅうけつきは長い歯があります。）
+The mummy walks slowly.（ミイラはゆっくり歩きます。）
+The skeleton can dance!（がいこつがおどれるよ！）
+The zombie is very slow.（ゾンビはとてもおそいです。）
+The dog has a big bone.（犬が大きなほねを持っています。）
+Knock on the door.（ドアをノックしてね。）
+Surprise! It's me!（びっくりした？ぼくだよ！）
+The witch rides a broom.（まじょがほうきに乗ります。）
+The pumpkin lantern is bright.（かぼちゃのランタンは明るいです。）
+</div>
+<script>
+const exp = document.getElementById('exp');
+if (exp) { exp.textContent = exp.textContent.replace(/^\n/, ''); }
+//expNone();
+
+function expNone() {
+  if (exp) {
+    if (exp.style.display === "none") {
+      exp.style.display = "block";
+    } else {
+      exp.style.display = "none";
+    }
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F1') { 
+	  event.preventDefault();
+	  expNone();
+  } 
+  
+});
+</script>
+
+</body>
+</html>
