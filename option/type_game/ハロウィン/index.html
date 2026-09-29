@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>タイピング</title>
+
+</head>
+<body>
+<div class="game-container">
+  <canvas id="gameCanvas"></canvas>
+  <div class="ui-layer">
+    <div id="title"></div>
+    <div id="result"></div>
+    <div id="score"></div>
+  </div>
+</div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+
+<script>
+const TITLE_MSG = "ハッピーハロウィン";
+const START_MSG = "Enter⏎スタート";
+const INPUT_MSG = "かな 確認";
+const RANDOM = "10";
+const WIDTH = "25ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+黒猫の魔法使い
+ジャックオーランタンの仮装
+死神
+猫の仮装
+魔女
+魔女の仮装
+魔女の帽子
+狼男
+おばけ
+かぼちゃのランタン
+かぼちゃの仮装
+ぐるぐるキャンディー
+コウモリ
+ゴースト
+ゾンビ
+ドクロ
+ドラキュラ
+パンプキンマン
+フランケンシュタイン
+黒猫
+ロリポップ
+ミイラ男
+悪魔のコスプレ
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
