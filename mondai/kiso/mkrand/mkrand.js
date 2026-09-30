@@ -67,6 +67,26 @@ function showEditor(elem) {
   elem.focus();
 }
 
+
+function imgNone() {
+const img = document.getElementById('img');
+  if (img) {
+    if (img.style.display === "none") {
+      img.style.display = "inline-block";
+    } else {
+      img.style.display = "none";
+    }
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F1') { 
+	  event.preventDefault();
+	  imgNone();
+  } 
+  
+});
+
 // F2キーによる表示・非表示の切り替え
 function setupF2KeyListener() {
   document.addEventListener('keydown', (e) => {
