@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googleスプレッドシート受け側 設定手順</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-md overflow-hidden p-6 sm:p-10">
+        <!-- ヘッダー -->
+        <div class="border-b border-slate-200 pb-6 mb-8">
+            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-2">セットアップガイド</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">Googleスプレッドシートの受け側 設定手順</h1>
+            <p class="mt-2 text-sm text-slate-600">GitHub Pagesなどの送信側からデータを受け取り、スプレッドシートへ自動蓄積するためのGAS（Google Apps Script）設定手順です。</p>
+        </div>
+
+        <!-- ステップ1 -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-3 mb-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">1</span>
+                <h2 class="text-lg font-semibold text-slate-900">スプレッドシートの新規作成</h2>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-slate-700 ml-11">
+                <li>Googleドライブを開き、新しい<strong>Googleスプレッドシート</strong>を作成します。</li>
+                <li>シート名は分かりやすいもの（例: <code class="bg-slate-100 px-1.5 py-0.5 rounded text-blue-600">結果集計</code> など）に変更します。</li>
+            </ol>
+        </div>
+
+        <!-- ステップ2 -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-3 mb-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">2</span>
+                <h2 class="text-lg font-semibold text-slate-900">Apps Script（GAS）コードの貼り付け</h2>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-slate-700 ml-11 mb-4">
+                <li>スプレッドシートの上部メニューにある <strong>「拡張機能」</strong> ＞ <strong>「Apps Script」</strong> の順にクリックします。</li>
+                <li>開いたエディタ画面にあるデフォルトのコードをすべて消去します。</li>
+                <li>以下のコードをコピーして貼り付けます。</li>
+            </ol>
+            
+            <!-- コードブロック -->
+            <div class="ml-11 relative">
+                <pre class="bg-slate-900 text-slate-100 p-4 rounded-lg text-xs sm:text-sm overflow-x-auto font-mono"><code>function doPost(e) {
+  try {
+    // 1. 送信元から届いた文字列を取得
+    const receivedText = e.postData ? e.postData.contents : "データなし";
+    
+    // 2. 現在の日時を取得
+    const nowTime = new Date().toLocaleString("ja-JP");
+    
+    // 3. スプレッドシートの末尾に [日時, 届いた文字列] を追記
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    sheet.appendRow([nowTime, receivedText]);
+    
+    // 4. 送信元へ成功を返す
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</code></pre>
+            </div>
+            <p class="text-xs text-slate-500 ml-11 mt-2">※ 貼り付けた後、画面上部のフロッピーディスクアイコン（保存ボタン）を押して保存してください。</p>
+        </div>
+
+        <!-- ステップ3 -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-3 mb-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-sm">3</span>
+                <h2 class="text-lg font-semibold text-slate-900">Webアプリとしてのデプロイ（公開）</h2>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-slate-700 ml-11">
+                <li>画面右上の <strong>「デプロイ」</strong> ボタン ＞ <strong>「新しいデプロイ」</strong> をクリックします。</li>
+                <li>左上の歯車アイコン（種類の選択）から <strong>「ウェブアプリ」</strong> を選択します。</li>
+                <li>各項目を以下のように設定します：
+                    <ul class="list-disc list-inside ml-6 mt-1 space-y-1 text-slate-600">
+                        <li><strong>説明:</strong> （任意）「結果受信」など</li>
+                        <li><strong>次のユーザーとして実行:</strong> <strong>「自分」</strong></li>
+                        <li><strong>アクセスできるユーザー:</strong> <strong class="text-red-600">「全員」</strong>（※ここが「自分のみ」になっていると通信エラーになります）</li>
+                    </ul>
+                </li>
+                <li><strong>「デプロイ」</strong> ボタンをクリックします。</li>
+                <li>初回のみ「承認が必要です」というポップアップが出るため、「アクセスを承認」し、ご自身のGoogleアカウントを選んで進めてください。（詳細から「安全ではないページに移動」をクリックする必要がある場合があります）</li>
+                <li>デプロイ完了後に表示される <strong>「ウェブアプリのURL」</strong> またはその中の <strong>デプロイID</strong> をコピーします。</li>
+            </ol>
+        </div>
+
+        <!-- ステップ4 -->
+        <div class="border-t border-slate-200 pt-6">
+            <div class="flex items-center space-x-3 mb-3">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-600 text-white font-bold text-sm">4</span>
+                <h2 class="text-lg font-semibold text-slate-900">送信側との紐付け</h2>
+            </div>
+            <p class="text-sm text-slate-700 ml-11">
+                コピーしたデプロイIDを、送信側（GitHub Pages側の <code class="bg-slate-100 px-1.5 py-0.5 rounded text-blue-600">send.js</code> など）の <code class="bg-slate-100 px-1.5 py-0.5 rounded text-blue-600">deployId</code> 変数に貼り付ければ連携完了です！
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

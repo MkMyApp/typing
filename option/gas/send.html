@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <title>タイピング練習</title>
+</head>
+<body>
+  <div id="title"></div>
+  <div id="result"></div>
+  <div id="target" class="line"></div>
+  <textarea id="editor"
+    class="line" spellcheck="false">
+  </textarea>
+
+  <script>
+    const TITLE_MSG = "結果送信";
+    const START_MSG = "Enter⏎";
+    const INPUT_MSG = "かな 確認";
+    const RANDOM = 0; // 出題数 0:順番
+    const WIDTH = "25ch";
+    const IME = "OFF"; // OFF
+  </script>
+
+  <!---5----10---15---20---25---30---35---40--->
+  <textarea id="txtdata">
+  Googleスプレッドシートに
+  結果を送信します。
+  </textarea>
+  <!---5----10---15---20---25---30---35---40--->
+
+  <script src="typing.js"></script>
+  <script src="send.js"></script>
+<div id="exp">
+const deployId = "デプロイID";
+//const deployId = window.prompt
+
+/* === ここからコメントアウト ===
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTPエラー! ステータス: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        if (result.status === "success") {
+            alert(`【送信成功！】\nスプレッドシートにデータが蓄積されました。\n送信内容: "${sendStr}"`);
+        } else {
+            alert(`【サーバーエラー】\nGAS側で失敗しました:\n${result.message}`);
+        }
+    })
+    .catch(error => {
+        alert(`【通信エラー】\n送信に失敗しました。\n原因: ${error.message}`);
+    });
+=== ここまでコメントアウト === */
+</div>
+</body>
+</html>

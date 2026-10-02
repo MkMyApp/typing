@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>データ送信テスト</title>
+<style>
+    body {
+        font-family: sans-serif;
+        padding: 20px;
+        background: #f5f5f5;
+    }
+
+    .container {
+        max-width: 800px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        font-size: 20px;
+        font-family: monospace;
+    }
+
+    /* 送信ボタンを右寄せにするためのコンテナ */
+    .button-area {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    #log {
+        margin-top: 20px;
+        padding: 10px;
+        background: #e9ecef;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>送信テスト</h2>
+    <!-- 入力欄 -->
+    送信文字列
+    <input type="text" id="sendData" placeholder="送信する文字列を入力">
+    
+    <!-- 送信ボタン（divで囲って右寄せにする） -->
+    <div class="button-area">
+        <button onclick="handleSendClick()">送　信</button>
+    </div>
+
+    デプロイID
+    <input type="text" id="deployID" placeholder="コピーしたデプロイIDを貼り付け" >
+
+    <!-- 結果を表示するログエリア -->
+    <div id="log">ここに通信結果が表示されます。</div>
+</div>
+
+<script>
+    // 画面にメッセージを表示する補助関数
+    function printLog(message) {
+        document.getElementById('log').innerText = message;
+    }
+
+    // ボタンが押された時に実行される処理
+    function handleSendClick() {
+
+        // inputからdeployIDの値を取得してURLを動的に生成
+        const deployIdVal = document.getElementById('deployID').value.trim();
+        if (!deployIdVal) {
+            printLog("【警告】デプロイIDが空です。");
+            return;
+        }
+
+        const gasUrl = `https://script.google.com/macros/s/${deployIdVal}/exec`;
+
+        // inputのvalueを取得
+        const inputStr = document.getElementById('sendData').value;
+        if (!inputStr.trim()) {
+            printLog("【警告】入力欄が空です。");
+            return;
+        }
+
+        const sendStr = `${getUserId()},${inputStr}`;
+        printLog(`送信中...: "${sendStr}"`);
+                        
+        // 3. Fetch APIで文字列をそのまま送信
+        fetch(gasUrl, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: sendStr
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTPエラー! ステータス: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(result => {
+            if (result.status === "success") {
+                printLog(`【送信成功！】\nスプレッドシートにデータが蓄積されました。\n送信内容: "${inputStr}"`);
+            } else {
+                printLog(`【サーバーエラー】\nGAS側で失敗しました:\n${result.message}`);
+            }
+        })
+        .catch(error => {
+            printLog(`【通信エラー】\n送信に失敗しました。URLが正しいか、またはデプロイ設定（全員に公開）を確認してください。\n原因: ${error.message}`);
+            console.error("エラー詳細:", error);
+        });
+    }
+
+    // 任意の桁数のランダムなIDを生成する関数
+    function generateUserId(rndLength = 8) {
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let randomStr = '';
+        for (let i = 0; i < rndLength; i++) {
+            randomStr += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return randomStr;
+    }
+
+    // ユーザーIDを取得または新規生成する関数
+    function getUserId() {
+        const key = 'mytypeID';
+        let userId = localStorage.getItem(key);
+        
+        // 記憶されていなければ新規生成して保存
+        if (!userId) {
+            userId = generateUserId(8);
+            localStorage.setItem(key, userId);
+        }
+        
+        return userId;
+    }
+</script>
+
+</body>
+</html>
