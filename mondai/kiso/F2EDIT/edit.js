@@ -37,6 +37,14 @@ function showEditor(elem) {
   elem.focus();
 }
 
+// 呼び出し元のHTMLファイル名に応じた localStorage のキー名を動的生成する
+function getStorageKey() {
+  const path = window.location.pathname;
+  const filename = path.substring(path.lastIndexOf('/') + 1);
+  const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
+  return `CustomData_${baseName}`;
+}
+
 // F2キーによる表示・非表示の切り替え（編集画面のトグル）を設定する関数
 function setupF2KeyListener() {
   document.addEventListener('keydown', (e) => {
@@ -50,12 +58,13 @@ function setupF2KeyListener() {
           // 編集画面を開くとき
           showEditor(txtDataElem);
         } else {
-          // 編集画面を閉じてゲーム画面に戻る時
-          localStorage.setItem('CustomData', txtDataElem.value);
-          txtDataElem.style.display = "none";
-          
-          if (typeof init === 'function') {
-            init();
+// 編集画面を閉じてゲーム画面に戻る時
+const storageKey = getStorageKey(); // ← キーを取得
+localStorage.setItem(storageKey, txtDataElem.value); // ← 動的なキーで保存
+txtDataElem.style.display = "none";
+
+if (typeof init === 'function') {
+  init();
           }
         }
       }
