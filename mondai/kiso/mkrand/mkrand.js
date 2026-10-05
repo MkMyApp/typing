@@ -61,9 +61,10 @@ function generateText() {
 function showEditor(elem) {
   if (!elem) return;
   elem.removeAttribute('hidden');
-  elem.style.width = "640px";
-  elem.style.height = "120px";
-  elem.style.fontSize = "20px";
+  elem.style.display = "block";
+  elem.style.width   = "640px";
+  elem.style.height  = "120px";
+  elem.style.fontSize= "20px";
   elem.focus();
 }
 
@@ -87,25 +88,29 @@ window.addEventListener('keydown', (event) => {
   
 });
 
+// 呼び出し元のHTMLファイル名に応じた localStorage のキー名を動的生成する
+function getStorageKey() {
+	const path = window.location.pathname;
+	const filename = path.substring(path.lastIndexOf('/') + 1);
+	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
+	return `CustomData_${baseName}`;
+}
+
 // F2キーによる表示・非表示の切り替え
 function setupF2KeyListener() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'F2') {
       e.preventDefault();
-
       const strDataElem = document.getElementById('strdata');
-
       if (strDataElem) {
         if (strDataElem.hasAttribute('hidden')) {
           showEditor(strDataElem);
         } else {
-          localStorage.setItem('mkrandCustomData', strDataElem.value);
-          strDataElem.setAttribute('hidden', true);
+          localStorage.setItem(getStorageKey(), strDataElem.value);
+          strDataElem.style.display = "none";
+          strDataElem.setAttribute('hidden', ''); // hidden属性を再付与
           generateText(); // 再生成・反映
-          
-          if (typeof init === 'function') {
-            init();
-          }
+          if (typeof init === 'function') { init() }
         }
       }
     }
@@ -130,7 +135,7 @@ window.addEventListener('DOMContentLoaded', () => {
     } else if (txtDataElem && txtDataElem.value.trim() !== '') {
       strDataElem.value = txtDataElem.value;
     } else {
-      const savedData = localStorage.getItem('mkrandCustomData');
+      const savedData = localStorage.getItem(getStorageKey());
       if (savedData !== null && savedData !== "") {
         strDataElem.value = savedData;
       }
