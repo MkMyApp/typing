@@ -260,7 +260,7 @@ editorEl.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     e.preventDefault();
     
-    const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
+    const isImeOff = (typeof IME !== 'undefined' && IME.toLowerCase() === 'off');
     
     if (isImeOff || isMobile) {
       judgeCurrentWord();
@@ -298,8 +298,8 @@ function init(){
   }
 
   titleEl.textContent = TITLE;
-
-  document.documentElement.style.setProperty('--line-width', WIDTH);
+	
+	document.documentElement.style.setProperty('--line-width', WIDTH);
 
   loadWords();
 

@@ -60,6 +60,7 @@ function generateText() {
 // 画面表示制御
 function showEditor(elem) {
   if (!elem) return;
+  elem.removeAttribute('hidden');
   elem.style.display = "block";
   elem.style.width   = "640px";
   elem.style.height  = "120px";
@@ -84,6 +85,7 @@ window.addEventListener('keydown', (event) => {
 	  event.preventDefault();
 	  imgNone();
   } 
+  
 });
 
 // 呼び出し元のHTMLファイル名に応じた localStorage のキー名を動的生成する
@@ -101,11 +103,12 @@ function setupF2KeyListener() {
       e.preventDefault();
       const strDataElem = document.getElementById('strdata');
       if (strDataElem) {
-        if (strDataElem.style.display === "none" || strDataElem.style.display === "") {
+        if (strDataElem.hasAttribute('hidden')) {
           showEditor(strDataElem);
         } else {
           localStorage.setItem(getStorageKey(), strDataElem.value);
           strDataElem.style.display = "none";
+          strDataElem.setAttribute('hidden', ''); // hidden属性を再付与
           generateText(); // 再生成・反映
           if (typeof init === 'function') { init() }
         }
