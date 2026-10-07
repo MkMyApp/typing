@@ -27,6 +27,12 @@ const lines = parseInt(getParam('lines', '100'), 10); // 生成問題数
 const F2flag = getParam('F2', 'off'); // F2編集 on/off
 const paramStr = getParam('str', ''); // 対象文字を設定
 const imgSrc = getParam('img', ''); // 画像ソースを設定
+TITLE_MSG = getParam('t', TITLE_MSG);
+START_MSG = getParam('s',START_MSG);
+INPUT_MSG = getParam('m',INPUT_MSG);
+IME = getParam('ime',IME);
+RANDOM = getParam('rnd',RANDOM);
+WIDTH = getParam('w',WIDTH);
 
 // 問題文字列生成（乱数によるランダム生成）
 function generateText() {
