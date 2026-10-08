@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>長文</title>
+</head>
+<body>
+<div id="title">長文</div>
+<div id="result"></div>
+<script>
+  const box_x = 43;
+  const box_y = 8;
+  const font  = '20px';
+  const LF  = false;//改行マーク⏎表示
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'v';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<textarea id="txtdata" class="box" spellcheck="false">
+ホテルでの支配人業務において最も大切なことは、何よりもお客様一人ひとりに寄り添った温かいおもてなしの心です。日々の館内清掃やチェックイン対応、朝食の準備など多岐にわたる業務がありますが、どんな時でも笑顔を絶やさず、安心・安全で快適な空間を提供できるようスタッフ一同と協力しながら全力で取り組んでまいります。どうぞよろしくお願いいたします。
+</textarea>
+
+<div id="box-container">
+	<div id="target" class="box"></div>
+	<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
