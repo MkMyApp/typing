@@ -218,6 +218,40 @@ function renderKeyboardCanvas() {
   });
 }
 
+// 画像保存関数
+async function savePngImage() {
+  const canvas = document.getElementById("keyboardCanvas");
+  renderKeyboardCanvas();
+
+  if ('showSaveFilePicker' in window) {
+    canvas.toBlob(async (blob) => {
+      try {
+        const options = {
+          suggestedName: 'keyboard.png',
+          types: [{ description: 'PNG Image', accept: { 'image/png': ['.png'] } }],
+        };
+        if (lastFileHandle) {
+          options.startIn = lastFileHandle;
+        }
+
+        const handle = await window.showSaveFilePicker(options);
+        lastFileHandle = handle;
+
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+      } catch (err) {
+        if (err.name !== 'AbortError') console.error('保存処理エラー:', err);
+      }
+    }, 'image/png');
+  } else {
+    const link = document.createElement("a");
+    link.download = "keyboard.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+}
+
 // 変換ユーティリティ
 function toLowerCaseStr(str) { return str.toLowerCase(); }
 function toUpperCaseStr(str) { return str.toUpperCase(); }
@@ -275,47 +309,8 @@ function jisKanaToQwerty(str) {
   return str.split('').map(char => reverseJisMap[char] !== undefined ? reverseJisMap[char] : char).join('');
 }
 
-// --- LOAD処理 ---
-function loadText() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.txt';
-  
-  input.onchange = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const content = e.target.result;
-      const lines = content.split(/\r?\n/);
-      const inputs = document.querySelectorAll('.btn-container-left input.str');
-      const moji = getCurrentMojiType();
-
-      inputs.forEach((input, index) => {
-        if (index < lines.length) {
-          let val = lines[index];
-          if (moji === "小文字") {
-            val = toLowerCaseStr(val);
-          } else if (moji === "かな") {
-            val = qwertyToJisKana(val);
-          }
-          input.value = val;
-        } else {
-          input.value = '';
-        }
-      });
-
-      updateRulesFromUI();
-    };
-    reader.readAsText(file);
-  };
-
-  input.click();
-}
-
-// --- SAVE処理 ---
-async function saveText() {
+// --- 保存処理（SAVE .txt：フォルダ記憶対応） ---
+async function saveTextConfig() {
   const inputs = document.querySelectorAll('.btn-container-left input.str');
   const lines = Array.from(inputs).map(input => {
     let val = input.value;
@@ -354,38 +349,36 @@ async function saveText() {
   }
 }
 
-// --- 画像保存関数 ---
-async function savePng() {
-  const canvas = document.getElementById("keyboardCanvas");
-  renderKeyboardCanvas();
+// --- 読み込み処理（LOAD .txt） ---
+function loadTextConfig(event) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-  if ('showSaveFilePicker' in window) {
-    canvas.toBlob(async (blob) => {
-      try {
-        const options = {
-          suggestedName: 'keyboard.png',
-          types: [{ description: 'PNG Image', accept: { 'image/png': ['.png'] } }],
-        };
-        if (lastFileHandle) {
-          options.startIn = lastFileHandle;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const content = e.target.result;
+    const lines = content.split(/\r?\n/);
+    const inputs = document.querySelectorAll('.btn-container-left input.str');
+    const moji = getCurrentMojiType();
+
+    inputs.forEach((input, index) => {
+      if (index < lines.length) {
+        let val = lines[index];
+        if (moji === "小文字") {
+          val = toLowerCaseStr(val);
+        } else if (moji === "かな") {
+          val = qwertyToJisKana(val);
         }
-
-        const handle = await window.showSaveFilePicker(options);
-        lastFileHandle = handle;
-
-        const writable = await handle.createWritable();
-        await writable.write(blob);
-        await writable.close();
-      } catch (err) {
-        if (err.name !== 'AbortError') console.error('保存処理エラー:', err);
+        input.value = val;
+      } else {
+        input.value = '';
       }
-    }, 'image/png');
-  } else {
-    const link = document.createElement("a");
-    link.download = "keyboard.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  }
+    });
+
+    event.target.value = '';
+    updateRulesFromUI();
+  };
+  reader.readAsText(file);
 }
 
 // --- フォーム読み取り＆更新関数 ---
@@ -433,26 +426,4 @@ function initEventListeners() {
       applyTheme(themeKey);
     });
   }
-}
-
-// --- 削除ボタンの機能 ---
-function removeChars() {
-  const funcInput = document.getElementById('funcInput');
-  if (!funcInput) return;
-
-  const keepChars = funcInput.value;
-  const strInputs = document.querySelectorAll('.btn-container-left input.str');
-
-  strInputs.forEach(input => {
-    let val = input.value;
-    let filteredVal = '';
-    for (let i = 0; i < val.length; i++) {
-      if (keepChars.includes(val[i])) {
-        filteredVal += val[i];
-      }
-    }
-    input.value = filteredVal;
-  });
-
-  updateRulesFromUI();
 }

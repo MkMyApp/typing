@@ -81,7 +81,7 @@ body {
   text-align: left;
 }
 
-button.txt-btn {
+button.action-btn {
   width: 200px;
   height: 48px;
   padding: 10px 20px;
@@ -93,11 +93,11 @@ button.txt-btn {
   border-radius: 4px;
   margin-left: 10px;
 }
-button.txt-btn:hover {
+button.action-btn:hover {
   background-color: #218838;
 }
 
-button.png-btn {
+button.save-btn {
   width: 200px;
   height: 48px;
   padding: 10px 20px;
@@ -109,7 +109,7 @@ button.png-btn {
   border-radius: 4px;
   margin-left: 10px;
 }
-button.png-btn:hover {
+button.save-btn:hover {
   background-color: #0056b3;
 }
 

@@ -56,17 +56,15 @@
         <br>
         <label class="func-label"><input type="checkbox" id="chkTextColor" class="check" checked>文字色</label>
         <label class="func-label"><input type="checkbox" id="chkFunc" class="check" checked>機能キー</label>
-        <input type="text" id="funcInput" class="select" value="" placeholder="残す文字">
-
-        <button class="fnc-btn" id="funcBtn" onclick="removeChars()">削除</button>
       </div>
     </div>
   </div>
 
-<div class="btn-container">
-		<button class="txt-btn" onclick="loadText()">LOAD (.txt)</button>
-    <button class="txt-btn" onclick="saveText()">SAVE (.txt)</button>
-    <button class="png-btn" onclick="savePng()">SAVE (.png)</button>
+  <div class="btn-container">
+		<button class="txt-btn" onclick="document.getElementById('fileInput').click()">LOAD (.txt)</button>
+    <input type="file" id="fileInput" accept=".txt" style="display: none;" onchange="loadTextConfig(event)">
+    <button class="txt-btn" onclick="saveTextConfig()">SAVE (.txt)</button>
+    <button class="png-btn" onclick="savePngImage()">SAVE (.png)</button>
   </div>
 </div>
 
