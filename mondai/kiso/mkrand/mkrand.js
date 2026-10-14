@@ -22,17 +22,17 @@ function getParam(key, defaultValue) {
 }
 
 // 3. パラメータから値を取得
-const length = parseInt(getParam('len', '6'), 10); // 問題文の長さ
-const lines = parseInt(getParam('lines', '100'), 10); // 生成問題数
-const F2flag = getParam('F2', 'off'); // F2編集 on/off
-const paramStr = getParam('str', ''); // 対象文字を設定
-const imgSrc = getParam('img', ''); // 画像ソースを設定
-TITLE_MSG = getParam('t', TITLE_MSG);
-START_MSG = getParam('s',START_MSG);
-INPUT_MSG = getParam('m',INPUT_MSG);
-IME = getParam('ime',IME);
-RANDOM = getParam('rnd',RANDOM);
-WIDTH = getParam('w',WIDTH);
+length = parseInt(getParam('len', length), 10); // 問題文の長さ
+lines = parseInt(getParam('lines', lines), 10); // 生成問題数
+F2flag = getParam('F2', F2flag); // F2編集 on/off
+pStr = getParam('str', pStr); // 対象文字を設定
+imgSrc = getParam('img', imgSrc); // 画像ソースを設定
+TITLE_MSG = getParam('t', TITLE_MSG);//タイトル
+START_MSG = getParam('s',START_MSG);//スタートメッセージ
+INPUT_MSG = getParam('m',INPUT_MSG);//確認メッセージ
+IME = getParam('ime',IME);//Enter Shift+Enter
+RANDOM = getParam('rnd',RANDOM);//出題数
+WIDTH = getParam('w',WIDTH);//問題表示幅　lengthの2倍以上を確保
 
 // 問題文字列生成（乱数によるランダム生成）
 function generateText() {
@@ -122,17 +122,29 @@ function setupF2KeyListener() {
 
 // DOMが完全に読み込まれてから各種要素や初期化を処理する
 window.addEventListener('DOMContentLoaded', () => {
-  const imgElem = document.getElementById('img');
-  if (imgElem && (imgSrc !== "")) {
-    imgElem.src = imgSrc;
-  }
+
+	const imgElem = document.getElementById('img');
+	if (imgElem) {
+	  // エラーが発生したときは要素自体を削除
+	  imgElem.onerror = function() {
+	    imgElem.remove();
+	  };
+
+	  // 画像の読み込み設定
+	  if (imgSrc && imgSrc !== "") {
+	    imgElem.src = imgSrc;
+	  } else {
+	    // imgSrcが空の場合も要素自体を削除
+	    imgElem.remove();
+	  }
+	}
 
   const strDataElem = document.getElementById('strdata');
   const txtDataElem = document.getElementById('txtdata');
 
   if (strDataElem) {
-    if (paramStr !== '') {
-      strDataElem.value = paramStr;
+    if (pStr !== '') {
+      strDataElem.value = pStr;
     } else if (strDataElem.value.trim() !== '') {
       // (そのまま維持)
     } else if (txtDataElem && txtDataElem.value.trim() !== '') {

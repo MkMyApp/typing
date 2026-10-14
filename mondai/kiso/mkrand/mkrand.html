@@ -22,10 +22,22 @@ let WIDTH = "20ch";// 入力幅 全角は2倍
 <textarea id="txtdata" style="display:none">
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
-<textarea id="strdata" style="display:none"></textarea>
+<textarea id="strdata" style="display:none">
+ぬふあうえおやゆよわほへー
+たていすかんなにらせ
+ちとしはきくまのりれけむ
+つさそひこみもねるめろ
+</textarea>
 <br>
+<img src="" id="img" style="width:640px;">
+<script>
+let length = 6;    // 問題文の長さ
+let lines = 100;   // 生成問題数
+let F2flag = "off"; // F2編集 on/off
+let pStr="";       // 対象文字を設定
+let imgSrc="all.png";        // 画像ソースを設定
+</script>
 <script src="mkrand.js"></script>
-<img src="all.png" id="img" style="width:640px;">
 <script src="typing.js"></script>
 </body>
 </html>
