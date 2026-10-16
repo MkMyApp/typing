@@ -222,20 +222,7 @@
 	const container = document.getElementById("container");
 	container.innerHTML = htmlContent;
 </script>
-<div>
-	<h1 id="edit">編集</h1>
-	?パラメーターでカスタマイズ<br>
-	文字列はその場で変更できます。<br>
-	<a href="mkrand.html?F2=on">指導者用リンク</a><br>
-	　?F2=on　常に編集モードが使える。<br>
-	　文字列はF2で閉じるときにローカルストレイジに保存される。<br>
-	　<br>
-	<a href="mkrand.html">生徒用リンク</a><br>
-	　編集機能 off<br>
-	　ローカルストレイジから問題を読み込む<br>
-		<br>
-</div>
-<div>
+<h1 id="edit">編集</h1>
 <script>
 function mkURL() {
 	const groups = document.querySelectorAll('.form-group');
@@ -275,17 +262,17 @@ function mkURL() {
 </script>
 <a href="#" onclick="mkURL(); return false;">プリセット</a>
 <div class="form-group">URL<br><button class="custom-btn">URL</button><input class="custom-input" value="mkrand.html"></div>
-<div class="form-group">F2編集 on/off<br><button class="custom-btn">F2</button><input class="custom-input"></div>
+<div class="form-group">F2編集 on:編集 off:練習<br><button class="custom-btn">F2</button><input class="custom-input"></div>
 <div class="form-group">対象文字を設定<br><button class="custom-btn">str</button><input class="custom-input"></div>
 <div class="form-group">問題文の長さ<br><button class="custom-btn">len</button><input class="custom-input"></div>
+<div class="form-group">問題表示幅<br><button class="custom-btn">w</button><input class="custom-input"></div>
 <div class="form-group">生成問題数<br><button class="custom-btn">lines</button><input class="custom-input"></div>
 <div class="form-group">画像ソースを設定<br><button class="custom-btn">img</button><input class="custom-input"></div>
 <div class="form-group">タイトル<br><button class="custom-btn">t</button><input class="custom-input"></div>
 <div class="form-group">スタートメッセージ<br><button class="custom-btn">s</button><input class="custom-input"></div>
 <div class="form-group">確認メッセージ<br><button class="custom-btn">m</button><input class="custom-input"></div>
-<div class="form-group">Enter Shift+Enter<br><button class="custom-btn">ime</button><input class="custom-input"></div>
+<div class="form-group">off:Enter on:Shift+Enter<br><button class="custom-btn">ime</button><input class="custom-input"></div>
 <div class="form-group">出題数<br><button class="custom-btn">rnd</button><input class="custom-input"></div>
-<div class="form-group">問題表示幅<br><button class="custom-btn">w</button><input class="custom-input"></div>
 
 </div>
 <div>

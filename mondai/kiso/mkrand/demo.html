@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>呪文詠唱</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+let TITLE_MSG = "呪文詠唱";//タイトル
+let START_MSG = "Enter⏎";
+let INPUT_MSG = "かな 確認";//英数 かな
+let IME = "OFF";// ON Shift+Enter
+let RANDOM = 25;// 出題数
+let WIDTH = "20ch";// 入力幅 全角は2倍
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" style="display:none">
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="strdata" style="display:none">
+ぬふあうえおやゆよわほへー
+たていすかんなにらせ
+ちとしはきくまのりれけむ
+つさそひこみもねるめろ
+</textarea>
+<br>
+<img src="" id="img" style="width:640px;">
+<script>
+let length = 6;    // 問題文の長さ
+let lines = 100;   // 生成問題数
+let F2flag = "off"; // F2編集 on/off
+let pStr="";       // 対象文字を設定
+let imgSrc="all.png";        // 画像ソースを設定
+</script>
+<script src="mkrand.js"></script>
+<script src="typing.js"></script>
+<script src="autotype.js"></script>
+</body>
+</html>
