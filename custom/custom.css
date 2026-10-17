@@ -165,21 +165,21 @@ body {
 
 /* タイピング練習カスタマイズ */
 /*　フルバージョン
-/*モジュール非表示　display: none; */
-#dataMod { display: block; }
-#chkdataMod:checked + #dataMod { display: none; }
+/*モジュール非表示（デフォルト非表示 / チェックで表示） */
+#dataMod { display: none; }
+#chkdataMod:checked ~ #dataMod { display: block; }
 
-#editMod {display: block }
-#chkeditMod:checked + #editMod { display: none; }
+#editMod { display: none; }
+#chkeditMod:checked ~ #editMod { display: block; }
 
-#saveMod {display: block }
-#chksaveMod:checked + #saveMod { display: none; }
+#saveMod { display: none; }
+#chksaveMod:checked ~ #saveMod { display: block; }
 
-#dl1Mod  {display: block }
-#chkdl1Mod:checked + #dl1Mod { display: none; }
+#dl1Mod  { display: none; }
+#chkdl1Mod:checked ~ #dl1Mod { display: block; }
 
-#dl2Mod  {display: block }
-#chkdl2Mod:checked + #dl2Mod { display: none; }
+#dl2Mod  { display: none; }
+#chkdl2Mod:checked ~ #dl2Mod { display: block; }
 
 #custom {
   text-align: left;
@@ -202,10 +202,11 @@ body {
 /* チェックボックス用のサイズ定義 */
 #custom input[type="checkbox"] {
   width: 24px;
-  height: 24px;
+  height: 20px;
   vertical-align: middle;
   accent-color: #ffffff;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 #custom textarea {

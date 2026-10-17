@@ -546,12 +546,7 @@ function testPlay() {
 	customDivDisplay("none")
 }
 
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'F2') {
-    customDivDisplay("block")
-  }
-});
-
+1
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById("TITLE_MSG").value = TITLE_MSG;
   document.getElementById("START_MSG").value = START_MSG;
@@ -698,6 +693,29 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// F2キーによる #custom の表示・非表示の切り替え
+function setupF2KeyListener() {
+  // capture: true を指定して確実にキーイベントを先取りします
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'F2') {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const customElem = document.getElementById('custom');
+      if (customElem) {
+        // 現在の計算済みスタイルを取得
+        const currentDisplay = window.getComputedStyle(customElem).display;
+
+        if (currentDisplay === 'none') {
+          customElem.style.display = 'block'; // 表示にする
+        } else {
+          customElem.style.display = 'none'; // 非表示にする
+        }
+      }
+    }
+  }, true);
+}
+
 function init(){
 
   let TITLE;
@@ -725,5 +743,6 @@ function init(){
   setTimeout(() => editorEl.focus(), 0)
 }
 
-init()
+setupF2KeyListener();
+init();
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-<title>入れ替え</title>
+<title>問題編集</title>
 </head>
 <body>
 <div id="title"></div>
@@ -11,19 +11,24 @@
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
 <script>
-const TITLE_MSG = "入れ替え";//タイトル
-const START_MSG = "Enter⏎";
-const INPUT_MSG = "かな 確認";//英数 かな
-const IME = "ON";// ON Shift+Enter
-const RANDOM = 10;// 出題数
-const WIDTH = "20ch";// 入力幅 全角は2倍
+let TITLE_MSG = "問題編集";//タイトル
+let START_MSG = "Enter⏎";
+let INPUT_MSG = "かな 確認";//英数 かな
+let IME = "OFF";// ON Shift+Enter
+let RANDOM = 10;// 出題数
+let WIDTH = "20ch";// 入力幅 全角は2倍
 </script>
 <!---5----10---15---20---25---30---35---40--->
-<textarea id="txtdata" style="display:none;"></textarea>
+<textarea id="txtdata" style="display:none">
 </textarea>
 <!---5----10---15---20---25---30---35---40--->
+<br>
+<img src="" id="img" style="width:640px;">
+<script>
+let F2flag = "off"; // F2編集 on/off
+let imgSrc="";        // 画像ソースを設定
+</script>
 <script src="edit.js"></script>
-<img src="all.png" id="img" style="width:640px;">
 <script src="typing.js"></script>
 </body>
 </html>
