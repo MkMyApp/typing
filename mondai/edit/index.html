@@ -80,17 +80,19 @@
 
 	.custom-btn {
 		box-sizing: border-box;
-		width: 90px; /* ボタンの横幅を揃える */
+		width: 90px;
+		height: 32px;
 		padding: 8px 12px;
 		font-size: 14px;
 		font-weight: bold;
 		color: #fff;
 		background-color: #4a90e2;
 		border: 1px solid #357abd;
-		border-radius: 4px 0 0 4px; /* 左側の角丸 */
+		border-radius: 4px 0 0 4px;
 		cursor: pointer;
 		text-align: center;
 		transition: background-color 0.2s;
+		vertical-align: top; /* 上揃え */
 	}
 
 	.custom-btn:hover {
@@ -109,6 +111,7 @@
 		border-radius: 0 4px 4px 0; /* 右側の角丸 */
 		outline: none;
 		transition: border-color 0.2s, box-shadow 0.2s;
+		vertical-align: top; /* 上揃え（上書きされないよう1つに統合） */
 	}
 
 	.custom-input:focus {
@@ -117,9 +120,18 @@
 		position: relative; /* フォーカス時に枠線が隠れないように手前に */
 		z-index: 1;
 	}
+	
+	.custom-textarea {
+		width: 240px;
+		height: 32px;
+		min-height: 32px;    /* 高さの最小値 */
+		min-width: 240px;    /* 幅の最小値 */
+		resize: both;        /* 縦・横両方のサイズ変更を許可 */
+		font-family: inherit;
+	}
 
 	#bottom {
-	    height: 100vh;
+		height: 100vh;
 	}
 </style>
 <title>問題編集</title>
@@ -129,65 +141,61 @@
 <script>
 function mkURL() {
 	const groups = document.querySelectorAll('.form-group');
-	let baseUrl = 'mkrand.html'; // デフォルトのベースURL
+	let baseUrl = 'mkrand.html';
 	const params = [];
 
 	groups.forEach(group => {
 		const btn = group.querySelector('.custom-btn');
-		const input = group.querySelector('.custom-input');
+		// input または textarea を取得
+		const input = group.querySelector('.custom-input, .custom-textarea');
 		if (!btn || !input) return;
 
 		const key = btn.textContent.trim();
 		const val = input.value.trim();
 
 		if (key === 'URL') {
-			// URL欄の値があればベースURLとして採用
 			if (val !== '') {
 				baseUrl = val;
 			}
 		} else {
-			// 値が入力されているものだけパラメータとして追加
 			if (val !== '') {
 				params.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
 			}
 		}
 	});
 
-	// パラメータがある場合は ? で繋いで結合
 	let finalUrl = baseUrl;
 	if (params.length > 0) {
 		finalUrl += '?' + params.join('&');
 	}
 
-	// 別タブ(_blank)で開く
 	window.open(finalUrl, '_blank');
 }
 </script>
-<a href="#" onclick="mkURL(); return false;">プリセット</a>
-<div class="form-group">URL<br><button class="custom-btn">URL</button><input class="custom-input" value="F2edit.html"></div>
-<div class="form-group">F2編集 on:編集 off:練習<br><button class="custom-btn">F2</button><input class="custom-input"></div>
-<div class="form-group">画像ソースを設定<br><button class="custom-btn">img</button><input class="custom-input"></div>
-<div class="form-group">タイトル<br><button class="custom-btn">t</button><input class="custom-input"></div>
-<div class="form-group">スタートメッセージ<br><button class="custom-btn">s</button><input class="custom-input"></div>
-<div class="form-group">確認メッセージ<br><button class="custom-btn">m</button><input class="custom-input"></div>
-<div class="form-group">off:Enter on:Shift+Enter<br><button class="custom-btn">ime</button><input class="custom-input"></div>
-<div class="form-group">出題数<br><button class="custom-btn">rnd</button><input class="custom-input"></div>
-<div class="form-group">問題表示幅<br><button class="custom-btn">w</button><input class="custom-input"></div>
-
+<a href="#" onclick="mkURL(); return false;">作成</a>
+<div class="form-group">URL<br><button class="custom-btn">URL</button><input class="custom-input" value="edit.html"></div>
+<div class="form-group">タイトル<br><button class="custom-btn">t</button><input class="custom-input" value="問題タイトル"></div>
+<div class="form-group">問題文字列<br><button class="custom-btn">txt</button><textarea class="custom-input custom-textarea"></textarea></div>
+<div class="form-group">スタートメッセージ<br><button class="custom-btn">s</button><input class="custom-input" value="Enter⏎"></div>
+<div class="form-group">確認メッセージ<br><button class="custom-btn">m</button><input class="custom-input" value="英数 かな"></div>
+<div class="form-group">off:Enter on:Shift+Enter<br><button class="custom-btn">ime</button><input class="custom-input" value="on"></div>
+<div class="form-group">出題数 0:順番<br><button class="custom-btn">rnd</button><input class="custom-input" value="0"></div>
+<div class="form-group">問題表示幅<br><button class="custom-btn">w</button><input class="custom-input" value="20ch"></div>
+<div class="form-group">画像ソースを設定<br><button class="custom-btn">img</button><input class="custom-input" value=""></div>
 </div>
 <div>
 	<h1 id="DL">ダウンロードしてつかう</h1>
-		<a href="F2edit.html">F2edit.html</a>
+		<a href="edit.html">edit.html</a>
 		<a href="edit.js">edit.js</a>
 	<br>
 		<a href="typing.js">typing.js</a>
 		<a href="style.css">style.css</a>
 	<br>
-		<a href="all.png">all.png</a>
+		<a href="かな.png">かな.png</a>
 </div>
 <div>
 	<h2 id="tool">画像作成ツール</h2>
-    <a href="../../../study_app\keypng\keyguide.html" target="_blank">画像作成</a>
+    <a href="..\..\study_app\keypng\keyguide.html" target="_blank">画像作成</a>
 </div>
 <div id="bottom">
 </div>

@@ -11,22 +11,21 @@
 <div id="target" class="line" style="text-align:center"></div>
 <textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
 <script>
-let TITLE_MSG = "問題編集";//タイトル
-let START_MSG = "Enter⏎";
-let INPUT_MSG = "かな 確認";//英数 かな
-let IME = "OFF";// ON Shift+Enter
-let RANDOM = 10;// 出題数
-let WIDTH = "20ch";// 入力幅 全角は2倍
+let TITLE_MSG;//タイトル
+let START_MSG;//Enter⏎
+let INPUT_MSG;//英数 かな
+let IME;// on Shift+Enter off Enter
+let RANDOM;// 出題数
+let WIDTH;// 入力幅 全角は2倍
+let TXTDATA;   // 問題文字列
+let imgSrc;// 画像ソースを設定
 </script>
 <!---5----10---15---20---25---30---35---40--->
-<textarea id="txtdata" style="display:none">
-</textarea>
+<textarea id="txtdata" style="display:none"></textarea>
 <!---5----10---15---20---25---30---35---40--->
 <br>
 <img src="" id="img" style="width:640px;">
 <script>
-let F2flag = "off"; // F2編集 on/off
-let imgSrc="";        // 画像ソースを設定
 </script>
 <script src="edit.js"></script>
 <script src="typing.js"></script>
