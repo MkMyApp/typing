@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>問題作成</title>
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+<div class="contena">
+  <!------問題文設定------------------------>
+  <div id="text">
+    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
+    <textarea id="txtdata"></textarea>
+    <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
+  </div>
+  <div id="set">
+    問題数：<input id="LINES">
+    <button class="sBtn" onclick="countLines()">問題行数</button><br>
+
+    文字幅：<input id="WIDTH">
+    <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
+  </div>
+
+  <div class="btnbox">
+    <button class="btn" onclick="repText()">分割</button>
+    <button class="btn" onclick="catText()">結合</button>
+    <button class="btn" onclick="loadText()">読込</button>
+    <button class="btn" onclick="saveText()">保存</button>
+  </div>
+  <div class="radiobox">
+    <label class="radio-label small">
+      <input type="radio" name="sepchr" value=" " checked>Spc
+    </label>
+    <label class="radio-label small">
+      <input type="radio" name="sepchr" value="\t">Tab
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="sepchr" value=",">,
+    </label>
+    <label class="radio-label">
+      <input type="radio" name="sepchr" value=":">:
+    </label>
+    <label class="radio-label small">
+      <input type="radio" name="sepchr" value="|">|
+    </label>
+    <label class="radio-label small">
+      <input type="radio" name="sepchr" value="\"> \
+    </label>
+  </div>
+
+  <div class="btnbox">
+    <button class="btn" onclick="dedupeLines()">重複</button>
+    <button class="btn" onclick="sortByLength()">長順</button>
+    <button class="btn" onclick="formatText()">整形</button>
+    <button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
+  </div>
+
+  <div class="btnbox">
+    変更元：<input type="text" id="fromChars">
+    <button class="sBtn" onclick="replaceText()">置換</button><br>
+    変更先：<input type="text" id="toChars">
+    <button class="sBtn" onclick="convert()">変換</button>
+  </div>
+
+  <div class="btnbox">
+    <button class="btn" onclick="toUpperText()">A-Z</button>
+    <button class="btn" onclick="toLowerText()">a-z</button>
+    <button class="btn" onclick="zenSpc()">全角</button>
+    <button class="btn" onclick="hanSpc()">半角</button>
+  </div>
+</div>
+
+<script src="editor.js"></script>
+</body>
+</html>

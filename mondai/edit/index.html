@@ -129,10 +129,6 @@
 		resize: both;        /* 縦・横両方のサイズ変更を許可 */
 		font-family: inherit;
 	}
-
-	#bottom {
-		height: 100vh;
-	}
 </style>
 <title>問題編集</title>
 </head>
@@ -174,32 +170,59 @@ function mkURL() {
 </script>
 <a href="edit.html" target="_blank">実行</a>
 <a href="#" onclick="mkURL(); return false;">設定</a>
-<div class="form-group">URL<br><button class="custom-btn">URL</button><input class="custom-input" value="edit.html"></div>
-<div class="form-group">タイトル<br><button class="custom-btn">t</button><input class="custom-input" value="問題タイトル"></div>
-<div class="form-group">問題文字列<br><button class="custom-btn">txt</button><textarea class="custom-input custom-textarea"></textarea></div>
-<div class="form-group">スタートメッセージ<br><button class="custom-btn">s</button><input class="custom-input" value="Enter⏎"></div>
-<div class="form-group">確認メッセージ<br><button class="custom-btn">m</button><input class="custom-input" value="英数 かな"></div>
-<div class="form-group">off:Enter on:Shift+Enter<br><button class="custom-btn">ime</button><input class="custom-input" value="on"></div>
-<div class="form-group">出題数 0:順番<br><button class="custom-btn">rnd</button><input class="custom-input" value="0"></div>
-<div class="form-group">問題表示幅<br><button class="custom-btn">w</button><input class="custom-input" value="20ch"></div>
-<div class="form-group">画像ソースを設定<br><button class="custom-btn">img</button><input class="custom-input" value=""></div>
+
+<div class="form-group">
+	URL<br>
+	<button class="custom-btn">URL</button>
+	<input class="custom-input" value="edit.html">
 </div>
-<div>
-	<h1 id="DL">ダウンロードしてつかう</h1>
-		<a href="edit.html">edit.html</a>
-		<a href="edit.js">edit.js</a>
-	<br>
-		<a href="typing.js">typing.js</a>
-		<a href="style.css">style.css</a>
-	<br>
-		<a href="かな.png">かな.png</a>
+
+<div class="form-group">
+	タイトル<br>
+	<button class="custom-btn">t</button>
+	<input class="custom-input" value="問題タイトル">
 </div>
-<div>
-	<h2 id="tool">画像作成ツール</h2>
-    <a href="..\..\study_app\keypng\keyguide.html" target="_blank">画像作成</a>
+
+<div class="form-group">
+	問題文字列<br>
+	<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
+	<textarea class="custom-input custom-textarea"></textarea>
 </div>
-<div id="bottom">
+
+<div class="form-group">
+	スタートメッセージ<br>
+	<button class="custom-btn">s</button>
+	<input class="custom-input" value="Enter⏎">
 </div>
-End of Page
+
+<div class="form-group">
+	確認メッセージ<br>
+	<button class="custom-btn">m</button>
+	<input class="custom-input" value="英数 かな">
+</div>
+
+<div class="form-group">
+	off:Enter on:Shift+Enter<br>
+	<button class="custom-btn">ime</button>
+	<input class="custom-input" value="on">
+</div>
+
+<div class="form-group">
+	出題数 0:順番<br>
+	<button class="custom-btn">rnd</button>
+	<input class="custom-input" value="0">
+</div>
+
+<div class="form-group">
+	問題表示幅<br>
+	<button class="custom-btn">w</button>
+	<input class="custom-input" value="20ch">
+</div>
+
+<div class="form-group">
+	画像ソースを設定<br>
+	<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
+	<input class="custom-input" value="">
+</div>
 </body>
 </html>
