@@ -100,6 +100,12 @@ function saveQuery() {
 	URL.revokeObjectURL(url);
 }
 
+function onlyURL(){
+    const urlInput = document.getElementById('url');
+    const finalUrl = urlInput.value;
+    window.open(finalUrl, '_blank');
+}
+
 function openURL(){
     const urlInput = document.getElementById('url');
     const queryInput = document.getElementById('query');
