@@ -566,6 +566,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// テキストエリア高さ自動調整
 function adjustTextareaHeight(id) {
       const textarea = document.getElementById(id);
       
@@ -577,6 +578,15 @@ function adjustTextareaHeight(id) {
         textarea.style.height = textarea.scrollHeight + 'px';
       }
     }
+
+// テキストエリア高さ最小調整
+function minTextareaHeight(id) {
+  const textarea = document.getElementById(id);
+	if (textarea) {
+	    const computedMinHeight = window.getComputedStyle(textarea).minHeight;
+	    textarea.style.height = computedMinHeight;
+  }
+}
 
 function clrText(id) {
 	const textArea = document.getElementById(id);

@@ -1,0 +1,25 @@
+【機能追加指示】エフェクト処理の組み込み
+
+提供した CSS（シェイク.css、成功.css）と JS（キーダウン_2.JS、シェイク&フラッシュ.js、成功.js）の演出処理を、既存のゲームコード（game.js / game.css）へ以下のように組み込んでください。
+
+1. キー打鍵時（タイピング中）
+
+トリガー: キーダウンが発生した時（onKeyPress または handleKeyDown）
+
+処理: 打鍵したキーの位置座標を取得し、addTypeEffect(x, y) を実行して Canvas 上に波紋を発生させる。
+
+2. ミス入力時
+
+トリガー: 入力ミス（正解と異なるキーを押した際、または誤入力判定時）
+
+処理: triggerMissEffect('.game-container') を呼び出し、ゲーム画面全体を赤く光らせてシェイクさせる。
+
+3. 1行（1問）完成時
+
+トリガー: 1行入力完了時（onLineComplete）
+
+処理: triggerLineCompleteEffect('#target') を呼び出し、ターゲット枠を青／緑に光らせると同時に、Canvas 上に弾ける光の粒子（createBurstParticles()）を生成する。
+
+4. アニメーション描画ループ
+
+処理: メイン描画ループ（updateAndDraw）内で毎フレーム drawTypeEffect(ctx) と drawCompleteParticles(ctx) を実行し、演出の更新・描画を行う。

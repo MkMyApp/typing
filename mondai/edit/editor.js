@@ -236,6 +236,15 @@ function adjustTextareaHeight(id) {
   }
 }
 
+// テキストエリア高さ最小調整
+function minTextareaHeight(id) {
+  const textarea = document.getElementById(id);
+	if (textarea) {
+	    const computedMinHeight = window.getComputedStyle(textarea).minHeight;
+	    textarea.style.height = computedMinHeight;
+  }
+}
+
 // ドラッグ＆ドロップおよび初期化処理
 window.addEventListener('DOMContentLoaded', () => {
   const txtdataArea = document.getElementById("txtdata");
@@ -264,3 +273,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   formatText();
 });
+
+  async function copyText() {
+    const textarea = document.getElementById('txtdata');
+    
+    try {
+      await navigator.clipboard.writeText(textarea.value);
+      //alert('copy');
+    } catch (err) {
+      alert('コピーに失敗しました');
+    }
+  }

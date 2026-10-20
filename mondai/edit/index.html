@@ -3,226 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-	body {
-		font-family: sans-serif;
-		padding: 20px;
-		background-color: #f4f4f9;
-		color: #333;
-	}
-
-	/* h1・h2の見出しデザイン */
-	h1 {
-		font-size: 32px;
-		margin: 0 0 24px 0;
-		padding-bottom: 8px;
-		border-bottom: 3px solid #333;
-	}
-	h2 {
-		font-size: 24px;
-		margin: 30px 0 16px 0;
-		padding-left: 10px;
-		border-left: 5px solid #4a90e2;
-	}
-
-	/* 通常のリンクボタン（カード型） */
-	a {
-		box-sizing: border-box;
-		display: inline-block;
-		width: auto;
-		min-width: 240px;
-		height: auto;
-		line-height: 28px;
-		font-size: 20px;
-		font-weight: bold;
-		padding: 15px 20px;
-		background-color: #ffffff;
-		color: #303030;
-		text-decoration: none;
-		text-align: center;
-		border-radius: 8px;
-		border: 1px solid #ccc;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-		margin: 0 10px 15px 0;
-		transition: background-color 0.2s, transform 0.1s;
-	}
-	a:hover {
-		background-color: #f0f4f9;
-	}
-	a:active {
-		color: #f03030;
-		background-color: #e2e8f0;
-		transform: translateY(1px);
-	}
-	img {
-		width:192px;
-	}
-	/* h2 内のサブメニュー用リンク（シンプル化） */
-	h2 a {
-		color: inherit;
-		text-decoration: underline;
-		border: none;
-		background: none;
-		box-shadow: none;
-		padding: 0;
-		margin: 0;
-		min-width: auto;
-	}
-
-	h2 a:hover {
-		color: #4a90e2;
-		background: none;
-	}
-
-	.form-group {
-		margin-bottom: 12px; /* 各行の間隔 */
-	}
-
-	.custom-btn {
-		box-sizing: border-box;
-		width: 90px;
-		height: 32px;
-		padding: 8px 12px;
-		font-size: 14px;
-		font-weight: bold;
-		color: #fff;
-		background-color: #4a90e2;
-		border: 1px solid #357abd;
-		border-radius: 4px 0 0 4px;
-		cursor: pointer;
-		text-align: center;
-		transition: background-color 0.2s;
-		vertical-align: top; /* 上揃え */
-	}
-
-	.custom-btn:hover {
-		background-color: #357abd;
-	}
-
-	.custom-input {
-		box-sizing: border-box;
-		width: 240px; /* 入力欄の横幅 */
-		padding: 8px 12px;
-		font-size: 14px;
-		color: #333;
-		background-color: #fff;
-		border: 1px solid #ccc;
-		border-left: none; /* ボタンと隣り合う境界線を重ねる */
-		border-radius: 0 4px 4px 0; /* 右側の角丸 */
-		outline: none;
-		transition: border-color 0.2s, box-shadow 0.2s;
-		vertical-align: top; /* 上揃え（上書きされないよう1つに統合） */
-	}
-
-	.custom-input:focus {
-		border-color: #4a90e2;
-		box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-		position: relative; /* フォーカス時に枠線が隠れないように手前に */
-		z-index: 1;
-	}
-	
-	.custom-textarea {
-		width: 240px;
-		height: 32px;
-		min-height: 32px;    /* 高さの最小値 */
-		min-width: 240px;    /* 幅の最小値 */
-		resize: both;        /* 縦・横両方のサイズ変更を許可 */
-		font-family: inherit;
-	}
-</style>
+<link rel="stylesheet" href="index.css">
 <title>問題編集</title>
+<script src="index.js"></script>
 </head>
 <body>
-<h1 id="top">問題編集</h1>
-<script>
-function mkURL() {
-	const groups = document.querySelectorAll('.form-group');
-	let baseUrl = 'mkrand.html';
-	const params = [];
-
-	groups.forEach(group => {
-		const btn = group.querySelector('.custom-btn');
-		// input または textarea を取得
-		const input = group.querySelector('.custom-input, .custom-textarea');
-		if (!btn || !input) return;
-
-		const key = btn.textContent.trim();
-		const val = input.value.trim();
-
-		if (key === 'URL') {
-			if (val !== '') {
-				baseUrl = val;
-			}
-		} else {
-			if (val !== '') {
-				params.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
-			}
-		}
-	});
-
-	let finalUrl = baseUrl;
-	if (params.length > 0) {
-		finalUrl += '?' + params.join('&');
-	}
-
-	window.open(finalUrl, '_blank');
-}
-</script>
+<div>
+<h1>練習用</h1>
 <a href="edit.html" target="_blank">実行</a>
-<a href="#" onclick="mkURL(); return false;">設定</a>
-
-<div class="form-group">
-	URL<br>
-	<button class="custom-btn">URL</button>
-	<input class="custom-input" value="edit.html">
 </div>
+<h1>設定用</h1>
+<div>
+	<a href="#" onclick="mkURL(); return false;">設定</a>
 
-<div class="form-group">
-	タイトル<br>
-	<button class="custom-btn">t</button>
-	<input class="custom-input" value="問題タイトル">
-</div>
+	<div class="form-group">
+		URL<br>
+		<button class="custom-btn">URL</button>
+		<input class="custom-input" value="edit.html">
+	</div>
 
-<div class="form-group">
-	問題文字列<br>
-	<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
-	<textarea class="custom-input custom-textarea"></textarea>
-</div>
+	<div class="form-group">
+		タイトル<br>
+		<button class="custom-btn">t</button>
+		<input class="custom-input" value="問題タイトル">
+	</div>
 
-<div class="form-group">
-	スタートメッセージ<br>
-	<button class="custom-btn">s</button>
-	<input class="custom-input" value="Enter⏎">
-</div>
+	<div class="form-group">
+		問題文字列<br>
+		<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
+		<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
+	</div>
 
-<div class="form-group">
-	確認メッセージ<br>
-	<button class="custom-btn">m</button>
-	<input class="custom-input" value="英数 かな">
-</div>
+	<div class="form-group">
+		スタートメッセージ<br>
+		<button class="custom-btn">s</button>
+		<input class="custom-input" value="Enter⏎">
+	</div>
 
-<div class="form-group">
-	off:Enter on:Shift+Enter<br>
-	<button class="custom-btn">ime</button>
-	<input class="custom-input" value="on">
-</div>
+	<div class="form-group">
+		確認メッセージ<br>
+		<button class="custom-btn">m</button>
+		<input class="custom-input" value="英数 かな">
+	</div>
 
-<div class="form-group">
-	出題数 0:順番<br>
-	<button class="custom-btn">rnd</button>
-	<input class="custom-input" value="0">
-</div>
+	<div class="form-group">
+		off:Enter on:Shift+Enter<br>
+		<button class="custom-btn">ime</button>
+		<input class="custom-input" value="on">
+	</div>
 
-<div class="form-group">
-	問題表示幅<br>
-	<button class="custom-btn">w</button>
-	<input class="custom-input" value="20ch">
-</div>
+	<div class="form-group">
+		出題数 0:順番<br>
+		<button class="custom-btn" onclick="countLines()">rnd</button>
+		<input id="RANDOM" class="custom-input" value="0">
+	</div>
 
-<div class="form-group">
-	画像ソースを設定<br>
-	<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
-	<input class="custom-input" value="">
+	<div class="form-group">
+		問題表示幅<br>
+		<button class="custom-btn" onclick="setMaxLength()">w</button>
+		<input id="WIDTH" class="custom-input" value="20ch">
+	</div>
+
+	<div class="form-group">
+		画像ソースを設定<br>
+		<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
+		<select class="custom-input" id="imgInput">
+		  <option value=""></option>
+		  <option value="かな.png">かな</option>
+		  <option value="大文字.png">大文字</option>
+		  <option value="小文字.png">小文字</option>
+		</select>
+	</div>
 </div>
 </body>
 </html>

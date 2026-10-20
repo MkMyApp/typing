@@ -7,7 +7,17 @@
 </head>
 <body>
 <div class="contena">
-  <!------問題文設定------------------------>
+	<div id="title">
+	問題文編集
+	</div>
+  <div class="btnbox">
+    <button class="btn" onclick="loadText()">読込</button>
+    <button class="btn" onclick="saveText()">保存</button>
+    <button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
+    <button class="btn" onclick="minTextareaHeight('txtdata');">縮小</button>
+    <button class="btn" onclick="copyText()">コピー</button>
+  </div>
+
   <div id="text">
     <span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
     <textarea id="txtdata"></textarea>
@@ -16,7 +26,6 @@
   <div id="set">
     問題数：<input id="LINES">
     <button class="sBtn" onclick="countLines()">問題行数</button><br>
-
     文字幅：<input id="WIDTH">
     <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
   </div>
@@ -24,8 +33,9 @@
   <div class="btnbox">
     <button class="btn" onclick="repText()">分割</button>
     <button class="btn" onclick="catText()">結合</button>
-    <button class="btn" onclick="loadText()">読込</button>
-    <button class="btn" onclick="saveText()">保存</button>
+    <button class="btn" onclick="dedupeLines()">重複</button>
+    <button class="btn" onclick="sortByLength()">長順</button>
+    <button class="btn" onclick="formatText()">整形</button>
   </div>
   <div class="radiobox">
     <label class="radio-label small">
@@ -46,13 +56,6 @@
     <label class="radio-label small">
       <input type="radio" name="sepchr" value="\"> \
     </label>
-  </div>
-
-  <div class="btnbox">
-    <button class="btn" onclick="dedupeLines()">重複</button>
-    <button class="btn" onclick="sortByLength()">長順</button>
-    <button class="btn" onclick="formatText()">整形</button>
-    <button class="btn" onclick="adjustTextareaHeight('txtdata');">拡張</button>
   </div>
 
   <div class="btnbox">

@@ -1,0 +1,26 @@
+/* 1行完成（正解）時の画面・枠のフラッシュ演出 */
+.flash-correct {
+  background-color: rgba(128, 128, 240, 0.25) !important; /* または green/青系の透過色 */
+  border-color: #8080f0 !important;
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out;
+}
+
+/* 拡大＆フェードアウトするお祝いテキスト・演出用アニメーション */
+@keyframes successPop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+.success-message {
+  animation: successPop 0.4s ease-out forwards;
+}
