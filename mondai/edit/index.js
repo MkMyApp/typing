@@ -1,6 +1,14 @@
-function mkURL() {
+function joinQuery() {
+	const queryInput = document.getElementById('query');
+	if (queryInput) {
+		if (queryInput.value !== "") {
+			queryInput.value = "";
+			return;
+		}
+	}
+
 	const groups = document.querySelectorAll('.form-group');
-	let baseUrl = 'mkrand.html';
+	let baseUrl = '';
 	const params = [];
 
 	groups.forEach(group => {
@@ -11,6 +19,9 @@ function mkURL() {
 
 		const key = btn.textContent.trim();
 		const val = input.value.trim();
+
+		// key === 'query' はスキップ
+		if (key === 'query') return;
 
 		if (key === 'URL') {
 			if (val !== '') {
@@ -23,11 +34,77 @@ function mkURL() {
 		}
 	});
 
-	let finalUrl = baseUrl;
+	let fullQuery = "";
 	if (params.length > 0) {
-		finalUrl += '?' + params.join('&');
+		const connector = baseUrl.includes('?') ? '&' : '?';
+		fullQuery += connector + params.join('&');
 	}
 
+	if (queryInput) {
+		queryInput.value = fullQuery;
+	}
+}
+
+// .txt ファイルを読み込んで query にセットする関数
+function loadQuery() {
+	const fileInput = document.createElement('input');
+	fileInput.type = 'file';
+	fileInput.accept = '.txt';
+
+	fileInput.onchange = (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			const queryInput = document.getElementById('query');
+			if (queryInput) {
+				queryInput.value = event.target.result;
+			}
+		};
+		reader.readAsText(file);
+	};
+
+	fileInput.click();
+}
+
+// query の内容を 指定したファイル名.txt として保存（ダウンロード）する関数
+function saveQuery() {
+	const queryInput = document.getElementById('query');
+	if (!queryInput) return;
+
+	// ファイル名の入力を求める（デフォルト値: query）
+	let fileName = prompt('保存するファイル名を入力してください:', 'query');
+	
+	// キャンセルされた場合は処理を中断
+	if (fileName === null) return;
+
+	// 空文字の場合はデフォルト名を設定
+	fileName = fileName.trim() || 'query';
+
+	// .txt 拡張子が付いていない場合は補完する
+	if (!fileName.endsWith('.txt')) {
+		fileName += '.txt';
+	}
+
+	const content = queryInput.value;
+	const blob = new Blob([content], { type: 'text/plain' });
+	const url = URL.createObjectURL(blob);
+
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = fileName; // 入力されたファイル名を設定
+	document.body.appendChild(a);
+	a.click();
+
+	document.body.removeChild(a);
+	URL.revokeObjectURL(url);
+}
+
+function openURL(){
+	const urlInput = document.getElementById('url');
+	const queryInput = document.getElementById('query');
+	const finalUrl = urlInput.value + queryInput.value
 	window.open(finalUrl, '_blank');
 }
 

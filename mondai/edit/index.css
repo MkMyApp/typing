@@ -73,6 +73,25 @@ h2 a:hover {
 	margin-bottom: 12px; /* 各行の間隔 */
 }
 
+.action-btn {
+	box-sizing: border-box;
+	width: 90px;
+	height: 32px;
+	padding: 8px 12px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	background-color: #4a90e2;
+	border: 1px solid #357abd;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
+	transition: background-color 0.2s;
+	vertical-align: top; /* 上揃え */
+	margin-top:8px;
+	margin-right:8px;
+}
+
 .custom-btn {
 	box-sizing: border-box;
 	width: 90px;
