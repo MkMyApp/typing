@@ -13,14 +13,12 @@ function joinQuery() {
 
 	groups.forEach(group => {
 		const btn = group.querySelector('.custom-btn');
-		// input または textarea を取得
 		const input = group.querySelector('.custom-input, .custom-textarea');
 		if (!btn || !input) return;
 
 		const key = btn.textContent.trim();
 		const val = input.value.trim();
 
-		// key === 'query' はスキップ
 		if (key === 'query') return;
 
 		if (key === 'URL') {
@@ -29,7 +27,8 @@ function joinQuery() {
 			}
 		} else {
 			if (val !== '') {
-				params.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
+				// encodeURIComponent を外し、そのまま結合する
+				params.push(key + '=' + val);
 			}
 		}
 	});
@@ -102,10 +101,11 @@ function saveQuery() {
 }
 
 function openURL(){
-	const urlInput = document.getElementById('url');
-	const queryInput = document.getElementById('query');
-	const finalUrl = urlInput.value + queryInput.value
-	window.open(finalUrl, '_blank');
+    const urlInput = document.getElementById('url');
+    const queryInput = document.getElementById('query');
+    const encodedQuery = encodeURI(queryInput.value);
+    const finalUrl = urlInput.value + encodedQuery;
+    window.open(finalUrl, '_blank');
 }
 
 // 行数をカウントして問題数(input)に設定する関数
