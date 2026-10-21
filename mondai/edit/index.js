@@ -10,18 +10,19 @@ function joinQuery() {
 		if (!btn || !input) return;
 
 		const key = btn.textContent.trim();
-		const val = input.value.trim();
+		let val = input.value;
 
 		if (key === 'query') return;
 
 		if (key === 'URL') {
-			if (val !== '') {
-				baseUrl = val;
+			if (val.trim() !== '') {
+				baseUrl = val.trim();
 			}
 		} else {
 			if (val !== '') {
-				// encodeURIComponent を外し、そのまま結合する
-				params.push(key + '=' + val);
+				// 改行コードのみを %0A に置換（日本語などはそのまま保持）
+				const formattedVal = val.replace(/\r?\n/g, '%0A');
+				params.push(key + '=' + formattedVal);
 			}
 		}
 	});
@@ -117,12 +118,10 @@ function parseQuery() {
 
 	let queryString = queryInput.value.trim();
 
-	// 先頭の '?' または '&' を除去
 	if (queryString.startsWith('?') || queryString.startsWith('&')) {
 		queryString = queryString.substring(1);
 	}
 
-	// パラメータごとに分解
 	const paramPairs = queryString.split('&');
 	const queryMap = {};
 
@@ -132,13 +131,14 @@ function parseQuery() {
 		if (equalIndex !== -1) {
 			const key = pair.substring(0, equalIndex);
 			const val = pair.substring(equalIndex + 1);
-			queryMap[key] = val;
+			
+			// %0A（および %0a）を改行コード \n に置換して保持
+			queryMap[key] = val.replace(/%0a/gi, '\n');
 		} else {
 			queryMap[pair] = '';
 		}
 	});
 
-	// 各 form-group を巡回して対応する要素に値をセット
 	const groups = document.querySelectorAll('.form-group');
 	groups.forEach(group => {
 		const btn = group.querySelector('.custom-btn');
@@ -147,13 +147,9 @@ function parseQuery() {
 
 		const key = btn.textContent.trim();
 
-		// query ボタン自体はスキップ
 		if (key === 'query') return;
 
-		// URL または queryMap に対応するキーが存在すれば値を復元
-		if (key === 'URL') {
-			// クエリ文字列内にベースURLが含まれている場合があれば考慮、無ければ何もしない
-		} else if (Object.prototype.hasOwnProperty.call(queryMap, key)) {
+		if (Object.prototype.hasOwnProperty.call(queryMap, key)) {
 			input.value = queryMap[key];
 		}
 	});

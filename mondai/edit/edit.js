@@ -16,12 +16,22 @@ if (currentScript && currentScript.src && currentScript.src.includes('?')) {
 
 // 優先順位：HTMLパラメータ > スクリプトタグパラメータ > null
 function getParam(key) {
-  if (htmlParams.has(key)) return htmlParams.get(key);
-  if (jsParams.has(key)) return jsParams.get(key);
+  let val = null;
+  if (htmlParams.has(key)) val = htmlParams.get(key);
+  else if (jsParams.has(key)) val = jsParams.get(key);
+
+  if (val !== null) {
+    try {
+      // URLエンコードされている値（%E5%95%8F...など）をデコード
+      return decodeURIComponent(val);
+    } catch (e) {
+      return val;
+    }
+  }
   return null;
 }
 
-// localStorage のキー生成関数
+// localStorage のキー生成関数（抜け落ちていた関数を復元）
 function getStorageKey() {
   const path = window.location.pathname;
   const filename = path.substring(path.lastIndexOf('/') + 1);
@@ -45,7 +55,9 @@ try {
   console.error("設定データの読み込みに失敗しました", e);
 }
 
-// 各設定値の決定 (クエリ > localStorage > 既存初期値)
+// --------------------------------------------------
+// 各設定値の取得
+// --------------------------------------------------
 TITLE_MSG = getParam('t')   ?? savedConfig.TITLE_MSG   ?? TITLE_MSG;
 START_MSG = getParam('s')   ?? savedConfig.START_MSG   ?? START_MSG;
 INPUT_MSG = getParam('m')   ?? savedConfig.INPUT_MSG   ?? INPUT_MSG;
@@ -53,9 +65,24 @@ IME       = getParam('ime') ?? savedConfig.IME         ?? IME;
 RANDOM    = getParam('rnd') ?? savedConfig.RANDOM      ?? RANDOM;
 WIDTH     = getParam('w')   ?? savedConfig.WIDTH       ?? WIDTH;
 imgSrc    = getParam('img') ?? savedConfig.imgSrc      ?? imgSrc;
-TXTDATA   = getParam('txt') ?? savedConfig.TXTDATA     ?? TXTDATA;
 
-// 【重要】typing.js が即時ロード・参照できるよう、ここで DOM (#txtdata) に書き戻す
+// TXTDATAの取得（%250A や %0A を含めて改行コード \n に復元）
+let rawTxt = getParam('txt') ?? savedConfig.TXTDATA ?? TXTDATA;
+if (rawTxt && typeof rawTxt === 'string') {
+  try {
+    let decoded = decodeURIComponent(rawTxt);
+    if (decoded.includes('%0A') || decoded.includes('%0a')) {
+      decoded = decoded.replace(/%0a/gi, '\n');
+    }
+    TXTDATA = decoded;
+  } catch (e) {
+    TXTDATA = rawTxt.replace(/%250A/gi, '\n').replace(/%0A/gi, '\n');
+  }
+} else {
+  TXTDATA = rawTxt;
+}
+
+// 【重要】typing.js が即時参照できるよう DOM (#txtdata) に値を書き戻す
 const txtDataElem = document.getElementById('txtdata');
 if (txtDataElem && TXTDATA !== undefined) {
   txtDataElem.value = TXTDATA;
