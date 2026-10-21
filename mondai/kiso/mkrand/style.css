@@ -95,6 +95,7 @@ body {
 
 /* すべての textarea に共通して適用するスタイル */
 textarea {
+	display:block;
   width: var(--line-width);
   height: calc(1em * var(--line-height) + 20px);
   background-color: var(--body-background-color);
@@ -103,6 +104,10 @@ textarea {
   outline: none;
   overflow: auto;
   resize: both;
+}
+
+textarea[hidden] {
+  display: none !important;
 }
 
 /* 個別のスタイル */

@@ -232,10 +232,17 @@ editorEl.addEventListener('compositionstart', () => {
 
 editorEl.addEventListener('compositionend', () => {
   composing = false;
+  if (typeStarted) {
+    colorize(currentWord, typed());
+  }
 })
 
 editorEl.addEventListener('input', () => {
   if(!typeStarted) return;
+
+  // 変換中（composing == true）の場合は色分けを更新しない
+  if (composing) return;
+
   colorize(currentWord, typed());
 })
 
