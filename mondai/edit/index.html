@@ -22,8 +22,12 @@
 
 	<div class="form-group">
 		クエリ<br>
-		<button class="custom-btn" onclick="joinQuery()">query</button>
+		<button class="custom-btn" onclick="decodeQuery()">query</button>
 		<input id="query" class="custom-input" value="">
+		<br>
+		<button class="action-btn" onclick="clearQuery()">CLEAR</button>
+		<button class="action-btn" onclick="joinQuery()">JOIN</button>
+		<button class="action-btn" onclick="parseQuery()">PARSE</button>
 		<br>
 		<button class="action-btn" onclick="loadQuery()">LOAD</button>
 		<button class="action-btn" onclick="saveQuery()">SAVE</button>
@@ -77,11 +81,11 @@
 		画像ソースを設定<br>
 		<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
 		<select class="custom-input" id="imgInput">
-		  <option value=""></option>
-		  <option value="かな.png">かな</option>
-		  <option value="大文字.png">大文字</option>
-		  <option value="小文字.png">小文字</option>
-		  <option value="AIUEO.png">AIUEO</option>
+		  <option value="no.png ">なし</option>
+		  <option value="かな.png">ひらがな</option>
+		  <option value="大文字.png">英数大文字</option>
+		  <option value="小文字.png">英数小文字</option>
+		  <option value="AIUEO.png">ローマ字AIUEO</option>
 		</select>
 	</div>
 </div>

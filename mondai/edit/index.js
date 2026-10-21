@@ -1,12 +1,5 @@
 function joinQuery() {
 	const queryInput = document.getElementById('query');
-	if (queryInput) {
-		if (queryInput.value !== "") {
-			queryInput.value = "";
-			return;
-		}
-	}
-
 	const groups = document.querySelectorAll('.form-group');
 	let baseUrl = '';
 	const params = [];
@@ -65,6 +58,105 @@ function loadQuery() {
 	};
 
 	fileInput.click();
+}
+
+// クエリ文字列をクリア
+function clearQuery() {
+	const queryInput = document.getElementById('query');
+	if (queryInput) {
+			queryInput.value = "";
+	}
+}
+
+// 安全にデコードを行う補助関数
+function safeDecode(str) {
+	try {
+		return decodeURIComponent(str);
+	} catch (e) {
+		try {
+			return decodeURI(str);
+		} catch (err) {
+			// 例外時は unescape でデコード（非常用）
+			return unescape(str);
+		}
+	}
+}
+
+// queryに入力されているエンコード済み文字列をデコードして、queryに書き戻す関数
+function decodeQuery() {
+	const queryInput = document.getElementById('query');
+	if (!queryInput || !queryInput.value.trim()) return;
+
+	let queryString = queryInput.value.trim();
+
+	// '&' で各パラメータに分割
+	const parts = queryString.split('&');
+
+	const decodedParts = parts.map(part => {
+		const equalIndex = part.indexOf('=');
+		if (equalIndex === -1) {
+			// '=' が含まれない部分（例: 先頭の '?t' など）
+			return safeDecode(part);
+		}
+
+		const key = part.substring(0, equalIndex);
+		const val = part.substring(equalIndex + 1);
+
+		// 値（val）部分のみを安全にデコードして結合
+		return key + '=' + safeDecode(val);
+	});
+
+	// デコード済みの文字列を結合して query に書き戻す
+	queryInput.value = decodedParts.join('&');
+}
+
+// クエリ文字列を解析して各入力項目に再設定する関数
+function parseQuery() {
+	const queryInput = document.getElementById('query');
+	if (!queryInput || !queryInput.value.trim()) return;
+
+	let queryString = queryInput.value.trim();
+
+	// 先頭の '?' または '&' を除去
+	if (queryString.startsWith('?') || queryString.startsWith('&')) {
+		queryString = queryString.substring(1);
+	}
+
+	// パラメータごとに分解
+	const paramPairs = queryString.split('&');
+	const queryMap = {};
+
+	paramPairs.forEach(pair => {
+		if (!pair) return;
+		const equalIndex = pair.indexOf('=');
+		if (equalIndex !== -1) {
+			const key = pair.substring(0, equalIndex);
+			const val = pair.substring(equalIndex + 1);
+			queryMap[key] = val;
+		} else {
+			queryMap[pair] = '';
+		}
+	});
+
+	// 各 form-group を巡回して対応する要素に値をセット
+	const groups = document.querySelectorAll('.form-group');
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input, .custom-textarea');
+		if (!btn || !input) return;
+
+		const key = btn.textContent.trim();
+
+		// query ボタン自体はスキップ
+		if (key === 'query') return;
+
+		// URL または queryMap に対応するキーが存在すれば値を復元
+		if (key === 'URL') {
+			// クエリ文字列内にベースURLが含まれている場合があれば考慮、無ければ何もしない
+		} else if (Object.prototype.hasOwnProperty.call(queryMap, key)) {
+			input.value = queryMap[key];
+		}
+	});
 }
 
 // query の内容を 指定したファイル名.txt として保存（ダウンロード）する関数
