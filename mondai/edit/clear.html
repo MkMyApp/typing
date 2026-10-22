@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>ローカルストレージ データ削除ツール</title>
+<style>
+  body {
+    font-family: sans-serif;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+    line-height: 1.6;
+    color: #333;
+  }
+  h1 { border-bottom: 2px solid #007bff; padding-bottom: 8px; }
+  .btn {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .btn-danger { background-color: #dc3545; color: white; }
+  .btn-secondary { background-color: #6c757d; color: white; }
+  .btn-primary { background-color: #007bff; color: white; }
+  .btn:hover { opacity: 0.9; }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    word-break: break-all;
+  }
+  th { background-color: #f8f9fa; }
+  
+  .config-tag {
+    display: inline-block;
+    background: #e9ecef;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #495057;
+  }
+  .no-data { text-align: center; color: #888; padding: 20px; }
+</style>
+</head>
+<body>
+
+<h1>ローカルストレージ データ管理</h1>
+
+<p>現在同じオリジン（ドメイン/ローカル環境）に保存されている localStorage の一覧です。</p>
+
+<div>
+  <button class="btn btn-secondary" onclick="loadStorageData()">最新状態に更新</button>
+  <button class="btn btn-danger" onclick="clearAllData()">全データを削除</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">キー (Key)</th>
+      <th style="width: 55%;">保存内容 (Value)</th>
+      <th style="width: 20%;">操作</th>
+    </tr>
+  </thead>
+  <tbody id="storage-list">
+  </tbody>
+</table>
+
+<script>
+// 一覧の読み込み表示
+function loadStorageData() {
+  const tbody = document.getElementById('storage-list');
+  tbody.innerHTML = '';
+
+  if (localStorage.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="no-data">保存されているデータはありません。</td></tr>';
+    return;
+  }
+
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+
+    const tr = document.createElement('tr');
+
+    // キー列
+    const tdKey = document.createElement('td');
+    let isCustomConfig = key.startsWith("CustomConfig_");
+    tdKey.innerHTML = `<strong>${escapeHtml(key)}</strong>` + (isCustomConfig ? '<br><span class="config-tag">タイピング設定データ</span>' : '');
+
+    // 値列（JSON整形見やすく表示）
+    const tdVal = document.createElement('td');
+    try {
+      const parsed = JSON.parse(value);
+      tdVal.innerHTML = `<pre style="margin:0; white-space: pre-wrap; font-size:12px;">${escapeHtml(JSON.stringify(parsed, null, 2))}</pre>`;
+    } catch(e) {
+      tdVal.textContent = value;
+    }
+
+    // 削除ボタン列
+    const tdAction = document.createElement('td');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger';
+    deleteBtn.textContent = '削除';
+    deleteBtn.onclick = () => deleteKey(key);
+    tdAction.appendChild(deleteBtn);
+
+    tr.appendChild(tdKey);
+    tr.appendChild(tdVal);
+    tr.appendChild(tdAction);
+
+    tbody.appendChild(tr);
+  }
+}
+
+// 特定のキーを削除
+function deleteKey(key) {
+  if (confirm(`キー「${key}」のデータを削除しますか？`)) {
+    localStorage.removeItem(key);
+    loadStorageData();
+  }
+}
+
+// 全データを削除
+function clearAllData() {
+  if (confirm('ローカルストレージの全データを削除しますか？\n（復元はできません）')) {
+    localStorage.clear();
+    loadStorageData();
+  }
+}
+
+// HTMLエスケープ処理
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// 初回読み込み
+loadStorageData();
+</script>
+
+</body>
+</html>
