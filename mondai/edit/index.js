@@ -155,37 +155,64 @@ function parseQuery() {
 	});
 }
 
-// query の内容を 指定したファイル名.txt として保存（ダウンロード）する関数
-function saveQuery() {
+// query の内容を ファイル選択ダイアログを表示して保存する関数
+async function saveQuery() {
 	const queryInput = document.getElementById('query');
 	if (!queryInput) return;
 
-	// ファイル名の入力を求める（デフォルト値: query）
-	let fileName = prompt('保存するファイル名を入力してください:', 'query');
-	
-	// キャンセルされた場合は処理を中断
-	if (fileName === null) return;
+	// id="title" から値を取得（空の場合は 'query' をデフォルトにする）
+	const titleInput = document.getElementById('title');
+	let defaultName = (titleInput && titleInput.value.trim()) ? titleInput.value.trim() : 'query';
 
-	// 空文字の場合はデフォルト名を設定
-	fileName = fileName.trim() || 'query';
-
-	// .txt 拡張子が付いていない場合は補完する
-	if (!fileName.endsWith('.txt')) {
-		fileName += '.txt';
+	// 末尾に .txt が付いていなければ追加
+	if (!defaultName.endsWith('.txt')) {
+		defaultName += '.txt';
 	}
 
 	const content = queryInput.value;
-	const blob = new Blob([content], { type: 'text/plain' });
-	const url = URL.createObjectURL(blob);
 
-	const a = document.createElement('a');
-	a.href = url;
-	a.download = fileName; // 入力されたファイル名を設定
-	document.body.appendChild(a);
-	a.click();
+	// FileSystem Access API (showSaveFilePicker) が使える場合
+	if ('showSaveFilePicker' in window) {
+		try {
+			const handle = await window.showSaveFilePicker({
+				suggestedName: defaultName,
+				types: [{
+					description: 'Text Files',
+					accept: {
+						'text/plain': ['.txt'],
+					},
+				}],
+			});
+			const writable = await handle.createWritable();
+			await writable.write(content);
+			await writable.close();
+		} catch (err) {
+			if (err.name !== 'AbortError') {
+				console.error('保存処理中にエラーが発生しました:', err);
+			}
+		}
+	} else {
+		// 未対応環境用のフォールバック（プロンプト表示）
+		let fileName = prompt('保存するファイル名を入力してください:', defaultName);
+		if (fileName === null) return;
 
-	document.body.removeChild(a);
-	URL.revokeObjectURL(url);
+		fileName = fileName.trim() || 'query';
+		if (!fileName.endsWith('.txt')) {
+			fileName += '.txt';
+		}
+
+		const blob = new Blob([content], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = fileName;
+		document.body.appendChild(a);
+		a.click();
+
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	}
 }
 
 function onlyURL(){
