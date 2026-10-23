@@ -9,80 +9,86 @@
 </head>
 <body>
 <h1>タイピング練習を作る</h1>
-<div>
-	<div class="form-group">
-		URL<br>
-		<button class="custom-btn" onclick="onlyURL()">URL</button>
-		<input id="url" class="custom-input" value="edit.html">
+<div class="container">
+	<div class="item">
+		<div class="form-group">
+			URL<br>
+			<button class="custom-btn" onclick="onlyURL()">URL</button>
+			<input id="url" class="custom-input" value="edit.html">
+		</div>
+
+		<div class="form-group">
+			クエリ<br>
+			<button class="custom-btn" onclick="openURL()">query</button>
+			<input id="query" class="custom-input" value="">
+			<br>
+			<button class="action-btn" onclick="clearQuery()">CLEAR</button>
+			<button class="action-btn" onclick="joinQuery()">JOIN</button>
+			<button class="action-btn" onclick="parseQuery()">PARSE</button>
+			<br>
+			<button class="action-btn" onclick="decodeQuery()">DECODE</button>
+			<button class="action-btn" onclick="loadQuery()">LOAD</button>
+			<button class="action-btn" onclick="saveQuery()">SAVE</button>
+		</div>
 	</div>
 
-	<div class="form-group">
-		クエリ<br>
-		<button class="custom-btn" onclick="openURL()">query</button>
-		<input id="query" class="custom-input" value="">
-		<br>
-		<button class="action-btn" onclick="clearQuery()">CLEAR</button>
-		<button class="action-btn" onclick="joinQuery()">JOIN</button>
-		<button class="action-btn" onclick="parseQuery()">PARSE</button>
-		<br>
-		<button class="action-btn" onclick="decodeQuery()">DECODE</button>
-		<button class="action-btn" onclick="loadQuery()">LOAD</button>
-		<button class="action-btn" onclick="saveQuery()">SAVE</button>
+	<div class="item">
+		<div class="form-group">
+			タイトル<br>
+			<button class="custom-btn">t</button>
+			<input id="title" class="custom-input" value="問題タイトル">
+		</div>
+
+		
+		<div class="form-group">
+			問題文字列<br>
+			<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
+			<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
+		</div>
+
+		<div class="form-group">
+			問題表示幅<br>
+			<button class="custom-btn" onclick="setMaxLength()">w</button>
+			<input id="WIDTH" class="custom-input" value="20ch">
+		</div>
+
+		<div class="form-group">
+			画像ソースを設定<br>
+			<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
+			<select class="custom-input" id="imgInput">
+			  <option value="no.png ">なし</option>
+			  <option value="かな.png">ひらがな</option>
+			  <option value="大文字.png">英数大文字</option>
+			  <option value="小文字.png">英数小文字</option>
+			  <option value="AIUEO.png">ローマ字AIUEO</option>
+			</select>
+		</div>
 	</div>
 
-	<div class="form-group">
-		タイトル<br>
-		<button class="custom-btn">t</button>
-		<input id="title" class="custom-input" value="問題タイトル">
-	</div>
+	<div class="item">
+		<div class="form-group">
+			スタートメッセージ<br>
+			<button class="custom-btn">s</button>
+			<input class="custom-input" value="Enter⏎">
+		</div>
 
-	
-	<div class="form-group">
-		問題文字列<br>
-		<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
-		<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
-	</div>
+		<div class="form-group">
+			確認メッセージ<br>
+			<button class="custom-btn">m</button>
+			<input class="custom-input" value="英数 かな">
+		</div>
 
-	<div class="form-group">
-		スタートメッセージ<br>
-		<button class="custom-btn">s</button>
-		<input class="custom-input" value="Enter⏎">
-	</div>
+		<div class="form-group">
+			off:Enter on:Shift+Enter<br>
+			<button class="custom-btn">ime</button>
+			<input class="custom-input" value="on">
+		</div>
 
-	<div class="form-group">
-		確認メッセージ<br>
-		<button class="custom-btn">m</button>
-		<input class="custom-input" value="英数 かな">
-	</div>
-
-	<div class="form-group">
-		off:Enter on:Shift+Enter<br>
-		<button class="custom-btn">ime</button>
-		<input class="custom-input" value="on">
-	</div>
-
-	<div class="form-group">
-		出題数 0:順番<br>
-		<button class="custom-btn" onclick="countLines()">rnd</button>
-		<input id="RANDOM" class="custom-input" value="0">
-	</div>
-
-	<div class="form-group">
-		問題表示幅<br>
-		<button class="custom-btn" onclick="setMaxLength()">w</button>
-		<input id="WIDTH" class="custom-input" value="20ch">
-	</div>
-
-	<div class="form-group">
-		画像ソースを設定<br>
-		<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')">img</button>
-		<select class="custom-input" id="imgInput">
-		  <option value="no.png ">なし</option>
-		  <option value="かな.png">ひらがな</option>
-		  <option value="大文字.png">英数大文字</option>
-		  <option value="小文字.png">英数小文字</option>
-		  <option value="AIUEO.png">ローマ字AIUEO</option>
-		</select>
+		<div class="form-group">
+			出題数 0:順番<br>
+			<button class="custom-btn" onclick="countLines()">rnd</button>
+			<input id="RANDOM" class="custom-input" value="0">
+		</div>
 	</div>
 </div>
 </body>
