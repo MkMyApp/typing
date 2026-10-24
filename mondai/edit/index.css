@@ -45,8 +45,8 @@ img {
 	text-align: center;
 	transition: background-color 0.2s;
 	vertical-align: top; /* 上揃え */
-	margin-top:8px;
-	margin-right:8px;
+	margin-top:12px;
+	margin-right:16px;
 }
 
 .custom-btn {
@@ -100,3 +100,8 @@ img {
 	resize: both;        /* 縦・横両方のサイズ変更を許可 */
 	font-family: inherit;
 }
+
+#btn-group {
+	margin-left:90px;
+}
+
