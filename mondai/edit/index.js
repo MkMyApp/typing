@@ -90,6 +90,12 @@ function decodeQuery() {
 
 	let queryString = queryInput.value.trim();
 
+	// '?' が含まれている場合、'?' より前のドメインやパスを削除する
+	const questionMarkIndex = queryString.indexOf('?');
+	if (questionMarkIndex !== -1) {
+		queryString = queryString.substring(questionMarkIndex);
+	}
+
 	// '&' で各パラメータに分割
 	const parts = queryString.split('&');
 
