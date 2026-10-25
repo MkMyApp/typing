@@ -163,28 +163,36 @@ body {
   border: 1px solid #eee;
 }
 
-/* タイピング練習カスタマイズ */
-/*　フルバージョン
+.mod-checks {
+  display: inline-block;
+  text-align: left; 
+  width: fit-content;
+  min-width: 545px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
 /*モジュール非表示（デフォルト非表示 / チェックで表示） */
 #dataMod { display: none; }
-#chkdataMod:checked ~ #dataMod { display: block; }
+#custom:has(#chkdataMod:checked) #dataMod { display: block; }
 
 #editMod { display: none; }
-#chkeditMod:checked ~ #editMod { display: block; }
+#custom:has(#chkeditMod:checked) #editMod { display: block; }
 
 #saveMod { display: none; }
-#chksaveMod:checked ~ #saveMod { display: block; }
+#custom:has(#chksaveMod:checked) #saveMod { display: block; }
 
 #dl1Mod  { display: none; }
-#chkdl1Mod:checked ~ #dl1Mod { display: block; }
+#custom:has(#chkdl1Mod:checked) #dl1Mod { display: block; }
 
 #dl2Mod  { display: none; }
-#chkdl2Mod:checked ~ #dl2Mod { display: block; }
+#custom:has(#chkdl2Mod:checked) #dl2Mod { display: block; }
 
 #custom {
-  text-align: left;
+  text-align: center;
   margin: 40px auto 20px;
-  width: fit-content;
+  width: 100%;
   border: none;
 }
 

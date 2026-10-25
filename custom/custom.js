@@ -566,25 +566,26 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// テキストエリア高さ自動調整
-function adjustTextareaHeight(id) {
-      const textarea = document.getElementById(id);
-      
-      if (textarea) {
-        // 一度高さをリセット（縮む場合にも対応させるため）
-        textarea.style.height = 'auto';
-        
-        // スクロールする領域の高さ（scrollHeight）を新しい高さとして設定
-        textarea.style.height = textarea.scrollHeight + 'px';
-      }
-    }
-
-// テキストエリア高さ最小調整
-function minTextareaHeight(id) {
+// テキストエリア高さの拡張・縮小トグル処理
+function toggleTextareaHeight(id, btn) {
   const textarea = document.getElementById(id);
-	if (textarea) {
-	    const computedMinHeight = window.getComputedStyle(textarea).minHeight;
-	    textarea.style.height = computedMinHeight;
+  if (!textarea) return;
+
+  // 現在の高さと最小高さを取得
+  const computedStyle = window.getComputedStyle(textarea);
+  const currentHeight = Math.round(parseFloat(computedStyle.height));
+  const minHeight = Math.round(parseFloat(computedStyle.minHeight));
+
+  // 最小高さ付近であれば拡張、それ以外（拡張済み）であれば縮小
+  if (Math.abs(currentHeight - minHeight) <= 5) {
+    // 拡張処理
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+    if (btn) btn.textContent = '縮小';
+  } else {
+    // 縮小処理
+    textarea.style.height = computedStyle.minHeight;
+    if (btn) btn.textContent = '拡張';
   }
 }
 
