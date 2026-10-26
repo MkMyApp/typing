@@ -706,7 +706,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // F2キーによる #custom の表示・非表示の切り替え
 function setupF2KeyListener() {
-  // capture: true を指定して確実にキーイベントを先取りします
   window.addEventListener('keydown', (e) => {
     if (e.key === 'F2') {
       e.preventDefault();
@@ -714,14 +713,8 @@ function setupF2KeyListener() {
 
       const customElem = document.getElementById('custom');
       if (customElem) {
-        // 現在の計算済みスタイルを取得
-        const currentDisplay = window.getComputedStyle(customElem).display;
-
-        if (currentDisplay === 'none') {
-          customElem.style.display = 'block'; // 表示にする
-        } else {
-          customElem.style.display = 'none'; // 非表示にする
-        }
+        const isHidden = window.getComputedStyle(customElem).display === 'none';
+        customDivDisplay(isHidden ? 'block' : 'none');
       }
     }
   }, true);
