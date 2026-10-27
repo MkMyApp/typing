@@ -1,7 +1,8 @@
 function joinQuery() {
 	const queryInput = document.getElementById('query');
-	const groups = document.querySelectorAll('.form-group');
-	let baseUrl = '';
+	// 修正: クラス指定のドット(.)を追加
+	const groups = document.querySelectorAll('.setval-group'); 
+	let baseUrl = document.getElementById('url').value;
 	const params = [];
 
 	groups.forEach(group => {
@@ -12,18 +13,10 @@ function joinQuery() {
 		const key = btn.textContent.trim();
 		let val = input.value;
 
-		if (key === 'query') return;
-
-		if (key === 'URL') {
-			if (val.trim() !== '') {
-				baseUrl = val.trim();
-			}
-		} else {
-			if (val !== '') {
-				// 改行コードのみを %0A に置換（日本語などはそのまま保持）
-				const formattedVal = val.replace(/\r?\n/g, '%0A');
-				params.push(key + '=' + formattedVal);
-			}
+		if (val !== '') {
+			// 改行コードのみを %0A に置換
+			const formattedVal = val.replace(/\r?\n/g, '%0A');
+			params.push(key + '=' + formattedVal);
 		}
 	});
 
@@ -36,6 +29,50 @@ function joinQuery() {
 	if (queryInput) {
 		queryInput.value = fullQuery;
 	}
+}
+
+function parseQuery() {
+	const queryInput = document.getElementById('query');
+	if (!queryInput || !queryInput.value.trim()) return;
+
+	let queryString = queryInput.value.trim();
+
+	if (queryString.startsWith('?') || queryString.startsWith('&')) {
+		queryString = queryString.substring(1);
+	}
+
+	const paramPairs = queryString.split('&');
+	const queryMap = {};
+
+	paramPairs.forEach(pair => {
+		if (!pair) return;
+		const equalIndex = pair.indexOf('=');
+		if (equalIndex !== -1) {
+			const key = pair.substring(0, equalIndex);
+			const val = pair.substring(equalIndex + 1);
+			
+			// %0A（および %0a）を改行コード \n に置換して保持
+			queryMap[key] = val.replace(/%0a/gi, '\n');
+		} else {
+			queryMap[pair] = '';
+		}
+	});
+
+	// 修正: .form-group から .setval-group に変更
+	const groups = document.querySelectorAll('.setval-group');
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input, .custom-textarea');
+		if (!btn || !input) return;
+
+		const key = btn.textContent.trim();
+
+		if (key === 'query') return;
+
+		if (Object.prototype.hasOwnProperty.call(queryMap, key)) {
+			input.value = queryMap[key];
+		}
+	});
 }
 
 // .txt ファイルを読み込んで query にセットする関数
@@ -115,50 +152,6 @@ function decodeQuery() {
 
 	// デコード済みの文字列を結合して query に書き戻す
 	queryInput.value = decodedParts.join('&');
-}
-
-// クエリ文字列を解析して各入力項目に再設定する関数
-function parseQuery() {
-	const queryInput = document.getElementById('query');
-	if (!queryInput || !queryInput.value.trim()) return;
-
-	let queryString = queryInput.value.trim();
-
-	if (queryString.startsWith('?') || queryString.startsWith('&')) {
-		queryString = queryString.substring(1);
-	}
-
-	const paramPairs = queryString.split('&');
-	const queryMap = {};
-
-	paramPairs.forEach(pair => {
-		if (!pair) return;
-		const equalIndex = pair.indexOf('=');
-		if (equalIndex !== -1) {
-			const key = pair.substring(0, equalIndex);
-			const val = pair.substring(equalIndex + 1);
-			
-			// %0A（および %0a）を改行コード \n に置換して保持
-			queryMap[key] = val.replace(/%0a/gi, '\n');
-		} else {
-			queryMap[pair] = '';
-		}
-	});
-
-	const groups = document.querySelectorAll('.form-group');
-	groups.forEach(group => {
-		const btn = group.querySelector('.custom-btn');
-		const input = group.querySelector('.custom-input, .custom-textarea');
-		if (!btn || !input) return;
-
-		const key = btn.textContent.trim();
-
-		if (key === 'query') return;
-
-		if (Object.prototype.hasOwnProperty.call(queryMap, key)) {
-			input.value = queryMap[key];
-		}
-	});
 }
 
 // query の内容を ファイル選択ダイアログを表示して保存する関数

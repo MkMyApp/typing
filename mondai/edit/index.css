@@ -5,7 +5,7 @@ body {
 	color: #333;
 }
 
-h1 {
+.header {
 	font-size: 32px;
 	margin: 0 0 24px 0;
 	padding-bottom: 8px;
@@ -15,6 +15,7 @@ h1 {
 .container {
   display: flex;
   gap: 10px;
+  margin-bottom: 12px;
 }
 
 .item {
@@ -27,7 +28,11 @@ img {
 }
 
 .form-group {
-	margin-bottom: 12px; /* 各行の間隔 */
+	margin-bottom: 12px;
+}
+
+.setval-group {
+	margin-bottom: 12px;
 }
 
 .action-btn {
