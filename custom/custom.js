@@ -407,17 +407,63 @@ function toLowerText() {
 // 半角スペースを全角スペースに置換
 function zenSpc() {
   const textArea = document.getElementById('txtdata');
-  // 半角スペースを全角スペースに置換
   textArea.value = textArea.value.replace(/ /g, '　');
 };
 
 // 全角スペースを半角スペースに置換
 function hanSpc() {
   const textArea = document.getElementById('txtdata');
-  // 全角スペースを半角スペースに置換
   textArea.value = textArea.value.replace(/　/g, ' ');
 };
 
+// カタカナを除外して半角文字を全角文字に置換
+function zenkaku() {
+  const textArea = document.getElementById('txtdata');
+  if (!textArea) return;
+
+  textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
+    // 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
+    const code = char.charCodeAt(0);
+    if (code >= 0x30a0 && code <= 0x30ff) {
+      return char;
+    }
+
+    // ASCIIの表示可能文字 ( 0x20 Space 〜 0x7E ~ ) を全角に変換
+    if (code >= 0x0020 && code <= 0x007e) {
+      if (code === 0x0020) return ' '; // 半角スペース -> 全角スペース
+      return String.fromCharCode(code + 0xfee0);
+    }
+
+    return char;
+  });
+}
+
+// カタカナを除外して全角文字を半角文字に置換
+function hankaku() {
+  const textArea = document.getElementById('txtdata');
+  if (!textArea) return;
+
+  textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
+    const code = char.charCodeAt(0);
+
+    // 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
+    if (code >= 0x30a0 && code <= 0x30ff) {
+      return char;
+    }
+
+    // 全角スペース ( U+3000 ) を半角スペースに変換
+    if (code === 0x3000) {
+      return ' ';
+    }
+
+    // 全角英数・記号 ( U+FF01 〜 U+FF5E ) を半角に変換
+    if (code >= 0xff01 && code <= 0xff5e) {
+      return String.fromCharCode(code - 0xfee0);
+    }
+
+    return char;
+  });
+}
 //重複する行を削除
 function dedupeLines() {
   const textarea = document.getElementById("txtdata");
@@ -569,9 +615,6 @@ window.addEventListener('DOMContentLoaded', () => {
 function toggleTextareaHeight(id) {
   const textarea = document.getElementById(id);
   if (!textarea) return;
-
-	// デフォルトの右クリックメニューの表示を無効化
-  event.preventDefault();
 
   // 現在の高さと最小高さを取得
   const computedStyle = window.getComputedStyle(textarea);

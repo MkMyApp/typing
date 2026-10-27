@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>難読漢字</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "難読漢字";
+const START_MSG = "Enter⏎";
+const INPUT_MSG = "かな 確認";
+const IME = "ON";
+const RANDOM = "5";
+const WIDTH = "21ch";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+昵懇の間柄
+忸怩たる思い
+喫緊の課題
+慚愧に堪えません
+就中
+忖度
+吝かではない
+序に
+微塵も
+些か
+徐に
+唆す
+弁える
+逼迫する
+螺子巻き
+繙く
+動もすれば
+設える
+謙る
+退っ引きならない
+偏に
+草臥れる
+杓文字
+杜撰
+予てより
+阿る
+慮る
+斥ける
+孑孑
+蝶番
+素見し
+玉蜀黍
+詳らか
+烏滸がましい
+約しい
+信天翁
+悴む
+芥子粒
+窘める
+</textarea>
+<!-------10--------20--------30--------40-->
+<script src="typing.js"></script>
+<div id="exp">
+昵懇の間柄,じっこん
+忸怩たる思い,じくじ
+喫緊の課題,きっきん
+慚愧に堪えません,ざんぎ
+就中,なかんづく
+忖度,そんたく
+吝かではない,やぶさか
+序に,ついで
+微塵も,みじん
+些か,いささ
+徐に,おもむろ
+唆す,そそのか
+弁える,わきま
+逼迫する,ひっぱく
+螺子巻き,ねじ
+繙く,ひもと
+動もすれば,やや
+設える,しつら
+謙る,へりくだ
+退っ引きならない,のっぴき
+偏に,ひとえ
+草臥れる,くたび
+杓文字,しゃもじ
+杜撰,ずさん
+予てより,かね
+阿る,おもね
+慮る,おもんぱか
+斥ける,しりぞける
+孑孑,ぼうふら
+蝶番,ちょうつがい
+素見し,ひやか
+玉蜀黍,とうもろこし
+詳らか,つまび
+烏滸がましい,おこ
+約しい,つま
+信天翁,あほうどり
+悴む,かじか
+芥子粒,けしつぶ
+窘める,たしな
+</div>
+<script>
+const exp = document.getElementById('exp');
+if (exp) { exp.textContent = exp.textContent.replace(/^\n/, ''); }
+//expNone();
+
+function expNone() {
+  if (exp) {
+    if (exp.style.display === "none") {
+      exp.style.display = "block";
+    } else {
+      exp.style.display = "none";
+    }
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F1') { 
+	  event.preventDefault();
+	  expNone();
+  } 
+  
+});
+</script>
+</body>
+</html>
