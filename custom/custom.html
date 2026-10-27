@@ -20,10 +20,8 @@
 		<label for="chkeditMod">EDIT</label>
 		<input id="chksaveMod" type="checkbox">
 		<label for="chksaveMod">HTML</label>
-		<input id="chkdl1Mod" type="checkbox">
-		<label for="chkdl1Mod">DL1</label>
-		<input id="chkdl2Mod" type="checkbox">
-		<label for="chkdl2Mod">DL2</label>
+		<input id="chkdlMod" type="checkbox">
+		<label for="chkdlMod">DL</label>
 	</div>
 <!------typing.jsデータ設定モジュール------------------------>
 	<div id="dataMod" class="contena">
@@ -41,7 +39,8 @@
 	  <button hidden class="sBtn" onclick=""></button><br>
 
 	  問題数：<input id="RANDOM">
-	  <button class="sBtn" onclick="countLines()">問題行数</button><br>
+		<button class="sBtn" onclick="countLines()" 
+    	oncontextmenu="toggleTextareaHeight('txtdata'); return false;">行数</button><br>
 
 	  文字幅：<input id="WIDTH">
 	  <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
@@ -97,7 +96,6 @@
         <button class="btn" onclick="dedupeLines()">重複</button>
         <button class="btn" onclick="sortByLength()">長順</button>
         <button class="btn" onclick="formatText()">整形</button>
-				<button class="btn" onclick="toggleTextareaHeight('txtdata', this)">拡張</button>
     </div>
 
     <div class="btnbox">
@@ -125,11 +123,9 @@
   </div>
 
 <!------ダウンロードモジュール------------------------>
-  <div id="dl1Mod" class="contena">
+  <div id="dlMod" class="contena">
     <a href="typing.js" class="DL">typing.js</a>
     <a href="style.css" class="DL">style.css</a>
-  </div>
-  <div id="dl2Mod" class="contena">
     <a href="custom.html" class="DL">custom.html</a>
     <a href="custom.css" class="DL">custom.css</a>
     <a href="custom.js" class="DL">custom.js</a>

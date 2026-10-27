@@ -183,11 +183,8 @@ body {
 #saveMod { display: none; }
 #custom:has(#chksaveMod:checked) #saveMod { display: block; }
 
-#dl1Mod  { display: none; }
-#custom:has(#chkdl1Mod:checked) #dl1Mod { display: block; }
-
-#dl2Mod  { display: none; }
-#custom:has(#chkdl2Mod:checked) #dl2Mod { display: block; }
+#dlMod  { display: none; }
+#custom:has(#chkdlMod:checked) #dlMod { display: block; }
 
 #custom {
   text-align: center;

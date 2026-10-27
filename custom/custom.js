@@ -546,7 +546,6 @@ function testPlay() {
 	customDivDisplay("none")
 }
 
-1
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById("TITLE_MSG").value = TITLE_MSG;
   document.getElementById("START_MSG").value = START_MSG;
@@ -567,9 +566,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // テキストエリア高さの拡張・縮小トグル処理
-function toggleTextareaHeight(id, btn) {
+function toggleTextareaHeight(id) {
   const textarea = document.getElementById(id);
   if (!textarea) return;
+
+	// デフォルトの右クリックメニューの表示を無効化
+  event.preventDefault();
 
   // 現在の高さと最小高さを取得
   const computedStyle = window.getComputedStyle(textarea);
@@ -580,12 +582,10 @@ function toggleTextareaHeight(id, btn) {
   if (Math.abs(currentHeight - minHeight) <= 5) {
     // 拡張処理
     textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-    if (btn) btn.textContent = '縮小';
+    textarea.style.height = (textarea.scrollHeight +20) + 'px';
   } else {
     // 縮小処理
     textarea.style.height = computedStyle.minHeight;
-    if (btn) btn.textContent = '拡張';
   }
 }
 
