@@ -214,6 +214,13 @@ async function saveQuery() {
 	}
 }
 
+function openDL(event) {
+    // ブラウザ標準の右クリックメニュー表示を防止
+    event.preventDefault();
+    // dl.html を新しいタブで開く
+    window.open('dl.html', '_blank');
+}
+
 function onlyURL(){
     const urlInput = document.getElementById('url');
     const finalUrl = urlInput.value;
