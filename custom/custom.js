@@ -662,7 +662,7 @@ const header = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
-<title>タイピング練習</title>
+<title>${titleMsg}</title>
 </head>
 <body>
 <div id="title"></div>
