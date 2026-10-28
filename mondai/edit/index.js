@@ -305,12 +305,7 @@ function getStorageKeyFromUrl() {
 /**
  * 右クリック時にフォームの入力内容を直接 localStorage に保存する関数
  */
-function saveToLocalStorage(event) {
-	// 右クリック時のコンテキストメニュー表示を無効化
-	if (event) {
-		event.preventDefault();
-	}
-
+function saveToLocalStorage() {
 	const groups = document.querySelectorAll('.setval-group');
 	const configData = {};
 
@@ -341,5 +336,7 @@ function saveToLocalStorage(event) {
 		localStorage.setItem(storageKey, JSON.stringify(configData));
 	} catch (e) {
 		alert("保存に失敗しました。");
+		return;
 	}
+	onlyURL();
 }
