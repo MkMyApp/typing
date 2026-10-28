@@ -404,17 +404,21 @@ function toLowerText() {
   textArea.value = textArea.value.toLowerCase();
 };
 
-// 半角スペースを全角スペースに置換
+// 全角スペース置換（半角スペース -> 全角スペース）
 function zenSpc() {
   const textArea = document.getElementById('txtdata');
-  textArea.value = textArea.value.replace(/ /g, '　');
-};
+  if (!textArea) return;
+  // \x20 : 半角スペース / \u3000 : 全角スペース
+  textArea.value = textArea.value.replace(/\x20/g, '\u3000');
+}
 
-// 全角スペースを半角スペースに置換
+// 半角スペース置換（全角スペース -> 半角スペース）
 function hanSpc() {
   const textArea = document.getElementById('txtdata');
-  textArea.value = textArea.value.replace(/　/g, ' ');
-};
+  if (!textArea) return;
+  // \u3000 : 全角スペース / \x20 : 半角スペース
+  textArea.value = textArea.value.replace(/\u3000/g, ' ');
+}
 
 // カタカナを除外して半角文字を全角文字に置換
 function zenkaku() {
@@ -430,7 +434,7 @@ function zenkaku() {
 
     // ASCIIの表示可能文字 ( 0x20 Space 〜 0x7E ~ ) を全角に変換
     if (code >= 0x0020 && code <= 0x007e) {
-      if (code === 0x0020) return ' '; // 半角スペース -> 全角スペース
+      if (code === 0x0020) return '\u3000'; // ← 半角スペースを全角スペースに変換
       return String.fromCharCode(code + 0xfee0);
     }
 
@@ -446,17 +450,17 @@ function hankaku() {
   textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
     const code = char.charCodeAt(0);
 
-    // 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
-    if (code >= 0x30a0 && code <= 0x30ff) {
-      return char;
-    }
-
-    // 全角スペース ( U+3000 ) を半角スペースに変換
+    // 1. 全角スペース ( U+3000 ) を優先して半角スペースに変換
     if (code === 0x3000) {
       return ' ';
     }
 
-    // 全角英数・記号 ( U+FF01 〜 U+FF5E ) を半角に変換
+    // 2. 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
+    if (code >= 0x30a0 && code <= 0x30ff) {
+      return char;
+    }
+
+    // 3. 全角英数・記号 ( U+FF01 〜 U+FF5E ) を半角に変換
     if (code >= 0xff01 && code <= 0xff5e) {
       return String.fromCharCode(code - 0xfee0);
     }
@@ -464,6 +468,7 @@ function hankaku() {
     return char;
   });
 }
+
 //重複する行を削除
 function dedupeLines() {
   const textarea = document.getElementById("txtdata");
