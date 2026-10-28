@@ -31,7 +31,7 @@ function getParam(key) {
   return null;
 }
 
-// localStorage のキー生成関数（抜け落ちていた関数を復元）
+// localStorage のキー生成関数
 function getStorageKey() {
   const path = window.location.pathname;
   const filename = path.substring(path.lastIndexOf('/') + 1);

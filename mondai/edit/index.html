@@ -13,13 +13,13 @@
 	<div class="item">
 		<div class="form-group">
 			URL<br>
-			<button class="custom-btn" onclick="onlyURL()">URL</button>
+			<button class="custom-btn" onclick="onlyURL()"
+				oncontextmenu="saveToLocalStorage(); return false;">URL</button>
 			<input id="url" class="custom-input" value="edit.html">
 		</div>
-
 		<div class="form-group">
 			クエリ<br>
-			<button class="custom-btn" onclick="openURL()">query</button>
+			<button class="custom-btn" onclick="openURL()">OPEN</button>
 			<input id="query" class="custom-input" value="">
 			<br>
 			<div id="btn-group">
@@ -57,7 +57,7 @@
 
 		<div class="setval-group">
 			画像ソースを設定<br>
-			<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')" oncontextmenu="openDL(event)">img</button>
+			<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')" oncontextmenu="openDL(); return false;">img</button>
 			<input type="text" class="custom-input" id="imgInput" 
 						list="imgList"
 			      onfocus="this.value=''" onchange="this.blur()">

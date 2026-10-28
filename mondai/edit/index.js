@@ -214,9 +214,7 @@ async function saveQuery() {
 	}
 }
 
-function openDL(event) {
-    // ブラウザ標準の右クリックメニュー表示を防止
-    event.preventDefault();
+function openDL() {
     // dl.html を新しいタブで開く
     window.open('dl.html', '_blank');
 }
@@ -285,4 +283,63 @@ function setMaxLength() {
   const resultWidth = (maxLen + 5) + "ch";
   // 文字幅のinputに代入
   document.getElementById("WIDTH").value = resultWidth;
+}
+
+/**
+ * url入力欄からストレージキー（例: CustomConfig_edit）を生成する関数
+ */
+function getStorageKeyFromUrl() {
+	const urlInput = document.getElementById('url');
+	let targetUrl = urlInput ? urlInput.value.trim() : 'edit.html';
+
+	// クエリパラメータやハッシュを除外
+	targetUrl = targetUrl.split('?')[0].split('#')[0];
+
+	// ファイル名を取得
+	const filename = targetUrl.substring(targetUrl.lastIndexOf('/') + 1) || 'edit.html';
+	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
+
+	return `CustomConfig_${baseName}`;
+}
+
+/**
+ * 右クリック時にフォームの入力内容を直接 localStorage に保存する関数
+ */
+function saveToLocalStorage(event) {
+	// 右クリック時のコンテキストメニュー表示を無効化
+	if (event) {
+		event.preventDefault();
+	}
+
+	const groups = document.querySelectorAll('.setval-group');
+	const configData = {};
+
+	// HTML上のボタン名と edit.js のキー構造をマッピング
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input, .custom-textarea');
+		if (!btn || !input) return;
+
+		const key = btn.textContent.trim();
+		const val = input.value;
+
+		switch (key) {
+			case 't':   configData.TITLE_MSG = val; break;
+			case 's':   configData.START_MSG = val; break;
+			case 'm':   configData.INPUT_MSG = val; break;
+			case 'ime': configData.IME       = val; break;
+			case 'rnd': configData.RANDOM    = val; break;
+			case 'w':   configData.WIDTH     = val; break;
+			case 'img': configData.imgSrc    = val; break;
+			case 'txt': configData.TXTDATA   = val; break;
+		}
+	});
+
+	const storageKey = getStorageKeyFromUrl();
+
+	try {
+		localStorage.setItem(storageKey, JSON.stringify(configData));
+	} catch (e) {
+		alert("保存に失敗しました。");
+	}
 }
