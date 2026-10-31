@@ -219,6 +219,11 @@ function openDL() {
     window.open('dl.html', '_blank');
 }
 
+function openClear() {
+    // clear.html を新しいタブで開く
+    window.open('clear.html', '_blank');
+}
+
 function onlyURL(){
     const urlInput = document.getElementById('url');
     const finalUrl = urlInput.value;
@@ -340,3 +345,91 @@ function saveToLocalStorage() {
 	}
 	onlyURL();
 }
+
+// --------------------------------------------------
+// クエリパラメータ & ローカルストレージの読み込み処理
+// --------------------------------------------------
+
+// URLのクエリパラメータを取得する関数
+function getIndexParam(key) {
+	const urlParams = new URLSearchParams(window.location.search);
+	if (!urlParams.has(key)) return null;
+
+	const val = urlParams.get(key);
+	if (val !== null) {
+		try {
+			return decodeURIComponent(val);
+		} catch (e) {
+			return val;
+		}
+	}
+	return null;
+}
+
+// ページ読み込み時にクエリまたはlocalStorageから値をフォームに反映する関数
+function loadSavedOrQueryParams() {
+	const storageKey = getStorageKeyFromUrl();
+	let savedConfig = {};
+
+	// localStorage の読み込み
+	try {
+		const savedStr = localStorage.getItem(storageKey);
+		if (savedStr) {
+			savedConfig = JSON.parse(savedStr);
+		}
+	} catch (e) {
+		console.error("設定データの読み込みに失敗しました", e);
+	}
+
+	// キーマッピング（クエリ名 / localStorageのキー / DOM要素の指定方法）
+	const paramMap = [
+		{ key: 't',   storeKey: 'TITLE_MSG', selector: '#title' },
+		{ key: 'txt', storeKey: 'TXTDATA',   selector: '#txtdata' },
+		{ key: 'w',   storeKey: 'WIDTH',     selector: '#WIDTH' },
+		{ key: 'img', storeKey: 'imgSrc',    selector: '#imgInput' },
+		{ key: 's',   storeKey: 'START_MSG', selector: '.setval-group:has(.custom-btn:contains("s")) .custom-input', btnText: 's' },
+		{ key: 'm',   storeKey: 'INPUT_MSG', selector: '', btnText: 'm' },
+		{ key: 'ime', storeKey: 'IME',       selector: '', btnText: 'ime' },
+		{ key: 'rnd', storeKey: 'RANDOM',    selector: '#RANDOM' }
+	];
+
+	// 画面上の全 setval-group を取得して各要素に割り当てる
+	const groups = document.querySelectorAll('.setval-group');
+
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input, .custom-textarea');
+		if (!btn || !input) return;
+
+		const btnKey = btn.textContent.trim();
+
+		// 対応する設定を特定
+		const configDef = paramMap.find(item => item.key === btnKey);
+		if (!configDef) return;
+
+		// 優先順位：URLクエリ > localStorage
+		let rawVal = getIndexParam(configDef.key) ?? savedConfig[configDef.storeKey];
+
+		if (rawVal !== undefined && rawVal !== null) {
+			// 改行コード（%0A等）の復元処理
+			if (typeof rawVal === 'string') {
+				try {
+					let decoded = decodeURIComponent(rawVal);
+					if (decoded.includes('%0A') || decoded.includes('%0a')) {
+						decoded = decoded.replace(/%0a/gi, '\n');
+					}
+					rawVal = decoded;
+				} catch (e) {
+					rawVal = rawVal.replace(/%250A/gi, '\n').replace(/%0A/gi, '\n');
+				}
+			}
+			input.value = rawVal;
+		}
+	});
+}
+
+// ページ読み込み完了時に実行
+window.addEventListener('DOMContentLoaded', () => {
+	loadSavedOrQueryParams();
+});
+
