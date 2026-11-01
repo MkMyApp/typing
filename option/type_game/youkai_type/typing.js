@@ -125,20 +125,21 @@ function buildSchedule(){
 
   return list
 }
+
 function showFinalResult(){
+  // 1. 計算
   const sec = (endTime - startTime) / 1000;
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0;
-
-  // 最終スコアを表示
-  resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`;
-  resultEl.dataset.status = '';
-
-  setAlignMode('center');
-  
   const accuracy = targetLengthTotal > 0 
-    ? Math.round(correctChars / targetLengthTotal * 100) : 0
-  targetEl.textContent = `${accuracy}%`
+    ? Math.round(correctChars / targetLengthTotal * 100) : 0;
 
+  // 2. スタイル・状態のリセット
+  resultEl.dataset.status = '';
+  setAlignMode('center');
+
+  // 3. テキスト描画
+  resultEl.textContent = `${totalChars}ch  ${accuracy}%  ${sec.toFixed(2)}sec`;
+  targetEl.textContent = `${cpm}cpm`;
   editorEl.value = START_MSG;
 }
 
