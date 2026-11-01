@@ -116,6 +116,14 @@ window.addEventListener('keydown', (event) => {
   } 
 });
 
+// F2キー：edit.html を別タブで開く
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'F2') {
+    event.preventDefault();
+    window.open('edit.html', '_blank');
+  }
+});
+
 // DOM読み込み完了後の各種UI制御
 window.addEventListener('DOMContentLoaded', () => {
   // 画像要素のセットアップ
