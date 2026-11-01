@@ -132,13 +132,14 @@ function showFinalResult(){
   const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0;
   const accuracy = targetLengthTotal > 0 
     ? Math.round(correctChars / targetLengthTotal * 100) : 0;
+	const score = Math.round(cpm * Math.pow((accuracy / 100), 3));
 
   // 2. スタイル・状態のリセット
   resultEl.dataset.status = '';
   setAlignMode('center');
 
   // 3. テキスト描画
-  resultEl.textContent = `${totalChars}ch  ${accuracy}%  ${sec.toFixed(2)}sec`;
+  resultEl.textContent = `${totalChars}ch  ${accuracy}%  ${sec.toFixed(0)}sec`;
   targetEl.textContent = `${cpm}cpm`;
   editorEl.value = START_MSG;
 }
