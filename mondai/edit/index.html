@@ -1,103 +1,30 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="index.css">
-<title>タイピング練習を作る</title>
-<script src="index.js"></script>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>問題編集</title>
 </head>
 <body>
-<div class="header">タイピング練習を作る</div>
-<div class="container">
-	<div class="item">
-		<div class="form-group">
-			URL<br>
-			<button class="custom-btn" onclick="saveToLocalStorage()"
-				oncontextmenu="onlyURL(); return false;">URL</button>
-			<input id="url" class="custom-input" value="edit.html">
-		</div>
-		<div class="form-group">
-			クエリ<br>
-			<button class="custom-btn" onclick="openURL()">OPEN</button>
-			<input id="query" class="custom-input" value="">
-			<br>
-			<div id="btn-group">
-				<button class="action-btn" onclick="clearQuery()"
-					oncontextmenu="openClear(); return false;">CLEAR</button>
-				<button class="action-btn" onclick="joinQuery()">JOIN</button>
-				<br>
-				<button class="action-btn" onclick="decodeQuery()">DECODE</button>
-				<button class="action-btn" onclick="parseQuery()">PARSE</button>
-				<br>
-				<button class="action-btn" onclick="loadQuery()">LOAD</button>
-				<button class="action-btn" onclick="saveQuery()">SAVE</button>
-			</div>
-		</div>
-	</div>
-
-	<div class="item">
-		<div class="setval-group">
-			タイトル<br>
-			<button class="custom-btn">t</button>
-			<input id="title" class="custom-input" value="問題タイトル">
-		</div>
-
-		
-		<div class="setval-group">
-			問題文字列<br>
-			<button class="custom-btn" onclick="window.open('editor.html', '_blank')">txt</button>
-			<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
-		</div>
-
-		<div class="setval-group">
-			問題表示幅<br>
-			<button class="custom-btn" onclick="setMaxLength()">w</button>
-			<input id="WIDTH" class="custom-input" value="20ch">
-		</div>
-
-		<div class="setval-group">
-			画像ソースを設定<br>
-			<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')" oncontextmenu="openDL(); return false;">img</button>
-			<input type="text" class="custom-input" id="imgInput" 
-						list="imgList"
-			      onfocus="this.value=''" onchange="this.blur()">
-
-			<datalist id="imgList">
-			  <option value="no.png">なし</option>
-			  <option value="かな.png">ひらがな</option>
-			  <option value="大文字.png">英数大文字</option>
-			  <option value="小文字.png">英数小文字</option>
-			  <option value="AIUEO.png">ローマ字AIUEO</option>
-			</datalist>
-		</div>
-	</div>
-
-	<div class="item">
-		<div class="setval-group">
-			スタートメッセージ<br>
-			<button class="custom-btn">s</button>
-			<input class="custom-input" value="Enter⏎">
-		</div>
-
-		<div class="setval-group">
-			確認メッセージ<br>
-			<button class="custom-btn">m</button>
-			<input class="custom-input" value="英数 かな">
-		</div>
-
-		<div class="setval-group">
-			off:Enter on:Shift+Enter<br>
-			<button class="custom-btn">ime</button>
-			<input class="custom-input" value="on">
-		</div>
-
-		<div class="setval-group">
-			出題数 0:順番<br>
-			<button class="custom-btn" onclick="countLines()">rnd</button>
-			<input id="RANDOM" class="custom-input" value="0">
-		</div>
-	</div>
-</div>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+let TITLE_MSG ;// = "タイトル";
+let START_MSG ;// = "Enter⏎";
+let INPUT_MSG ;// = "英数 かな";
+let IME ;// = "on"; // on Shift+Enter off Enter
+let RANDOM ;// = "10" ;// 出題数　0:全問順次
+let WIDTH ;// = "20ch";// 入力幅 全角は2倍
+let TXTDATA ;// ="あいうえお";   // 問題文字列
+let imgSrc ;//  ="no.png";// 画像ソースを設定
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" style="display:none"></textarea>
+<!---5----10---15---20---25---30---35---40--->
+<br><img src="" id="img" style="width:640px;">
+<script src="config.js"></script>
+<script src="typing.js"></script>
 </body>
 </html>
