@@ -1,86 +1,8 @@
-:root {
-  /* 背景画像ありの定義 url("filename") 画像なしは　none */
-  --body-background-image: none;
+/* ===================================================
+   custom.css
+   =================================================== */
 
-  /* --- カラー設定 --- */
-  --body-background-color: #ffffff;
-  --body-color: #000000;
-  
-  --title-color: #808080;
-  --score-color: #808080;
-
-  --score-correct-color: #8080f0;
-  --score-wrong-color: #f08080;
-
-  --char-default-color: #000000;
-  --char-correct-color: #8080f0;
-  --char-wrong-color: #f08080;
-
-  --target-back-color: #f0f0f0;
-  --editor-back-color: #f0f0ff;
-
-  --border-color: #c0c0c0;
-  --shadow-color: #d0d0d0;
-  
-  /* --- レイアウト設定 --- */
-  --line-width: 800px;
-  --line-font-size: 64px;
-  --line-height: 1.2;
-  --line-padding-x: 12px;
-
-  --line-border: 2px solid var(--border-color);
-  --line-shadow: 0 2px 5px var(--shadow-color);
-}
-
-body {
-  font-family: sans-serif;
-  text-align: center;
-  margin: 50px;
-  background-color: var(--body-background-color);
-  color: var(--body-color);
- 
-  /* 背景画像の設定 */
-  background-image: var(--body-background-image);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-#title {
-  font-family: sans-serif;
-  font-size: 2em;
-  font-weight: bold;
-  color: var(--title-color);
-  margin-bottom: 6px;
-}
-
-#result {
-  font-family: sans-serif;
-  font-size: 2em;
-  font-weight: bold;
-  margin: 15px 0 30px;
-  color: var(--score-color);
-}
-
-/* --- スコア欄の判定カラー --- */
-#result[data-status="correct"] {
-  color: var(--score-correct-color);
-}
-#result[data-status="wrong"] {
-  color: var(--score-wrong-color);
-}
-
-.line {
-  width: var(--line-width);
-  margin: 10px auto;
-  box-sizing: border-box;
-  font-family: monospace;
-  font-size: var(--line-font-size);
-  line-height: var(--line-height);
-}
-
-/* 共通のスタイル */
+/* #target, #editor, #txtdata への適用範囲拡張・上書き */
 #target, #editor, #txtdata {
   font-family: monospace;
   font-size: var(--line-font-size);
@@ -93,7 +15,6 @@ body {
   box-shadow: var(--line-shadow);
 }
 
-/* 共通（#editor と #txtdata） */
 #editor, #txtdata {
   display: block;
   width: var(--line-width);
@@ -103,55 +24,28 @@ body {
   height: calc(1em * var(--line-height) + 20px);
 }
 
-/* 個別のスタイル */
-#target {
-  background: var(--target-back-color);
-  white-space: pre;
-}
-
-#editor {
-  background: var(--editor-back-color);
-  overflow: hidden;
-  resize: none;
-}
-
+/* 問題データ入力用 (#txtdata) のサイズ・スタイル定義 */
 #txtdata {
-  background-color: var(--body-background-color);
-  overflow: auto;
-  resize: both;
-}
-
-#exp, #dl {
-  white-space: pre-wrap;
-  text-align: left;
-  width: 500px;
-  padding: 20px;
-  margin: 50px auto;
+  font-family: monospace;
+  font-size: 20px;
+  line-height: 1.4;
+  padding: 8px 12px;
   border: var(--line-border);
-  background-color: var(--body-background-color);
-  color: var(--body-color);
-  font-size: 1em;
-  line-height: 1.5em;
-  cursor: pointer;
-}
-
-/* --- JS切り替え・クラス指定用 --- */
-.align-center {
-  text-align: center !important;
-}
-.align-left {
-  text-align: left !important;
-}
-
-.char-default {
   color: var(--char-default-color);
+  text-align: left;
+  background-color: var(--body-background-color);
+  width: var(--line-width);
+  height: 160px;
+  box-sizing: border-box;
+  outline: none;
+  overflow: auto;
+  resize: vertical;
+  margin: 10px auto;
+  display: block;
 }
-.char-correct {
-  color: var(--char-correct-color);
-}
-.char-wrong {
-  color: var(--char-wrong-color);
-}
+
+
+/* --- custom.css 独自の追加レイアウト・モジュール表示切り替え --- */
 
 .contena {
   font-size: 24px;
@@ -173,7 +67,7 @@ body {
   margin-bottom: 10px;
 }
 
-/*モジュール非表示（デフォルト非表示 / チェックで表示） */
+/* モジュール非表示（デフォルト非表示 / チェックで表示） */
 #dataMod { display: none; }
 #custom:has(#chkdataMod:checked) #dataMod { display: block; }
 
@@ -214,14 +108,16 @@ body {
   margin-left: 10px;
 }
 
+/* カスタマイズパネル内の textarea (HTML保存モジュール用など) */
 #custom textarea {
   display: block;
   font-size: 20px;
+  line-height: 1.4;
   width: 52ch;
   min-width: 120px;
   height: 120px;
   min-height: 120px;
-  margin-top: 0px;
+  margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 0px;
   box-sizing: border-box;
@@ -232,6 +128,7 @@ body {
   border: 1px solid #c0c0c0;
   background: #ffffff;
   text-align: left;
+  resize: both;
 }
 
 .ruler {
@@ -259,7 +156,7 @@ body {
 }
 
 .sBtn {
-font-family: monospace;
+  font-family: monospace;
   font-size: 20px;
   width: 100px;
   height: 40px;
@@ -279,14 +176,14 @@ font-family: monospace;
 
 .radiobox {
   display: block;
-  margin-left:10px;
+  margin-left: 10px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
 .radio-label {
   display: inline-flex;
-  width:36px;
+  width: 36px;
   align-items: center;
   gap: 4px;            /* ボタンと文字の間隔 */
   font-size: 18px;     /* 記号 ( , : | \ ) のサイズ */
@@ -294,10 +191,11 @@ font-family: monospace;
   margin-bottom: 0px;
 }
 
-  /* Spc と Tab だけサイズを下げてバランスを調整 */
-  .radio-label.small {
-    font-size: 12px;     /* 単語 (Spc, Tab) のサイズ */
-  }
+/* Spc と Tab だけサイズを下げてバランスを調整 */
+.radio-label.small {
+  font-size: 12px;
+}
+
 .radio-label input[type="radio"] {
   width: 12px !important;
   height: 10px !important;
@@ -307,30 +205,24 @@ font-family: monospace;
 
 .DL {
   font-size: 16px;
-  margin-right:20px;
+  margin-right: 20px;
   text-decoration: none;
 }
 
 .DL a {
-		color:blue;
-    text-decoration: none;
+  color: blue;
+  text-decoration: none;
 }
 
-.DL a:link{
-  color:b;ie;
+.DL a:link {
+  color: blue;
 }
 
 .DL a:visited {
   color: purple;
 }
 
-.DL a {
-		color:blue;
-    text-decoration: none;
-}
-
 .DL a:hover {
-		color:red;
-    text-decoration: underline;
+  color: red;
+  text-decoration: underline;
 }
-

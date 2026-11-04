@@ -401,10 +401,16 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof RANDOM    !== 'undefined') document.getElementById("RANDOM").value = Number(RANDOM);
   if (typeof WIDTH     !== 'undefined') document.getElementById("WIDTH").value = WIDTH;
 
-  // typing.js で hide/none にされた txtdata を再表示
+  // txtdata の表示状態と幅の設定
   const txtdataArea = document.getElementById("txtdata");
   if (txtdataArea) {
     txtdataArea.style.display = "block";
+    if (typeof WIDTH !== 'undefined') {
+      txtdataArea.style.width = WIDTH;
+	    txtdataArea.style.fontSize = '20px';
+	    txtdataArea.style.width = '52ch';
+
+    }
   }
 
   // 空白等の整形
