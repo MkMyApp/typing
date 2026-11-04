@@ -1,270 +1,13 @@
-const titleEl  = document.getElementById('title')
-const targetEl = document.getElementById('target')
-const editorEl = document.getElementById('editor')
-const resultEl = document.getElementById('result')
+'use strict';
 
-let words = []
-let schedule = []
-let qIndex = 0
+/* ==========================================================================
+   custom.js - エディタ・教材作成・テキスト加工用スクリプト
+   ※ タイピング実行コアは typing.js 側に依存
+   ========================================================================== */
 
-let currentWord = ''
-let correct = 0
-let correctChars = 0
-let targetLengthTotal = 0
-let total = 0
-let limit = 0
-
-let startTime = 0
-let endTime = 0
-let totalChars = 0
-
-let typeStarted = false
-let composing = false
-let finished = false
-
-function esc(s){
-  return String(s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/\>/g, '&gt;')
-}
-
-function typed(){
-  return editorEl.value.replace(/\n/g, '')
-}
-
-function updateScore(status = ''){
-  resultEl.textContent = `${correct} / ${qIndex} / ${limit}`
-  resultEl.dataset.status = status; 
-}
-
-function shuffle(array){
-  for(let i = array.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
-
-function colorize(answer, user){
-  const a = [...answer]
-  const u = [...user]
-
-  let html = ''
-
-  for(let i = 0; i < a.length; i++){
-    const ca = a[i]
-    const cu = u[i]
-
-    let cls = 'char-default'
-    if(cu !== undefined){
-      cls = (cu === ca) ? 'char-correct' : 'char-wrong'
-    }
-
-    html += `<span class="${cls}">${esc(ca)}</span>`
-  }
-
-  targetEl.innerHTML = html
-}
-
-function setAlignMode(mode){
-  if(mode === 'center'){
-    targetEl.classList.add('align-center');
-    targetEl.classList.remove('align-left');
-    editorEl.classList.add('align-center');
-    editorEl.classList.remove('align-left');
-  } else {
-    targetEl.classList.add('align-left');
-    targetEl.classList.remove('align-center');
-    editorEl.classList.add('align-left');
-    editorEl.classList.remove('align-center');
-  }
-}
-
-function showStart(){
-  targetEl.textContent = START_MSG
-  setAlignMode('center')
-
-  editorEl.value = ''
-  editorEl.placeholder = INPUT_MSG
-  
-  correct = 0
-  total = 0
-  qIndex = 0
-  updateScore()
-
-  editorEl.focus()
-}
-
-function buildSchedule(){
-  if (words.length === 0) return []
-
-  // RANDOMが未設定（0以下）の場合はそのまま全件リストを返す
-  if (typeof RANDOM === 'undefined' || RANDOM <= 0) {
-    return words.map((_, i) => i)
-  }
-
-  const list = []
-
-  // RANDOMの指定数に達するまでループして追加
-  while (list.length < RANDOM) {
-    // 全問題のインデックス配列を作成してシャッフル（1周分）
-    const round = shuffle(words.map((_, i) => i))
-    
-    // RANDOMを超えないように必要な分だけ切り取って結合
-    const needed = RANDOM - list.length
-    list.push(...round.slice(0, needed))
-  }
-
-  return list
-}
-function showFinalResult(){
-  const sec = (endTime - startTime) / 1000
-  const cpm = sec > 0 ? Math.round(totalChars / sec * 60) : 0
-
-  // 最終スコアを表示
-  resultEl.textContent = `${totalChars}ch  ${sec.toFixed(2)}sec  ${cpm}cpm`
-  resultEl.dataset.status = ''
-
-  setAlignMode('center')
-  
-  const accuracy = targetLengthTotal > 0 
-    ? Math.round(correctChars / targetLengthTotal * 100) : 0
-  targetEl.textContent = `${accuracy}%`
-
-  editorEl.value = START_MSG
-}
-
-function nextWord(){
-  if(qIndex >= schedule.length){
-    typeStarted = false
-    finished = true
-    endTime = performance.now()
-
-    showFinalResult()
-
-    editorEl.placeholder = ''
-    editorEl.focus()
-    return
-  }
-
-  currentWord = words[schedule[qIndex]]
-  qIndex++
-
-  editorEl.value = ''
-  colorize(currentWord, '')
-
-  setAlignMode('left')
-  editorEl.focus()
-}
-
-function startType(){
-  finished = false
-  editorEl.placeholder = ''
-  schedule = buildSchedule()
-  limit = schedule.length
-  qIndex = 0
-  correct = 0
-  correctChars = 0
-  targetLengthTotal = 0
-  total = 0
-  totalChars = 0
-  startTime = performance.now()
-
-  updateScore()
-
-  typeStarted = true
-  nextWord()
-}
-
-function judgeCurrentWord(){
-  const userTyped = typed()
-  const targetWord = currentWord
-  const u = [...userTyped]
-  const a = [...targetWord]
-
-  let currentCorrectChars = 0
-
-  for(let i = 0; i < u.length; i++){
-    if(u[i] === a[i]){
-      currentCorrectChars++
-    }
-  }
-
-  total++
-  totalChars += u.length
-  
-  targetLengthTotal += Math.max(u.length, a.length)
-  correctChars += currentCorrectChars
-
-  if(userTyped === targetWord){
-    correct++
-    updateScore('correct')
-  }else{
-    updateScore('wrong')
-  }
-
-  nextWord()
-}
-
-function loadWords(text){
-  words = text
-    .replace(/^\uFEFF/, '')
-    .replace(/\r\n?/g, '\n')
-    .split('\n')
-    .map(s => s.trim())
-    .filter(Boolean)
-}
-
-editorEl.addEventListener('compositionstart', () => {
-  composing = true
-})
-
-editorEl.addEventListener('compositionend', () => {
-  composing = false
-})
-
-editorEl.addEventListener('input', () => {
-  if(!typeStarted) return
-  colorize(currentWord, typed())
-})
-
-editorEl.addEventListener('keydown', e => {
-
-  const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-
-  if (!typeStarted) {
-    if (e.key === 'Enter' && !e.isComposing) {
-      e.preventDefault();
-      if (finished) {
-        finished = false;
-        showStart();
-      } else {
-        startType();
-        editorEl.value = '';
-      }
-    }
-    return;
-  }
-
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    
-    const isImeOff = (typeof IME !== 'undefined' && IME === 'OFF');
-    
-    if (isImeOff || isMobile) {
-      judgeCurrentWord();
-    } else {
-      if (e.shiftKey) {
-        judgeCurrentWord();
-      }
-    }
-  }
-});
-
-// ファイルを開く
-async function loadText(){
-  try{
+// --- 外部ファイル読み込み (File System Access API) ---
+async function loadText() {
+  try {
     const [handle] = await window.showOpenFilePicker({
       types: [{
         description: "Text Files",
@@ -276,19 +19,17 @@ async function loadText(){
     const text = await file.text();
 
     document.getElementById("txtdata").value = text;
-
-  }catch(e){
-    console.log(e);
+  } catch (e) {
+    console.log("ファイル読み込みがキャンセルされました", e);
   }
 }
 
-// ダイアログを開いて保存する
+// --- 単体テキスト保存 ---
 async function saveText() {
-	let currentFileName = "temp.txt";
+  let currentFileName = "temp.txt";
   const text = document.getElementById("txtdata").value;
 
   try {
-    // 常にファイル保存ダイアログを開く
     const handle = await window.showSaveFilePicker({
       suggestedName: currentFileName,
       types: [{
@@ -297,75 +38,60 @@ async function saveText() {
       }]
     });
 
-    // 書き込み処理
     const writable = await handle.createWritable();
     await writable.write(text);
     await writable.close();
-    
   } catch (e) {
-    // ユーザーがキャンセルした場合
     console.log("保存がキャンセルされました", e);
   }
 }
 
+// --- テキスト置換・変換ツール群 ---
 function replaceText() {
   const fromStr = document.getElementById('fromChars').value;
   const toStr = document.getElementById('toChars').value;
   const textArea = document.getElementById('txtdata');
 
-  // 変換元が空の場合は処理しない
-  if (fromStr === '') {return;}
-
-  //replaceAllを使用して一致するすべての文字列を置換
+  if (fromStr === '') return;
   textArea.value = textArea.value.replaceAll(fromStr, toStr);
 }
 
 function convert() {
-    const fromStr = document.getElementById('fromChars').value;
-    const toStr = document.getElementById('toChars').value;
+  const fromStr = document.getElementById('fromChars').value;
+  const toStr = document.getElementById('toChars').value;
 
-    // 文字数の一致判定
-    if (fromStr.length !== toStr.length) { return; }
+  if (fromStr.length !== toStr.length) return;
 
-    // マッピング作成
-    const map = {};
-    for (let i = 0; i < fromStr.length; i++) {
-        map[fromStr[i]] = toStr[i];
-    }
+  const map = {};
+  for (let i = 0; i < fromStr.length; i++) {
+    map[fromStr[i]] = toStr[i];
+  }
 
-    // 変換実行
-    const input = document.getElementById('txtdata').value;
-    const output = input.split('').map(char => map[char] || char).join('');
-    document.getElementById('txtdata').value = output;
+  const input = document.getElementById('txtdata').value;
+  const output = input.split('').map(char => map[char] || char).join('');
+  document.getElementById('txtdata').value = output;
 }
 
-// ラジオボタンから安全に区切り文字（separator）を取得する共通関数
 function getSelectedSeparator() {
   const selectedRadio = document.querySelector('input[name="sepchr"]:checked');
   if (!selectedRadio) return " ";
 
   let val = selectedRadio.value;
-
-  // HTMLのvalue属性からの取得結果に応じたエスケープ文字の安全な処理
   if (val === '\\t' || val === '\t') {
     return '\t';
   }
   return val;
 }
 
-// 分割処理（選択した区切り文字で区切って改行にする）
 function repText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
   if (!text) return;
 
   const separator = getSelectedSeparator();
-
-  // 正規表現の特殊文字（| や \ や ? など）をエスケープ
   const escapedSep = separator.replace(/([.*+?^${}()|[\]\\])/g, '\\$1');
   const regex = new RegExp(escapedSep, 'g');
 
-  // 指定の区切り文字を改行に置換し、各行のトリムと空行除去を行う
   const replacedText = text
     .replace(regex, '\n')
     .split(/\r?\n/)
@@ -376,15 +102,12 @@ function repText() {
   textArea.value = replacedText;
 }
 
-// 結合処理（改行区切りのテキストを選択した区切り文字で1行にする）
 function catText() {
   const textArea = document.getElementById('txtdata');
   const text = textArea.value;
   if (!text) return;
 
   const separator = getSelectedSeparator();
-
-  // 改行で分割し、前後の無駄な空白を取り除いて空行を排除してから結合
   const lines = text.split(/\r?\n/);
   const replacedText = lines
     .map(line => line.trim())
@@ -397,99 +120,70 @@ function catText() {
 function toUpperText() {
   const textArea = document.getElementById('txtdata');
   textArea.value = textArea.value.toUpperCase();
-};
+}
 
 function toLowerText() {
   const textArea = document.getElementById('txtdata');
   textArea.value = textArea.value.toLowerCase();
-};
+}
 
-// 全角スペース置換（半角スペース -> 全角スペース）
 function zenSpc() {
   const textArea = document.getElementById('txtdata');
   if (!textArea) return;
-  // \x20 : 半角スペース / \u3000 : 全角スペース
   textArea.value = textArea.value.replace(/\x20/g, '\u3000');
 }
 
-// 半角スペース置換（全角スペース -> 半角スペース）
 function hanSpc() {
   const textArea = document.getElementById('txtdata');
   if (!textArea) return;
-  // \u3000 : 全角スペース / \x20 : 半角スペース
   textArea.value = textArea.value.replace(/\u3000/g, ' ');
 }
 
-// カタカナを除外して半角文字を全角文字に置換
 function zenkaku() {
   const textArea = document.getElementById('txtdata');
   if (!textArea) return;
 
   textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
-    // 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
     const code = char.charCodeAt(0);
-    if (code >= 0x30a0 && code <= 0x30ff) {
-      return char;
-    }
-
-    // ASCIIの表示可能文字 ( 0x20 Space 〜 0x7E ~ ) を全角に変換
+    if (code >= 0x30a0 && code <= 0x30ff) return char;
     if (code >= 0x0020 && code <= 0x007e) {
-      if (code === 0x0020) return '\u3000'; // ← 半角スペースを全角スペースに変換
+      if (code === 0x0020) return '\u3000';
       return String.fromCharCode(code + 0xfee0);
     }
-
     return char;
   });
 }
 
-// カタカナを除外して全角文字を半角文字に置換
 function hankaku() {
   const textArea = document.getElementById('txtdata');
   if (!textArea) return;
 
   textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
     const code = char.charCodeAt(0);
-
-    // 1. 全角スペース ( U+3000 ) を優先して半角スペースに変換
-    if (code === 0x3000) {
-      return ' ';
-    }
-
-    // 2. 全角カタカナ ( Unicode: U+30A0 〜 U+30FF ) はそのまま返す
-    if (code >= 0x30a0 && code <= 0x30ff) {
-      return char;
-    }
-
-    // 3. 全角英数・記号 ( U+FF01 〜 U+FF5E ) を半角に変換
+    if (code === 0x3000) return ' ';
+    if (code >= 0x30a0 && code <= 0x30ff) return char;
     if (code >= 0xff01 && code <= 0xff5e) {
       return String.fromCharCode(code - 0xfee0);
     }
-
     return char;
   });
 }
 
-//重複する行を削除
 function dedupeLines() {
   const textarea = document.getElementById("txtdata");
-  
-  // 改行コードの統一と行分割
   const lines = textarea.value.replace(/\r\n/g, '\n').split('\n');
   const seen = new Set();
   const result = [];
 
   for (const line of lines) {
-    // 空白行はそのまま追加、そうでなければ重複チェック
     if (line.trim() === '' || !seen.has(line)) {
       result.push(line);
       seen.add(line);
     }
   }
-
   textarea.value = result.join('\n');
 }
 
-//文字列の長さ順にソート
 function sortByLength() {
   const el = document.getElementById('txtdata');
   const lines = el.value.split('\n').filter(line => line.trim() !== '');
@@ -497,12 +191,9 @@ function sortByLength() {
   el.value = lines.join('\n');
 }
 
-// テキストを整形する処理
 function formatText() {
   const el = document.getElementById('txtdata');
   let text = el.value;
-
-//text = text.replaceAll("\t", "  ");
   text = text.replace(/^[ \t\u3000]+/gm, "");
   text = text.replace(/[ \t\u3000]+$/gm, "");
   el.value = text.trim();
@@ -520,45 +211,30 @@ function setFont() {
   }
 }
 
-// 行数をカウントして問題数(input)に設定する関数
 function countLines() {
   const txtdata = document.getElementById("txtdata").value;
-  
-  // 改行で分割して配列にする
   const lines = txtdata.split('\n');
-  
-  // 空白を除いた純粋な問題行だけを数える場合（おすすめ）
   const validLines = lines.filter(line => line.trim() !== "");
-  
-  // もし空行も含めて完全に改行の数で数えたい場合は、下の1行のコメントアウトを解除
-  // const validLines = lines;
-
-  // 問題数のinputに件数を反映
   document.getElementById("RANDOM").value = validLines.length;
 }
 
-// 文字列の半角換算での長さを返す関数（全角=2, 半角=1）
 function getByteLength(str) {
   let length = 0;
   for (let i = 0; i < str.length; i++) {
-    // シフトJIS換算などで全角になる文字コードの判定（簡易版）
     if (str.charCodeAt(i) >= 0x0020 && str.charCodeAt(i) <= 0x007e) {
-      length += 1; // 半角
+      length += 1;
     } else {
-      length += 2; // 全角
+      length += 2;
     }
   }
   return length;
 }
 
-// 最長行の文字数を判定して、(最長値 + 5) + "ch" をinputに代入する関数
 function setMaxLength() {
   const txtdata = document.getElementById("txtdata").value;
   const lines = txtdata.split('\n');
-  
   let maxLen = 0;
-  
-  // 各行の長さを半角換算で比較し、最大のものを探す
+
   lines.forEach(line => {
     const currentLen = getByteLength(line);
     if (currentLen > maxLen) {
@@ -566,98 +242,78 @@ function setMaxLength() {
     }
   });
 
-  // 数値 + 5 に "ch" をつける
   const resultWidth = (maxLen + 5) + "ch";
-
-  // 文字幅のinputに代入
   document.getElementById("WIDTH").value = resultWidth;
 }
 
+// --- 設定反映 & typing.js 側へのリセット指示 ---
 function updateSettings() {
-	TITLE_MSG = document.getElementById("TITLE_MSG").value;
-	START_MSG = document.getElementById("START_MSG").value;
-	INPUT_MSG = document.getElementById("INPUT_MSG").value;
-	RANDOM    = Number(document.getElementById("RANDOM").value);
-	WIDTH     = document.getElementById("WIDTH").value;
-  IME       = document.getElementById("IME").value;
-	init();
-	typeStarted = false;
-	document.getElementById("editor").focus();
+  window.TITLE_MSG = document.getElementById("TITLE_MSG").value;
+  window.START_MSG = document.getElementById("START_MSG").value;
+  window.INPUT_MSG = document.getElementById("INPUT_MSG").value;
+  window.RANDOM    = Number(document.getElementById("RANDOM").value);
+  window.WIDTH     = document.getElementById("WIDTH").value;
+  window.IME       = document.getElementById("IME").value;
+
+  // typing.js の init() を実行して再読み込み
+  if (typeof init === 'function') {
+    init();
+  }
+  if (typeof typeStarted !== 'undefined') {
+    typeStarted = false;
+  }
+  document.getElementById("editor").focus();
 }
 
 function customDivDisplay(mode) {
-	const customDiv = document.getElementById("custom");
-	if (customDiv) {
-		customDiv.style.display = mode;
-	}
+  const customDiv = document.getElementById("custom");
+  if (customDiv) {
+    customDiv.style.display = mode;
+  }
 }
 
 function testPlay() {
-	updateSettings();
-	customDivDisplay("none")
+  updateSettings();
+  customDivDisplay("none");
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById("TITLE_MSG").value = TITLE_MSG;
-  document.getElementById("START_MSG").value = START_MSG;
-  document.getElementById("INPUT_MSG").value = INPUT_MSG;
-  document.getElementById("IME").value = IME;
-  document.getElementById("RANDOM").value = Number(RANDOM);
-  document.getElementById("WIDTH").value = WIDTH;
-
-  const txtdata = document.getElementById("txtdata");
-  formatText();
-
-  if (txtdata && txtdata.value.trim() !== "") {
-    updateSettings();
-    customDivDisplay("none");
-  } else {
-    updateSettings();
-  }
-});
-
-// テキストエリア高さの拡張・縮小トグル処理
 function toggleTextareaHeight(id) {
   const textarea = document.getElementById(id);
   if (!textarea) return;
 
-  // 現在の高さと最小高さを取得
   const computedStyle = window.getComputedStyle(textarea);
   const currentHeight = Math.round(parseFloat(computedStyle.height));
   const minHeight = Math.round(parseFloat(computedStyle.minHeight));
 
-  // 最小高さ付近であれば拡張、それ以外（拡張済み）であれば縮小
   if (Math.abs(currentHeight - minHeight) <= 5) {
-    // 拡張処理
     textarea.style.height = 'auto';
-    textarea.style.height = (textarea.scrollHeight +20) + 'px';
+    textarea.style.height = (textarea.scrollHeight + 20) + 'px';
   } else {
-    // 縮小処理
     textarea.style.height = computedStyle.minHeight;
   }
 }
 
 function clrText(id) {
-	const textArea = document.getElementById(id);
-	textArea.value = "";
-	adjustTextareaHeight(id);
+  const textArea = document.getElementById(id);
+  textArea.value = "";
+  if (typeof adjustTextareaHeight === 'function') {
+    adjustTextareaHeight(id);
+  }
 }
 
+// --- スタンドアロン HTML 出力合成機能 ---
 function composeText() {
-// 1. 各項目の値を取得
-const titleMsg = document.getElementById('TITLE_MSG').value;
-const startMsg = document.getElementById('START_MSG').value;
-const inputMsg = document.getElementById('INPUT_MSG').value;
-const randomVal = document.getElementById('RANDOM').value;
-const widthVal = document.getElementById('WIDTH').value;
-const imeVal = document.getElementById('IME').value;
+  const titleMsg = document.getElementById('TITLE_MSG').value;
+  const startMsg = document.getElementById('START_MSG').value;
+  const inputMsg = document.getElementById('INPUT_MSG').value;
+  const randomVal = document.getElementById('RANDOM').value;
+  const widthVal = document.getElementById('WIDTH').value;
+  const imeVal = document.getElementById('IME').value;
 
-// 2. テキストエリアの要素を取得
-const textArea = document.getElementById('txtdata');
-const textComp = document.getElementById('txtComp');
+  const textArea = document.getElementById('txtdata');
+  const textComp = document.getElementById('txtComp');
 
-// 3. 各パーツを定義
-const header = `<!doctype html>
+  const header = `<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -671,7 +327,7 @@ const header = `<!doctype html>
 <textarea id="editor" class="line" spellcheck="false"></textarea>
 `;
 
-const configText = `<script>
+  const configText = `<script>
 const TITLE_MSG = "${titleMsg}";
 const START_MSG = "${startMsg}";
 const INPUT_MSG = "${inputMsg}";
@@ -681,78 +337,42 @@ const WIDTH = "${widthVal}";
 <\/script>
 `;
 
-const scaleText = `<!-------10--------20--------30--------40-->\n` 
-const headText = `<textarea id="txtdata" hidden>\n`;
-let textVal = textArea.value;
-if (textVal.length > 0 && !textVal.endsWith('\n')) {textVal += '\n';}
-const footText = `</textarea>\n`;
+  const scaleText = `<!-------10--------20--------30--------40-->\n`;
+  const headText = `<textarea id="txtdata" hidden>\n`;
+  let textVal = textArea.value;
+  if (textVal.length > 0 && !textVal.endsWith('\n')) { textVal += '\n'; }
+  const footText = `</textarea>\n`;
 
-const footer = `<script src="typing.js"></script>\n</body>\n</html>\n`;
+  const footer = `<script src="typing.js"><\/script>\n</body>\n</html>\n`;
 
+  textComp.value = header + configText + scaleText + headText + textVal + footText + scaleText + footer;
 
-// 4. 全てを連結して出力
-textComp.value = header + configText + scaleText + headText + textVal + footText + scaleText + footer;
-
-adjustTextareaHeight('txtComp');
+  if (typeof adjustTextareaHeight === 'function') {
+    adjustTextareaHeight('txtComp');
+  }
 }
 
-// ダイアログを開いて保存する
 async function saveFile() {
   const text = document.getElementById("txtComp").value;
 
   try {
-    // 常にファイル保存ダイアログを開く
     const handle = await window.showSaveFilePicker({
-      suggestedName: "type.html", // ここを修正しました
+      suggestedName: "type.html",
       types: [{
         description: "Text Files",
         accept: { "text/plain": [".html"] }
       }]
     });
 
-    // 書き込み処理
     const writable = await handle.createWritable();
     await writable.write(text);
     await writable.close();
-
   } catch (e) {
-    // ユーザーがキャンセルした場合
     console.log("保存がキャンセルされました", e);
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  const txtdataArea = document.getElementById("txtdata");
-
-  if (txtdataArea) {
-    // ドラッグオーバー
-    txtdataArea.addEventListener("dragover", function(e) {
-      e.preventDefault();
-    });
-
-    // ドロップ処理
-    txtdataArea.addEventListener("drop", async function(e) {
-      e.preventDefault();
-      
-      const files = e.dataTransfer.files;
-      if (files.length === 0) return;
-      const file = files[0];
-
-      // テキスト形式、または拡張子が .txt か .html の場合のみ受け付ける
-      if (!file.type.startsWith("text/") && !file.name.match(/\.(txt|html)$/)) {
-        alert("テキストファイル（.txt / .html）のみ対応しています");
-        return;
-      }
-
-      // ファイルをテキストとして読み込み
-      const text = await file.text();
-      txtdataArea.value = text;
-
-    });
-  }
-});
-
-// F2キーによる #custom の表示・非表示の切り替え
+// --- ショートカットキー（F2）設定 ---
 function setupF2KeyListener() {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'F2') {
@@ -768,33 +388,52 @@ function setupF2KeyListener() {
   }, true);
 }
 
-function init(){
+// --- 初期化イベント登録 ---
+window.addEventListener('DOMContentLoaded', () => {
+  // F2キーのショートカットキーを登録
+  setupF2KeyListener();
 
-  let TITLE;
-  if (typeof TITLE_MSG !== 'undefined') {
-    TITLE = TITLE_MSG;
-    document.title = TITLE;
-  } else {
-    TITLE = document.title;
+  // HTML上の要素に設定初期値を反映
+  if (typeof TITLE_MSG !== 'undefined') document.getElementById("TITLE_MSG").value = TITLE_MSG;
+  if (typeof START_MSG !== 'undefined') document.getElementById("START_MSG").value = START_MSG;
+  if (typeof INPUT_MSG !== 'undefined') document.getElementById("INPUT_MSG").value = INPUT_MSG;
+  if (typeof IME       !== 'undefined') document.getElementById("IME").value = IME;
+  if (typeof RANDOM    !== 'undefined') document.getElementById("RANDOM").value = Number(RANDOM);
+  if (typeof WIDTH     !== 'undefined') document.getElementById("WIDTH").value = WIDTH;
+
+  // typing.js で hide/none にされた txtdata を再表示
+  const txtdataArea = document.getElementById("txtdata");
+  if (txtdataArea) {
+    txtdataArea.style.display = "block";
   }
 
-  titleEl.textContent = TITLE
+  // 空白等の整形
+  formatText();
 
-  document.documentElement.style.setProperty('--line-width', WIDTH)
-
-  loadWords(document.getElementById('txtdata').value)
-
-  if (typeof RANDOM !== 'undefined' && RANDOM > 0) {
-    limit = RANDOM
+  // 初期化と表示切替
+  if (txtdataArea && txtdataArea.value.trim() !== "") {
+    updateSettings();
+    customDivDisplay("none");
   } else {
-    limit = words.length
+    updateSettings();
   }
 
-  showStart()
+  // ドラッグ＆ドロップによるファイル読み込み
+  if (txtdataArea) {
+    txtdataArea.addEventListener("dragover", (e) => e.preventDefault());
+    txtdataArea.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      const files = e.dataTransfer.files;
+      if (files.length === 0) return;
+      const file = files[0];
 
-  setTimeout(() => editorEl.focus(), 0)
-}
+      if (!file.type.startsWith("text/") && !file.name.match(/\.(txt|html)$/)) {
+        alert("テキストファイル（.txt / .html）のみ対応しています");
+        return;
+      }
 
-setupF2KeyListener();
-init();
-
+      const text = await file.text();
+      txtdataArea.value = text;
+    });
+  }
+});
