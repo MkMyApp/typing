@@ -251,36 +251,38 @@ editorEl.addEventListener('input', () => {
 editorEl.addEventListener('keydown', e => {
 
   const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-
-  if (!typeStarted) {
-    if (e.key === 'Enter' && !e.isComposing) {
-      e.preventDefault();
-      if (finished) {
-        finished = false;
-        showStart();
-      } else {
-        startType();
-        editorEl.value = '';
-      }
-    }
-    return;
-  }
+  const isImeOff = (typeof IME !== 'undefined' && IME.toLowerCase() === 'off');
 
   if (e.key === 'Enter') {
-    e.preventDefault();
-    
-    const isImeOff = (typeof IME !== 'undefined' && IME.toLowerCase() === 'off');
-    
-    if (isImeOff || isMobile) {
-      judgeCurrentWord();
-    } else {
-      if (e.shiftKey) {
-        judgeCurrentWord();
+
+    // 1. タイピング開始前の処理
+    if (!typeStarted) {
+      // 改行の挿入を常にキャンセル
+      e.preventDefault();
+
+      // isImeOffならEnter単体、それ以外（IME有効）ならShift+Enter
+      const isTriggerKey = isImeOff || e.shiftKey;
+
+      if (isTriggerKey && !e.isComposing) {
+        if (finished) {
+          finished = false;
+          showStart();
+        } else {
+          startType();
+          editorEl.value = '';
+        }
       }
+      return;
+    }
+
+    // 2. タイピング中の判定処理
+    e.preventDefault();
+
+    if (isImeOff || isMobile || e.shiftKey) {
+      judgeCurrentWord();
     }
   }
 });
-
 function init(){
 	words = [];
   schedule = [];
