@@ -141,7 +141,9 @@ function showFinalResult(){
   // 3. テキスト描画
   resultEl.textContent = `${totalChars}ch  ${accuracy}%  ${sec.toFixed(0)}sec`;
   targetEl.textContent = `${cpm}cpm`;
-  editorEl.value = START_MSG;
+
+  editorEl.value = ''
+  editorEl.placeholder = START_MSG;
 }
 
 function nextWord(){
@@ -151,8 +153,6 @@ function nextWord(){
     endTime = performance.now();
 
     showFinalResult();
-
-    editorEl.placeholder = '';
     editorEl.focus();
     return;
   }
@@ -260,8 +260,8 @@ editorEl.addEventListener('keydown', e => {
       // 改行の挿入を常にキャンセル
       e.preventDefault();
 
-      // isImeOffならEnter単体、それ以外（IME有効）ならShift+Enter
-      const isTriggerKey = isImeOff || e.shiftKey;
+      // isImeOffならEnter単体、それ以外（IME有効）ならShiftCtrlAlt+Enter
+			const isTriggerKey = isImeOff || e.shiftKey || e.ctrlKey || e.altKey;
 
       if (isTriggerKey && !e.isComposing) {
         if (finished) {
@@ -278,9 +278,9 @@ editorEl.addEventListener('keydown', e => {
     // 2. タイピング中の判定処理
     e.preventDefault();
 
-    if (isImeOff || isMobile || e.shiftKey) {
-      judgeCurrentWord();
-    }
+		if (isImeOff || isMobile || e.shiftKey || e.ctrlKey || e.altKey) {
+		  judgeCurrentWord();
+		}
   }
 });
 function init(){
