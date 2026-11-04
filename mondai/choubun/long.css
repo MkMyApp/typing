@@ -4,11 +4,16 @@
   --box-font-size: 24px;
   --line-height: 1.5;
 
-  --char-default-color  : #333333;
-  --char-correct-color  : #0000F0;
-  --char-wrongfont-color: #FFFFFF;
-  --char-wrongback-color: #FF0000;
-  --char-enter-color    : #FFFFFF;
+  /* 文字色・背景色の定義 */
+  --char-default-color:   #333333; /* 未入力（黒） */
+  --char-correct-color:   #0000f0; /* 確定：正解（青） */
+  --char-wrong-color:     #ff0000; /* 確定：ミス（赤文字） */
+  
+  /* 入力・変換中（未確定）のスタイル：背景色 淡い青色 / 文字色 黒 */
+  --char-composing-color: #000000; 
+  --char-composing-bg:    #e6f0ff; 
+
+  --char-enter-color:     #FFFFFF;
   --char-enterback-color: #8080FF;
 
   /* 文字数 × 1ch ＋ 左右のパディング(15px * 2) */
@@ -38,7 +43,7 @@ body {
   font-family: monospace; 
 }
 
-/* 共通枠組み[cite: 4] */
+/* 共通枠組み */
 .box {
   display: block;
   width: var(--box-width);
@@ -55,11 +60,8 @@ body {
   text-align: left;
 
   /* 折返しルールを完全統一 */
-  /* 改行コードを保持し、幅に合わせて自動折り返し */
   white-space: pre-wrap;
-  /* 英単語の途中でも幅に達したら強制的に改行 */
   word-break: break-all;
-  /* はみ出しによるスクロールバーを出さない */
   overflow-x: hidden;
 
   /* スクロール機能は維持しつつ非表示 */
@@ -87,20 +89,35 @@ body {
   outline: none;
   resize: none;
 }
+
+/* 未入力 */
 .char-default {
-	color: var(--char-default-color);
+  color: var(--char-default-color);
 }
+
+/* 確定：正解（文字色：青） */
 .char-correct {
-	color: var(--char-correct-color);
+  color: var(--char-correct-color);
+  background-color: transparent;
 }
+
+/* 確定：ミス（文字色：赤） */
 .char-wrong {
-	color: var(--char-wrongfont-color);
-	background-color: var(--char-wrongback-color);
+  color: var(--char-wrong-color);
+  background-color: transparent;
 }
+
+/* 入力・変換中（未確定：背景色 淡い青色 / 文字色 黒） */
+.char-composing {
+  color: var(--char-composing-color);
+  background-color: var(--char-composing-bg);
+  border-bottom: 2px solid #0055ff; /* IME入力中であることが分かりやすいように下線を追加 */
+}
+
 .char-newline {
   opacity: 0.8;
   font-size: 0.9em;
-  color:var(--char-enter-color);
-  background-color:var(--char-enterback-color);
+  color: var(--char-enter-color);
+  background-color: var(--char-enterback-color);
   user-select: none;
 }

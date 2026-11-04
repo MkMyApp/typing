@@ -1,0 +1,292 @@
+'use strict'
+
+const txtdataEl = document.getElementById('txtdata')
+const targetEl  = document.getElementById('target')
+const editorEl  = document.getElementById('editor')
+const resultEl  = document.getElementById('result')
+
+let targetText = ''
+let startTime = 0
+let isStarted = false
+let isFinished = false
+let isComposing = false // IME変換中フラグ
+
+// 全角英数字・全角スペース・記号を半角に変換する関数
+function toHalfWidth(str) {
+  return str.normalize('NFKC')
+    .replace(/[‐－―ー]/g, '-')
+}
+
+function applyBoxConfig() {
+  const rootStyle = document.documentElement.style
+
+  // 言語モード（lang）による折り返しスタイルの切り替え
+  const boxes = [txtdataEl, targetEl, editorEl]
+  const isEnglish = (typeof lang !== 'undefined' && lang === 'e')
+
+  boxes.forEach(box => {
+    if (box) {
+      box.style.wordBreak = isEnglish ? 'normal' : 'break-all'
+      box.style.overflowWrap = isEnglish ? 'break-word' : 'normal'
+    }
+  })
+
+  // フォントサイズの設定（未設定時はデフォルト20px）
+  const fontSizePx = (typeof font !== 'undefined') ? parseFloat(font) : 20
+  rootStyle.setProperty('--box-font-size', (typeof font !== 'undefined') ? font : '20px')
+
+  // 1ch（半角1文字の目安幅 ≒ fontSize * 0.6）と 1lh（行高 ≒ fontSize * 1.5）から幅・高さをピクセル計算
+  if (typeof box_x !== 'undefined') {
+    const chWidth = fontSizePx * 0.6
+    const calculatedWidth = Math.round(box_x * chWidth + 30) // パディング左右15px * 2
+    rootStyle.setProperty('--box-width', `${calculatedWidth}px`)
+  }
+
+  if (typeof box_y !== 'undefined') {
+    const lineHeight = fontSizePx * 1.5
+    const calculatedHeight = Math.round(box_y * lineHeight + 30) // パディング上下15px * 2
+    rootStyle.setProperty('--box-height', `${calculatedHeight}px`)
+  }
+
+  // mode による配置と非表示の切り替え
+  if (typeof mode !== 'undefined') {
+    let container = document.getElementById('box-container')
+    if (!container) {
+      container = document.createElement('div')
+      container.id = 'box-container'
+      targetEl.parentNode.insertBefore(container, targetEl)
+      container.appendChild(targetEl)
+      container.appendChild(editorEl)
+    }
+
+    container.style.display = 'flex'
+    container.style.justifyContent = 'center'
+    container.style.alignItems = 'center'
+
+    if (mode === 'h') {
+      container.style.flexDirection = 'row'
+      container.style.gap = '20px'
+      txtdataEl.style.display = 'none'
+      targetEl.style.display = 'block'
+      editorEl.style.display = 'block'
+    }
+
+    if (mode === 'v') {
+      container.style.flexDirection = 'column'
+      container.style.gap = '10px'
+      txtdataEl.style.display = 'none'
+      targetEl.style.display = 'block'
+      editorEl.style.display = 'block'
+    }
+
+    if (mode === 't') {
+      const showLF = (typeof LF !== 'undefined') && Boolean(LF)
+      container.style.flexDirection = 'column'
+      container.style.gap = '10px'
+      txtdataEl.style.display = 'block'
+      editorEl.style.display = 'none'
+      if (showLF) {
+        targetEl.style.display = 'block'
+      } else {
+        targetEl.style.display = 'none'
+      }
+    }
+  }
+}
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+function colorize() {
+  // IME入力中（未確定状態）の場合は判定・描画を行わない
+  if (isComposing) {
+    return
+  }
+
+  const answer = [...targetText]
+  const user = [...editorEl.value]
+  let html = ''
+
+  // LF が定義されていて、かつ true（または 1 など）の場合のみ showLF を true にする
+  const showLF = (typeof LF !== 'undefined') && Boolean(LF)
+
+  for (let i = 0; i < answer.length; i++) {
+    const ca = answer[i]
+    const cu = user[i]
+    let cls = 'char-default'
+
+    if (cu !== undefined) {
+      cls = (cu === ca) ? 'char-correct' : 'char-wrong'
+    }
+
+    if (ca === '\n') {
+      // showLF が true のときのみ ⏎ マークを表示
+      if (showLF) {
+        html += `<span class="${cls} char-newline">⏎</span>\n`
+      } else {
+        html += '\n'
+      }
+    } else {
+      html += `<span class="${cls}">${esc(ca)}</span>`
+    }
+  }
+  targetEl.innerHTML = html
+}
+
+function resetToStart() {
+  isStarted = false
+  isFinished = false
+  isComposing = false
+  editorEl.disabled = false
+  
+  let rawText = txtdataEl.value
+  if (typeof lang !== 'undefined' && lang === 'e') {
+    rawText = toHalfWidth(rawText)
+  }
+
+  targetText = rawText.trim()
+  resultEl.textContent = `${targetText.length}ch`
+  editorEl.value = ''
+  editorEl.placeholder = 'キーを押すとスタート\nShift+Enterで完了'
+
+  colorize()
+  editorEl.focus()
+}
+
+function startTyping() {
+  isStarted = true
+  isFinished = false
+  editorEl.placeholder = '測定中 ESCキーでリセット'
+  startTime = performance.now()
+}
+
+function finish() {
+  isStarted = false
+  isFinished = true
+  const endTime = performance.now()
+  const sec = (endTime - startTime) / 1000
+  const userText = editorEl.value
+  
+  let correctChars = 0
+  const minLen = Math.min(targetText.length, userText.length)
+  for (let i = 0; i < minLen; i++) {
+    if (targetText[i] === userText[i]) correctChars++
+  }
+
+  const accuracy = targetText.length > 0 
+    ? Math.round((correctChars / targetText.length) * 100) 
+    : 0
+  const cpm = sec > 0 ? Math.round((userText.length / sec) * 60) : 0
+
+  resultEl.textContent = `${userText.length}ch ${sec.toFixed(1)}sec  ${accuracy}% ${cpm}cpm`
+  editorEl.focus()
+}
+
+txtdataEl.addEventListener('input', () => {
+  let rawText = txtdataEl.value
+  if (typeof lang !== 'undefined' && lang === 'e') {
+    rawText = toHalfWidth(rawText)
+  }
+  targetText = rawText.trim()
+  colorize()
+})
+
+// IME変換開始
+editorEl.addEventListener('compositionstart', () => {
+  isComposing = true
+})
+
+// IME変換確定（Enter押下などで文字が確定したタイミング）
+editorEl.addEventListener('compositionend', () => {
+  isComposing = false
+
+  if (!isStarted && !isFinished) {
+    startTyping()
+  }
+
+  if (isStarted) {
+    colorize()
+  }
+})
+
+// テキスト入力時の処理（IME OFFの直接入力やバックスペース処理など）
+editorEl.addEventListener('input', (e) => {
+  if (isComposing || e.isComposing) {
+    return
+  }
+
+  if (!isStarted && !isFinished) {
+    startTyping()
+  }
+
+  if (isStarted) {
+    colorize()
+  }
+})
+
+editorEl.addEventListener('keydown', e => {
+  if (e.isComposing || e.keyCode === 229) return
+
+  // Esc キーでリスタート
+  if (e.key === 'Escape') {
+    e.preventDefault()
+    resetToStart()
+  }
+
+  // タイピング中：Shift+Enter で判定終了
+  if (isStarted) {
+    if (e.key === 'Enter' && e.shiftKey) {
+      e.preventDefault()
+      finish()
+      return
+    }
+  }
+})
+
+function init() {
+  applyBoxConfig()
+  resetToStart()
+}
+
+// 直前の boxX, boxY を保持する変数
+let lastBoxX = null
+let lastBoxY = null
+
+const resizeObserver = new ResizeObserver(() => {
+  // 1. フォントサイズと行高を取得
+  const computed = window.getComputedStyle(txtdataEl)
+  const fontSize = parseFloat(computed.fontSize) || 20
+  const lineHeight = parseFloat(computed.lineHeight) || (fontSize * 1.5)
+
+  // 2. 実質コンテンツ幅・高さを取得
+  const contentWidth = txtdataEl.clientWidth - 30
+  const contentHeight = txtdataEl.clientHeight - 30
+
+  // 3. box_x / box_y を計算
+  const chWidth = fontSize * 0.6
+  const boxX = Math.round(contentWidth / chWidth)
+  const boxY = Math.round(contentHeight / lineHeight)
+
+  // 4. 前回と値が変わったときのみ CSS 変数とテキストを更新（ループ防止）
+  if (boxX !== lastBoxX || boxY !== lastBoxY) {
+    lastBoxX = boxX
+    lastBoxY = boxY
+
+    resultEl.textContent = `box_x = ${boxX}; box_y = ${boxY};`
+
+    // ピクセル換算してCSS変数へ反映（または applyBoxConfig 相当の計算式）
+    const calculatedWidth = Math.round(boxX * chWidth + 30)
+    const calculatedHeight = Math.round(boxY * lineHeight + 30)
+
+    const rootStyle = document.documentElement.style
+    rootStyle.setProperty('--box-width', `${calculatedWidth}px`)
+    rootStyle.setProperty('--box-height', `${calculatedHeight}px`)
+  }
+})
+
+if (typeof mode !== 'undefined' && mode === 't') {
+  resizeObserver.observe(txtdataEl)
+}
+
+init()

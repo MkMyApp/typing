@@ -9,6 +9,7 @@ let targetText = ''
 let startTime = 0
 let isStarted = false
 let isFinished = false
+let isComposing = false // IME変換中フラグ
 
 // 全角英数字・全角スペース・記号を半角に変換する関数
 function toHalfWidth(str) {
@@ -85,10 +86,10 @@ function applyBoxConfig() {
       txtdataEl.style.display = 'block'
       editorEl.style.display = 'none'
       if (showLF) {
-	      targetEl.style.display = 'block'
-  		} else {
-	      targetEl.style.display = 'none'
-  		}
+        targetEl.style.display = 'block'
+      } else {
+        targetEl.style.display = 'none'
+      }
     }
   }
 }
@@ -99,23 +100,34 @@ function esc(s) {
 
 function colorize() {
   const answer = [...targetText]
-  const user = [...editorEl.value]
+  const userFull = editorEl.value
+  
+  // IME入力中（未確定）の場合は、キャレット位置（selectionStart）より手前の確定済みテキストのみを抽出
+  let confirmedText = userFull
+  if (isComposing) {
+    const start = editorEl.selectionStart
+    confirmedText = userFull.slice(0, start)
+  }
+
+  const userConfirmed = [...confirmedText]
   let html = ''
 
-  // LF が定義されていて、かつ true（または 1 など）の場合のみ showLF を true にする
   const showLF = (typeof LF !== 'undefined') && Boolean(LF)
 
   for (let i = 0; i < answer.length; i++) {
     const ca = answer[i]
-    const cu = user[i]
+    const cu = userConfirmed[i]
     let cls = 'char-default'
 
-    if (cu !== undefined) {
+    if (i < userConfirmed.length) {
+      // 確定済み部分：正誤判定（正解：青 / ミス：赤）
       cls = (cu === ca) ? 'char-correct' : 'char-wrong'
+    } else if (isComposing && i === userConfirmed.length) {
+      // 変換入力中の対象位置（次の1文字）に変換中スタイル（背景淡青・文字黒）を適用
+      cls = 'char-composing'
     }
 
     if (ca === '\n') {
-      // showLF が true のときのみ ⏎ マークを表示
       if (showLF) {
         html += `<span class="${cls} char-newline">⏎</span>\n`
       } else {
@@ -131,6 +143,7 @@ function colorize() {
 function resetToStart() {
   isStarted = false
   isFinished = false
+  isComposing = false
   editorEl.disabled = false
   
   let rawText = txtdataEl.value
@@ -185,14 +198,41 @@ txtdataEl.addEventListener('input', () => {
   colorize()
 })
 
-editorEl.addEventListener('input', () => {
-  // 文字入力があった瞬間に未スタートなら自動で計測開始
+// IME変換開始
+editorEl.addEventListener('compositionstart', () => {
+  isComposing = true
+})
+
+// IME変換中（かな入力・変換候補の移動など）
+editorEl.addEventListener('compositionupdate', () => {
+  if (!isStarted && !isFinished) {
+    startTyping()
+  }
+  colorize()
+})
+
+// IME変換確定（Enterキー等で確定）
+editorEl.addEventListener('compositionend', () => {
+  isComposing = false
+
   if (!isStarted && !isFinished) {
     startTyping()
   }
 
   if (isStarted) {
     colorize()
+  }
+})
+
+// 直接入力（半角英数等）や削除時
+editorEl.addEventListener('input', (e) => {
+  if (!isComposing) {
+    if (!isStarted && !isFinished) {
+      startTyping()
+    }
+    if (isStarted) {
+      colorize()
+    }
   }
 })
 
