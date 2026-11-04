@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="long.css">
+  <title>長文</title>
+</head>
+<body>
+<div id="title">長文</div>
+<div id="result"></div>
+<script>
+  const box_x = 50;
+  const box_y = 16;
+  const font  = '20px';
+  const LF  = true;//改行マーク⏎表示
+  const lang  = 'j';//e英文　j日本語
+	//折り返しスタイルの切り替え
+  const mode = 'h';
+  //'t'確認'v'縦並び 'h' 横並び
+</script>
+
+<textarea id="txtdata" class="box" spellcheck="false">
+蜜柑の皮をきれいに剥くには、いくつかのコツがあります。まず、蜜柑を手のひらで全体的に優しく揉みほぐします。こうすることで皮と実の間に隙間ができ、剥きやすくなります。次に、ヘタのついている方とは反対側の底の部分から爪を立て、中心に向かって切れ目を入れます。
+切れ目を入れたら、放射状に四方へ均等に皮を開いていきます。このとき、皮を一気に引っ張らず、実の表面に沿わせるように慎重に剥がすのがポイントです。また、皮を途中で千切らずに綺麗に残しておくと、最後にごみとしてまとめる際にも散らからず、後片付けが非常に楽になります。
+実の表面に残った白い筋は「アルベド」と呼ばれ、栄養が豊富に含まれています。しかし、口当たりを重視したい場合は、水に溶かした重曹やクエン酸液に軽く浸すことで、綺麗に取り除くことができます。丁寧に仕上げた美しい果実を並べれば、普段のおやつも少し贅沢な気分で楽しむことができるでしょう。
+</textarea>
+
+<div id="box-container">
+	<div id="target" class="box"></div>
+	<textarea id="editor" class="box" placeholder="" spellcheck="false"></textarea>
+</div>
+
+<script src="long.js"></script>
+</body>
+</html>
