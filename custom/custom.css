@@ -2,8 +2,7 @@
    custom.css
    =================================================== */
 
-/* #target, #editor, #txtdata への適用範囲拡張・上書き */
-#target, #editor, #txtdata {
+#monData {
   font-family: monospace;
   font-size: var(--line-font-size);
   line-height: var(--line-height);
@@ -15,7 +14,7 @@
   box-shadow: var(--line-shadow);
 }
 
-#editor, #txtdata {
+#monData {
   display: block;
   width: var(--line-width);
   margin: 10px auto;
@@ -24,8 +23,8 @@
   height: calc(1em * var(--line-height) + 20px);
 }
 
-/* 問題データ入力用 (#txtdata) のサイズ・スタイル定義 */
-#txtdata {
+/* 問題データ入力用 (#monData) のサイズ・スタイル定義 */
+#monData {
   font-family: monospace;
   font-size: 20px;
   line-height: 1.4;
@@ -43,9 +42,6 @@
   margin: 10px auto;
   display: block;
 }
-
-
-/* --- custom.css 独自の追加レイアウト・モジュール表示切り替え --- */
 
 .contena {
   font-size: 24px;

@@ -18,7 +18,7 @@ async function loadText() {
     const file = await handle.getFile();
     const text = await file.text();
 
-    document.getElementById("txtdata").value = text;
+    document.getElementById("monData").value = text;
   } catch (e) {
     console.log("ファイル読み込みがキャンセルされました", e);
   }
@@ -27,7 +27,7 @@ async function loadText() {
 // --- 単体テキスト保存 ---
 async function saveText() {
   let currentFileName = "temp.txt";
-  const text = document.getElementById("txtdata").value;
+  const text = document.getElementById("monData").value;
 
   try {
     const handle = await window.showSaveFilePicker({
@@ -50,7 +50,7 @@ async function saveText() {
 function replaceText() {
   const fromStr = document.getElementById('fromChars').value;
   const toStr = document.getElementById('toChars').value;
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
 
   if (fromStr === '') return;
   textArea.value = textArea.value.replaceAll(fromStr, toStr);
@@ -67,9 +67,9 @@ function convert() {
     map[fromStr[i]] = toStr[i];
   }
 
-  const input = document.getElementById('txtdata').value;
+  const input = document.getElementById('monData').value;
   const output = input.split('').map(char => map[char] || char).join('');
-  document.getElementById('txtdata').value = output;
+  document.getElementById('monData').value = output;
 }
 
 function getSelectedSeparator() {
@@ -84,7 +84,7 @@ function getSelectedSeparator() {
 }
 
 function repText() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   const text = textArea.value;
   if (!text) return;
 
@@ -103,7 +103,7 @@ function repText() {
 }
 
 function catText() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   const text = textArea.value;
   if (!text) return;
 
@@ -118,29 +118,29 @@ function catText() {
 }
 
 function toUpperText() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   textArea.value = textArea.value.toUpperCase();
 }
 
 function toLowerText() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   textArea.value = textArea.value.toLowerCase();
 }
 
 function zenSpc() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   if (!textArea) return;
   textArea.value = textArea.value.replace(/\x20/g, '\u3000');
 }
 
 function hanSpc() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   if (!textArea) return;
   textArea.value = textArea.value.replace(/\u3000/g, ' ');
 }
 
 function zenkaku() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   if (!textArea) return;
 
   textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
@@ -155,7 +155,7 @@ function zenkaku() {
 }
 
 function hankaku() {
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   if (!textArea) return;
 
   textArea.value = textArea.value.replace(/[^\r\n]/g, (char) => {
@@ -170,7 +170,7 @@ function hankaku() {
 }
 
 function dedupeLines() {
-  const textarea = document.getElementById("txtdata");
+  const textarea = document.getElementById("monData");
   const lines = textarea.value.replace(/\r\n/g, '\n').split('\n');
   const seen = new Set();
   const result = [];
@@ -185,14 +185,14 @@ function dedupeLines() {
 }
 
 function sortByLength() {
-  const el = document.getElementById('txtdata');
+  const el = document.getElementById('monData');
   const lines = el.value.split('\n').filter(line => line.trim() !== '');
   lines.sort((a, b) => a.length - b.length);
   el.value = lines.join('\n');
 }
 
 function formatText() {
-  const el = document.getElementById('txtdata');
+  const el = document.getElementById('monData');
   let text = el.value;
   text = text.replace(/^[ \t\u3000]+/gm, "");
   text = text.replace(/[ \t\u3000]+$/gm, "");
@@ -200,7 +200,7 @@ function formatText() {
 }
 
 function setFont() {
-  const dataEl = document.getElementById("txtdata");
+  const dataEl = document.getElementById("monData");
   const widthEl = document.getElementById("WIDTH");
   if (dataEl.style.fontSize === 'var(--line-font-size)') {
     dataEl.style.fontSize = '20px';
@@ -212,8 +212,8 @@ function setFont() {
 }
 
 function countLines() {
-  const txtdata = document.getElementById("txtdata").value;
-  const lines = txtdata.split('\n');
+  const monData = document.getElementById("monData").value;
+  const lines = monData.split('\n');
   const validLines = lines.filter(line => line.trim() !== "");
   document.getElementById("RANDOM").value = validLines.length;
 }
@@ -231,8 +231,8 @@ function getByteLength(str) {
 }
 
 function setMaxLength() {
-  const txtdata = document.getElementById("txtdata").value;
-  const lines = txtdata.split('\n');
+  const monData = document.getElementById("monData").value;
+  const lines = monData.split('\n');
   let maxLen = 0;
 
   lines.forEach(line => {
@@ -254,14 +254,10 @@ function updateSettings() {
   window.RANDOM    = Number(document.getElementById("RANDOM").value);
   window.WIDTH     = document.getElementById("WIDTH").value;
   window.IME       = document.getElementById("IME").value;
-
+	document.getElementById("txtdata").value = document.getElementById("monData").value
   // typing.js の init() を実行して再読み込み
-  if (typeof init === 'function') {
-    init();
-  }
-  if (typeof typeStarted !== 'undefined') {
-    typeStarted = false;
-  }
+  if (typeof init === 'function') { init(); }
+  if (typeof typeStarted !== 'undefined') { typeStarted = false; }
   document.getElementById("editor").focus();
 }
 
@@ -310,7 +306,7 @@ function composeText() {
   const widthVal = document.getElementById('WIDTH').value;
   const imeVal = document.getElementById('IME').value;
 
-  const textArea = document.getElementById('txtdata');
+  const textArea = document.getElementById('monData');
   const textComp = document.getElementById('txtComp');
 
   const header = `<!doctype html>
@@ -338,7 +334,7 @@ const WIDTH = "${widthVal}";
 `;
 
   const scaleText = `<!-------10--------20--------30--------40-->\n`;
-  const headText = `<textarea id="txtdata" hidden>\n`;
+  const headText = `<textarea id="monData" hidden>\n`;
   let textVal = textArea.value;
   if (textVal.length > 0 && !textVal.endsWith('\n')) { textVal += '\n'; }
   const footText = `</textarea>\n`;
@@ -401,14 +397,14 @@ window.addEventListener('DOMContentLoaded', () => {
   if (typeof RANDOM    !== 'undefined') document.getElementById("RANDOM").value = Number(RANDOM);
   if (typeof WIDTH     !== 'undefined') document.getElementById("WIDTH").value = WIDTH;
 
-  // txtdata の表示状態と幅の設定
-  const txtdataArea = document.getElementById("txtdata");
-  if (txtdataArea) {
-    txtdataArea.style.display = "block";
+  // monData の表示状態と幅の設定
+  const monDataArea = document.getElementById("monData");
+  if (monDataArea) {
+    monDataArea.style.display = "block";
     if (typeof WIDTH !== 'undefined') {
-      txtdataArea.style.width = WIDTH;
-	    txtdataArea.style.fontSize = '20px';
-	    txtdataArea.style.width = '52ch';
+      monDataArea.style.width = WIDTH;
+	    monDataArea.style.fontSize = '20px';
+	    monDataArea.style.width = '52ch';
 
     }
   }
@@ -417,7 +413,7 @@ window.addEventListener('DOMContentLoaded', () => {
   formatText();
 
   // 初期化と表示切替
-  if (txtdataArea && txtdataArea.value.trim() !== "") {
+  if (monDataArea && monDataArea.value.trim() !== "") {
     updateSettings();
     customDivDisplay("none");
   } else {
@@ -425,9 +421,9 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // ドラッグ＆ドロップによるファイル読み込み
-  if (txtdataArea) {
-    txtdataArea.addEventListener("dragover", (e) => e.preventDefault());
-    txtdataArea.addEventListener("drop", async (e) => {
+  if (monDataArea) {
+    monDataArea.addEventListener("dragover", (e) => e.preventDefault());
+    monDataArea.addEventListener("drop", async (e) => {
       e.preventDefault();
       const files = e.dataTransfer.files;
       if (files.length === 0) return;
@@ -439,7 +435,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       const text = await file.text();
-      txtdataArea.value = text;
+      monDataArea.value = text;
     });
   }
 });
