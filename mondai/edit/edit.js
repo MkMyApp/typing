@@ -1,6 +1,5 @@
-function joinQuery() {
+function joinQuery(prefix = '?') {
 	const queryInput = document.getElementById('query');
-	// 修正: クラス指定のドット(.)を追加
 	const groups = document.querySelectorAll('.setval-group'); 
 	let baseUrl = document.getElementById('url').value;
 	const params = [];
@@ -22,8 +21,8 @@ function joinQuery() {
 
 	let fullQuery = "";
 	if (params.length > 0) {
-		const connector = baseUrl.includes('?') ? '&' : '?';
-		fullQuery += connector + params.join('&');
+		// 引数で受け取った prefix ('?' または '#') を先頭に使用する
+		fullQuery = prefix + params.join('&');
 	}
 
 	if (queryInput) {
@@ -350,9 +349,23 @@ function saveToLocalStorage() {
 // クエリパラメータ & ローカルストレージの読み込み処理
 // --------------------------------------------------
 
-// URLのクエリパラメータを取得する関数
+// URLのクエリ（?）またはハッシュ（#）からパラメータを取得する関数
 function getIndexParam(key) {
-	const urlParams = new URLSearchParams(window.location.search);
+	let paramsString = "";
+
+	// 1. まず window.location.search（?以降）を確認
+	if (window.location.search && window.location.search.length > 1) {
+		paramsString = window.location.search.substring(1);
+	} 
+	// 2. ? が無ければ window.location.hash（#以降）を確認
+	else if (window.location.hash && window.location.hash.length > 1) {
+		paramsString = window.location.hash.substring(1);
+	}
+
+	if (!paramsString) return null;
+
+	// URLSearchParams に渡してパラメータを解析
+	const urlParams = new URLSearchParams(paramsString);
 	if (!urlParams.has(key)) return null;
 
 	const val = urlParams.get(key);

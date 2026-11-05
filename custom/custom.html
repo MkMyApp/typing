@@ -50,14 +50,13 @@
 	  <button class="sBtn" onclick="testPlay()">テスト</button><br>
 
 	  開　始：<input id="START_MSG">
-	  <button class="sBtn" onclick="setFont()">フォント</button><br>
-
+	  <button hidden class="sBtn" onclick=""></button><br>
 
 	  文字種：<input id="INPUT_MSG">
-	  <button hidden class="sBtn" onclick=""></button><br>
+	  <button class="sBtn" onclick="clrText()">クリア</button><br>
 
 	    シフト：<input id="IME">
-	  <button hidden class="sBtn" onclick=""></button><br>
+	  <button class="sBtn" onclick="setFont()">フォント</button><br>
 
 	  問題数：<input id="RANDOM">
 		<button class="sBtn" onclick="countLines()" 
@@ -106,6 +105,8 @@
         <button class="btn" onclick="dedupeLines()">重複</button>
         <button class="btn" onclick="sortByLength()">長順</button>
         <button class="btn" onclick="formatText()">整形</button>
+				<button class="btn" onclick="copyText()"
+					oncontextmenu="pasteText() ; return false;">コピー</button>
     </div>
 
     <div class="btnbox">

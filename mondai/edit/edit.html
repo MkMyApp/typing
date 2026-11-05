@@ -25,7 +25,8 @@
 			<div id="btn-group">
 				<button class="action-btn" onclick="clearQuery()"
 					oncontextmenu="openClear(); return false;">CLEAR</button>
-				<button class="action-btn" onclick="joinQuery()">JOIN</button>
+				<button class="action-btn" onclick="joinQuery('?')" 
+					oncontextmenu="joinQuery('#'); return false;">JOIN</button>
 				<br>
 				<button class="action-btn" onclick="decodeQuery()">DECODE</button>
 				<button class="action-btn" onclick="parseQuery()">PARSE</button>

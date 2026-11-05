@@ -1,5 +1,11 @@
-// 1. HTMLファイルのURL（ブラウザのアドレスバー）からパラメータを取得
-const htmlParams = new URLSearchParams(window.location.search);
+// 1. HTMLファイルのURLからパラメータを取得（? 優先、なければ # を使用）
+let paramsString = "";
+if (window.location.search && window.location.search.length > 1) {
+  paramsString = window.location.search.substring(1);
+} else if (window.location.hash && window.location.hash.length > 1) {
+  paramsString = window.location.hash.substring(1);
+}
+const htmlParams = new URLSearchParams(paramsString);
 
 // 2. 読み込まれているスクリプトのタグからパラメータを取得
 const currentScript = document.currentScript || (function() {
@@ -22,7 +28,6 @@ function getParam(key) {
 
   if (val !== null) {
     try {
-      // URLエンコードされている値（%E5%95%8F...など）をデコード
       return decodeURIComponent(val);
     } catch (e) {
       return val;
@@ -66,18 +71,22 @@ RANDOM    = getParam('rnd') ?? savedConfig.RANDOM      ?? RANDOM;
 WIDTH     = getParam('w')   ?? savedConfig.WIDTH       ?? WIDTH;
 imgSrc    = getParam('img') ?? savedConfig.imgSrc      ?? imgSrc;
 
-// TXTDATAの取得（%250A や %0A を含めて改行コード \n に復元）
+// TXTDATAの取得（%250A を含む多重エンコード文字列を改行コード \n へ復元）
 let rawTxt = getParam('txt') ?? savedConfig.TXTDATA ?? TXTDATA;
 if (rawTxt && typeof rawTxt === 'string') {
+  let decoded = rawTxt;
   try {
-    let decoded = decodeURIComponent(rawTxt);
-    if (decoded.includes('%0A') || decoded.includes('%0a')) {
-      decoded = decoded.replace(/%0a/gi, '\n');
+    // ％が残っている場合は二重デコードを実施
+    if (decoded.includes('%')) {
+      decoded = decodeURIComponent(decoded);
     }
-    TXTDATA = decoded;
+    if (decoded.includes('%')) {
+      decoded = decodeURIComponent(decoded);
+    }
   } catch (e) {
-    TXTDATA = rawTxt.replace(/%250A/gi, '\n').replace(/%0A/gi, '\n');
+    // デコードエラー時のフォールバック処理
   }
+  TXTDATA = decoded.replace(/%0a/gi, '\n');
 } else {
   TXTDATA = rawTxt;
 }

@@ -289,12 +289,28 @@ function toggleTextareaHeight(id) {
   }
 }
 
-function clrText(id) {
-  const textArea = document.getElementById(id);
+function clrText() {
+  const textArea = document.getElementById('monData');
   textArea.value = "";
   if (typeof adjustTextareaHeight === 'function') {
     adjustTextareaHeight(id);
   }
+}
+
+async function copyText() {
+  const textarea = document.getElementById('monData');
+  
+  try {
+    await navigator.clipboard.writeText(textarea.value);
+    //alert('copy');
+  } catch (err) {
+    alert('コピーに失敗しました');
+  }
+}
+
+async function pasteText() {
+  const textarea = document.getElementById('monData');
+	textarea.value = await navigator.clipboard.readText();
 }
 
 // --- スタンドアロン HTML 出力合成機能 ---
