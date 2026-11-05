@@ -36,7 +36,7 @@ function parseQuery() {
 
 	let queryString = queryInput.value.trim();
 
-	if (queryString.startsWith('?') || queryString.startsWith('&')) {
+	if (queryString.startsWith('?') || queryString.startsWith('#') || queryString.startsWith('&')) {
 		queryString = queryString.substring(1);
 	}
 
@@ -57,7 +57,6 @@ function parseQuery() {
 		}
 	});
 
-	// 修正: .form-group から .setval-group に変更
 	const groups = document.querySelectorAll('.setval-group');
 	groups.forEach(group => {
 		const btn = group.querySelector('.custom-btn');
@@ -213,6 +212,17 @@ async function saveQuery() {
 	}
 }
 
+async function copyText() {
+  const textarea = document.getElementById('query');
+  
+  try {
+    await navigator.clipboard.writeText(textarea.value);
+    //alert('copy');
+  } catch (err) {
+    alert('コピーに失敗しました');
+  }
+}
+
 function openDL() {
     // dl.html を新しいタブで開く
     window.open('dl.html', '_blank');
@@ -307,7 +317,7 @@ function getStorageKeyFromUrl() {
 }
 
 /**
- * 右クリック時にフォームの入力内容を直接 localStorage に保存する関数
+ * フォームの入力内容を直接 localStorage に保存する関数
  */
 function saveToLocalStorage() {
 	const groups = document.querySelectorAll('.setval-group');
@@ -342,7 +352,6 @@ function saveToLocalStorage() {
 		alert("保存に失敗しました。");
 		return;
 	}
-	onlyURL();
 }
 
 // --------------------------------------------------

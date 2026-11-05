@@ -12,10 +12,13 @@
 <div class="container">
 	<div class="item">
 		<div class="form-group">
-			URL<br>
-			<button class="custom-btn" onclick="saveToLocalStorage()"
-				oncontextmenu="onlyURL(); return false;">URL</button>
+			ローカルストレイジ<br>
+			<button class="custom-btn" onclick="onlyURL()">URL</button>
 			<input id="url" class="custom-input" value="index.html">
+			<div id="btn-group">
+				<button class="action-btn" onclick="saveToLocalStorage()">SAVE</button>
+				<button class="action-btn" onclick="openClear()">DEL</button>
+			</div>
 		</div>
 		<div class="form-group">
 			クエリ<br>
@@ -23,10 +26,11 @@
 			<input id="query" class="custom-input" value="">
 			<br>
 			<div id="btn-group">
-				<button class="action-btn" onclick="clearQuery()"
-					oncontextmenu="openClear(); return false;">CLEAR</button>
-				<button class="action-btn" onclick="joinQuery('?')" 
-					oncontextmenu="joinQuery('#'); return false;">JOIN</button>
+				<button class="action-btn" onclick="clearQuery()">CLEAR</button>
+				<button class="action-btn" onclick="copyText()">COPY</button>
+				<br>
+				<button class="action-btn" onclick="joinQuery('?')">?JOIN</button>
+				<button class="action-btn" onclick="joinQuery('#')">#JOIN</button>
 				<br>
 				<button class="action-btn" onclick="decodeQuery()">DECODE</button>
 				<button class="action-btn" onclick="parseQuery()">PARSE</button>

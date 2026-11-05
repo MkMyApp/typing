@@ -50,17 +50,16 @@
 	  <button class="sBtn" onclick="testPlay()">テスト</button><br>
 
 	  開　始：<input id="START_MSG">
-	  <button hidden class="sBtn" onclick=""></button><br>
-
-	  文字種：<input id="INPUT_MSG">
 	  <button class="sBtn" onclick="clrText()">クリア</button><br>
 
-	    シフト：<input id="IME">
+	  文字種：<input id="INPUT_MSG">
 	  <button class="sBtn" onclick="setFont()">フォント</button><br>
 
+    シフト：<input id="IME">
+		<button class="sBtn" onclick="toggleTextareaHeight('monData')">行数</button><br>
+
 	  問題数：<input id="RANDOM">
-		<button class="sBtn" onclick="countLines()" 
-    	oncontextmenu="toggleTextareaHeight('monData'); return false;">行数</button><br>
+		<button class="sBtn" onclick="countLines()">問題数</button><br>
 
 	  文字幅：<input id="WIDTH">
 	  <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
@@ -77,8 +76,8 @@
     <div class="btnbox">
       <button class="btn" onclick="repText()">分割</button>
       <button class="btn" onclick="catText()">結合</button>
-      <button class="btn" onclick="loadText()">読込</button>
-      <button class="btn" onclick="saveText()">保存</button>
+      <button class="btn" onclick="formatText()">整形</button>
+			<button class="btn" onclick="copyText()">コピー</button>
     </div>
     <div class="radiobox">
       <label class="radio-label small">
@@ -101,12 +100,11 @@
       </label>
     </div>
 
-      <div class="btnbox">
-        <button class="btn" onclick="dedupeLines()">重複</button>
-        <button class="btn" onclick="sortByLength()">長順</button>
-        <button class="btn" onclick="formatText()">整形</button>
-				<button class="btn" onclick="copyText()"
-					oncontextmenu="pasteText() ; return false;">コピー</button>
+    <div class="btnbox">
+      <button class="btn" onclick="dedupeLines()">重複</button>
+      <button class="btn" onclick="sortByLength()">長順</button>
+      <button class="btn" onclick="loadText()">読込</button>
+      <button class="btn" onclick="saveText()">保存</button>
     </div>
 
     <div class="btnbox">
