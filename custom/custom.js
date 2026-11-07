@@ -350,7 +350,7 @@ const WIDTH = "${widthVal}";
 `;
 
   const scaleText = `<!-------10--------20--------30--------40-->\n`;
-  const headText = `<textarea id="monData" hidden>\n`;
+  const headText = `<textarea id="txtData" hidden>\n`;
   let textVal = textArea.value;
   if (textVal.length > 0 && !textVal.endsWith('\n')) { textVal += '\n'; }
   const footText = `</textarea>\n`;
