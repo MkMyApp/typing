@@ -282,6 +282,11 @@ function onNextQuestion(qIndex) {
 }
 
 function onLineComplete(timeSec, cpm, accuracy, isMissless) {
+  // 1行クリア時に hitSound を再生
+  if (typeof playHitSound === 'function') {
+    playHitSound();
+  }
+
   const lineScore = Math.round(cpm * (accuracy / 100));
   
   lastEarnedScore = lineScore;
@@ -486,3 +491,100 @@ onNextQuestion = function(qIndex) {
     if (editorEl) editorEl.style.width = widthStyle;
   }
 };
+
+// 効果音のファイルリスト
+const hitSound = [
+'大砲1.mp3',
+'レベルアップ.mp3',
+'ラッパのファンファーレ.mp3',
+'爆発1.mp3',
+'ドンドンパフパフ.mp3',
+'男衆「イエーイ！」.mp3',
+'男衆「イヤッホー！」.mp3',
+];
+
+// タイピングキー押下時用サウンドリスト
+const soundList = [
+  'sound (1).mp3',
+  'sound (2).mp3',
+  'sound (3).mp3',
+  'sound (4).mp3',
+  'sound (5).mp3',
+  'sound (6).mp3',
+  'sound (7).mp3',
+  'sound (8).mp3',
+  'sound (9).mp3',
+  'sound (10).mp3',
+  'sound (11).mp3',
+  'sound (12).mp3',
+  'sound (13).mp3',
+  'sound (14).mp3',
+  'sound (15).mp3',
+  'sound (16).mp3',
+  'sound (17).mp3',
+  'sound (18).mp3',
+  'sound (19).mp3',
+  'sound (20).mp3',
+  'sound (21).mp3',
+  'sound (22).mp3',
+  'sound (23).mp3',
+  'sound (24).mp3',
+  'sound (25).mp3',
+  'sound (26).mp3',
+  'sound (27).mp3',
+  'sound (28).mp3',
+  'sound (29).mp3',
+];
+
+// オーディオオブジェクトの事前読み込み
+const audioMap = {};
+[...soundList, ...hitSound].forEach(src => {
+  audioMap[src] = new Audio(src);
+});
+
+// キー入力用サウンド再生関数
+function playSound() {
+  if (soundList.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * soundList.length);
+  const selectedSrc = soundList[randomIndex];
+  const targetAudio = audioMap[selectedSrc];
+
+  if (targetAudio) {
+    targetAudio.currentTime = 0;
+    targetAudio.play().catch(err => console.error(err));
+  }
+}
+
+// 1行完成（確定）時にhitSoundからランダム再生する関数
+function playHitSound() {
+  if (hitSound.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * hitSound.length);
+  const selectedSrc = hitSound[randomIndex];
+  const targetAudio = audioMap[selectedSrc];
+
+  if (targetAudio) {
+    targetAudio.currentTime = 0;
+    targetAudio.play().catch(err => console.error(err));
+  }
+}
+
+// キー入力イベント
+document.addEventListener('keydown', (e) => {
+  if (e.repeat) return;
+
+  const ignoreCodes = [
+    'ShiftLeft', 'ShiftRight',
+    'ControlLeft', 'ControlRight',
+    'AltLeft', 'AltRight',
+    'MetaLeft', 'MetaRight',
+    'CapsLock', 'Tab', 'Escape'
+  ];
+
+  if (ignoreCodes.includes(e.code) || ignoreCodes.includes(e.key)) {
+    return;
+  }
+
+  playSound();
+});
