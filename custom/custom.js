@@ -246,19 +246,26 @@ function setMaxLength() {
   document.getElementById("WIDTH").value = resultWidth;
 }
 
-// --- 設定反映 & typing.js 側へのリセット指示 ---
 function updateSettings() {
-  window.TITLE_MSG = document.getElementById("TITLE_MSG").value;
-  window.START_MSG = document.getElementById("START_MSG").value;
-  window.INPUT_MSG = document.getElementById("INPUT_MSG").value;
-  window.RANDOM    = Number(document.getElementById("RANDOM").value);
-  window.WIDTH     = document.getElementById("WIDTH").value;
-  window.IME       = document.getElementById("IME").value;
-	document.getElementById("txtdata").value = document.getElementById("monData").value
+  TITLE_MSG = document.getElementById("TITLE_MSG").value;
+  START_MSG = document.getElementById("START_MSG").value;
+  INPUT_MSG = document.getElementById("INPUT_MSG").value;
+  RANDOM    = Number(document.getElementById("RANDOM").value);
+  WIDTH     = document.getElementById("WIDTH").value;
+  IME       = document.getElementById("IME").value;
+  
+  // テキストデータを問題用エリアにコピー
+  document.getElementById("txtdata").value = document.getElementById("monData").value;
+
+  // CSS変数に文字幅を反映
+  document.documentElement.style.setProperty('--line-width', window.WIDTH);
+
   // typing.js の init() を実行して再読み込み
   if (typeof init === 'function') { init(); }
   if (typeof typeStarted !== 'undefined') { typeStarted = false; }
-  document.getElementById("editor").focus();
+  
+  const editor = document.getElementById("editor");
+  if (editor) editor.focus();
 }
 
 function customDivDisplay(mode) {
@@ -417,23 +424,17 @@ window.addEventListener('DOMContentLoaded', () => {
   const monDataArea = document.getElementById("monData");
   if (monDataArea) {
     monDataArea.style.display = "block";
-    if (typeof WIDTH !== 'undefined') {
-      monDataArea.style.width = WIDTH;
-	    monDataArea.style.fontSize = '20px';
-	    monDataArea.style.width = '52ch';
-
-    }
   }
 
   // 空白等の整形
   formatText();
 
-  // 初期化と表示切替
   if (monDataArea && monDataArea.value.trim() !== "") {
     updateSettings();
     customDivDisplay("none");
   } else {
-    updateSettings();
+    // 起動時はフォームに初期値を入れるだけで留める
+    customDivDisplay("block");
   }
 
   // ドラッグ＆ドロップによるファイル読み込み
