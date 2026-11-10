@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="game.css">
+  <title>いらすと恐竜タイピング</title>
+
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<canvas id="gameCanvas"></canvas>
+<div id="target" class="line"></div>
+<textarea id="editor" class="line" spellcheck="false"></textarea>
+<script>
+const TITLE_MSG = "いらすと恐竜タイピング";
+const START_MSG = "Enter⏎スタート";
+const INPUT_MSG = "ひらがな";
+const RANDOM = "10";
+const WIDTH = "33ch";
+const IME = "ON";
+</script>
+<!-------10--------20--------30--------40-->
+<textarea id="txtdata" hidden>
+テリジノサウルス
+トロオドン
+ナヌークサウルス
+パキケファロサウルス
+パラサウロロフス
+フクイベナートルパラドクサス
+プレシオサウルス
+プロトケラトプス
+ミクロラプトル
+モササウルス
+ヴェロキラプトル
+エドモントサウルス
+カルノタウルス
+ケツァルコアトルス
+ケラトサウルス
+ショニサウルス
+ステゴサウルス
+スピノサウルス
+デイノニクス
+ブラキオサウルス
+プテラノドン
+アンキロサウルス
+アロサウルス
+アパトサウルス
+イグアノドン
+トリケラトプス
+ティラノサウルス
+アンハングエラ
+</textarea>
+<!-------10--------20--------30--------40-->
+
+<script src="typing.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
