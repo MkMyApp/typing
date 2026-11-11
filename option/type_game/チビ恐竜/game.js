@@ -169,15 +169,14 @@ function drawFinalResult() {
 function getRankTitle(cpm, acc) {
   const rank = Math.round(cpm * Math.pow(acc / 100, 3));
 
-	if (rank >= 1000) return "伝説の恐竜ハンター";
-  if (rank >= 500)  return "百戦錬磨のハンター";
-  if (rank >= 300)  return "ベテランハンター";
-  if (rank >= 200)  return "熟練トラッカー";
-  if (rank >= 150)  return "若手ハンター";
-  if (rank >= 100)  return "見習いハンター";
-  if (rank >= 60)   return "足跡を追う者";
-  if (rank >= 30)   return "草食恐竜にビビる";
-  return "化石かな";
+  if (rank >= 150) return "伝説の恐竜ハンター"; // 寿司打で無双するレベル（KPM 200〜300以上）
+  if (rank >= 80)  return "百戦錬磨のハンター"; // 中2目標を大きく超える、クラスの英雄レベル
+  if (rank >= 55)  return "ベテランハンター";   // ★中2目標（60文字）達成レベル！
+  if (rank >= 35)  return "熟練トラッカー";    // ★小5目標（40文字）達成レベル！
+  if (rank >= 20)  return "若手ハンター";      // 中学生の平均レベル
+  if (rank >= 12)  return "見習いハンター";    // 小学生の平均レベル
+  if (rank >= 6)   return "足跡を追う者";      // キーボードを触り始めた子
+  return "化石発掘隊"; 
 }
 
 // アニメーションメインループ
