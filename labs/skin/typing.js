@@ -89,11 +89,10 @@ function setAlignMode(mode){
 }
 
 function showStart(){
-  targetEl.textContent = START_MSG;
   setAlignMode('center');
-
+  targetEl.textContent = INPUT_MSG;
   editorEl.value = ''
-  editorEl.placeholder = INPUT_MSG;
+  editorEl.placeholder = START_MSG;
   
   correct = 0;
   total = 0;
@@ -133,15 +132,12 @@ function showFinalResult(){
   const accuracy = targetLengthTotal > 0 
     ? Math.round(correctChars / targetLengthTotal * 100) : 0;
 	const score = Math.round(cpm * Math.pow((accuracy / 100), 3));
-
   // 2. スタイル・状態のリセット
   resultEl.dataset.status = '';
   setAlignMode('center');
-
   // 3. テキスト描画
   resultEl.textContent = `${totalChars}ch  ${accuracy}%  ${sec.toFixed(0)}sec`;
   targetEl.textContent = `${cpm}cpm`;
-
   editorEl.value = ''
   editorEl.placeholder = START_MSG;
 }
