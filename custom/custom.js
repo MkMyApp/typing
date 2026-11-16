@@ -27,6 +27,7 @@ function getStorageKey() {
 }
 
 function saveToLocalStorage() {
+	const textVal = document.getElementById("monData")?.value || "";
 	const configData = {
 		TITLE_MSG: document.getElementById("TITLE_MSG")?.value || "",
 		START_MSG: document.getElementById("START_MSG")?.value || "",
@@ -34,7 +35,7 @@ function saveToLocalStorage() {
 		IME: document.getElementById("IME")?.value || "",
 		RANDOM: document.getElementById("RANDOM")?.value || "",
 		WIDTH: document.getElementById("WIDTH")?.value || "",
-		monData: document.getElementById("monData")?.value || ""
+		TXTDATA: textVal // 大文字の TXTDATA キーで保存
 	};
 
 	const storageKey = getStorageKey();
@@ -69,8 +70,17 @@ function loadFromLocalStorage() {
 	if (savedConfig.IME !== undefined) document.getElementById("IME").value = savedConfig.IME;
 	if (savedConfig.RANDOM !== undefined) document.getElementById("RANDOM").value = savedConfig.RANDOM;
 	if (savedConfig.WIDTH !== undefined) document.getElementById("WIDTH").value = savedConfig.WIDTH;
-	if (savedConfig.monData !== undefined) {
-		document.getElementById("monData").value = savedConfig.monData;
+	
+	// TXTDATA のみから取得する
+	const textData = savedConfig.TXTDATA !== undefined ? savedConfig.TXTDATA : "";
+
+	// 1. 編集用（#monData）に反映
+	document.getElementById("monData").value = textData;
+	
+	// 2. typing.js 用データ（#txtdata）にも反映
+	const txtdataEl = document.getElementById("txtdata");
+	if (txtdataEl) {
+		txtdataEl.value = textData;
 	}
 
 	if (typeof updateSettings === 'function') {
@@ -486,6 +496,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	// 初期値をフォームに反映！
   resetSettings();
+  updateSettings();
 
   // monData の表示状態と幅の設定
   const monDataArea = document.getElementById("monData");
