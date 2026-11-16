@@ -416,7 +416,7 @@ function applyConfigToForm(getConfigValue) {
  * 【ボタン用】ローカルストレージから設定を読み込んでフォームに反映する関数
  */
 function loadFromLocalStorage() {
-	const storageKey = getStorageKey();
+	const storageKey = "TypingConfig";
 	let savedConfig = {};
 
 	try {
@@ -439,7 +439,7 @@ function loadFromLocalStorage() {
  * 【起動時用】URLクエリ ＞ ローカルストレージ の優先順位で値をフォームに反映する関数
  */
 function loadSavedOrQueryParams() {
-	const storageKey = getStorageKey();
+	const storageKey = "TypingConfig";
 	let savedConfig = {};
 
 	try {
