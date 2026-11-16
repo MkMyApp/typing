@@ -22,11 +22,8 @@ function resetSettings() {
 }
 
 // --- ローカルストレージ保存・読み込み機能 ---
-function getStorageKeyFromUrl() {
-	let targetUrl = window.location.pathname || 'custom.html';
-	const filename = targetUrl.substring(targetUrl.lastIndexOf('/') + 1) || 'custom.html';
-	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
-	return `CustomConfig_${baseName}`;
+function getStorageKey() {
+	return `TypeingConfig`;
 }
 
 function saveToLocalStorage() {
@@ -40,7 +37,7 @@ function saveToLocalStorage() {
 		monData: document.getElementById("monData")?.value || ""
 	};
 
-	const storageKey = getStorageKeyFromUrl();
+	const storageKey = getStorageKey();
 
 	try {
 		localStorage.setItem(storageKey, JSON.stringify(configData));
@@ -50,7 +47,7 @@ function saveToLocalStorage() {
 }
 
 function loadFromLocalStorage() {
-	const storageKey = getStorageKeyFromUrl();
+	const storageKey = getStorageKey();
 	let savedConfig = {};
 
 	try {

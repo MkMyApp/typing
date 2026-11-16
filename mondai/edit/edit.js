@@ -293,18 +293,11 @@ function setMaxLength() {
 }
 
 /**
- * url入力欄からストレージキー（例: CustomConfig_edit）を生成する関数
+ * url入力欄からストレージキー（例: TypeingConfig）を生成する関数
  */
-function getStorageKeyFromUrl() {
-	const urlInput = document.getElementById('url');
-	let targetUrl = urlInput ? urlInput.value.trim() : 'edit.html';
+function getStorageKey() {
+	return `TypeingConfig`;
 
-	targetUrl = targetUrl.split('?')[0].split('#')[0];
-
-	const filename = targetUrl.substring(targetUrl.lastIndexOf('/') + 1) || 'edit.html';
-	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
-
-	return `CustomConfig_${baseName}`;
 }
 
 /**
@@ -334,7 +327,7 @@ function saveToLocalStorage() {
 		}
 	});
 
-	const storageKey = getStorageKeyFromUrl();
+	const storageKey = getStorageKey();
 
 	try {
 		localStorage.setItem(storageKey, JSON.stringify(configData));
@@ -431,7 +424,7 @@ function applyConfigToForm(getConfigValue) {
  * 【ボタン用】ローカルストレージから設定を読み込んでフォームに反映する関数
  */
 function loadFromLocalStorage() {
-	const storageKey = getStorageKeyFromUrl();
+	const storageKey = getStorageKey();
 	let savedConfig = {};
 
 	try {
@@ -454,7 +447,7 @@ function loadFromLocalStorage() {
  * 【起動時用】URLクエリ ＞ ローカルストレージ の優先順位で値をフォームに反映する関数
  */
 function loadSavedOrQueryParams() {
-	const storageKey = getStorageKeyFromUrl();
+	const storageKey = getStorageKey();
 	let savedConfig = {};
 
 	try {

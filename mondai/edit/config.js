@@ -38,10 +38,7 @@ function getParam(key) {
 
 // localStorage のキー生成関数
 function getStorageKey() {
-  const path = window.location.pathname;
-  const filename = path.substring(path.lastIndexOf('/') + 1);
-  const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
-  return `CustomConfig_${baseName}`;
+	return `TypeingConfig`;
 }
 
 // --------------------------------------------------
