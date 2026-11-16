@@ -21,11 +21,6 @@ function resetSettings() {
   if (imeInput) imeInput.value = "ON";
 }
 
-// --- ローカルストレージ保存・読み込み機能 ---
-function getStorageKey() {
-	return `TypeingConfig`;
-}
-
 function saveToLocalStorage() {
 	const textVal = document.getElementById("monData")?.value || "";
 	const configData = {
@@ -38,7 +33,7 @@ function saveToLocalStorage() {
 		TXTDATA: textVal // 大文字の TXTDATA キーで保存
 	};
 
-	const storageKey = getStorageKey();
+	const storageKey = "TypingConfig";
 
 	try {
 		localStorage.setItem(storageKey, JSON.stringify(configData));
@@ -48,7 +43,7 @@ function saveToLocalStorage() {
 }
 
 function loadFromLocalStorage() {
-	const storageKey = getStorageKey();
+	const storageKey = "TypingConfig";
 	let savedConfig = {};
 
 	try {
@@ -341,7 +336,7 @@ function updateSettings() {
   document.getElementById("txtdata").value = document.getElementById("monData").value;
 
   // CSS変数に文字幅を反映
-  document.documentElement.style.setProperty('--line-width', window.WIDTH);
+  document.documentElement.style.setProperty('--line-width', WIDTH);
 
   // typing.js の init() を実行して再読み込み
   if (typeof init === 'function') { init(); }

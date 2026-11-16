@@ -56,19 +56,20 @@
 	  <button class="sBtn" onclick="loadFromLocalStorage()">読込</button><br>
 
     シフト：<input id="IME">
-	  <button class="sBtn" onclick="saveToLocalStorage()">保存</button><br>
+	  <button class="sBtn" onclick="saveToLocalStorage()">書込</button><br>
 
 	  問題数：<input id="RANDOM">
-		<button class="sBtn" onclick="countLines()">問題数</button><br>
+		<button class="sBtn" onclick="countLines()">行数</button><br>
 
 	  文字幅：<input id="WIDTH">
 	  <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
 	</div>
 	<div>
-	  <span>問題文：</span>
+	  <span>問題：</span>
 	  <button class="sBtn" onclick="clrText()">クリア</button>
-	  <button class="sBtn" onclick="setFont()">フォント</button>
+	  <button class="sBtn" onclick="setFont()">サイズ</button>
 		<button class="sBtn" onclick="toggleTextareaHeight('monData')">縦高</button>
+		<button class="sBtn" onclick="copyText()">コピー</button>
   </div>
 	<div id="text">
 	<span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
@@ -82,7 +83,6 @@
       <button class="btn" onclick="repText()">分割</button>
       <button class="btn" onclick="catText()">結合</button>
       <button class="btn" onclick="formatText()">整形</button>
-			<button class="btn" onclick="copyText()">コピー</button>
     </div>
     <div class="radiobox">
       <label class="radio-label small">

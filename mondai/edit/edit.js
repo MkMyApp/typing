@@ -293,14 +293,6 @@ function setMaxLength() {
 }
 
 /**
- * url入力欄からストレージキー（例: TypeingConfig）を生成する関数
- */
-function getStorageKey() {
-	return `TypeingConfig`;
-
-}
-
-/**
  * フォームの入力内容を直接 localStorage に保存する関数
  */
 function saveToLocalStorage() {
@@ -327,7 +319,7 @@ function saveToLocalStorage() {
 		}
 	});
 
-	const storageKey = getStorageKey();
+	const storageKey = "TypingConfig"
 
 	try {
 		localStorage.setItem(storageKey, JSON.stringify(configData));

@@ -36,15 +36,10 @@ function getParam(key) {
   return null;
 }
 
-// localStorage のキー生成関数
-function getStorageKey() {
-	return `TypeingConfig`;
-}
-
 // --------------------------------------------------
 // パラメータ・ストレージの読み込みと保存
 // --------------------------------------------------
-const storageKey = getStorageKey();
+const storageKey = "TypingConfig"
 let savedConfig = {};
 
 // 保存済みデータの取得
