@@ -14,12 +14,12 @@
     </textarea>
 
     <script>
-      let TITLE_MSG = "問題タイトル";
-      let START_MSG = "Enter⏎";
-      let INPUT_MSG = "英数 かな 確認";
-      let RANDOM = 0; // 出題数 0:順番
-      let WIDTH = "25ch";
-      let IME = "ON"; // OFF
+      let TITLE_MSG;
+      let START_MSG;
+      let INPUT_MSG;
+      let RANDOM;
+      let WIDTH;
+      let IME;
     </script>
     <!---5----10---15---20---25---30---35---40--->
     <textarea id="txtdata">
@@ -50,13 +50,13 @@
 	  <button class="sBtn" onclick="testPlay()">テスト</button><br>
 
 	  開　始：<input id="START_MSG">
-	  <button class="sBtn" onclick="clrText()">クリア</button><br>
+		<button class="sBtn" onclick="resetSettings()">初期化</button><br>
 
 	  文字種：<input id="INPUT_MSG">
-	  <button class="sBtn" onclick="setFont()">フォント</button><br>
+	  <button class="sBtn" onclick="loadFromLocalStorage()">読込</button><br>
 
     シフト：<input id="IME">
-		<button class="sBtn" onclick="toggleTextareaHeight('monData')">行数</button><br>
+	  <button class="sBtn" onclick="saveToLocalStorage()">保存</button><br>
 
 	  問題数：<input id="RANDOM">
 		<button class="sBtn" onclick="countLines()">問題数</button><br>
@@ -64,7 +64,12 @@
 	  文字幅：<input id="WIDTH">
 	  <button class="sBtn" onclick="setMaxLength()">最長＋５</button><br>
 	</div>
-
+	<div>
+	  <span>問題文：</span>
+	  <button class="sBtn" onclick="clrText()">クリア</button>
+	  <button class="sBtn" onclick="setFont()">フォント</button>
+		<button class="sBtn" onclick="toggleTextareaHeight('monData')">縦高</button>
+  </div>
 	<div id="text">
 	<span class="ruler">+----5----10---15---20---25---30---35---40---45---50</span>
 	<textarea id="monData"></textarea>

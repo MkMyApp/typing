@@ -4,6 +4,82 @@
    custom.js - エディタ・教材作成・テキスト加工用スクリプト
    ※ タイピング実行コアは typing.js 側に依存
    ========================================================================== */
+// --- 設定を初期値に戻す関数 ---
+function resetSettings() {
+  const titleInput = document.getElementById("TITLE_MSG");
+  const startInput = document.getElementById("START_MSG");
+  const inputMsgInput = document.getElementById("INPUT_MSG");
+  const randomInput = document.getElementById("RANDOM");
+  const widthInput = document.getElementById("WIDTH");
+  const imeInput = document.getElementById("IME");
+
+  if (titleInput) titleInput.value = "問題タイトル";
+  if (startInput) startInput.value = "Enter⏎";
+  if (inputMsgInput) inputMsgInput.value = "英数 かな 確認";
+  if (randomInput) randomInput.value = 0;
+  if (widthInput) widthInput.value = "25ch";
+  if (imeInput) imeInput.value = "ON";
+}
+
+// --- ローカルストレージ保存・読み込み機能 ---
+function getStorageKeyFromUrl() {
+	let targetUrl = window.location.pathname || 'custom.html';
+	const filename = targetUrl.substring(targetUrl.lastIndexOf('/') + 1) || 'custom.html';
+	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
+	return `CustomConfig_${baseName}`;
+}
+
+function saveToLocalStorage() {
+	const configData = {
+		TITLE_MSG: document.getElementById("TITLE_MSG")?.value || "",
+		START_MSG: document.getElementById("START_MSG")?.value || "",
+		INPUT_MSG: document.getElementById("INPUT_MSG")?.value || "",
+		IME: document.getElementById("IME")?.value || "",
+		RANDOM: document.getElementById("RANDOM")?.value || "",
+		WIDTH: document.getElementById("WIDTH")?.value || "",
+		monData: document.getElementById("monData")?.value || ""
+	};
+
+	const storageKey = getStorageKeyFromUrl();
+
+	try {
+		localStorage.setItem(storageKey, JSON.stringify(configData));
+	} catch (e) {
+		alert("保存に失敗しました。");
+	}
+}
+
+function loadFromLocalStorage() {
+	const storageKey = getStorageKeyFromUrl();
+	let savedConfig = {};
+
+	try {
+		const savedStr = localStorage.getItem(storageKey);
+		if (savedStr) {
+			savedConfig = JSON.parse(savedStr);
+		} else {
+			alert("保存されたデータが見つかりません。");
+			return;
+		}
+	} catch (e) {
+		console.error("設定データの読み込みに失敗しました", e);
+		return;
+	}
+
+	if (savedConfig.TITLE_MSG !== undefined) document.getElementById("TITLE_MSG").value = savedConfig.TITLE_MSG;
+	if (savedConfig.START_MSG !== undefined) document.getElementById("START_MSG").value = savedConfig.START_MSG;
+	if (savedConfig.INPUT_MSG !== undefined) document.getElementById("INPUT_MSG").value = savedConfig.INPUT_MSG;
+	if (savedConfig.IME !== undefined) document.getElementById("IME").value = savedConfig.IME;
+	if (savedConfig.RANDOM !== undefined) document.getElementById("RANDOM").value = savedConfig.RANDOM;
+	if (savedConfig.WIDTH !== undefined) document.getElementById("WIDTH").value = savedConfig.WIDTH;
+	if (savedConfig.monData !== undefined) {
+		document.getElementById("monData").value = savedConfig.monData;
+	}
+
+	if (typeof updateSettings === 'function') {
+		updateSettings();
+	}
+}
 
 // --- 外部ファイル読み込み (File System Access API) ---
 async function loadText() {
@@ -309,7 +385,6 @@ async function copyText() {
   
   try {
     await navigator.clipboard.writeText(textarea.value);
-    //alert('copy');
   } catch (err) {
     alert('コピーに失敗しました');
   }
@@ -412,13 +487,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // F2キーのショートカットキーを登録
   setupF2KeyListener();
 
-  // HTML上の要素に設定初期値を反映
-  if (typeof TITLE_MSG !== 'undefined') document.getElementById("TITLE_MSG").value = TITLE_MSG;
-  if (typeof START_MSG !== 'undefined') document.getElementById("START_MSG").value = START_MSG;
-  if (typeof INPUT_MSG !== 'undefined') document.getElementById("INPUT_MSG").value = INPUT_MSG;
-  if (typeof IME       !== 'undefined') document.getElementById("IME").value = IME;
-  if (typeof RANDOM    !== 'undefined') document.getElementById("RANDOM").value = Number(RANDOM);
-  if (typeof WIDTH     !== 'undefined') document.getElementById("WIDTH").value = WIDTH;
+	// 初期値をフォームに反映！
+  resetSettings();
 
   // monData の表示状態と幅の設定
   const monDataArea = document.getElementById("monData");

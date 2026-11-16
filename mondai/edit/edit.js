@@ -256,9 +256,6 @@ function countLines() {
   
   // 空白を除いた純粋な問題行だけを数える場合（おすすめ）
   const validLines = lines.filter(line => line.trim() !== "");
-  
-  // もし空行も含めて完全に改行の数で数えたい場合は、下の1行のコメントアウトを解除
-  // const validLines = lines;
 
   // 問題数のinputに件数を反映
   document.getElementById("RANDOM").value = validLines.length;
@@ -268,7 +265,6 @@ function countLines() {
 function getByteLength(str) {
   let length = 0;
   for (let i = 0; i < str.length; i++) {
-    // シフトJIS換算などで全角になる文字コードの判定（簡易版）
     if (str.charCodeAt(i) >= 0x0020 && str.charCodeAt(i) <= 0x007e) {
       length += 1; // 半角
     } else {
@@ -285,7 +281,6 @@ function setMaxLength() {
   
   let maxLen = 0;
   
-  // 各行の長さを半角換算で比較し、最大のものを探す
   lines.forEach(line => {
     const currentLen = getByteLength(line);
     if (currentLen > maxLen) {
@@ -293,9 +288,7 @@ function setMaxLength() {
     }
   });
 
-  // 数値 + 5 に "ch" をつける
   const resultWidth = (maxLen + 5) + "ch";
-  // 文字幅のinputに代入
   document.getElementById("WIDTH").value = resultWidth;
 }
 
@@ -306,10 +299,8 @@ function getStorageKeyFromUrl() {
 	const urlInput = document.getElementById('url');
 	let targetUrl = urlInput ? urlInput.value.trim() : 'edit.html';
 
-	// クエリパラメータやハッシュを除外
 	targetUrl = targetUrl.split('?')[0].split('#')[0];
 
-	// ファイル名を取得
 	const filename = targetUrl.substring(targetUrl.lastIndexOf('/') + 1) || 'edit.html';
 	const baseName = filename.replace(/\.[^/.]+$/, "") || "default";
 
@@ -323,7 +314,6 @@ function saveToLocalStorage() {
 	const groups = document.querySelectorAll('.setval-group');
 	const configData = {};
 
-	// HTML上のボタン名と edit.js のキー構造をマッピング
 	groups.forEach(group => {
 		const btn = group.querySelector('.custom-btn');
 		const input = group.querySelector('.custom-input, .custom-textarea');
@@ -354,26 +344,18 @@ function saveToLocalStorage() {
 	}
 }
 
-// --------------------------------------------------
-// クエリパラメータ & ローカルストレージの読み込み処理
-// --------------------------------------------------
-
 // URLのクエリ（?）またはハッシュ（#）からパラメータを取得する関数
 function getIndexParam(key) {
 	let paramsString = "";
 
-	// 1. まず window.location.search（?以降）を確認
 	if (window.location.search && window.location.search.length > 1) {
 		paramsString = window.location.search.substring(1);
-	} 
-	// 2. ? が無ければ window.location.hash（#以降）を確認
-	else if (window.location.hash && window.location.hash.length > 1) {
+	} else if (window.location.hash && window.location.hash.length > 1) {
 		paramsString = window.location.hash.substring(1);
 	}
 
 	if (!paramsString) return null;
 
-	// URLSearchParams に渡してパラメータを解析
 	const urlParams = new URLSearchParams(paramsString);
 	if (!urlParams.has(key)) return null;
 
@@ -388,12 +370,93 @@ function getIndexParam(key) {
 	return null;
 }
 
-// ページ読み込み時にクエリまたはlocalStorageから値をフォームに反映する関数
+// --------------------------------------------------
+// 読み込み・デコード処理の共通化と整理
+// --------------------------------------------------
+
+/**
+ * 取得した値に対してデコード・改行コード復元を行う共通関数
+ */
+function decodeValue(rawVal) {
+	if (typeof rawVal !== 'string') return rawVal;
+	try {
+		let decoded = decodeURIComponent(rawVal);
+		if (decoded.includes('%0A') || decoded.includes('%0a')) {
+			decoded = decoded.replace(/%0a/gi, '\n');
+		}
+		return decoded;
+	} catch (e) {
+		return rawVal.replace(/%250A/gi, '\n').replace(/%0A/gi, '\n');
+	}
+}
+
+/**
+ * パラメータキーとストレージキーの共通マッピング
+ */
+const PARAM_MAP = [
+	{ key: 't',   storeKey: 'TITLE_MSG' },
+	{ key: 'txt', storeKey: 'TXTDATA' },
+	{ key: 'w',   storeKey: 'WIDTH' },
+	{ key: 'img', storeKey: 'imgSrc' },
+	{ key: 's',   storeKey: 'START_MSG' },
+	{ key: 'm',   storeKey: 'INPUT_MSG' },
+	{ key: 'ime', storeKey: 'IME' },
+	{ key: 'rnd', storeKey: 'RANDOM' }
+];
+
+/**
+ * フォーム要素に設定を適用する共通関数
+ */
+function applyConfigToForm(getConfigValue) {
+	const groups = document.querySelectorAll('.setval-group');
+
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input, .custom-textarea');
+		if (!btn || !input) return;
+
+		const btnKey = btn.textContent.trim();
+		const configDef = PARAM_MAP.find(item => item.key === btnKey);
+		if (!configDef) return;
+
+		const rawVal = getConfigValue(configDef);
+
+		if (rawVal !== undefined && rawVal !== null) {
+			input.value = decodeValue(rawVal);
+		}
+	});
+}
+
+/**
+ * 【ボタン用】ローカルストレージから設定を読み込んでフォームに反映する関数
+ */
+function loadFromLocalStorage() {
+	const storageKey = getStorageKeyFromUrl();
+	let savedConfig = {};
+
+	try {
+		const savedStr = localStorage.getItem(storageKey);
+		if (savedStr) {
+			savedConfig = JSON.parse(savedStr);
+		} else {
+			alert("保存されたデータが見つかりません。");
+			return;
+		}
+	} catch (e) {
+		console.error("設定データの読み込みに失敗しました", e);
+		return;
+	}
+
+	applyConfigToForm(def => savedConfig[def.storeKey]);
+}
+
+/**
+ * 【起動時用】URLクエリ ＞ ローカルストレージ の優先順位で値をフォームに反映する関数
+ */
 function loadSavedOrQueryParams() {
 	const storageKey = getStorageKeyFromUrl();
 	let savedConfig = {};
 
-	// localStorage の読み込み
 	try {
 		const savedStr = localStorage.getItem(storageKey);
 		if (savedStr) {
@@ -403,50 +466,8 @@ function loadSavedOrQueryParams() {
 		console.error("設定データの読み込みに失敗しました", e);
 	}
 
-	// キーマッピング（クエリ名 / localStorageのキー / DOM要素の指定方法）
-	const paramMap = [
-		{ key: 't',   storeKey: 'TITLE_MSG', selector: '#title' },
-		{ key: 'txt', storeKey: 'TXTDATA',   selector: '#txtdata' },
-		{ key: 'w',   storeKey: 'WIDTH',     selector: '#WIDTH' },
-		{ key: 'img', storeKey: 'imgSrc',    selector: '#imgInput' },
-		{ key: 's',   storeKey: 'START_MSG', selector: '.setval-group:has(.custom-btn:contains("s")) .custom-input', btnText: 's' },
-		{ key: 'm',   storeKey: 'INPUT_MSG', selector: '', btnText: 'm' },
-		{ key: 'ime', storeKey: 'IME',       selector: '', btnText: 'ime' },
-		{ key: 'rnd', storeKey: 'RANDOM',    selector: '#RANDOM' }
-	];
-
-	// 画面上の全 setval-group を取得して各要素に割り当てる
-	const groups = document.querySelectorAll('.setval-group');
-
-	groups.forEach(group => {
-		const btn = group.querySelector('.custom-btn');
-		const input = group.querySelector('.custom-input, .custom-textarea');
-		if (!btn || !input) return;
-
-		const btnKey = btn.textContent.trim();
-
-		// 対応する設定を特定
-		const configDef = paramMap.find(item => item.key === btnKey);
-		if (!configDef) return;
-
-		// 優先順位：URLクエリ > localStorage
-		let rawVal = getIndexParam(configDef.key) ?? savedConfig[configDef.storeKey];
-
-		if (rawVal !== undefined && rawVal !== null) {
-			// 改行コード（%0A等）の復元処理
-			if (typeof rawVal === 'string') {
-				try {
-					let decoded = decodeURIComponent(rawVal);
-					if (decoded.includes('%0A') || decoded.includes('%0a')) {
-						decoded = decoded.replace(/%0a/gi, '\n');
-					}
-					rawVal = decoded;
-				} catch (e) {
-					rawVal = rawVal.replace(/%250A/gi, '\n').replace(/%0A/gi, '\n');
-				}
-			}
-			input.value = rawVal;
-		}
+	applyConfigToForm(def => {
+		return getIndexParam(def.key) ?? savedConfig[def.storeKey];
 	});
 }
 
@@ -454,4 +475,3 @@ function loadSavedOrQueryParams() {
 window.addEventListener('DOMContentLoaded', () => {
 	loadSavedOrQueryParams();
 });
-
