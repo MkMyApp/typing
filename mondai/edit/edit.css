@@ -21,6 +21,8 @@ body {
 .item {
   background-color: #f0f0f0;
   padding: 20px;
+  min-width: 300px;
+  flex-shrink: 0; 
 }
 
 img {
