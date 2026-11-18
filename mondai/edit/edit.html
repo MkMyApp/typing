@@ -49,13 +49,6 @@
 			<input id="title" class="custom-input" value="問題タイトル">
 		</div>
 
-		
-		<div class="setval-group">
-			問題文字列<br>
-			<button class="custom-btn" onclick="saveToLocalStorage();window.open('../../custom/custom.html', '_blank')">txt</button>
-			<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
-		</div>
-
 		<div class="setval-group">
 			問題表示幅<br>
 			<button class="custom-btn" onclick="setMaxLength()">w</button>
@@ -63,20 +56,11 @@
 		</div>
 
 		<div class="setval-group">
-			画像ソースを設定<br>
-			<button class="custom-btn" onclick="window.open('../../study_app/keypng/keyguide.html', '_blank')" oncontextmenu="openDL(); return false;">img</button>
-			<input type="text" class="custom-input" id="imgInput" 
-						list="imgList"
-			      onfocus="this.value=''" onchange="this.blur()">
-
-			<datalist id="imgList">
-			  <option value="no.png">なし</option>
-			  <option value="かな.png">ひらがな</option>
-			  <option value="大文字.png">英数大文字</option>
-			  <option value="小文字.png">英数小文字</option>
-			  <option value="AIUEO.png">ローマ字AIUEO</option>
-			</datalist>
+			問題文字列<br>
+			<button class="custom-btn" onclick="saveToLocalStorage();window.open('../../custom/custom.html', '_blank')">txt</button>
+			<textarea id="txtdata" class="custom-input custom-textarea"></textarea>
 		</div>
+
 	</div>
 
 	<div class="item">

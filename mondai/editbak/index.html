@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<title>タイピング練習</title>
+</head>
+<body>
+<div id="title"></div>
+<div id="result"></div>
+<div id="target" class="line" style="text-align:center"></div>
+<textarea id="editor" class="line" spellcheck="false" rows="1"></textarea>
+<script>
+let TITLE_MSG = "タイピング練習";
+let START_MSG = "ShiftCtrlALT+Enter⏎";
+let INPUT_MSG = "入力文字確認";
+let IME = "off"; // on Shift+Enter off Enter
+let RANDOM = "0" ;// 出題数　0:全問順次
+let WIDTH = "30ch";// 入力幅 全角は2倍
+let TXTDATA ;// 問題文字列
+let imgSrc ;// 画像ソースを設定
+</script>
+<!---5----10---15---20---25---30---35---40--->
+<textarea id="txtdata" style="display:none">
+半角英数直接 Enterで次へ
+全角かな漢字 Enterで確定
+(Shift,Alt,Ctrl+Enter)で次へ
+
+</textarea>
+<!---5----10---15---20---25---30---35---40--->
+
+<br><img src="" id="img" style="width:640px;">
+<script src="config.js"></script>
+
+<script src="typing.js"></script>
+</body>
+</html>

@@ -314,7 +314,6 @@ function saveToLocalStorage() {
 			case 'ime': configData.IME       = val; break;
 			case 'rnd': configData.RANDOM    = val; break;
 			case 'w':   configData.WIDTH     = val; break;
-			case 'img': configData.imgSrc    = val; break;
 			case 'txt': configData.TXTDATA   = val; break;
 		}
 	});
@@ -380,13 +379,12 @@ function decodeValue(rawVal) {
  */
 const PARAM_MAP = [
 	{ key: 't',   storeKey: 'TITLE_MSG' },
-	{ key: 'txt', storeKey: 'TXTDATA' },
-	{ key: 'w',   storeKey: 'WIDTH' },
-	{ key: 'img', storeKey: 'imgSrc' },
 	{ key: 's',   storeKey: 'START_MSG' },
 	{ key: 'm',   storeKey: 'INPUT_MSG' },
 	{ key: 'ime', storeKey: 'IME' },
-	{ key: 'rnd', storeKey: 'RANDOM' }
+	{ key: 'rnd', storeKey: 'RANDOM' },
+	{ key: 'w',   storeKey: 'WIDTH' },
+	{ key: 'txt', storeKey: 'TXTDATA' },
 ];
 
 /**

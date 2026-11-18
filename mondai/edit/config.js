@@ -61,7 +61,6 @@ INPUT_MSG = getParam('m')   ?? savedConfig.INPUT_MSG   ?? INPUT_MSG;
 IME       = getParam('ime') ?? savedConfig.IME         ?? IME;
 RANDOM    = getParam('rnd') ?? savedConfig.RANDOM      ?? RANDOM;
 WIDTH     = getParam('w')   ?? savedConfig.WIDTH       ?? WIDTH;
-imgSrc    = getParam('img') ?? savedConfig.imgSrc      ?? imgSrc;
 
 // TXTDATAの取得（%250A を含む多重エンコード文字列を改行コード \n へ復元）
 let rawTxt = getParam('txt') ?? savedConfig.TXTDATA ?? TXTDATA;
@@ -97,44 +96,14 @@ const configToSave = {
   IME,
   RANDOM,
   WIDTH,
-  imgSrc,
   TXTDATA
 };
 localStorage.setItem(storageKey, JSON.stringify(configToSave));
-
-// F1キーによる画像の表示非表示切り替え
-function imgNone() {
-  const img = document.getElementById('img');
-  if (img) {
-    img.style.display = (img.style.display === "none") ? "inline-block" : "none";
-  }
-}
-
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'F1') { 
-    event.preventDefault();
-    imgNone();
-  } 
-});
 
 // F2キー：edit.html を別タブで開く
 window.addEventListener('keydown', (event) => {
   if (event.key === 'F2') {
     event.preventDefault();
     window.open('edit.html', '_blank');
-  }
-});
-
-// DOM読み込み完了後の各種UI制御
-window.addEventListener('DOMContentLoaded', () => {
-  // 画像要素のセットアップ
-  const imgElem = document.getElementById('img');
-  if (imgElem) {
-    imgElem.onerror = () => imgElem.remove();
-    if (imgSrc && imgSrc !== "") {
-      imgElem.src = imgSrc;
-    } else {
-      imgElem.remove();
-    }
   }
 });
