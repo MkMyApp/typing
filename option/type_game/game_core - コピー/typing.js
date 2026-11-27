@@ -40,6 +40,24 @@ function typed(){
   return editorEl.value.replace(/\n/g, '')
 }
 
+//IMEモード（'off' | 'auto' | 'on'）を取得する関数
+function getImeMode(){
+  if (typeof IME === 'undefined') return 'on';
+  const mode = String(IME).toLowerCase();
+  if (mode === 'off' || mode === 'auto') return mode;
+  return 'on';
+}
+
+//autoモード時に文字数が一致したら判定を実行する関数
+function checkAutoJudge(){
+  if (!typeStarted || composing) return;
+  if (getImeMode() === 'auto') {
+    if ([...typed()].length === [...currentWord].length) {
+      judgeCurrentWord();
+    }
+  }
+}
+
 function updateScore(status = ''){
   resultEl.textContent = `${correct} / ${qIndex} / ${limit}`
   resultEl.dataset.status = status; 
@@ -232,6 +250,7 @@ editorEl.addEventListener('compositionend', () => {
   composing = false;
   if (typeStarted) {
     colorize(currentWord, typed());
+    checkAutoJudge();
   }
 })
 
@@ -242,12 +261,14 @@ editorEl.addEventListener('input', () => {
   if (composing) return;
 
   colorize(currentWord, typed());
+  checkAutoJudge();
 })
 
 editorEl.addEventListener('keydown', e => {
 
   const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-  const isImeOff = (typeof IME !== 'undefined' && IME.toLowerCase() === 'off');
+  const imeMode = getImeMode();
+  const isNoIme = (imeMode === 'off' || imeMode === 'auto');
 
   if (e.key === 'Enter') {
 
@@ -256,8 +277,8 @@ editorEl.addEventListener('keydown', e => {
       // 改行の挿入を常にキャンセル
       e.preventDefault();
 
-      // isImeOffならEnter単体、それ以外（IME有効）ならShiftCtrlAlt+Enter
-			const isTriggerKey = isImeOff || e.shiftKey || e.ctrlKey || e.altKey;
+      // isNoImeならEnter単体、それ以外（IME有効）ならShiftCtrlAlt+Enter
+      const isTriggerKey = isNoIme || e.shiftKey || e.ctrlKey || e.altKey;
 
       if (isTriggerKey && !e.isComposing) {
         if (finished) {
@@ -274,11 +295,12 @@ editorEl.addEventListener('keydown', e => {
     // 2. タイピング中の判定処理
     e.preventDefault();
 
-		if (isImeOff || isMobile || e.shiftKey || e.ctrlKey || e.altKey) {
-		  judgeCurrentWord();
-		}
+    if (isNoIme || isMobile || e.shiftKey || e.ctrlKey || e.altKey) {
+      judgeCurrentWord();
+    }
   }
 });
+
 function init(){
 	words = [];
   schedule = [];
@@ -320,4 +342,3 @@ function init(){
 
   setTimeout(() => editorEl.focus(), 0);
 }
-
