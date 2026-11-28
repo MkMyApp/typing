@@ -101,6 +101,23 @@
 		z-index: 1;
 	}
 
+	.action-btn {
+		box-sizing: border-box;
+		width: 90px; /* ボタンの横幅を揃える */
+		padding: 8px 12px;
+		font-size: 14px;
+		font-weight: bold;
+		color: #fff;
+		background-color: #4a90e2;
+		border: 1px solid #357abd;
+		border-radius: 4px 0 0 4px; /* 左側の角丸 */
+		cursor: pointer;
+		text-align: center;
+		transition: background-color 0.2s;
+		margin-bottom:10px;
+		margin-right:12px;
+	}
+
 	#query {
 		box-sizing: border-box;
 		width: 100%;
@@ -111,7 +128,7 @@
 		background-color: #fff;
 		border: 1px solid #ccc;
 		border-radius: 4px;
-		margin: 10px 0 20px 0; /* 上下のボタンやフォームとの間隔 */
+		margin: 0 0 20px 0; /* 上下のボタンやフォームとの間隔 */
 		outline: none;
 		transition: border-color 0.2s, box-shadow 0.2s;
 	}
@@ -224,11 +241,128 @@ function openURL() {
 		window.open(finalUrl, '_blank');
 	}
 }
+
+// .txt ファイルを読み込んで query にセットする関数
+function loadQuery() {
+	const fileInput = document.createElement('input');
+	fileInput.type = 'file';
+	fileInput.accept = '.txt';
+
+	fileInput.onchange = (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			const queryInput = document.getElementById('query');
+			if (queryInput) {
+				queryInput.value = event.target.result;
+			}
+		};
+		reader.readAsText(file);
+	};
+
+	fileInput.click();
+}
+
+// query の内容を ファイル選択ダイアログを表示して保存する関数
+async function saveQuery() {
+	const queryInput = document.getElementById('query');
+	if (!queryInput) return;
+
+	// id="title" から値を取得（空の場合は 'query' をデフォルトにする）
+	const titleInput = document.getElementById('title');
+	let defaultName = (titleInput && titleInput.value.trim()) ? titleInput.value.trim() : 'query';
+
+	// 末尾に .txt が付いていなければ追加
+	if (!defaultName.endsWith('.txt')) {
+		defaultName += '.txt';
+	}
+
+	const content = queryInput.value;
+
+	// FileSystem Access API (showSaveFilePicker) が使える場合
+	if ('showSaveFilePicker' in window) {
+		try {
+			const handle = await window.showSaveFilePicker({
+				suggestedName: defaultName,
+				types: [{
+					description: 'Text Files',
+					accept: {
+						'text/plain': ['.txt'],
+					},
+				}],
+			});
+			const writable = await handle.createWritable();
+			await writable.write(content);
+			await writable.close();
+		} catch (err) {
+			if (err.name !== 'AbortError') {
+				console.error('保存処理中にエラーが発生しました:', err);
+			}
+		}
+	} else {
+		// 未対応環境用のフォールバック（プロンプト表示）
+		let fileName = prompt('保存するファイル名を入力してください:', defaultName);
+		if (fileName === null) return;
+
+		fileName = fileName.trim() || 'query';
+		if (!fileName.endsWith('.txt')) {
+			fileName += '.txt';
+		}
+
+		const blob = new Blob([content], { type: 'text/plain' });
+		const url = URL.createObjectURL(blob);
+
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = fileName;
+		document.body.appendChild(a);
+		a.click();
+
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	}
+}
+
+async function copyText() {
+  const textarea = document.getElementById('query');
+  
+  try {
+    await navigator.clipboard.writeText(textarea.value);
+    //alert('copy');
+  } catch (err) {
+    alert('コピーに失敗しました');
+  }
+}
+
+// デコードを行う
+function decodeQuery() {
+	const textarea = document.getElementById('query');
+	let text=textarea.value;
+	try {
+		text = decodeURIComponent(text);
+	} catch (e) {
+		try {
+		} catch (err) {
+			// 例外時は unescape でデコード（非常用）
+		text = unescape(str);
+		}
+	}
+	textarea.value = text;
+}
+
 </script>
-<button class="custom-btn" onclick="openURL()">開く</button>
-<button class="custom-btn" onclick="mkQuery()">結合</button>
-<button class="custom-btn" onclick="devQuery()">分配</button>
-<button class="custom-btn" onclick="clrQuery()">消去</button>
+<button class="action-btn" onclick="openURL()">OPEN</button>
+<button class="action-btn" onclick="mkQuery()">JOIN</button>
+<button class="action-btn" onclick="devQuery()">PARSE</button>
+<button class="action-btn" onclick="decodeQuery()">DECODE</button>
+<br>
+<button class="action-btn" onclick="clrQuery()">CLEAR</button>
+<button class="action-btn" onclick="loadQuery()">LOAD</button>
+<button class="action-btn" onclick="saveQuery()">SAVE</button>
+<button class="action-btn" onclick="copyText()">COPY</button>
+
 <br>
 <input id="query">
 <div class="form-container">
