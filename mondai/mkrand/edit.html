@@ -100,12 +100,32 @@
 		position: relative; /* フォーカス時に枠線が隠れないように手前に */
 		z-index: 1;
 	}
+
+	#query {
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 690px;
+		padding: 10px 12px;
+		font-size: 15px;
+		color: #333;
+		background-color: #fff;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		margin: 10px 0 20px 0; /* 上下のボタンやフォームとの間隔 */
+		outline: none;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	#query:focus {
+		border-color: #4a90e2;
+		box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+	}
 </style>
 </head>
 <body>
 <h1 id="edit">呪文生成</h1>
 <script>
-function mkURL() {
+function mkQuery() {
 	const groups = document.querySelectorAll('.form-group');
 	let baseUrl = 'mkrand.html'; // デフォルトのベースURL
 	const params = [];
@@ -131,17 +151,86 @@ function mkURL() {
 		}
 	});
 
-	// パラメータがある場合は ? で繋いで結合
+	// パラメータがある場合は「?」を挟んで結合
 	let finalUrl = baseUrl;
 	if (params.length > 0) {
 		finalUrl += '?' + params.join('&');
 	}
 
-	// 別タブ(_blank)で開く
-	window.open(finalUrl, '_blank');
+	// <input id="query"> に代入
+	document.getElementById('query').value = finalUrl;
+}
+
+function devQuery() {
+	const queryStr = document.getElementById('query').value.trim();
+	if (!queryStr) return;
+
+	// 「?」を境にベースURLとクエリパラメータ文字列に分割
+	const qIndex = queryStr.indexOf('?');
+	let baseUrl = '';
+	let paramStr = '';
+
+	if (qIndex !== -1) {
+		baseUrl = queryStr.slice(0, qIndex);
+		paramStr = queryStr.slice(qIndex + 1);
+	} else {
+		baseUrl = queryStr;
+	}
+
+	// パラメータをキーと値のマップに格納（URLデコードも行う）
+	const paramMap = {};
+	if (paramStr) {
+		paramStr.split('&').forEach(pair => {
+			if (!pair) return;
+			const eqIndex = pair.indexOf('=');
+			if (eqIndex !== -1) {
+				const key = decodeURIComponent(pair.slice(0, eqIndex));
+				const val = decodeURIComponent(pair.slice(eqIndex + 1));
+				paramMap[key] = val;
+			} else {
+				const key = decodeURIComponent(pair);
+				paramMap[key] = '';
+			}
+		});
+	}
+
+	// 各フォームの入力欄へ値を分配
+	const groups = document.querySelectorAll('.form-group');
+	groups.forEach(group => {
+		const btn = group.querySelector('.custom-btn');
+		const input = group.querySelector('.custom-input');
+		if (!btn || !input) return;
+
+		const key = btn.textContent.trim();
+
+		if (key === 'URL') {
+			input.value = baseUrl;
+		} else if (key in paramMap) {
+			input.value = paramMap[key];
+		} else {
+			// URLに含まれていないパラメータ欄は空にする
+			input.value = '';
+		}
+	});
+}
+
+function clrQuery() {
+	document.getElementById('query').value = "";
+}
+
+function openURL() {
+	const finalUrl = document.getElementById('query').value;
+	if (finalUrl) {
+		window.open(finalUrl, '_blank');
+	}
 }
 </script>
-<a href="#" onclick="mkURL(); return false;">URL?クエリ</a>
+<button class="custom-btn" onclick="openURL()">開く</button>
+<button class="custom-btn" onclick="mkQuery()">結合</button>
+<button class="custom-btn" onclick="devQuery()">分配</button>
+<button class="custom-btn" onclick="clrQuery()">消去</button>
+<br>
+<input id="query">
 <div class="form-container">
 	<div>
 		<div class="form-group">URL<br><button class="custom-btn">URL</button><input class="custom-input" value="mkrand.html"></div>
